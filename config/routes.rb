@@ -1,4 +1,14 @@
 EmoteRor::Application.routes.draw do
+  #home
+  #  register
+  #  e.mote control
+  #    account admin
+  #    users and permissions
+  #    subscriptions
+  #    e-commerce
+  #  scorecard
+  #  create/edit emote
+    
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +58,7 @@ EmoteRor::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  root :to => "home#index"
 
   # See how all your routes lay out with "rake routes"
 
