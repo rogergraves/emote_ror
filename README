@@ -254,3 +254,22 @@ vendor
   External libraries that the application depends on. Also includes the plugins
   subdirectory. If the app has frozen rails, those gems also go here, under
   vendor/rails/. This directory is in the load path.
+
+
+Warning: some libraries could not be installed
+The following gems could not be installed, probably because of an Internet
+connection error:
+
+ * mysql -- --with-mysql-config='/usr/bin/mysql_config'
+ * sqlite3-ruby
+ * pg
+
+These gems are not required, i.e. Ruby Enterprise Edition will work fine without them. But most people use Ruby Enterprise Edition in combination with Phusion Passenger and Ruby on Rails, which do require one or more of the aforementioned gems, so you may want to install them later.
+
+To install the aforementioned gems, please use the following commands:
+  * /opt/ruby-enterprise-1.8.7-2010.02/bin/ruby /opt/ruby-enterprise-1.8.7-2010.02/bin/gem install mysql -- --with-mysql-config='/usr/bin/mysql_config'
+  * /opt/ruby-enterprise-1.8.7-2010.02/bin/ruby /opt/ruby-enterprise-1.8.7-2010.02/bin/gem install sqlite3-ruby
+  * /opt/ruby-enterprise-1.8.7-2010.02/bin/ruby /opt/ruby-enterprise-1.8.7-2010.02/bin/gem install pg
+
+Dependency Removed:
+  php.x86_64 0:5.1.6-27.el5_5.3                     php-devel.x86_64 0:5.1.6-27.el5_5.3                     php-pear.noarch 1:1.4.9-6.el5
