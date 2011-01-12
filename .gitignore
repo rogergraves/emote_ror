@@ -2,3 +2,8 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
+db/sphinx
+nbproject
+.DS_Store
+*/.DS_Store
+_*
