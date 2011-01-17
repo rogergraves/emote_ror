@@ -1,4 +1,4 @@
-set :application, 'emote_ror'
+set :application, 'emote'
 set :repository,  "git@github.com:inspirationengine/emote_ror.git"
 
 set :scm, :git
@@ -8,13 +8,13 @@ set :git_shallow_clone, 1
 default_run_options[:pty] = true
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "portal.emotethis.com"                          # Your HTTP server, Apache/etc
-role :app, "portal.emotethis.com"                          # This may be the same as your `Web` server
-role :db,  "portal.emotethis.com", :primary => true # This is where Rails migrations will run
+role :web, "web.emotethis.com"                          # Your HTTP server, Apache/etc
+role :app, "web.emotethis.com"                          # This may be the same as your `Web` server
+role :db,  "web.emotethis.com", :primary => true # This is where Rails migrations will run
 
 set :deploy_to, "/var/www/apps/#{application}"
 set :user, "root"
-set :password, "HalretivEber"
+set :password, "web1Bd1XKmi06"
 set :group, "root"
 
 # If you are using Passenger mod_rails uncomment this:
@@ -49,7 +49,7 @@ task :symlink_config_files do
 end
 
 task :fix_release_dir_permission do
-  run "chown -R www:www #{release_path}"
+  run "chown -R www-data:www-data #{release_path}"
   run "chmod -R g+w #{release_path}/public"
 end
 
