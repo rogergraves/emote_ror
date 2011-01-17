@@ -1,5 +1,6 @@
 class Subscription < ActiveRecord::Base
   belongs_to :user
+  has_one :transaction, :class_name => 'PaypalTransaction', :foreign_key => 'subscription_id'
 
   validates :user, :presence => true
   validates :created_at, :presence => true
