@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  project_name: MyString
+  score: 1.5
+  responses_count: 1
+  active: false
+  public: false
+
+two:
+  user_id: 1
+  project_name: MyString
+  score: 1.5
+  responses_count: 1
+  active: false
+  public: false
