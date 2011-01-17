@@ -1,5 +1,9 @@
 EmoteRor::Application.routes.draw do
-  devise_for :users, :path => "/", :controllers => { :sessions => "users" }, :path_names => { :sign_in => 'login', :sign_out => 'logout', :registration => '/', :sign_up => 'register' }  
+  devise_for :users, :path => "/", :controllers => { :sessions => "user_sessions" }, :path_names => { :sign_in => 'login', :sign_out => 'logout', :registration => '/', :sign_up => 'register' }
+
+  #All-purpose thingy
+  match ':controller(/:action(/:id(.:format)))'
+
 
   #home
   #  register

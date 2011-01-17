@@ -1,3 +1,5 @@
-class UsersController < Devise::SessionsController
-  
+class UsersController < ApplicationController
+  def edit
+
+  end
 end
