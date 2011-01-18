@@ -31,26 +31,22 @@ class SubscriptionsController < ApplicationController
 
     if details.success?
     #if purchase.success?
-      
+      subscription = Subscription.new
+      subscription.emote_amount = 10 # take from session
       transaction = PaypalTransaction.new
-=begin
-      payment.user_id = current_user.id
-      payment.total = details.params['order_total']
-      payment.customer_address = [details.params['street1'], details.params['city_name'], details.params['postal_code'], details.params['payer_country']].join(', ')
-      payment.customer_email = details.email
-      payment.customer_name = [details.params['first_name'], details.params['middle_name'], details.params['last_name']].join(' ')
-      payment.description = details.params['order_description']
-      payment.token = details.token
-      payment.customer_phone = details.params['phone']
-      payment.customer_hash = details
-      payment.customer_id = details.payer_id
-      payment.date = Time.now
-      payment.payment_type = 'ListingAgent'
-      payment.related_id = current_user.listing_agent.id
-      payment.save
-      current_user.listing_agent.transaction_id = payment.id
-      current_user.listing_agent.save
-=end
+      transaction.user = current_user
+      transaction.subscription = subscription
+      transaction.token = details.token
+      transaction.date = Time.now
+      transaction.total = details.params['order_total']
+      transaction.customer_name = [details.params['first_name'], details.params['middle_name'], details.params['last_name']].compact.join(' ')
+      transaction.customer_id = details.payer_id
+      transaction.customer_address = [details.params['street1'], details.params['city_name'], details.params['postal_code'], details.params['payer_country']].compact.join(', ')
+      transaction.customer_email = details.email
+      transaction.customer_phone = details.params['phone']
+      transaction.description = details.params['order_description']
+      subscription.save # do we need to save it?
+      transaction.save
       flash[:notice] = "Thank you!"
     end
     redirect_to account_surveys_path
