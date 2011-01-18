@@ -3,7 +3,6 @@ class Subscription < ActiveRecord::Base
   has_one :transaction, :class_name => 'PaypalTransaction', :foreign_key => 'subscription_id'
 
   validates :user, :presence => true
-  validates :created_at, :presence => true
   validates :emote_amount, :presence => true, :numericality => true, :inclusion => {:in => [1, 5, 10, 25]}
 
   alias_attribute :starts, :created_at
@@ -12,7 +11,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def active?
-    (starts..ends) === DataTime.now
+    (starts..ends) === DateTime.now
   end
 
 end
