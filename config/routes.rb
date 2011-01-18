@@ -1,9 +1,42 @@
 EmoteRor::Application.routes.draw do
   devise_for :users, :path => "/", :controllers => { :sessions => "user_sessions" }, :path_names => { :sign_in => 'login', :sign_out => 'logout', :registration => '/', :sign_up => 'register' }
+  resource :account do
+    resources :subscriptions do
+      collection do
+        get 'paypal_success'
+        get 'paypal_cancel'
+      end
+    end
+    resources :surveys do
+      member do
+        get 'scorecard'
+      end
+    end
+  end
+  
 
   #All-purpose thingy
   match ':controller(/:action(/:id(.:format)))'
 
+  # devise
+  # => register
+  # => login
+  # => confirm
+  # => restore
+  # => edit user info
+  #
+  # surveys (emotes)
+  # => index
+  # => create
+  # => edit -- not now
+  # => scorecard
+  # => public scorecard
+  #
+  # subscriptions
+  # => index
+  # => create (number of emotes for 1 year)
+  # => paypal_success
+  # => paypal_cancel
 
   #home
   #  register
