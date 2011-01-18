@@ -9,7 +9,7 @@
     </ul>  
   </div>  
 <% end %>
-<% form_for :survey, @survey, :url => account_surveys_path, :html => {:method => :post} do |f| %>
+<%= form_for @survey, :as => :survey, :url => account_surveys_path, :html => {:method => :post} do |f| %>
 	Enter e.mote subject:<%= f.text_field :project_name %><br/>
 	<%= submit_tag 'Publish' %> <%= link_to 'Cancel', account_surveys_path %>
 <% end %>
