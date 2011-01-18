@@ -5,13 +5,13 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.recoverable
       t.rememberable
       t.trackable
-      t.string    :first_name
-      t.string    :last_name
-      t.string    :country_code
-      t.string    :company
-      t.string    :job_title
-      t.string    :phone_number
-      t.string    :cell_number
+      t.string    :first_name, :limit => 60
+      t.string    :last_name, :limit => 60
+      t.string    :country_code, :limit => 20
+      t.string    :company, :limit => 60
+      t.string    :job_title, :limit => 60
+      t.string    :phone_number, :limit => 25
+      t.string    :cell_number, :limit => 25
 
       # t.confirmable
       # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
