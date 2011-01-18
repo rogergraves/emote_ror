@@ -1,4 +1,5 @@
 class SubscriptionsController < ApplicationController
+  include ActionView::Helpers::TextHelper
   before_filter :authenticate_user!
   
   def index
@@ -7,14 +8,14 @@ class SubscriptionsController < ApplicationController
   
   def create
     # (number of emotes for 1 year)
-    session[:listing_agent_payment] = { :duration => params[:duration].to_i, :exhibitions => (params[:exhibitions]=='true'), :events => (params[:events]=='true')}
-    price, description = calculate_price(params[:duration].to_i, (params[:exhibitions]=='true'), (params[:events]=='true'))
+    params[:emotes]
+    price = 900 * params[:emotes].to_i
     response = EXPRESS_GATEWAY.setup_purchase(
         price,
         :ip                => request.remote_ip,
-        :return_url        => paypal_success_venue_listing_agent_url(current_user, :only_path => false),
-        :cancel_return_url => paypal_cancel_venue_listing_agent_url(current_user, :only_path => false),
-        :subtotal => price, :allow_guest_checkout => true, :no_shipping => 1, :description => '$' + (price/100).to_s + ' ' +description
+        :return_url        => paypal_success_account_subscriptions_url(:only_path => false),
+        :cancel_return_url => paypal_cancel_account_subscriptions_url(:only_path => false),
+        :subtotal => price, :allow_guest_checkout => true, :no_shipping => 1, :description => "#{pluralize(params[:emotes], 'E.mote')} Subscription for #{price/100}$"
       )
     redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
   end
@@ -30,18 +31,9 @@ class SubscriptionsController < ApplicationController
 
     if details.success?
     #if purchase.success?
-      if current_user.listing_agent.nil?
-        current_user.listing_agent = ListingAgent.new
-        current_user.listing_agent.payment_date = Time.now
-        current_user.listing_agent.valid_through = session[:listing_agent_payment][:duration].months.from_now 
-        current_user.listing_agent.total = details.params['order_total']
-        current_user.listing_agent.exhibitions_enabled = session[:listing_agent_payment][:exhibitions]
-        current_user.listing_agent.events_enabled = session[:listing_agent_payment][:events]
-        current_user.listing_agent.save
-        current_user.listing_agent_enabled = true
-        current_user.listing_agent_end_date = current_user.listing_agent.valid_through
-      end
-      payment = PayPalPayment.new
+      
+      transaction = PaypalTransaction.new
+=begin
       payment.user_id = current_user.id
       payment.total = details.params['order_total']
       payment.customer_address = [details.params['street1'], details.params['city_name'], details.params['postal_code'], details.params['payer_country']].join(', ')
@@ -58,14 +50,15 @@ class SubscriptionsController < ApplicationController
       payment.save
       current_user.listing_agent.transaction_id = payment.id
       current_user.listing_agent.save
-      flash[:notice] = "Thank you! You can now use Listing Agent features."
+=end
+      flash[:notice] = "Thank you!"
     end
-    redirect_to venue_listing_agent_path(current_user)
+    redirect_to account_surveys_path
   end
   
   def paypal_cancel
     flash[:notice] = "You haven't completed the payment."
-    redirect_to subscriptions_path
+    redirect_to account_surveys_path
   end
     
 end
