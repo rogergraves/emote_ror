@@ -49,12 +49,22 @@ EmoteRor::Application.configure do
   
   config.action_mailer.default_url_options = { :host => 'emotethis.com' }
   
+  #ActionMailer::Base.smtp_settings = {
+  #  :address              => "smtp.gmail.com",
+  #  :port                 => 587,
+  #  :domain               => 'mail.rubyriders.com',
+  #  :user_name            => 'delivery@rubyriders.com',
+  #  :password             => '134711',
+  #  :authentication       => 'plain',
+  #  :enable_starttls_auto => true
+  #}
+  
   ActionMailer::Base.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :domain               => 'mail.rubyriders.com',
-    :user_name            => 'delivery@rubyriders.com',
-    :password             => '134711',
+    :address              => "support@inspirationengine.com",
+    :port                 => 26,
+    :domain               => 'mail.inspirationengine.com',
+    :user_name            => 'support+inspirationengine.com',
+    :password             => '-3tR!GK',
     :authentication       => 'plain',
     :enable_starttls_auto => true
   }
