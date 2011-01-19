@@ -47,6 +47,15 @@ EmoteRor::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
   
-  config.action_mailer.default_url_options = { :host => 'portal.emotethis.com' }
+  config.action_mailer.default_url_options = { :host => 'emotethis.com' }
   
+  ActionMailer::Base.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'mail.rubyriders.com',
+    :user_name            => 'delivery@rubyriders.com',
+    :password             => '134711',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true
+  }
 end

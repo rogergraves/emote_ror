@@ -37,7 +37,8 @@ namespace :deploy do
   after "deploy:update_code", :symlink_config_files,
                               :fix_public_dir_permission,
                               :fix_tmp_dir_permission,
-                              :fix_release_dir_permission
+                              :fix_release_dir_permission,
+                              "deploy:migrate"
                               
 end
 
