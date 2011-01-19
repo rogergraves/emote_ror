@@ -60,9 +60,9 @@ EmoteRor::Application.configure do
   #}
   
   ActionMailer::Base.smtp_settings = {
-    :address              => "support@inspirationengine.com",
-    :port                 => 465,
-    :domain               => 'prestonkincaid.yourchoicemonterey.com',
+    :address              => "mail.inspirationengine.com",
+    :port                 => 26,
+    :domain               => 'inspirationengine.com',
     :user_name            => 'support+inspirationengine.com',
     :password             => '-3tR!GK',
     :authentication       => 'plain',
