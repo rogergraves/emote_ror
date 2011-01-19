@@ -49,15 +49,13 @@ EmoteRor::Application.configure do
   
   config.action_mailer.default_url_options = { :host => 'emotethis.com' }
   
-=begin  
   ActionMailer::Base.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
-    :domain               => 'your.host.name',
-    :user_name            => '<username>',
-    :password             => '<password>',
+    :domain               => 'mail.rubyriders.com',
+    :user_name            => 'delivery@rubyriders.com',
+    :password             => '134711',
     :authentication       => 'plain',
     :enable_starttls_auto => true
   }
-=end
 end
