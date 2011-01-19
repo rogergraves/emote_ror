@@ -12,6 +12,7 @@ class SurveysController < ApplicationController
   def create
     @survey = Survey.new params[:survey] 
     @survey.user = current_user
+    sfd!
     if @survey.save
         flash[:notice] = 'Emote published'
         redirect_to account_surveys_path
