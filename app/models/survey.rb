@@ -16,7 +16,7 @@ class Survey < ActiveRecord::Base
   end
 
   def generate_survey_code!
-    self.code = Zlib::crc32("#{self.user? ? self.user.first_name : 'no_user'}-#{self.user_id}--#{self.id}-#{self.project_name}-[OMATORE]").to_s(36).upcase
+    self.code = Zlib::crc32("#{self.user.nil? ? 'no_user' : self.user.first_name}-#{self.user_id}--#{self.id}-#{self.project_name}-[OMATORE]").to_s(36).upcase
   end
 
 end
