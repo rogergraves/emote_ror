@@ -12,7 +12,10 @@ class Survey < ActiveRecord::Base
   end
 
   before_save(:on => :create) do
-    errors[:user] = ' cannot add more emotes' unless user(true).can_add_emote?
+    unless user(true).can_add_emote?
+      errors[:user] = ' cannot add more emotes'
+      return false
+    end
   end
 
   def generate_survey_code!
