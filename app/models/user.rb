@@ -29,7 +29,7 @@
 class User < ActiveRecord::Base
   has_many :surveys
   has_many :subscriptions
-  has_one :transactions, :class_name => 'PaypalTransaction', :foreign_key => 'user_id'
+  has_many :transactions, :class_name => 'PaypalTransaction', :foreign_key => 'user_id'
 
 
   # Include default devise modules. Others available are:
