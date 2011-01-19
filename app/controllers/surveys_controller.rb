@@ -21,6 +21,7 @@ class SurveysController < ApplicationController
   end
   
   def destroy
+    #TODO What if .delete will fail?
     current_user.surveys.find(params[:id]).delete
     flash[:notice] = 'Emote deleted'
     redirect_to :action => 'index'

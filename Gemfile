@@ -34,3 +34,7 @@ gem 'mysql'
 # group :development, :test do
 #   gem 'webrat'
 # end
+
+group :development do
+   gem 'annotate', :require => false
+end
