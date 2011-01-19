@@ -66,6 +66,6 @@ EmoteRor::Application.configure do
     :user_name            => 'support+inspirationengine.com',
     :password             => '-3tR!GK',
     :authentication       => 'plain',
-    :enable_starttls_auto => true
+    :enable_starttls_auto => false
   }
 end
