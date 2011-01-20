@@ -1,0 +1,7 @@
+<h2>Almost there...</h2>
+
+<p>Thanks for signing up! Blah-blah, mail has been sent to <b><%= resource.email %></b></p>
+
+<p>Telling the truth, the confirmation link is <a href="/confirmation?confirmation_token=<%= resource.confirmation_token %>">here</a></p>
+
+<%= render :partial => "devise/shared/links" %>
