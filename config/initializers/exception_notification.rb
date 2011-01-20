@@ -1,1 +1,1 @@
-EmoteRor::Application.config.middleware.use ExceptionNotifier, :email_prefix => "[EMote] ", :sender_address => %{"notifier" <error@emotethis.com>}, :exception_recipients => %w{a@rubyriders.com vivtash.oleg@gmail.com}
+EmoteRor::Application.config.middleware.use ExceptionNotifier, :email_prefix => "[EMote] ", :sender_address => %{"notifier" <error@emotethis.com>}, :exception_recipients => %w{a@rubyriders.com metroid@ua.fm}
