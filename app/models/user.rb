@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110118230554
+# Schema version: 20110119020010
 #
 # Table name: users
 #
@@ -24,12 +24,15 @@
 #  cell_number          :string(25)
 #  created_at           :datetime
 #  updated_at           :datetime
+#  confirmation_token   :string(255)
+#  confirmed_at         :datetime
+#  confirmation_sent_at :datetime
 #
 
 class User < ActiveRecord::Base
-  has_many :surveys
-  has_many :subscriptions
-  has_many :transactions, :class_name => 'PaypalTransaction', :foreign_key => 'user_id'
+  has_many :surveys, :dependent => :destroy
+  has_many :subscriptions, :dependent => :destroy
+  has_many :transactions, :dependent => :destroy, :class_name => 'PaypalTransaction', :foreign_key => 'user_id'
 
 
   # Include default devise modules. Others available are:
@@ -39,28 +42,40 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :first_name, :last_name, :country_code, :company,
-                  :job_title, :phone_number, :cell_number
+                  :full_name, :country_code, :company, :job_title, :phone_number
 
+  before_validation(:on => :create) do |user|
+    user.password = user.password_confirmation = rand(Time.now.to_i).to_s(24) #Password auto-generated
+  end
+
+  before_create do |user|
+    free_trial = Subscription.new(:emote_amount => 1, :start_date => DateTime.now)
+    free_trial.trial = true
+    user.subscriptions << free_trial
+  end
   
   ## Total emote slots including active and outdated
-  def emote_slots_total
+  def scorecards_total
     subscriptions.map(&:emote_amount).sum
   end
   
-  ## Slots occupied by active emotes
-  def emote_slots_used
-    surveys.select(&:active).count
+  ## Slots occupied by emotes
+  def scorecards_used
+    surveys.count
   end
   
   ## Number of paid active (non-occupied) slots
-  def emote_slots_available 
-    subscriptions.select(&:active?).map(&:emote_amount).sum - emote_slots_used
+  def scorecards_available
+    subscriptions.select(&:active?).map(&:emote_amount).sum - scorecards_used
   end
   
-  def can_add_emote?
-    emote_slots_available > 0
+  def can_add_scorecard?
+    scorecards_available > 0
   end
   
+  #Exposes protected method for registration
+  def make_reset_password_token!
+    generate_reset_password_token!
+  end
 
 end

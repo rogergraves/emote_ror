@@ -1,0 +1,23 @@
+<h1>Account confirmed!</h1>
+
+<p>Find me in app/views/user_confirmations/show.html.erb</p>
+<p>Your login id will be <b><%= resource.email %></b></p>
+
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+  <p>
+    New password:
+    <%= f.password_field :password %>
+  </p>
+
+  <p>
+    New password (confirm):
+    <%= f.password_field :password_confirmation %>
+  </p>
+
+  <%=  f.hidden_field :reset_password_token %>
+
+  <p><%= f.submit "Set password" %></p>
+<% end %>
+
+
+

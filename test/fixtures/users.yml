@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110118230554
+# Schema version: 20110119020010
 #
 # Table name: users
 #
@@ -24,6 +24,9 @@
 #  cell_number          :string(25)
 #  created_at           :datetime
 #  updated_at           :datetime
+#  confirmation_token   :string(255)
+#  confirmed_at         :datetime
+#  confirmation_sent_at :datetime
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

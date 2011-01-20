@@ -14,7 +14,6 @@ class SurveysController < ApplicationController
     @survey.user = current_user
     if @survey.save
         flash[:notice] = 'Emote published'
-        redirect_to account_surveys_path
     else
         render :action => 'new'
     end
@@ -34,7 +33,7 @@ class SurveysController < ApplicationController
   def public_scorecard
     
   end
-  
+
   private
     def find_scorecard_by_token_or_bounce
       
