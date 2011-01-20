@@ -12,20 +12,9 @@
 		<td>e.mote LINK</td>
 		<td>[]</td>
 	</tr>
-	<% @surveys.each do |survey| %>
+	<% @subscriptions.each do |subscription| %>
 	<tr>
-		<td><%= survey.project_name %></td>
-		<td><%= survey.score %></td>
-		<td><%= survey.created_at.strftime('%m/%d/%Y') %></td>
-		<td><%= survey.responses_count %></td>
-		<td><%= check_box_tag "survey_#{survey.id}_active", survey.active %></td>
-		<td><%= check_box_tag "survey_#{survey.id}_public", survey.public %></td>
-		<td>SCORECARD EMBED/LINK</td>
-		<td>SCORECARD</td>
-		<td>e.mote LINK</td>
-		<td><%= link_to '[D]', account_survey_path(survey), :method => :delete, :confirm => 'Are you sure?' %></td>
+		<td><%= debug subscription -%></td>
 	</tr>
 	<% end %>
 </table>
-
-<%= link_to 'Create new e.mote', new_account_survey_path %>
