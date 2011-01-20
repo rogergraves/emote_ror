@@ -30,9 +30,9 @@
 #
 
 class User < ActiveRecord::Base
-  has_many :surveys
-  has_many :subscriptions
-  has_many :transactions, :class_name => 'PaypalTransaction', :foreign_key => 'user_id'
+  has_many :surveys, :dependent => :destroy
+  has_many :subscriptions, :dependent => :destroy
+  has_many :transactions, :dependent => :destroy, :class_name => 'PaypalTransaction', :foreign_key => 'user_id'
 
 
   # Include default devise modules. Others available are:
@@ -42,8 +42,11 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :first_name, :last_name, :country_code, :company,
-                  :job_title, :phone_number, :cell_number
+                  :full_name, :country_code, :company, :job_title, :phone_number
+
+  before_validation(:on => :create) do |user|
+    user.password = user.password_confirmation = rand(Time.now.to_i).to_s(24) #Password auto-generated
+  end
 
   before_create do |user|
     free_trial = Subscription.new(:emote_amount => 1, :start_date => DateTime.now)
@@ -70,5 +73,9 @@ class User < ActiveRecord::Base
     scorecards_available > 0
   end
   
+  #Exposes protected method for registration
+  def make_reset_password_token!
+    generate_reset_password_token!
+  end
 
 end

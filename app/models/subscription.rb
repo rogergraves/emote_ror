@@ -19,7 +19,7 @@ class Subscription < ActiveRecord::Base
   KIND_TRIAL = 1
   
   belongs_to :user
-  has_one :transaction, :class_name => 'PaypalTransaction', :foreign_key => 'subscription_id'
+  has_one :transaction, :dependent => :nullify, :class_name => 'PaypalTransaction', :foreign_key => 'subscription_id'
 
   validates :user, :presence => true
   validates :emote_amount, :presence => true, :numericality => true, :inclusion => {:in => [1, 5, 10, 25]}
