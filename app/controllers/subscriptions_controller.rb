@@ -3,6 +3,10 @@ class SubscriptionsController < ApplicationController
   before_filter :authenticate_user!
   
   def index
+    @subscriptions = current_user.subscriptions.all
+  end
+  
+  def new
     
   end
   
@@ -38,6 +42,7 @@ class SubscriptionsController < ApplicationController
       transaction.subscription = subscription
       transaction.token = details.token
       transaction.date = Time.now
+      transaction.currency = details.params['currency']
       transaction.total = details.params['order_total']
       transaction.customer_name = [details.params['first_name'], details.params['middle_name'], details.params['last_name']].compact.join(' ')
       transaction.customer_id = details.payer_id

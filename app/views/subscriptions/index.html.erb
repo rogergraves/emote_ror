@@ -1,20 +1,31 @@
 <h3>Subscriptions</h3>
-<%= form_for :subscription, :url => account_subscriptions_path, :html => { :method => :post} do %>
-	<%= hidden_field_tag :emotes, 1 %>
-	<%= submit_tag '1 Emote for a year'%>
-<% end %>
+<table>
+	<tr>
+		<td>PROJECT NAME</td>
+		<td>e.mote SCORE</td>
+		<td>START DATE</td>
+		<td>TOTAL e.moters</td>
+		<td>ACTIVE</td>
+		<td>MAKE PUBLIC</td>
+		<td>SCORECARD EMBED/LINK</td>
+		<td>SCORECARD</td>
+		<td>e.mote LINK</td>
+		<td>[]</td>
+	</tr>
+	<% @surveys.each do |survey| %>
+	<tr>
+		<td><%= survey.project_name %></td>
+		<td><%= survey.score %></td>
+		<td><%= survey.created_at.strftime('%m/%d/%Y') %></td>
+		<td><%= survey.responses_count %></td>
+		<td><%= check_box_tag "survey_#{survey.id}_active", survey.active %></td>
+		<td><%= check_box_tag "survey_#{survey.id}_public", survey.public %></td>
+		<td>SCORECARD EMBED/LINK</td>
+		<td>SCORECARD</td>
+		<td>e.mote LINK</td>
+		<td><%= link_to '[D]', account_survey_path(survey), :method => :delete, :confirm => 'Are you sure?' %></td>
+	</tr>
+	<% end %>
+</table>
 
-<%= form_for :subscription, :url => account_subscriptions_path, :html => { :method => :post} do %>
-	<%= hidden_field_tag :emotes, 3 %>
-	<%= submit_tag '3 Emotes for a year'%>
-<% end %>
-
-<%= form_for :subscription, :url => account_subscriptions_path, :html => { :method => :post} do %>
-	<%= hidden_field_tag :emotes, 5 %>
-	<%= submit_tag '5 Emotes for a year'%>
-<% end %>
-
-<%= form_for :subscription, :url => account_subscriptions_path, :html => { :method => :post} do %>
-	<%= hidden_field_tag :emotes, 10 %>
-	<%= submit_tag '10 Emotes for a year'%>
-<% end %>
+<%= link_to 'Create new e.mote', new_account_survey_path %>
