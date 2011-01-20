@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110118230554
+# Schema version: 20110119224018
 #
 # Table name: subscriptions
 #
@@ -8,6 +8,9 @@
 #  emote_amount :integer(4)      default(0)
 #  created_at   :datetime
 #  updated_at   :datetime
+#  start_date   :datetime        not null
+#  end_date     :datetime        not null
+#  kind         :integer(4)      default(0), not null
 #
 
 class Subscription < ActiveRecord::Base
