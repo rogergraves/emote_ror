@@ -31,8 +31,9 @@ class SubscriptionsController < ApplicationController
 
     if details.success?
     #if purchase.success?
-      subscription = Subscription.new
+      subscription = Subscription.new(:start_date => DateTime.now)
       subscription.emote_amount = 10 # take from session
+      subscription.trial = false #Auto sets duration
       transaction = PaypalTransaction.new
       transaction.user = current_user
       transaction.subscription = subscription
@@ -45,7 +46,7 @@ class SubscriptionsController < ApplicationController
       transaction.customer_email = details.email
       transaction.customer_phone = details.params['phone']
       transaction.description = details.params['order_description']
-      subscription.save # do we need to save it?
+      subscription.save # do we need to save it? -=- It should be saved by transaction.save but we need to be 100% sure
       transaction.save
       flash[:notice] = "Thank you!"
     end
