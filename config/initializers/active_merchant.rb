@@ -1,8 +1,9 @@
 #ActiveMerchant::Billing::Base.mode = :test
 ActiveMerchant::Billing::Base.mode = :production
 paypal_options = {
-   :login => "azwerner_api1.hotmail.com",
-   :password => "ASGQTMMD8NV9T3BU",
-   :signature => "AzCuznm5EkUH9j7jPjOi1VJziXaiARcRbsfWdGZLy0dBhOQFEjLGLyHA"
+   :login => "e.newton_api1.inspirationengine.com",
+   :password => "HWQ5MG374PBFKPLM",
+   :signature => "AszaIT-3W0vM0ejHYuqsIGKXEyuIA8.l7iVdlX21OJNuu09jA34js1z3"
 }
+
 ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
