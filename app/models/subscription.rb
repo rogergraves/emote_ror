@@ -23,11 +23,15 @@ class Subscription < ActiveRecord::Base
 
   validates :user, :presence => true
   validates :emote_amount, :presence => true, :numericality => true, :inclusion => {:in => [1, 5, 10, 25]}
+  
+  validates :start_date, :presence => true
+  validates :end_date, :presence => true
 
   validate do |subscription|
     errors.add(:base, ' end_date should be after start_date') if subscription.end_date <= subscription.start_date
     errors.add(:base, ' trial is longer than 30 days') if subscription.trial? && subscription.end_date > 30.days.since(subscription.start_date)
     errors.add(:base, ' regular is longer than 1 year') if !subscription.trial? && subscription.end_date > 1.year.since(subscription.start_date)
+    errors.add(:base, ' trial is restricted to 1 emote') if subscription.trial? && subscription.emote_amount != 1
   end
 
   def active?
