@@ -2,6 +2,10 @@ class SubscriptionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   before_filter :authenticate_user!
   
+  #Show GBP (£ symbol) and prices for United Kingdom.
+  #Show EUR (€ symbol) and prices for Andorra, Austria, Belgium, Cyprus, Estonia, Finland, France, Germany, Greece, Ireland, Italy, Kosovo, Luxembourg, Malta, Monaco, Montenegro, Netherlands, Portugal, San Marino, Slovakia, Slovenia, Spain and Vatican City.
+  #All other countries use USD ($ symbol).
+  
   def index
     @subscriptions = current_user.subscriptions.all
   end

@@ -28,7 +28,7 @@
 
           <div class="field">
             <%= f.label :country_code, 'Country:' %>
-            <%= f.select :country_code, options_for_select(%w(Some countries here)) %>
+            <%= f.select :country_code, options_for_select( Country::LIST.collect {|c| [c[:name], c[:iso]]}, session[:geo_location].country_code) %>
           </div>
 
           <div class="field">
