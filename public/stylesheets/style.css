@@ -389,6 +389,10 @@ html, body{
     text-align: center;
 }
 
+.create_acc {
+    margin-top: 10px;
+}
+
 /* ------- Forget the password page ------- */
 #content-win-centr #forgetpw-content{
     margin-top: 60px;
