@@ -2,9 +2,6 @@ class SubscriptionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   before_filter :authenticate_user!
   
-  #Show GBP (£ symbol) and prices for United Kingdom.
-  #Show EUR (€ symbol) and prices for Andorra, Austria, Belgium, Cyprus, Estonia, Finland, France, Germany, Greece, Ireland, Italy, Kosovo, Luxembourg, Malta, Monaco, Montenegro, Netherlands, Portugal, San Marino, Slovakia, Slovenia, Spain and Vatican City.
-  #All other countries use USD ($ symbol).
   
   def index
     @subscriptions = current_user.subscriptions.all
@@ -15,15 +12,17 @@ class SubscriptionsController < ApplicationController
   end
   
   def create
-    # (number of emotes for 1 year)
-    params[:emotes]
-    price = 900 * params[:emotes].to_i
+    # save settings to session
+    session[:selected_subscription_index] = params[:prod_id].to_i
+    price = Subscription::OPTIONS[params[:prod_id].to_i][:price]
+    currency = Country.find_by_country_code(session[:geo_location].country_code || 'US')[:currency]
     response = EXPRESS_GATEWAY.setup_purchase(
-        price,
+        price * 100, # convert to cents
         :ip                => request.remote_ip,
         :return_url        => paypal_success_account_subscriptions_url(:only_path => false),
         :cancel_return_url => paypal_cancel_account_subscriptions_url(:only_path => false),
-        :subtotal => price, :allow_guest_checkout => true, :no_shipping => 1, :description => "#{pluralize(params[:emotes], 'E.mote')} Subscription for #{price/100}$"
+        :subtotal => price * 100, :allow_guest_checkout => true, :no_shipping => 1, :description => "#{Subscription::OPTIONS[params[:prod_id].to_i][:name]} for #{currency}#{price} ",
+        :currency => currency
       )
     redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
   end
@@ -40,7 +39,7 @@ class SubscriptionsController < ApplicationController
     if details.success?
     #if purchase.success?
       subscription = Subscription.new(:start_date => DateTime.now)
-      subscription.emote_amount = 10 # take from session
+      subscription.emote_amount = Subscription::OPTIONS[session[:selected_subscription_index]][:amount] if (details.params['order_total'].to_f == Subscription::OPTIONS[session[:selected_subscription_index]][:price].to_f) # take from session
       subscription.trial = false #Auto sets duration
       transaction = PaypalTransaction.new
       transaction.user = current_user

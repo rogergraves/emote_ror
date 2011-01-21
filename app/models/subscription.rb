@@ -14,7 +14,42 @@
 #
 
 class Subscription < ActiveRecord::Base
-
+  
+  OPTIONS = [
+              {
+                :amount => 1,
+                :name => "1 Pack",
+                :price => 99,
+                :short_desc => 'Add 1 ScoreCard to your account for 12 months.',
+                :long_desc => 'Average cost is $8.25 per ScoreCard per month.',
+                :savings => ""
+              },
+              {
+                :amount => 5,
+                :name => "5 Pack",
+                :price => 299,
+                :short_desc => 'Add 5 ScoreCards to your account for 12 months.',
+                :long_desc => 'Average cost is $5 per ScoreCard per month.',
+                :savings => "$196 / year."
+              },
+              {
+                :amount => 10,
+                :name => "10 Pack",
+                :price => 399,
+                :short_desc => 'Add 10 ScoreCards to your account for 12 months.',
+                :long_desc => 'Average cost is $3.30 per ScoreCard per month.',
+                :savings => "$590 / year."
+              },
+              {
+                :amount => 25,
+                :name => "25 Pack",
+                :price => 499,
+                :short_desc => 'Add 25 ScoreCards to your account for 12 months.',
+                :long_desc => 'Average cost is $1.75 per ScoreCard per month.',
+                :savings => "$1975 / year."
+              }
+            ]
+  
   KIND_REGULAR = 0
   KIND_TRIAL = 1
   
