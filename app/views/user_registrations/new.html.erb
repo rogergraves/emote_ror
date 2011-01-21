@@ -1,40 +1,42 @@
-<h2>Sign up</h2>
+<div id="getting-account">
+    <span class="big-text">Getting Started</span>
+    <br/>
+    <span class="medium-text">Please tell us a little about yourself.</span>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+      <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:id => 'getting-account-form'}) do |f| %>
+        <%= devise_error_messages! %>
 
-  <p>
-    Name:
-    <%= f.text_field :full_name %>
-  </p>
+          <div class="field">
+            <%= f.label :full_name, 'Name:' %>
+            <%= f.text_field :full_name %>
+          </div>
 
-  <p>
-    Organization name:
-    <%= f.text_field :company %>
-  </p>
+          <div class="field">
+            <%= f.label :company, 'Organization Name:' %>
+            <%= f.text_field :company %>
+          </div>
 
-  <p>
-    Job title:
-    <%= f.text_field :job_title %>
-  </p>
+          <div class="field">
+            <%= f.label :job_title, 'Job Title:' %>
+            <%= f.text_field :job_title %>
+          </div>
 
-  <p>
-    Email Address:
-    <%= f.text_field :email %>
-  </p>
+          <div class="field">
+            <%= f.label :email, 'Email Address:' %>
+            <%= f.text_field :email %>
+          </div>
 
-  <p>
-    Country:
-    <%= f.select :country_code, options_for_select(%w(Some countries here)) %>
-  </p>
+          <div class="field">
+            <%= f.label :country_code, 'Country:' %>
+            <%= f.select :country_code, options_for_select(%w(Some countries here)) %>
+          </div>
 
-  <p>
-    Phone number:
-    <%= f.telephone_field :phone_number %>
-  </p>
-
+          <div class="field">
+            <%= f.label :phone_number, 'Phone:' %>
+            <%= f.telephone_field :phone_number %>
+          </div>
 
   <p><%= f.submit "Sign up" %></p>
 <% end %>
 
-<%= render :partial => "devise/shared/links" %>
+</div>
