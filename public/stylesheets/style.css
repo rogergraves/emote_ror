@@ -389,6 +389,76 @@ html, body{
     text-align: center;
 }
 
+/* ------- Forget the password page ------- */
+#content-win-centr #forgetpw-content{
+    margin-top: 60px;
+    margin-left: 45px;
+    width: 520px;
+    float: left;
+}
+
+.forgetpw-form {
+	float: left;
+	margin-top: 80px;
+	width: 100%;
+    text-align: center;
+}
+
+form .field_forgetpw input[type="email"] {
+	background: #fff;
+	border: 1px solid #000;
+    font-size: 16px;
+    width: 245px;
+	height: 22px;
+}
+
+.cs_link a{
+	float: left;
+	margin-top: 105px;
+	font-size: 13px;
+	color: #0006ff;
+	text-decoration: none;
+	width: 100%;
+	text-align: center;
+}
+
+.cs_link a:hover{
+	text-decoration: underline;
+}
+
+/* ------- Almost there... page ------- */
+
+#content-win-centr #almost-content{
+    margin-top: 60px;
+    margin-left: 45px;
+    width: 520px;
+    float: left;
+}
+
+.almost-text {
+	float: left;
+	margin-top: 60px;
+}
+
+.almost-text p{
+	padding: 5px 0;
+}
+
+.at_link a{
+	float: left;
+	margin-top: 75px;
+	font-size: 13px;
+	color: #0006ff;
+	text-decoration: none;
+	width: 100%;
+	text-align: center;
+}
+
+.at_link a:hover{
+	text-decoration: underline;
+}
+
+/* --end-- */
 
 #forfooter{
     height: 45px;
