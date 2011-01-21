@@ -1,7 +1,13 @@
-<h2>Almost there...</h2>
+<div id="almost-content">
+    <span class="big-text">Almost there...</span>
 
-<p>Thanks for signing up! Blah-blah, mail has been sent to <b><%= resource.email %></b></p>
+    <span class="almost-text">
+    <p>An email is being sent to <strong><%= resource.email %></strong> with a link. Once you click on the link your account will be accessible.</p>
 
-<p>Telling the truth, the confirmation link is <a href="/confirmation?confirmation_token=<%= resource.confirmation_token %>">here</a></p>
+    <p>If you have trouble finding the email, please check your junk email folder. If you still have problems, please email us at <a href="mailto:support@inspirationengine.com">support@inspirationengine.com</a>.</p>
 
-<%= render :partial => "devise/shared/links" %>
+    <p>Thanks for signing up!</p>
+    </span>
+
+    <span class="at_link"><a href="/">Back to home page</a></span>
+</div>

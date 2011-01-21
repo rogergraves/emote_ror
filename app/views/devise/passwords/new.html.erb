@@ -1,18 +1,19 @@
-<div id="forget-password">
-  <br/>
+<div id="forgetpw-content">
   <span class="big-text">Enter your email address</span>
-  <br/>
+  <br/><br/>
   You will be emailed a link to reset you password.
-  <br/>
-  <br/>
-  <br/>
 
-  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-    <%= devise_error_messages! %>
+    <div class="forgetpw-form">
+      <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+      <%= devise_error_messages! %>
 
-    <%= f.label :email, 'Email:' %>
-    <%= f.text_field :email %>
+      <div>
+        <%= f.text_field :email, :class =>'field_forgetpw', :required => true %>
+        <%= image_submit_tag("reset_button.png", :width => 70, :height => 33) %>
+      </div>
 
-    <p><%= f.submit "Send me reset password instructions" %></p>
-  <% end %>
+   <% end %>
+    </div>
+
+    <span class="cs_link"><a href="mailto:support@inspirationengine.com">Click here to email our customer support.</a></span>
 </div>
