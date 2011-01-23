@@ -1,24 +1,30 @@
 <div id="content-win-centr" role="main">
-<h1>Account confirmed!</h1>
+  <div id="almost-content">
 
-<p>Find me in app/views/user_confirmations/show.html.erb</p>
-<p>Your login id will be <b><%= resource.email %></b></p>
+    <span class="big-text">Account Confirmed!</span>
+    <span class="acc_text">
+      <p>Thank you!  Your login ID will be <strong><%= resource.email %></strong>. Please select a secure password for your account (at least 5 digits, case sensitive).</p>
+    </span>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <p>
-    New password:
-    <%= f.password_field :password %>
-  </p>
+   <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+    <div class="field">
+      <%= f.label :password, 'New Password:' %>
+      <%= f.password_field :password, :maxlenght=>25, :required=>true %>
+    </div>
 
-  <p>
-    New password (confirm):
-    <%= f.password_field :password_confirmation %>
-  </p>
+    <div class="field">
+      <%= f.label :password_confirmation, 'New Password (confirm):' %>
+      <%= f.password_field :password_confirmation, :maxlenght=>25, :required=>true %>
+    </div>
 
-  <%=  f.hidden_field :reset_password_token %>
+      <%= devise_error_messages! %>
 
-  <p><%= f.submit "Set password" %></p>
-<% end %>
+      <div class="setpw">
+        <%= image_submit_tag("setpw_button.png") %>
+      </div>
 
+      <%=  f.hidden_field :reset_password_token %>
+    <% end %>
+
+   </div>
 </div>
-
