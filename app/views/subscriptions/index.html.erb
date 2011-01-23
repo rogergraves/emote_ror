@@ -8,7 +8,7 @@
 	<% if payment.trial? %>
 	<%= payment.created_at.strftime('%d-%b-%y') %>|1 Pack|0.00|FREE TRIAL
 	<% else %>
-	<%= payment.created_at.strftime('%d-%b-%y') %>|<%= payment.transaction.description %>|<%= Country.curr_code_to_symbol(payment.transaction.currency) %><%= payment.transaction.total %>|<%= payment.transaction.token %>
+	<%= payment.created_at.strftime('%d-%b-%y') %>|<%= payment.transaction.description %>|<%= number_to_currency(payment.transaction.total, :unit => Country.curr_code_to_symbol(payment.transaction.currency)) %>|<%= payment.transaction.token %>
 	<% end %>
 	<br/>
 <% end %>
