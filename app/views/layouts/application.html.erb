@@ -37,44 +37,46 @@
 
         <div id="header">
 	    <img id="logo" src="/images/emote_logo.png">
-	    <div id="menu">
-		<div id="username">Welcome, Jonh Smith</div>
-		<div id="buttons">
+			<% if user_signed_in? %>
+	    	<div id="menu">
+				<div id="username">Welcome, <%= current_user.full_name %></div>
+				<div id="buttons">
 
+		    		<div class="dropdown">
+						<%= link_to raw("<div class=\"button #{(controller.class.name == 'SurveysController' && controller.action_name == 'index') ? 'on' : 'off'}\" id=\"emoteControlButton\" style=\"z-index: 10;position: relative;\"></div>"), root_path %>
+		    		</div>
 
-		    <div class="dropdown">
-			<a href="#"><div class="button off" id="emoteControlButton" style="z-index: 10;position: relative;"></div></a>
+		    		<div class="dropdown">
+						<a href="#"><div class="button <%= (controller.class.name == 'SurveysController' && controller.action_name == 'scorecard') ? 'on' : 'off' -%>" id="scoreCardButton" style="z-index: 10;position: relative;"></div></a>
             	    	<ul class="menu-body">
-        		    <li><a href="#" title="element 1">ELEMENT 1</a></li>
-        		    <li><a href="#" title="element 2">ELEMENT 2</a></li>
-        		    <li><a href="#" title="element 3">ELEMENT 3</a></li>
-        		</ul>
-		    </div>
+							<% current_user.surveys.each do |survey| %>
+								<li>
+									<%= link_to survey.project_name, scorecard_account_survey_path(survey) %>
+								</li>
+							<% end %>
+        				</ul>
+		    		</div>
 
-		    <div class="dropdown">
-			<a href="#"><div class="button off" id="scoreCardButton" style="z-index: 10;position: relative;"></div></a>
+		    		<div class="dropdown">
+						<a href="#"><div class="button <%= (controller.class.name == 'AccountsController' || controller.class.name == 'SubscriptionsController') ? 'on' : 'off' -%>" id="myAccount" style="z-index: 10;position: relative;"></div></a>
             	    	<ul class="menu-body">
-        		    <li><a href="#" title="element 1">ELEMENT 1</a></li>
-        		    <li><a href="#" title="element 2">ELEMENT 2</a></li>
-        		    <li><a href="#" title="element 3">ELEMENT 3</a></li>
-			    <li><a href="#" title="element 4">ELEMENT 4</a></li>
-			    <li><a href="#" title="element 5">ELEMENT 5</a></li>
-        		</ul>
-		    </div>
+        		    		<li>
+								<%= link_to 'CHANGE INFORMATION', edit_account_path %>
+							</li>
+        		    		<li>
+								<%= link_to 'VIEW ACTIVITY', account_subscriptions_path %>
+							</li>
+        		    		<li>
+								<%= link_to 'SUBSCRIBE', new_account_subscription_path %>
+							</li>
+        				</ul>
+						<div class="arrow"><img src="/images/buttons/econtrol_arrow.png"></div>
+		    		</div>
 
-		    <div class="dropdown">
-			<a href="#"><div class="button on" id="myAccount" style="z-index: 10;position: relative;"></div></a>
-            	    	<ul class="menu-body">
-        		    <li><a href="#" title="element 1">ELEMENT 1</a></li>
-        		    <li><a href="#" title="element 2">ELEMENT 2</a></li>
-        		    <li><a href="#" title="element 3">ELEMENT 3</a></li>
-			    <li><a href="#" title="element 4">ELEMENT 4</a></li>
-        		</ul>
-			<div class="arrow"><img src="/images/buttons/econtrol_arrow.png"></div>
-		    </div>
-
-		</div>
-	    </div>
+				</div>
+	    	</div>
+			<% end %>
+	
 	</div>
 
     <div id="content-win-centr" role="main">
