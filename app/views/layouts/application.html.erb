@@ -36,7 +36,7 @@
     <div id="before-header">&nbsp;</div>
 
     <div id="header">
-      <img id="logo" src="/images/emote_logo.png"/>
+	  <%= link_to image_tag('emote_logo.png'), root_path %>
       <div style="vertical-align: middle; float: right; margin-top: 20px; margin-right: 20px">
 
         <% if user_signed_in? %>
