@@ -12,7 +12,7 @@
        Remove this if you use the .htaccess -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-  <title>eMote Homie Portal</title>
+  <title><%= @title || 'eMote Homie Portal' %></title>
   <meta name="description" content=""/>
   <meta name="author" content=""/>
 
@@ -76,7 +76,6 @@
 		</div>
 	    </div>
 	</div>
-
 
     <div id="content-win-centr" role="main">
       <%= yield %>

@@ -6,11 +6,9 @@
     <span class="medium-text">Please login below.</span>
 
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-
       <div class="field">
         <%= f.label :email, 'Email Address' %><br/>
         <%= f.email_field :email, :required => true %>
-        <%#input type="email" name="email-address" id="email-address" value="" required /%>
       </div>
       <div class="field">
         <%= f.label :password, 'Password' %><br/>
