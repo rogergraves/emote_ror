@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 class SurveysController < ApplicationController
   before_filter :authenticate_user!, :except => [:public_scorecard]
   def index
@@ -42,12 +44,20 @@ class SurveysController < ApplicationController
   end
   
   def scorecard
-    @survey = Survey.find_by_code(params[:code])
+    @survey = current_user.surveys.find(params[:id])
+    redirect_to root_path if @survey.nil?
+    @survey.action_token = Digest::MD5.hexdigest(@survey.id.to_s+@survey.code+Time.now.to_s)
+    @survey.save!
   end
   
   def public_scorecard
     @survey = Survey.find_by_code(params[:code])
     redirect_to(root_path) if @survey.nil? || !@survey.public?
   end
+  
+  private
+    def generate_action_token
+      
+    end
 
 end
