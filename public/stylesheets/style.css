@@ -225,14 +225,7 @@ button {  width: auto; overflow: visible; }
  /* Primary Styles
     Author:
  */
-/*
-body{
-    min-width: 1050px;
-    width: 100%; 
-    height: 100%;
-    background: url('/images/background.png') repeat-x;
-}
-*/
+
 
 html, body{
     width: 100%; 
@@ -240,7 +233,7 @@ html, body{
     background: url('/images/background.png') repeat-x;
     background-attachment:fixed;
     background-position:50% 50%;
-    min-width: 1050px;
+    min-width: 1150px;
     min-height: 570px;
 }
 
@@ -265,6 +258,10 @@ html, body{
 #header #logo{
     margin-left: 10px;
     margin-top: 3px;
+}
+
+#header #menu{
+    float: right;
 }
 
 .borderradius #header{
@@ -389,9 +386,6 @@ html, body{
     text-align: center;
 }
 
-.create_acc {
-    margin-top: 10px;
-}
 
 /* ------- Forget the password page ------- */
 #content-win-centr #forgetpw-content{
@@ -529,6 +523,108 @@ form .field_forgetpw input[type="email"] {
     -webkit-box-shadow: 0px 2px 2px #999999;
     box-shadow: 0px 2px 2px #999999;
 }
+
+/* Top menu */
+#header #menu #username{
+    color: black;
+    text-align: right;
+    margin-top: 10px;
+    margin-right: 12px;
+}
+
+#header #buttons{
+    margin-top: 5px;
+}
+
+
+#buttons .dropdown{
+	float:left; 
+	width: 98px; 
+	position: relative;
+	margin-right: 12px;
+}
+
+#buttons .dropdown ul.menu-body {
+	display: none; 
+	background: white;
+	border: 1px #999999 solid;
+	list-style: none;
+        margin: -33px 0 0 -5px;
+	padding: 38px 0 0 0;
+	width: 110px;
+	position: absolute;
+	z-index: 5;
+	width: 108px;
+}
+
+.borderradius #buttons .dropdown ul.menu-body{
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+#buttons .dropdown ul li{
+	margin-bottom: 10px;
+	margin-left: 5px;
+}
+
+#buttons .dropdown ul li a{
+	font-size: 12px;
+	color: #aaaaaa;	
+	text-decoration: none;
+}
+
+#buttons .dropdown .arrow{
+	text-align: center;
+	margin-top: -2px;
+}
+
+
+#buttons .button{
+    width: 98px;
+    height: 28px;
+    z-index: 10;
+    position: relative;
+}
+
+#buttons #emoteControlButton.off {
+    background: url('/images/buttons/emote_control_grfull.png') no-repeat;
+}
+
+#buttons #emoteControlButton.over {
+    background: url('/images/buttons/emote_control_gr.png') no-repeat;
+}
+
+#buttons #emoteControlButton.on {
+    background: url('/images/buttons/emote_control_yl.png') no-repeat;
+}
+
+
+#buttons #scoreCardButton.off {
+    background: url('/images/buttons/score_card_grfull.png') no-repeat;
+}
+
+#buttons #scoreCardButton.over {
+    background: url('/images/buttons/score_card_gr.png') no-repeat;
+}
+
+#buttons #scoreCardButton.on {
+    background: url('/images/buttons/score_card_yl.png') no-repeat;
+}
+
+#buttons #myAccount.off {
+    background: url('/images/buttons/my_account_grfull.png') no-repeat;
+}
+
+#buttons #myAccount.over {
+    background: url('/images/buttons/my_account_gr.png') no-repeat;
+}
+
+#buttons #myAccount.on {
+    background: url('/images/buttons/my_account_yl.png') no-repeat;
+}
+/* EOF Top menu */
+
 
 
 /*
