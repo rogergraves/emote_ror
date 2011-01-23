@@ -2,7 +2,7 @@
 <% Subscription::OPTIONS.each_with_index do |subscription, i| %>
 	<div style="width: 180px; float: left;">
 	<%= link_to subscription[:name], account_subscriptions_path(:prod_id => subscription[:prod_code]), { :method => :post } %><br/>
-	<%= subscription[:price] %> <%= Country.find_by_country_code(session[:geo_location].country_code || 'US')[:currency] %><br/>
+	<%= subscription[:price] %> <%= Country.curr_code_to_symbol(Country.find_by_country_code(session[:geo_location].country_code || 'US')[:currency]) %><br/>
 	<%= subscription[:short_desc] %><br/>
 	<%= subscription[:long_desc] %><br/>
 	<%= subscription[:savings] %>

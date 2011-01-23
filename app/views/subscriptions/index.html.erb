@@ -1,20 +1,15 @@
-<h3>Subscriptions</h3>
-<table>
-	<tr>
-		<td>PROJECT NAME</td>
-		<td>e.mote SCORE</td>
-		<td>START DATE</td>
-		<td>TOTAL e.moters</td>
-		<td>ACTIVE</td>
-		<td>MAKE PUBLIC</td>
-		<td>SCORECARD EMBED/LINK</td>
-		<td>SCORECARD</td>
-		<td>e.mote LINK</td>
-		<td>[]</td>
-	</tr>
-	<% @subscriptions.each do |subscription| %>
-	<tr>
-		<td><%= debug subscription -%></td>
-	</tr>
+<h3>Current Subscriptions<sub><%= pluralize(current_user.scorecards_total, 'Total ScoreCard') %></sub></h3>
+<% @subscriptions.each do |subscription| %>
+	<%= pluralize(subscription.emote_amount, 'ScoreCard') %> until <%= subscription.end_date.strftime('%d %B %Y') %><br/>
+<% end %>
+<%= link_to 'Add ScoreCards', new_account_subscription_path %><br/><Br/>
+<h3>Payment History</h3>
+<% @payments.each do |payment| %>
+	<% if payment.trial? %>
+	<%= payment.created_at.strftime('%d-%b-%y') %>|1 Pack|0.00|FREE TRIAL
+	<% else %>
+	<%= payment.created_at.strftime('%d-%b-%y') %>|<%= payment.transaction.description %>|<%= Country.curr_code_to_symbol(payment.transaction.currency) %><%= payment.transaction.total %>|<%= payment.transaction.token %>
 	<% end %>
-</table>
+	<br/>
+<% end %>
+
