@@ -6,7 +6,7 @@
       <p>Thank you!  Your login ID will be <strong><%= resource.email %></strong>. Please select a secure password for your account (at least 5 digits, case sensitive).</p>
     </span>
 
-   <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+   <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :id=>"account-confirmation" }) do |f| %>
     <div class="field">
       <%= f.label :password, 'New Password:' %>
       <%= f.password_field :password, :maxlenght=>25, :required=>true %>
