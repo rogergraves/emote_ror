@@ -1,5 +1,4 @@
 <h3>Scorecard</h3>
-Token: <%= @survey.action_token %>
 <%= javascript_include_tag '/fx/AC_OETags.js'  %>
 
 <script language="JavaScript" type="text/javascript">
@@ -35,7 +34,7 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 } else if (hasRequestedVersion) {
 	AC_FL_RunContent(
 			"src", "/fx/main",
-			"FlashVars", "survey=<%= @survey.code -%>&activity_token=<%= @survey.action_token -%>",
+			"FlashVars", "survey=<%= @survey.code -%>&action_token=<%= @survey.action_token -%>",
 			"width", "1140",
 			"height", "100%",
 			"align", "middle",
@@ -59,11 +58,11 @@ if ( hasProductInstall && !hasRequestedVersion ) {
   	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
 			id="main" width="1140" height="100%"
 			codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
-			<param name="movie" value="/fx/main.swf?survey="+<%= @survey.code -%>+'&activity_token='+<%= @survey.action_token -%>" />
+			<param name="movie" value="/fx/main.swf?survey="+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" />
 			<param name="quality" value="high" />
 			<param name="bgcolor" value="#ffffff" />
 			<param name="allowScriptAccess" value="sameDomain" />
-			<embed src="main.swf?survey="+<%= @survey.code -%>+'&activity_token='+<%= @survey.action_token -%>" quality="high" bgcolor="#ffffff"
+			<embed src="main.swf?survey="+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" quality="high" bgcolor="#ffffff"
 				width="1140" height="100%" name="main" align="middle"
 				play="true"
 				loop="false"
