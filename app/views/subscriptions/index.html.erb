@@ -1,3 +1,4 @@
+<div id="content-win-centr" role="main">
 <h3>Current Subscriptions<sub><%= pluralize(current_user.scorecards_total, 'Total ScoreCard') %></sub></h3>
 <% @subscriptions.each do |subscription| %>
 	<%= pluralize(subscription.emote_amount, 'ScoreCard') %> until <%= subscription.end_date.strftime('%d %B %Y') %><br/>
@@ -13,3 +14,4 @@
 	<br/>
 <% end %>
 
+</div>
