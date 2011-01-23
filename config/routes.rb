@@ -14,6 +14,9 @@ EmoteRor::Application.routes.draw do
       member do
         get 'scorecard'
       end
+      collection do
+        get 'public_scorecard'
+      end
     end
   end
   
