@@ -54,19 +54,23 @@ class User < ActiveRecord::Base
     user.subscriptions << free_trial
   end
   
-  ## Total emote slots including active and outdated
+  def current_subscriptions
+    subscriptions.select(&:active?)
+  end
+
+  # Total emote slots including active and outdated
   def scorecards_total
     subscriptions.map(&:emote_amount).sum
   end
   
-  ## Slots occupied by emotes
+  # Slots occupied by emotes
   def scorecards_used
     surveys.count
   end
   
-  ## Number of paid active (non-occupied) slots
+  # Number of paid active (non-occupied) slots
   def scorecards_available
-    subscriptions.select(&:active?).map(&:emote_amount).sum - scorecards_used
+    current_subscriptions.map(&:emote_amount).sum - scorecards_used
   end
   
   def can_add_scorecard?
