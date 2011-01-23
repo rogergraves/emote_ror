@@ -1,0 +1,49 @@
+<h3>Update Personal Information</h3>
+
+
+    <%= form_for(@account, :as => :account, :url => account_path(current_user)) do |f| %>
+          <div class="field">
+            <%= f.label :full_name, 'Name:' %>
+            <%= f.text_field :full_name %>
+          </div>
+
+          <div class="field">
+            <%= f.label :company, 'Organization Name:' %>
+            <%= f.text_field :company %>
+          </div>
+
+          <div class="field">
+            <%= f.label :job_title, 'Job Title:' %>
+            <%= f.text_field :job_title %>
+          </div>
+
+          <div class="field">
+            <%= f.label :email, 'Email Address:' %>
+            <%= f.text_field :email %>
+          </div>
+
+          <div class="field">
+            <%= f.label :country_code, 'Country:' %>
+            <%= f.select :country_code, options_for_select( Country::LIST.collect {|c| [c[:name], c[:iso]]}, @account.country_code || session[:geo_location].country_code) %>
+          </div>
+
+		  <div class="field">
+            <%= f.label :password, 'Change Password:' %>
+            <%= f.password_field :password %>
+          </div>
+
+   		  <div class="field">
+            <%= f.label :password_confirmation, 'Password (verify):' %>
+            <%= f.password_field :password_confirmation %>
+          </div>
+
+          <div class="field">
+            <%= f.label :phone_number, 'Phone:' %>
+            <%= f.telephone_field :phone_number %>
+          </div>
+
+  		<p><%= f.submit "Modify Account" %> <%= link_to 'Cancel', root_path %></p>
+	
+	<% end %>
+
+</div>
