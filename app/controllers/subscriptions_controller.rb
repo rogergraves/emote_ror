@@ -2,9 +2,6 @@ class SubscriptionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   before_filter :authenticate_user!
   
-  #Show GBP (£ symbol) and prices for United Kingdom.
-  #Show EUR (€ symbol) and prices for Andorra, Austria, Belgium, Cyprus, Estonia, Finland, France, Germany, Greece, Ireland, Italy, Kosovo, Luxembourg, Malta, Monaco, Montenegro, Netherlands, Portugal, San Marino, Slovakia, Slovenia, Spain and Vatican City.
-  #All other countries use USD ($ symbol).
   
   def index
     @subscriptions = current_user.subscriptions.all
@@ -15,23 +12,27 @@ class SubscriptionsController < ApplicationController
   end
   
   def create
-    # (number of emotes for 1 year)
-    params[:emotes]
-    price = 900 * params[:emotes].to_i
+    # save settings to session
+    session[:selected_subscription_code] = params[:prod_id]
+    subscription_obj = Subscription::OPTIONS.select{|s| s[:prod_code] == params[:prod_id]}.first rescue Subscription::OPTIONS.last
+    price = subscription_obj[:price]
+    currency = Country.find_by_country_code(session[:geo_location].country_code || 'US')[:currency]
     response = EXPRESS_GATEWAY.setup_purchase(
-        price,
+        price * 100, # convert to cents
         :ip                => request.remote_ip,
         :return_url        => paypal_success_account_subscriptions_url(:only_path => false),
         :cancel_return_url => paypal_cancel_account_subscriptions_url(:only_path => false),
-        :subtotal => price, :allow_guest_checkout => true, :no_shipping => 1, :description => "#{pluralize(params[:emotes], 'E.mote')} Subscription for #{price/100}$"
+        :subtotal => price * 100, :allow_guest_checkout => true, :no_shipping => 1, :description => "#{subscription_obj[:name]} for #{currency}#{price} ",
+        :currency => currency
       )
     redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
   end
   
   def paypal_success
+    subscription_obj = Subscription::OPTIONS.select{|s| s[:prod_code] == session[:selected_subscription_code]}.first rescue Subscription::OPTIONS.last
     details = EXPRESS_GATEWAY.details_for(params[:token]) unless params[:token].blank?
     #purchase = EXPRESS_GATEWAY.purchase(
-    #    (details.params['order_total']*100).to_i,
+    #    (subscription_obj[:price]*100).to_i,
     #    :ip       => request.remote_ip,
     #    :payer_id => params[:PayerID],
     #    :token    => params[:token]
@@ -40,7 +41,7 @@ class SubscriptionsController < ApplicationController
     if details.success?
     #if purchase.success?
       subscription = Subscription.new(:start_date => DateTime.now)
-      subscription.emote_amount = 10 # take from session
+      subscription.emote_amount = subscription_obj[:amount] if (details.params['order_total'].to_f == subscription_obj[:price].to_f)
       subscription.trial = false #Auto sets duration
       transaction = PaypalTransaction.new
       transaction.user = current_user

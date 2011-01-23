@@ -1,6 +1,5 @@
 class SurveysController < ApplicationController
   before_filter :authenticate_user!, :except => [:public_scorecard]
-  before_filter :find_scorecard_by_token_or_bounce, :only => [:public_scorecard]
   def index
     @surveys = current_user.surveys.all
   end
@@ -20,22 +19,23 @@ class SurveysController < ApplicationController
   end
   
   def destroy
-    #TODO What if .delete will fail?
-    current_user.surveys.find(params[:id]).delete
-    flash[:notice] = 'Emote deleted'
+    #TODO What if .delete will fail? done?
+    begin
+      current_user.surveys.find(params[:id]).delete
+      flash[:notice] = 'Emote deleted'
+    rescue
+      flash[:error] = 'Emote was not deleted'
+    end
     redirect_to :action => 'index'
   end
   
   def scorecard
-    
+    @survey = Survey.find_by_code(params[:code])
   end
   
   def public_scorecard
-    
+    @survey = Survey.find_by_code(params[:code])
+    redirect_to(root_path) if @survey.nil? || !@survey.public?
   end
 
-  private
-    def find_scorecard_by_token_or_bounce
-      
-    end
 end

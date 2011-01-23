@@ -22,12 +22,16 @@
 		<td><%= survey.responses_count %></td>
 		<td><%= check_box_tag "survey_#{survey.id}_active", survey.active %></td>
 		<td><%= check_box_tag "survey_#{survey.id}_public", survey.public %></td>
-		<td>SCORECARD EMBED/LINK</td>
-		<td>SCORECARD</td>
+		<td><%= link_to 'SCORECARD EMBED/LINK', public_scorecard_account_surveys_path(:code => survey.code)%></td>
+		<td><%= link_to 'SCORECARD', scorecard_account_survey_path(survey)%></td>
 		<td>e.mote LINK</td>
 		<td><%= link_to '[D]', account_survey_path(survey), :method => :delete, :confirm => 'Are you sure?' %></td>
 	</tr>
 	<% end %>
 </table>
 
-<%= link_to 'Create new e.mote', new_account_survey_path %>
+<% if current_user.can_add_scorecard? %>
+	<%= link_to 'Create new e.mote', new_account_survey_path %>
+<% else %>
+	You don't have free slots for new e.mote. Delete one or buy more credits <%= link_to 'here', new_account_subscription_path %>
+<% end %>
