@@ -1,29 +1,29 @@
 <div id="content-win-centr" role="main">
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+  <div id="almost-content">
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+    <span class="big-text">Account Confirmed!</span>
+    <span class="acc_text">
+      <p>Thank you!  Your login ID will be <strong><%= resource.email %></strong>. Please select a secure password for your account (at least 5 digits, case sensitive).</p>
+    </span>
 
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
+   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :id=>"account-confirmation" }) do |f| %>
+    <div class="field">
+      <%= f.label :password, 'New Password:' %>
+      <%= f.password_field :password, :maxlenght=>25, :required=>true %>
+    </div>
 
-  <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password %></p>
+    <div class="field">
+      <%= f.label :password_confirmation, 'New Password (confirm):' %>
+      <%= f.password_field :password_confirmation, :maxlenght=>25, :required=>true %>
+    </div>
 
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
-
-  <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></p>
-
-  <p><%= f.submit "Update" %></p>
-<% end %>
-
-  <%= devise_error_messages! %><%= flash_alert %>
+    <%= devise_error_messages! %><%= flash_alert %>
 
 
+      <div class="setpw">
+        <%= image_submit_tag("setpw_button.png") %>
+      </div>
+    <% end %>
+
+   </div>
 </div>
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>

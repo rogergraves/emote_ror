@@ -39,7 +39,7 @@
 	    <img id="logo" src="/images/emote_logo.png"/>
               <% if user_signed_in? %>
 	    	<div id="menu">
-                  <div id="username">Welcome, <%= current_user.full_name.empty? ? 'dear user' : current_user.full_name %>!</div>
+                  <div id="username">Welcome, <%= current_user.full_name.empty? ? current_user.email : current_user.full_name %>!</div>
                   <div id="buttons">
 
                   <div class="dropdown">

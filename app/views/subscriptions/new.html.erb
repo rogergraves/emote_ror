@@ -10,7 +10,7 @@
 	<p class="pack-price"><%= subscription[:price] %> <%= Country.curr_code_to_symbol(Country.find_by_country_code(session[:geo_location].country_code || 'US')[:currency]) %> / year</p>
 	<p class="pack-description"><%= subscription[:short_desc] %></p>
 	<p class="pack-description"><%= subscription[:long_desc] %></p>
-	<p class="pack-description">Savings: <%= subscription[:savings] %></p>
+	<p class="pack-description"><%= subscription[:savings].blank? ? '' : "Savings: #{subscription[:savings]}" %></p>
         <span class="pack-purchase"><%= link_to image_submit_tag("purchase_button.png"), account_subscriptions_path(:prod_id => subscription[:prod_code]), { :method => :post } %></span>
 	</div>
     <% end %>

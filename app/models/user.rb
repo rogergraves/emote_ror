@@ -77,9 +77,4 @@ class User < ActiveRecord::Base
     scorecards_available > 0
   end
   
-  #Exposes protected method for registration
-  def make_reset_password_token!
-    generate_reset_password_token!
-  end
-
 end
