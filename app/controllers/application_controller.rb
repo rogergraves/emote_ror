@@ -1,5 +1,7 @@
 require 'geokit'
 class ApplicationController < ActionController::Base
+  helper 'application'
+  
   protect_from_forgery
   before_filter :geocode_by_ip
   
