@@ -8,7 +8,7 @@
       <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
         <div>
           <%= f.text_field :email, :class =>'field_forgetpw', :required => true %>
-          <%= image_submit_tag("reset_button.png"%>
+          <%= image_submit_tag("reset_button.png")%>
         </div>
       <% end %>
       <%= devise_error_messages! %>

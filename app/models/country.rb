@@ -22,7 +22,7 @@ class Country
     case code
       when 'USD' : '$'
       when 'EUR' : '€'
-      when 'GPB' : '£'
+      when 'GBP' : '£'
       else '$'
     end
   end

@@ -10,8 +10,6 @@ class AccountsController < ApplicationController
       params[:account].delete(:password)
       params[:account].delete(:password_confirmation)
     end
-    require 'pp'
-    pp params[:account]
     @account = current_user
     if @account.update_attributes params[:account]
        
