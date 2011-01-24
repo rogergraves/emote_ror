@@ -390,28 +390,28 @@ html, body{
 }
 
 .forgetpw-form {
-	float: left;
-	margin-top: 80px;
-	width: 100%;
+    float: left;
+    margin-top: 80px;
+    width: 100%;
     text-align: center;
 }
 
-form .field_forgetpw input[type="email"] {
-	background: #fff;
-	border: 1px solid #000;
+form .field_forgetpw{
+    background: #fff;
+    border: 1px solid #000;
     font-size: 16px;
     width: 245px;
-	height: 22px;
+    height: 22px;
 }
 
 .cs_link a{
-	float: left;
-	margin-top: 105px;
-	font-size: 13px;
-	color: #0006ff;
-	text-decoration: none;
-	width: 100%;
-	text-align: center;
+    float: left;
+    margin-top: 105px;
+    font-size: 13px;
+    color: #0006ff;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
 }
 
 .cs_link a:hover{
