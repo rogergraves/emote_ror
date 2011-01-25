@@ -1,5 +1,5 @@
 <div id="content-win-centr" role="main">
-  <div id="getting-account">
+  <div id="update-info">
       <span class="big-text">Update Personal Information</span>
       <br/>
 
@@ -30,11 +30,6 @@
         </div>
 
         <div class="field">
-          <%= f.label :phone_number, 'Phone:' %>
-          <%= f.telephone_field :phone_number %>
-        </div>
-
-        <div class="field">
           <%= f.label :password, 'Change Password:' %>
           <%= f.password_field :password %>
         </div>
@@ -44,11 +39,18 @@
           <%= f.password_field :password_confirmation %>
         </div>
 
-        <%= errors_for @account %><%= flash_messages %>
+        <div class="field">
+          <%= f.label :phone_number, 'Phone Number:' %>
+          <%= f.telephone_field :phone_number %>
+        </div>
 
-        <p class="create_acc">
-          <%=  image_submit_tag("modify_acc_button.png") %> <%= link_to 'Cancel', root_path %>
-        </p>
+        <div class="error-update">
+          <%= errors_for @account %><%= flash_messages %>
+        </div>
+
+        <div class="create_acc">
+          <%=  image_submit_tag("modify_acc_button.png") %> &nbsp; <%= link_to 'Cancel', root_path %>
+        </div>
 
       <% end %>
 
