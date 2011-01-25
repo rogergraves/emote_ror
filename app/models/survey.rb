@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110118230554
+# Schema version: 20110123204321
 #
 # Table name: surveys
 #
@@ -13,6 +13,7 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  code            :string(20)      not null
+#  action_token    :string(255)
 #
 
 class Survey < ActiveRecord::Base

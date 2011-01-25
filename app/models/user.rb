@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110119020010
+# Schema version: 20110123204321
 #
 # Table name: users
 #
@@ -15,13 +15,11 @@
 #  last_sign_in_at      :datetime
 #  current_sign_in_ip   :string(255)
 #  last_sign_in_ip      :string(255)
-#  first_name           :string(60)
-#  last_name            :string(60)
+#  full_name            :string(100)
 #  country_code         :string(20)
 #  company              :string(60)
 #  job_title            :string(60)
 #  phone_number         :string(25)
-#  cell_number          :string(25)
 #  created_at           :datetime
 #  updated_at           :datetime
 #  confirmation_token   :string(255)

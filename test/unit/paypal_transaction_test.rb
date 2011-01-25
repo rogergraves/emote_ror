@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110118230554
+# Schema version: 20110123204321
 #
 # Table name: paypal_transactions
 #
@@ -15,6 +15,8 @@
 #  customer_email   :string(255)
 #  customer_phone   :string(255)
 #  description      :string(255)
+#  currency         :string(255)     default("USD")
+#  product_code     :string(255)
 #
 
 require 'test_helper'
