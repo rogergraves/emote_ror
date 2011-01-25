@@ -7,9 +7,10 @@
       
       <div class="clearstring"></div>
 
-      <div class="currentsubs"><% @subscriptions.each do |subscription| %>
-          <%= pluralize(subscription.emote_amount, 'ScoreCard') %> until <%= subscription.end_date.strftime('%d %B %Y') %><br />
-    <% end %>
+      <div class="currentsubs">
+        <% @subscriptions.each do |subscription| %>
+          <%= pluralize(subscription.emote_amount, 'ScoreCard') %> until <%= subscription.end_date.strftime('%d %B %Y') %><br/>
+        <% end %>
       </div>
    
       <div class="add_scorecards_button">
@@ -17,7 +18,7 @@
       </div>
 
       <div class="payment_history">
-      <span class="big-text">Payment History</span>
+        <span class="big-text">Payment History</span>
         <div class="payment_history_data">
           <table class="table_data">
             <tr class="table_head">
@@ -29,15 +30,15 @@
             <% @payments.each do |payment| %>
               <tr class="table_cell">
                 <td><%= payment.created_at.strftime('%d-%b-%y') %></td>
-                <% if payment.trial? %>
-                  <td>1 Pack</td>
-                  <td>0.00</td>
-                  <td class="table_cell_right">FREE TRIAL</td>
-                <% else %>
-                  <td><%= payment.transaction.description %></td>
-                  <td><%= number_to_currency(payment.transaction.total, :unit => Country.curr_code_to_symbol(payment.transaction.currency)) %></td>
-                  <td class="table_cell_right"><%= payment.transaction.token %></td>
-                <% end %>
+              <% if payment.trial? %>
+                <td>1 Pack</td>
+                <td>0.00</td>
+                <td class="table_cell_right">FREE TRIAL</td>
+              <% else %>
+                <td><%= payment.transaction.description %></td>
+                <td><%= number_to_currency(payment.transaction.total, :unit => Country.curr_code_to_symbol(payment.transaction.currency)) %></td>
+                <td class="table_cell_right"><%= payment.transaction.token %></td>
+              <% end %>
               </tr>
             <% end %>
           </table>
