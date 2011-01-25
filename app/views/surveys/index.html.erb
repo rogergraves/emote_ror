@@ -35,7 +35,7 @@
 		<td><%= link_to 'SCORECARD EMBED/LINK', public_scorecard_account_surveys_path(:code => survey.code)%></td>
 		<td><%= link_to 'SCORECARD', scorecard_account_survey_path(survey)%></td>
 		<td>e.mote LINK</td>
-		<td><%= link_to '[D]', account_survey_path(survey), :method => :delete, :confirm => 'Are you sure?' %></td>
+		<td><%= link_to '[D]', account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete this e.mote and all collected data.' %></td>
 	</tr>
 	<% end %>
 </table>

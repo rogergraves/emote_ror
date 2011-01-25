@@ -46,7 +46,8 @@
                       <%= link_to raw("<div class=\"button #{(controller.class.name == 'SurveysController' && controller.action_name == 'index') ? 'on' : 'off'}\" id=\"emoteControlButton\" style=\"z-index: 10;position: relative;\"></div>"), root_path %>
                   </div>
 
-                  <div class="dropdown">
+                  <% unless current_user.surveys.empty? %>
+                    <div class="dropdown">
                     <a href="#">
                       <div class="button <%= (controller.class.name == 'SurveysController' && controller.action_name == 'scorecard') ? 'on' : 'off' -%>" id="scoreCardButton" style="z-index: 10;position: relative;">
                       </div>
@@ -59,6 +60,7 @@
                       <% end %>
                     </ul>
                   </div>
+                <% end %>
 
                   <div class="dropdown">
                     <a href="#">

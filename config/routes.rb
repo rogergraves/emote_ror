@@ -3,7 +3,7 @@ EmoteRor::Application.routes.draw do
 
   devise_for :users, :path => "/", :controllers => { :sessions => "user_sessions", :confirmations => "user_confirmations", :registrations => "user_registrations" },
                                    :path_names => { :sign_in => 'login', :sign_out => 'logout', :registration => '/', :sign_up => 'register' }
-  resource :account do
+  resource :account, :only => [:edit, :update] do
     resources :subscriptions do
       collection do
         get 'paypal_success'
