@@ -11,7 +11,7 @@
 	<p class="pack-description"><%= subscription[:short_desc] %></p>
 	<p class="pack-description"><%= subscription[:long_desc] %></p>
 	<p class="pack-description"><%= subscription[:savings].blank? ? '' : "Savings: #{subscription[:savings]}" %></p>
-        <span class="pack-purchase"><%= link_to image_submit_tag("purchase_button.png"), account_subscriptions_path(:prod_id => subscription[:prod_code]), { :method => :post } %></span>
+        <span class="pack-purchase"><%= link_to image_tag("purchase_button.png"), account_subscriptions_path(:prod_id => subscription[:prod_code]), { :method => :post } %></span>
 	</div>
     <% end %>
   </div>
