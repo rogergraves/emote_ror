@@ -1,11 +1,16 @@
 module ApplicationHelper
 
-  def flash_alert
-    return '' if alert.nil? || alert.empty?
+  def flash_messages(opts = {})
+    show_alert = (opts[:alert] || true) && !alert.blank?
+    show_notice = (opts[:notice] || true) && !notice.blank?
+
+    return '' unless show_notice || show_alert
 
     html = <<-HTML
-    <div id="error_explanation">
-      <ul class="errors_list"><li>#{alert}</li></ul>
+    <div id="flash-messages">
+      <ul class="flash-messages-list">
+        #{show_notice ? content_tag(:li, notice, :class => 'notice') : ''} #{show_alert ? content_tag(:li, alert, :class => 'alert') : ''}
+      </ul>
     </div>
     HTML
     html.html_safe
@@ -13,13 +18,12 @@ module ApplicationHelper
 
   def errors_for(ar_instance)
     return '' unless ar_instance.errors.any?
-    messages = ar_instance.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
+    messages = ar_instance.errors.full_messages.map { |msg| content_tag(:li, msg, :class => 'alert') }.join
     html = <<-HTML
-    <div id="error_explanation">
-      <ul class="errors_list">#{messages}</ul>
+    <div id="flash-messages">
+      <ul class="flash-messages-list">#{messages}</ul>
     </div>
     HTML
-
     html.html_safe
   end
 

@@ -44,7 +44,7 @@
           <%= f.password_field :password_confirmation %>
         </div>
 
-        <%= errors_for @account %><%= flash_alert %>
+        <%= errors_for @account %><%= flash_messages %>
 
         <p class="create_acc">
           <%=  image_submit_tag("modify_acc_button.png") %> <%= link_to 'Cancel', root_path %>
