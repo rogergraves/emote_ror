@@ -13,7 +13,7 @@
       </div>
    
       <div class="add_scorecards_button">
-      <%= link_to image_submit_tag("add_scorecards_button.png"), new_account_subscription_path %>
+        <%= link_to image_tag("add_scorecards_button.png"), new_account_subscription_path %>
       </div>
 
       <div class="payment_history">
@@ -27,25 +27,22 @@
               <th>Transaction #</th>
             </tr>
             <% @payments.each do |payment| %>
-            <tr class="table_cell">
-              <td><%= payment.created_at.strftime('%d-%b-%y') %></td>
-              <% if payment.trial? %>
-             
-              <td>1 Pack</td>
-              <td>0.00</td>
-              <td class="table_cell_right">FREE TRIAL</td>
-
-              <% else %>
-
-              <td><%= payment.transaction.description %></td>
-              <td><%= number_to_currency(payment.transaction.total, :unit => Country.curr_code_to_symbol(payment.transaction.currency)) %></td>
-              <td class="table_cell_right"><%= payment.transaction.token %></td>
-              <% end %>
-            </tr>
+              <tr class="table_cell">
+                <td><%= payment.created_at.strftime('%d-%b-%y') %></td>
+                <% if payment.trial? %>
+                  <td>1 Pack</td>
+                  <td>0.00</td>
+                  <td class="table_cell_right">FREE TRIAL</td>
+                <% else %>
+                  <td><%= payment.transaction.description %></td>
+                  <td><%= number_to_currency(payment.transaction.total, :unit => Country.curr_code_to_symbol(payment.transaction.currency)) %></td>
+                  <td class="table_cell_right"><%= payment.transaction.token %></td>
+                <% end %>
+              </tr>
             <% end %>
           </table>
         </div>
     </div>
   </div>
-  <span class="change_info"><a href="#">Change Information on My Account</a></span>
+  <span class="change_info"><%= link_to 'Change Information on My Account', edit_account_path %></span>
 </div>
