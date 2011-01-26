@@ -14,7 +14,7 @@ class SurveysController < ApplicationController
     @survey = Survey.new params[:survey] 
     @survey.user = current_user
     if @survey.save
-        flash[:notice] = 'Emote published'
+        flash[:notice] = 'e.mote was published'
     else
         render :action => 'new'
     end
@@ -36,9 +36,9 @@ class SurveysController < ApplicationController
     #TODO What if .delete will fail? done? sure, sweety, thanx! :P
     begin
       current_user.surveys.find(params[:id]).delete
-      flash[:notice] = 'eMote was deleted'
+      flash[:notice] = 'e.mote was deleted'
     rescue
-      flash[:error] = 'Error deleting eMote'
+      flash[:error] = 'Error deleting e.mote'
     end
     redirect_to :action => 'index'
   end
