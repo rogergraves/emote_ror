@@ -931,6 +931,7 @@ table.table_data{
 #buttons .dropdown ul li{
 	margin-bottom: 10px;
 	margin-left: 5px;
+        text-transform: uppercase;
 }
 
 #buttons .dropdown ul li a{

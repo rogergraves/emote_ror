@@ -3,7 +3,7 @@
       <span class="big-text">All finished!</span>
       <br/>
 
-      <span class="acc_text">You may send people to your e.mote by sending out this link, or have them enter the code DSCP at <a href="http://www.emotethis.com">http://www.emotethis.com</a></span>
+      <span class="acc_text">You may send people to your e.mote by sending out this link, or have them enter the code <strong><%= @survey.code %></strong> at <%= link_to "http://www.emotethis.com", 'http://www.emotethis.com', :target => '_blank' %></span>
 
       <div class="emotelink">
         <%= text_field_tag 'emote_link', @survey.emote_direct_link, :readonly => true, :size => 50 %>

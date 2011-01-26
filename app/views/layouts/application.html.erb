@@ -25,7 +25,7 @@
   <%= csrf_meta_tag %>
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
-  <%= javascript_include_tag 'modernizr-1.6.min.js'  %>
+  <%= javascript_include_tag 'modernizr-1.6.min.js' %>
 
 </head>
 
@@ -60,7 +60,7 @@
                     <ul class="menu-body">
                       <% current_user.surveys.each do |survey| %>
                         <li <%= 'class="active"' if params[:id] == survey.id.to_s -%>>
-                          <%= link_to survey.project_name, scorecard_account_survey_path(survey) %>
+                          <%= link_to truncate(survey.project_name, :length => 15), scorecard_account_survey_path(survey), :title => survey.project_name %>
                         </li>
                       <% end %>
                     </ul>
@@ -77,16 +77,16 @@
                     </a>
                     <ul class="menu-body">
                       <li>
-                        <%= link_to 'CHANGE INFORMATION', edit_account_path %>
+                        <%= link_to 'Change information', edit_account_path %>
                       </li>
                       <li>
-                        <%= link_to 'VIEW ACTIVITY', account_subscriptions_path %>
+                        <%= link_to 'View activity', account_subscriptions_path %>
                       </li>
                       <li>
-                        <%= link_to 'SUBSCRIBE', new_account_subscription_path %>
+                        <%= link_to 'Subscribe', new_account_subscription_path %>
                       </li>
                       <li>
-                        <%= link_to 'LOGOUT', destroy_user_session_path %>
+                        <%= link_to 'Logout', destroy_user_session_path %>
                       </li>
                     </ul>
                     <% if this_active %>
