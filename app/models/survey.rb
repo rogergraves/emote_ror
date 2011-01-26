@@ -18,13 +18,15 @@
 
 class Survey < ActiveRecord::Base
   require 'zlib'
-
+  
   belongs_to :user
   
   validates :user, :presence => true
-  validates :project_name, :presence => true
+  validates :project_name, :presence => true, :uniqueness => {:scope => :user_id}
   validates :code, :presence => true, :uniqueness => true
 
+  alias_attribute :public_scorecard, :public 
+  alias_attribute :short_stimulus, :project_name
   attr_accessible :project_name, :public, :active
   
   before_validation(:on => :create) do
@@ -41,7 +43,7 @@ class Survey < ActiveRecord::Base
     "http://www.emotethis.com/index.php?uid=#{self.code}"
   end
 
-  def emote_embed_link
+  def scorecard_embed_link
     "<iframe src='#{emote_direct_link}'/>" #Approx.
   end
 

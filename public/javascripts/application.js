@@ -1,7 +1,3 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
-
-
 function setContentWin(){
     var el = $("#content-win-centr");
 
@@ -15,9 +11,6 @@ function setContentWin(){
 	el.css({'top' :'50%', 'margin-top' : '-200px'});
     }
 }
-
-
-
 
 $(document).ready(function(){
     setContentWin();
@@ -50,9 +43,7 @@ $(document).ready(function(){
 	}
     );
 
-    $("#survey_new .field input[type='text']").keydown( function() {;
-	$("#input-text").html($(this).val());
-    }).change(function(){
+    $("#survey_new .field input[type='text']").keyup( function(){
 	$("#input-text").html($(this).val());
     });
 });

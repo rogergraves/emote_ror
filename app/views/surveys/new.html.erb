@@ -6,11 +6,12 @@
 		    and focus on experiences that generate emotion:
 	    </div>
 	    <%= form_for @survey, :as => :survey, :url => account_surveys_path, :html => {:method => :post} do |f| %>
-		<div class="field"><%= f.text_field :project_name %></div>
+		<div class="field">
+                  <%= f.text_field :project_name %>
+                </div>
+                <%= errors_for(@survey) %>
 
 		<div id="publish-text" class="big-text">3. Publish e.mote</div>
-
-
 		<div id="publish-button"><%= image_submit_tag("publish_button.png") %> <%= link_to 'Cancel', account_surveys_path %></div>
 	    <% end %>
 	</div>
@@ -20,19 +21,9 @@
 	<div id="internal">
 	    <div class="big-text">2. Preview your e.mote text</div>
 	    <div id="preview-win">
-		<div id="preview-text">Tell us how you felt about your most recent experience with <span id="input-text"></span>.</div>
+		<div id="preview-text">Tell us how you felt about your most recent experience with <span id="input-text"><%= @survey.project_name.blank? ? '[START TYPING e.mote SUBJECT]' : @survey.project_name %></span>.</div>
 	    </div>
 	</div>
     </div>
 </div>
 
-<% if @survey.errors.any? %>  
-  <div id="errorExplanation">  
-    <h2><%= pluralize(@survey.errors.count, "error") %> prohibited this e.mote from being saved:</h2>  
-    <ul>  
-    <% @survey.errors.full_messages.each do |msg| %>  
-      <li><%= msg %></li>  
-    <% end %>  
-    </ul>  
-  </div>  
-<% end %>

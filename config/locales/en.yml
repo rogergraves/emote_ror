@@ -5,3 +5,8 @@ en:
         email: "E-mail address"
         phone_number: "Phone"
         company: "Organization name"
+      survey:
+        project_name: "e.mote subject"
+    errors:
+      messages:
+        taken: "you have specified already exists"

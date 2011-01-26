@@ -1,13 +1,22 @@
-<h3>All finished!</h3>
-<br/>
-<p>
-  You may send people...
-</p>
-<br/>
-<p>
-  <%= text_field_tag 'emote_link', @survey.emote_direct_link, :readonly => true, :size => 50 %>
-  <%= link_to 'Go there', @survey.emote_direct_link, :target => '_blank' %>
-</p>
-<br/>
-<br/>
-<%= link_to 'Go back', account_surveys_path %>
+<div id="content-win-centr" role="main">
+  <div id="almost-content">
+      <span class="big-text">All finished!</span>
+
+      <span class="almost-text">
+        <p>
+          You may send people to your e.mote by sending out this link,
+          or have them enter the code <strong><%= @survey.code %></strong> at <i>http://www.emotethis.com</i>.
+        </p>
+      </span>
+
+      <div style="text-align: center">
+        <div style="vertical-align: middle">
+          <%= text_field_tag 'emote_link', @survey.emote_direct_link, :readonly => true, :size => 50 %>
+          <%= link_to image_tag('emote_link_enabled.png'), @survey.emote_direct_link, :target => '_blank' %>
+        </div>
+        <br/>
+        <br/>
+        <%= link_to 'Go back', account_surveys_path %>
+      </div>
+  </div>
+</div>
