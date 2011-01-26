@@ -1,4 +1,33 @@
-<h3>New emote</h3>
+<div id="content-win-centr2">
+    <div id="win1" class="win">
+	<div id="internal">
+	    <div class="big-text">1. Enter e.mote subject</div>
+
+	    <div class="instruction">Edit the subject (dining, service, etc.). It should be clear and consice (one of three words) 
+		    and focus on experiences that generate emotion:
+	    </div>
+
+	    <%= form_for @survey, :as => :survey, :url => account_surveys_path, :html => {:method => :post} do |f| %>
+		<div class="field"><%= f.text_field :project_name %></div>
+
+		<div id="publish-text" class="big-text">3. Publish e.mote</div>
+
+
+		<div id="publish-button"><%= image_submit_tag("publish_button.png") %> <%= link_to 'Cancel', account_surveys_path %></div>
+	    <% end %>
+	</div>
+    </div>
+
+    <div id="win2" class="win">
+	<div id="internal">
+	    <div class="big-text">2. Preview your e.mote text</div>
+	    <div id="preview-win">
+		<div id="preview-text">Tell us how you felt about your most recent experience with <span id="input-text"></span>.</div>
+	    </div>
+	</div>
+    </div>
+</div>
+
 <% if @survey.errors.any? %>  
   <div id="errorExplanation">  
     <h2><%= pluralize(@survey.errors.count, "error") %> prohibited this e.mote from being saved:</h2>  
@@ -8,8 +37,4 @@
     <% end %>  
     </ul>  
   </div>  
-<% end %>
-<%= form_for @survey, :as => :survey, :url => account_surveys_path, :html => {:method => :post} do |f| %>
-	Enter e.mote subject:<%= f.text_field :project_name %><br/>
-	<%= submit_tag 'Publish' %> <%= link_to 'Cancel', account_surveys_path %>
 <% end %>
