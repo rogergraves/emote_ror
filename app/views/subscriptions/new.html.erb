@@ -9,8 +9,8 @@
 	<p class="pack-title"><%= link_to subscription[:name], account_subscriptions_path(:prod_id => subscription[:prod_code]), { :method => :post } %></p>
 	<p class="pack-price"><%= subscription[:price] %> <%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %> / year</p>
 	<p class="pack-description"><%= subscription[:short_desc] %></p>
-	<p class="pack-description"><%= subscription[:long_desc] %></p>
-	<p class="pack-description"><%= subscription[:savings].blank? ? '' : "Savings: #{subscription[:savings]}" %></p>
+	<p class="pack-description"><%= subscription[:long_desc].gsub('$',Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency])) %></p>
+	<p class="pack-description"><%= subscription[:savings].blank? ? '' : "Savings: #{subscription[:savings].gsub('$',Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]))}" %></p>
         <span class="pack-purchase"><%= link_to image_tag("purchase_button.png"), account_subscriptions_path(:prod_id => subscription[:prod_code]), { :method => :post } %></span>
 	</div>
     <% end %>

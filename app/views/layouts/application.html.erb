@@ -59,7 +59,7 @@
                     </a>
                     <ul class="menu-body">
                       <% current_user.surveys.each do |survey| %>
-                        <li>
+                        <li <%= 'class="active"' if params[:id] == survey.id.to_s -%>>
                           <%= link_to survey.project_name, scorecard_account_survey_path(survey) %>
                         </li>
                       <% end %>

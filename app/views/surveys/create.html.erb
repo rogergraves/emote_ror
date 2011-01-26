@@ -1,22 +1,18 @@
 <div id="content-win-centr" role="main">
-  <div id="almost-content">
+  <div id="allfinished">
       <span class="big-text">All finished!</span>
+      <br/>
 
-      <span class="almost-text">
-        <p>
-          You may send people to your e.mote by sending out this link,
-          or have them enter the code <strong><%= @survey.code %></strong> at <i>http://www.emotethis.com</i>.
-        </p>
-      </span>
+      <span class="acc_text">You may send people to your e.mote by sending out this link, or have them enter the code DSCP at <a href="http://www.emotethis.com">http://www.emotethis.com</a></span>
 
-      <div style="text-align: center">
-        <div style="vertical-align: middle">
-          <%= text_field_tag 'emote_link', @survey.emote_direct_link, :readonly => true, :size => 50 %>
-          <%= link_to image_tag('emote_link_enabled.png'), @survey.emote_direct_link, :target => '_blank' %>
-        </div>
-        <br/>
-        <br/>
-        <%= link_to 'Go back', account_surveys_path %>
+      <div class="emotelink">
+        <%= text_field_tag 'emote_link', @survey.emote_direct_link, :readonly => true, :size => 50 %>
+        <span class="emotelink_img"><%= link_to image_tag("emote_link_enabled.png"), @survey.emote_direct_link, :target => '_blank' %></span>
       </div>
+
+      <div class="goback_btn">
+      <%= link_to image_tag("goback_button.png"), account_surveys_path %>
+      </div>
+
   </div>
 </div>

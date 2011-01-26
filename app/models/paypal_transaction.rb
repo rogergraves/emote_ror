@@ -27,5 +27,5 @@ class PaypalTransaction < ActiveRecord::Base
   validates :subscription, :presence => true
   validates :total, :presence => true, :numericality => true
   validates :token, :presence => true
-  validates :customer_email, :presence => true
+  # validates :customer_email, :presence => true
 end

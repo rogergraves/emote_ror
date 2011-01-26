@@ -453,9 +453,9 @@ form .field_forgetpw{
 /* ------- Account Confirmed page ------- */
 
 .acc_text{
-	float: left;
-	margin: 40px 0 30px 0;
-	font-size: 14px;
+    float: left;
+    margin: 40px 0 30px 0;
+    font-size: 14px;
 }
 
 #account-confirmation .field{
@@ -779,6 +779,46 @@ table.table_data{
     position: absolute;
     margin-left: 200px;
     bottom: 10px;
+}
+
+/* ------- All Finished! page ------- */
+
+#content-win-centr #allfinished{
+    margin-top: 50px;
+    margin-left: 45px;
+    width: 530px;
+    height: 330px;
+}
+
+.emotelink{
+    float:left;
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+#allfinished .emotelink input{
+    border: 1px solid black;
+    padding: 3px 0;
+    font-size: 15px;
+    width: 360px;
+}
+
+.boxshadow #allfinished .emotelink input{
+    -moz-box-shadow: 0px 2px 2px #999999;
+    -webkit-box-shadow: 0px 2px 2px #999999;
+    box-shadow: 0px 2px 2px #999999;
+}
+
+.emotelink_img{
+    float: right;
+    margin-left: 5px;
+}
+
+.goback_btn{
+    float: left;
+    margin-top: 45px;
+    width: 100%;
+    text-align: center;
 }
 
 /* --end-- */
