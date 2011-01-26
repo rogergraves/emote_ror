@@ -4,6 +4,7 @@
 
 function setContentWin(){
     var el = $("#content-win-centr");
+
     var win_height = $(window).height();
     var doc_height = $(document).height();
     if(win_height < doc_height){
@@ -48,4 +49,10 @@ $(document).ready(function(){
 	    $(this).children('a:first').css({'color' : '#aaaaaa'});
 	}
     );
+
+    $("#survey_new .field input[type='text']").keydown( function() {;
+	$("#input-text").html($(this).val());
+    }).change(function(){
+	$("#input-text").html($(this).val());
+    });
 });

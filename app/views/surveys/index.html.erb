@@ -1,28 +1,28 @@
-<%= flash_messages %>
 
-<h3>E.motes</h3>
-
-<b><%= current_user.scorecards_available %> scorecards left</b><br/>
-
-<table>
-	<tr>
-		<td>PROJECT NAME</td>
-		<td>e.mote SCORE</td>
-		<td>START DATE</td>
-		<td>TOTAL e.moters</td>
-		<td>ACTIVE</td>
-		<td>MAKE PUBLIC</td>
-		<td>SCORECARD EMBED/LINK</td>
-		<td>SCORECARD</td>
-		<td>e.mote LINK</td>
-		<td>[]</td>
-	</tr>
+<div id="content-win-control" role="main">
+<div id="area">
+    <table>
+        <caption>e.mote Control</caption>
+        <thead>
+            <tr>
+                <th class="project-name">PROJECT NAME</th>
+                <th>e.mote SCORE</th>
+                <th>START DATE</th>
+                <th>TOTAL e.moters</th>
+                <th>ACTIVE</th>
+                <th>MAKE PUBLIC</th>
+                <th>SCORECARD EMBED/LINK</th>
+                <th>SCORECARD</th>
+                <th>e.mote LINK</th>
+                <th></th>
+            </tr>
+        </thead>
 	<% @surveys.each do |survey| %>
-	<tr>
-		<td><%= survey.project_name %></td>
+	<tr class="<%= cycle('odd','even') -%>">
+		<td class="project-name first-col"><%= survey.project_name %></td>
 		<td><%= survey.score %></td>
-		<td><%= survey.created_at.strftime('%m/%d/%Y') %></td>
-		<td><%= survey.responses_count %></td>
+		<td valign="middle"><%= survey.created_at.strftime('%m/%d/%Y') %></td>
+		<td valign="middle"><%= survey.responses_count %></td>
 		<td>
                   <%= form_for("survey_#{survey.id}_active", :url => account_survey_path(survey), :html => {:method => :put, :id => "survey_#{survey.id}_active_form"}) do |f| %>
                     <%= hidden_field_tag 'property', 'active' %>
@@ -35,16 +35,26 @@
                     <%= check_box_tag "survey_#{survey.id}_public", true, survey.public, :onchange => "$('#survey_#{survey.id}_public_form').submit();" %>
                   <% end %>
 		</td>
-		<td><%= link_to 'SCORECARD EMBED/LINK', public_scorecard_account_surveys_path(:code => survey.code)%></td>
-		<td><%= link_to 'SCORECARD', scorecard_account_survey_path(survey)%></td>
-		<td>e.mote LINK</td>
-		<td><%= link_to '[D]', account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete this e.mote and all collected data.' %></td>
+		<td>
+		<%= link_to image_tag('get_code_button.png'), public_scorecard_account_surveys_path(:code => survey.code)%></td>
+		<td><%= link_to image_tag('open_button.png'), scorecard_account_survey_path(survey)%></td>
+		<td><a href="#"><img src="/images/emote_link_enabled.png"/></a></td>
+		<td class="last-col"><%= link_to image_tag('trash_icon.png'), account_survey_path(survey), :method => :delete, :confirm => 'Are you sure?' %></td>
 	</tr>
 	<% end %>
-</table>
+    </table>
 
-<% if current_user.can_add_scorecard? %>
-	<%= link_to 'Create new e.mote', new_account_survey_path %>
-<% else %>
-	You don't have free slots for new e.mote. Delete one or buy more credits <%= link_to 'here', new_account_subscription_path %>
-<% end %>
+    <div id="create-emote">
+    <% if current_user.can_add_scorecard? %>
+	<%= link_to image_tag('create-emote_button.png'), new_account_survey_path %> 
+	<div id="add-scorecard">
+	    You currently are subscribed to <%= current_user.scorecards_available %> ScoreCards. <%= link_to 'Click here', new_account_subscription_path %> to add more to your account.
+	</div>
+    <% else %>
+	<div id="scorecard-limit">
+	    You don't have free slots for new e.mote. Delete one or buy more credits <%= link_to 'here', new_account_subscription_path %>
+	</div>
+    <% end %>
+    </div>
+</div>
+</div>

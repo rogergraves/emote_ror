@@ -15,7 +15,7 @@ namespace :dev_test do
   desc "Adds products of all types to a specified user"
   task :add_all_products, :user_id, :needs => :environment do |t, args|
     throw "ERROR: user_id not supplied!" if args.user_id.nil?
-    user = User.find_by_email('dev@zangzing.com') || raise("User not found")
+    user = User.find(args.user_id) || raise("User not found")
     username = user.full_name.blank? ? user.email : user.email
 
     Subscription::OPTIONS.each do |subscr_type|

@@ -13,7 +13,7 @@
 /*
   html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)
   v1.6.1 2010-09-17 | Authors: Eric Meyer & Richard Clark
-  html5doctor.com/html-5-reset-stylesheet/
+  html5doctor.com/html-5-reset-stylesheet/getting-account
 */
 
 html, body, div, span, object, iframe,
@@ -500,6 +500,11 @@ form .field_forgetpw{
     color: #009900;
 }
 
+#flash-messages .error_update{
+    margin: 0px;
+    border: 1px solid blue;
+}
+
 .setpw {
 	position: absolute;
 	top: 280px;
@@ -727,6 +732,55 @@ table.table_data{
     bottom: 43px;
 }
 
+/* ------- Update Personal Information page ------- */
+
+#content-win-centr #update-info{
+    margin-top: 15px;
+    margin-left: 45px;
+}
+
+#update-info form{
+    margin-top: 10px;
+}
+
+#update-info .field{
+    clear:both;
+}
+
+#update-info .field label{
+    font-size: 15px;
+    float:left;
+    width: 210px;
+    margin-left: 50px;
+    margin-bottom: 12px;
+    margin-top: 2px;
+}
+
+#update-info .field input{
+    border: 1px solid black;
+    font-size: 18px;
+    width: 245px;
+}
+
+.boxshadow #update-info .field input{
+    -moz-box-shadow: 0px 2px 2px #999999;
+    -webkit-box-shadow: 0px 2px 2px #999999;
+    box-shadow: 0px 2px 2px #999999;
+}
+
+.error-update{
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin-top: -20px;
+}
+
+.create_acc{
+    position: absolute;
+    margin-left: 200px;
+    bottom: 10px;
+}
+
 /* --end-- */
 
 #forfooter{
@@ -897,6 +951,208 @@ table.table_data{
 /* EOF Top menu */
 
 
+/* ------- Control page ------- */
+#content-win-control{
+    top: 50%;
+    margin-top: -215px;
+    border: 17px solid #dedede;
+    width: 1100px;
+    height: 430px;
+    margin-left: -550px;
+    position: absolute;
+    left: 50%;
+    background-color: white;
+    overflow: auto;
+}
+
+.borderradius #content-win-control{
+    border-radius: 60px;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+}
+
+#content-win-control #area{
+    width: 1060px;
+    margin-right: auto;
+    margin-left: auto;
+    overflow: auto;
+    height: 410px;
+    margin-top: 13px;
+}
+
+#content-win-control table{
+    width: 100%;
+}
+
+#content-win-control table thead th{
+    font-size: 10px;
+    font-weight: normal;
+}
+
+#content-win-control table td{
+    text-align: center;
+    font-size: 16px;
+}
+
+
+#content-win-control table tr{
+    border-bottom: 3px solid white;
+}
+
+
+#content-win-control table .project-name{
+    text-align: left;
+    max-width: 100px;
+    padding-left: 5px;
+}
+
+
+#content-win-control table caption{
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+
+#content-win-control table td{
+    vertical-align: middle;
+}
+
+#content-win-control table .odd td{
+    background: #ededed;
+}
+
+.borderradius #content-win-control table .first-col{
+    border-radius: 6px 0 0 6px;
+    -webkit-border-radius: 6px 0 0 6px;
+    -moz-border-radius: 6px 0 0 6px;
+}
+
+.borderradius #content-win-control table .last-col{
+    border-radius: 0 6px 6px 0;
+    -webkit-border-radius: 0 6px 6px 0;
+    -moz-border-radius: 0 6px 6px 0;
+}
+
+
+#content-win-control table .even td{
+    background: #fafafa;
+}
+
+#content-win-control #create-emote{
+    margin-top: 20px;
+}
+
+#content-win-control #create-emote #add-scorecard{
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+/* ------- EOF Control page ------- */
+
+/* ------- Create e.mote Page ------ */
+#content-win-centr2{
+    top: 50%;
+    margin-top: -205px;
+/*    border: 17px solid #dedede; */
+    width: 1100px;
+    height: 410px;
+    margin-left: -550px;
+    position: absolute;
+    left: 50%;
+}
+
+#content-win-centr2 .win{
+    height: 100%;
+    width: 510px;
+    border: 17px solid #dedede;
+    background-color: white;
+}
+
+.borderradius #content-win-centr2 .win{
+    border-radius: 60px;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+}
+
+#content-win-centr2 #win1 #internal, #content-win-centr2 #win2 #internal{
+    margin-top: 35px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+#content-win-centr2 #win1 .instruction{
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+#content-win-centr2 #win1 .field{
+    text-align: center;
+}
+
+#content-win-centr2 #win1 .field input{
+    border: 1px solid black;
+    font-size: 18px;
+    width: 220px;
+}
+
+.boxshadow #content-win-centr2 #win1 .field input{
+    -moz-box-shadow: 0px 2px 2px #999999;
+    -webkit-box-shadow: 0px 2px 2px #999999;
+    box-shadow: 0px 2px 2px #999999;
+}
+
+#content-win-centr2 #win1 #publish-text{
+    margin-top: 130px;
+}
+
+#content-win-centr2 #win1 #publish-button{
+    margin-top: 25px;
+    text-align: center;
+}
+
+#content-win-centr2 #win1 #publish-button a{
+    margin-left: 10px;
+}
+
+#content-win-centr2 #win1{
+    float: left;
+}
+
+#content-win-centr2 #win2{
+    float: right;
+}
+
+#content-win-centr2 #win2 #preview-win{
+    height: 250px;
+    width: 380px;
+    border: 7px solid #9cb3c5;
+    background-color: #003882;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#content-win-centr2 #win2 #preview-text{
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 80px;
+}
+
+#content-win-centr2 #win2 #input-text{
+    font-weight: bold;
+}
+
+.borderradius #content-win-centr2 #win2 #preview-win{
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+}
+
+    
+/* ------ EOF Create e.mote Page ---- */
 
 /*
  * media queries for responsive design
