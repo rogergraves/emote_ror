@@ -6,8 +6,8 @@ class UserConfirmationsController < Devise::ConfirmationsController
 
     if resource.errors.empty?
       set_flash_message :notice, :confirmed
-      #sign_in_and_redirect(resource_name, resource)
-      self.resource.make_reset_password_token!
+      session[:"#{resource_name}_return_to"] = edit_registration_path(resource_name)
+      sign_in_and_redirect(resource_name, resource)
     else
       render_with_scope :new
     end

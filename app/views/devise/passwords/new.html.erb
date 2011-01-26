@@ -6,13 +6,11 @@
 
     <div class="forgetpw-form">
       <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-        <div>
           <%= f.text_field :email, :class =>'field_forgetpw', :required => true %>
-          <%= image_submit_tag("reset_button.png"%>
-        </div>
+          <%= image_submit_tag("reset_button.png")%>
       <% end %>
-      <%= devise_error_messages! %>
     </div>
+    <%= devise_error_messages! %>
 
     <span class="cs_link"><a href="mailto:support@inspirationengine.com">Click here to email our customer support.</a></span>
   </div>

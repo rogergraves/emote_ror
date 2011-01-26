@@ -36,47 +36,56 @@
     <div id="before-header">&nbsp;</div>
 
         <div id="header">
-	    <img id="logo" src="/images/emote_logo.png">
-			<% if user_signed_in? %>
+	    <img id="logo" src="/images/emote_logo.png"/>
+              <% if user_signed_in? %>
 	    	<div id="menu">
-				<div id="username">Welcome, <%= current_user.full_name %></div>
-				<div id="buttons">
+                  <div id="username">Welcome, <%= current_user.full_name.blank? ? current_user.email : current_user.full_name %>!</div>
+                  <div id="buttons">
 
-		    		<div class="dropdown">
-						<%= link_to raw("<div class=\"button #{(controller.class.name == 'SurveysController' && controller.action_name == 'index') ? 'on' : 'off'}\" id=\"emoteControlButton\" style=\"z-index: 10;position: relative;\"></div>"), root_path %>
-		    		</div>
+                  <div class="dropdown">
+                      <%= link_to raw("<div class=\"button #{(controller.class.name == 'SurveysController' && controller.action_name == 'index') ? 'on' : 'off'}\" id=\"emoteControlButton\" style=\"z-index: 10;position: relative;\"></div>"), root_path %>
+                  </div>
 
-		    		<div class="dropdown">
-						<a href="#"><div class="button <%= (controller.class.name == 'SurveysController' && controller.action_name == 'scorecard') ? 'on' : 'off' -%>" id="scoreCardButton" style="z-index: 10;position: relative;"></div></a>
-            	    	<ul class="menu-body">
-							<% current_user.surveys.each do |survey| %>
-								<li>
-									<%= link_to survey.project_name, scorecard_account_survey_path(survey) %>
-								</li>
-							<% end %>
-        				</ul>
-		    		</div>
+                  <% unless current_user.surveys.empty? %>
+                    <div class="dropdown">
+                    <a href="#">
+                      <div class="button <%= (controller.class.name == 'SurveysController' && controller.action_name == 'scorecard') ? 'on' : 'off' -%>" id="scoreCardButton" style="z-index: 10;position: relative;">
+                      </div>
+                    </a>
+                    <ul class="menu-body">
+                      <% current_user.surveys.each do |survey| %>
+                        <li>
+                          <%= link_to survey.project_name, scorecard_account_survey_path(survey) %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
 
-		    		<div class="dropdown">
-						<a href="#"><div class="button <%= (controller.class.name == 'AccountsController' || controller.class.name == 'SubscriptionsController') ? 'on' : 'off' -%>" id="myAccount" style="z-index: 10;position: relative;"></div></a>
-            	    	<ul class="menu-body">
-        		    		<li>
-								<%= link_to 'CHANGE INFORMATION', edit_account_path %>
-							</li>
-        		    		<li>
-								<%= link_to 'VIEW ACTIVITY', account_subscriptions_path %>
-							</li>
-        		    		<li>
-								<%= link_to 'SUBSCRIBE', new_account_subscription_path %>
-							</li>
-        				</ul>
-						<div class="arrow"><img src="/images/buttons/econtrol_arrow.png"></div>
-		    		</div>
+                  <div class="dropdown">
+                    <a href="#">
+                      <div class="button <%= (controller.class.name == 'AccountsController' || controller.class.name == 'SubscriptionsController') ? 'on' : 'off' -%>" id="myAccount" style="z-index: 10;position: relative;"></div>
+                    </a>
+                    <ul class="menu-body">
+                      <li>
+                        <%= link_to 'CHANGE INFORMATION', edit_account_path %>
+                      </li>
+                      <li>
+                        <%= link_to 'VIEW ACTIVITY', account_subscriptions_path %>
+                      </li>
+                      <li>
+                        <%= link_to 'SUBSCRIBE', new_account_subscription_path %>
+                      </li>
+                      <li>
+                        <%= link_to 'LOGOUT', destroy_user_session_path %>
+                      </li>
+                    </ul>
+                    <div class="arrow"><img src="/images/buttons/econtrol_arrow.png"/></div>
+                  </div>
 
-				</div>
-	    	</div>
-			<% end %>
-	
+                  </div>
+                  </div>
+              <% end %>
 	</div>
 
       <%= yield %>

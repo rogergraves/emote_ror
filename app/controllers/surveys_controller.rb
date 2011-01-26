@@ -33,12 +33,12 @@ class SurveysController < ApplicationController
   end
   
   def destroy
-    #TODO What if .delete will fail? done?
+    #TODO What if .delete will fail? done? sure, sweety, thanx! :P
     begin
       current_user.surveys.find(params[:id]).delete
-      flash[:notice] = 'Emote deleted'
+      flash[:notice] = 'eMote was deleted'
     rescue
-      flash[:error] = 'Emote was not deleted'
+      flash[:error] = 'Error deleting eMote'
     end
     redirect_to :action => 'index'
   end
@@ -46,7 +46,7 @@ class SurveysController < ApplicationController
   def scorecard
     @survey = current_user.surveys.find(params[:id])
     redirect_to root_path if @survey.nil?
-    @survey.action_token = Digest::MD5.hexdigest(@survey.id.to_s+@survey.code+Time.now.to_s)
+    @survey.action_token = Digest::MD5.hexdigest("#{@survey.id}-==-#{@survey.code}-=-#{Time.now}")
     @survey.save!
   end
   

@@ -17,7 +17,7 @@ class SubscriptionsController < ApplicationController
     session[:selected_subscription_code] = params[:prod_id]
     subscription_obj = Subscription::OPTIONS.select{|s| s[:prod_code] == params[:prod_id]}.first rescue Subscription::OPTIONS.last
     price = subscription_obj[:price]
-    currency = Country.find_by_country_code(session[:geo_location].country_code || 'US')[:currency]
+    currency = Country.find_by_country_code(current_user.country_code || 'US')[:currency]
     response = EXPRESS_GATEWAY.setup_purchase(
         price * 100, # convert to cents
         :ip                => request.remote_ip,

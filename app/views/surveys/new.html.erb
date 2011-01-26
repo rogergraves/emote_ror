@@ -2,11 +2,9 @@
     <div id="win1" class="win">
 	<div id="internal">
 	    <div class="big-text">1. Enter e.mote subject</div>
-
 	    <div class="instruction">Edit the subject (dining, service, etc.). It should be clear and consice (one of three words) 
 		    and focus on experiences that generate emotion:
 	    </div>
-
 	    <%= form_for @survey, :as => :survey, :url => account_surveys_path, :html => {:method => :post} do |f| %>
 		<div class="field"><%= f.text_field :project_name %></div>
 
