@@ -27,3 +27,4 @@ EmoteRor::Application.configure do
   
 end
 
+SURVEY_STORAGE_PATH = "#{RAILS_ROOT}/tmp/surveys/"
