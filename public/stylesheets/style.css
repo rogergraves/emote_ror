@@ -652,11 +652,12 @@ table.table_data{
 /* ------- Subscriptions page ------- */
 
 #content-win-centr #subscription-content{
-    margin-top: 30px;
+    margin-top: 20px;
     margin-left: 30px;
     width: 565px;
     height: 350px;
     float: left;
+
 }
 
 .one-pack{
@@ -729,7 +730,14 @@ table.table_data{
 .pack-purchase {
     position: absolute;
     margin-left: 17px;
-    bottom: 43px;
+    bottom: 53px;
+}
+
+.subscr_order{
+    width: 565px;
+    margin-left: 30px;
+    float: left;
+    text-align: center;
 }
 
 /* ------- Update Personal Information page ------- */
@@ -819,6 +827,40 @@ table.table_data{
     margin-top: 45px;
     width: 100%;
     text-align: center;
+}
+
+/* ------- ScoreCard page ------- */
+
+#container #content-win-centr-scorecard{
+    position: absolute;
+    width: 100%;
+    height: 78%;
+}
+
+#content-win-centr-scorecard #scorecard-content{
+    float: left;
+    height: 85%;
+    width: 100%;
+    text-align: center;
+}
+
+.survey-title{
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    height: 25px;
+    padding-top: 10px;
+}
+
+#content-win-centr-scorecard .scorecard-text-layer{
+    clear: both;
+    width: 1140px;
+    height: 35px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 5px;
+    text-align: left;
 }
 
 /* --end-- */
