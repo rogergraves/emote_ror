@@ -69,3 +69,4 @@ EmoteRor::Application.configure do
     :enable_starttls_auto => false
   }
 end
+SURVEY_STORAGE_PATH = '/var/www/surveys/'
