@@ -12,11 +12,8 @@ class AccountsController < ApplicationController
     end
     @account = current_user
     if @account.update_attributes params[:account]
-       
-    else
-      
+       flash[:notice] = 'Account information successfuly saved'
     end
-    
     render :action => 'edit'
   end
 end
