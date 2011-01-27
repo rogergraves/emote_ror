@@ -8,6 +8,6 @@
   <p><%= f.submit "Resend confirmation instructions" %></p>
 <% end %>
 
-  <%= devise_error_messages! %><%= flash_messages %>
+  <%= errors_for(resource) %><%= flash_messages %>
 
 </div>

@@ -10,7 +10,7 @@
           <%= image_submit_tag("reset_button.png")%>
       <% end %>
     </div>
-    <%= devise_error_messages! %>
+    <%= errors_for(resource) %>
 
     <span class="cs_link"><a href="mailto:support@inspirationengine.com">Click here to email our customer support.</a></span>
   </div>

@@ -17,7 +17,7 @@
       <%= f.password_field :password_confirmation, :maxlenght=>25, :required=>true %>
     </div>
 
-    <%= devise_error_messages! %><%= flash_messages %>
+    <%= errors_for(resource) %><%= flash_messages %>
 
 
       <div class="setpw">
