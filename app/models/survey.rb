@@ -40,7 +40,7 @@ class Survey < ActiveRecord::Base
   end
 
   def emote_direct_link
-    "http://www.emotethis.com/index.php?uid=#{self.code}"
+    "http://www.emotethis.com/browser/index.php?uid=#{self.code}"
   end
 
   def scorecard_embed_link

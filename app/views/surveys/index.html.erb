@@ -1,3 +1,5 @@
+<% content_for :footer_js, javascript_include_tag('jquery-ui-1.8.9.custom.min.js', 'emote_control.js') %>
+<% content_for :head_css, stylesheet_link_tag('jquery-ui-1.8.9.custom.css') %>
 
 <div id="content-win-control" role="main">
 <div id="area">
@@ -46,7 +48,7 @@
         </td>
         <td>
           <% if survey.public_scorecard %>
-            <%= link_to image_tag('get_code_button.png'), public_scorecard_account_surveys_path(:code => survey.code)%></td>
+            <%= link_to image_tag('get_code_button.png'), '#', :onclick => "showLinks('#{public_scorecard_account_surveys_url(:code => survey.code)}');" %></td>
           <% else %>
             <%= image_tag('get_code_button-disabled.png') %>
           <% end %>
@@ -80,4 +82,13 @@
     <% end %>
   </div>
 </div>
+</div>
+
+<div id="links-dialog">
+  <p>Paste link in <strong>email</strong> or <strong>IM</strong>:</p>
+  <%= text_field_tag 'scorecard_direct_link', 'scorecard_direct_link', :readonly => true, :size => 60 %>
+  <br/>
+  <br/>
+  <p>Paste this HTML to embed in website:</p>
+  <%= text_field_tag 'scorecard_embed_link', 'scorecard_embed_link', :readonly => true, :size => 60 %>
 </div>

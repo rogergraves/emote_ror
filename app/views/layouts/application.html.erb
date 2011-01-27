@@ -22,10 +22,12 @@
 
   <!-- CSS : implied media="all" -->
   <%= stylesheet_link_tag 'style.css?v=2', :media => :all %>
+  <%= content_for :head_css %>
   <%= csrf_meta_tag %>
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
   <%= javascript_include_tag 'modernizr-1.6.min.js' %>
+  <%= content_for :head_js %>
 
 </head>
 
@@ -112,8 +114,10 @@
 
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <%= javascript_include_tag :defaults  %>
+  <%= content_for :footer_js %>
+
   <!--[if lt IE 7 ]>
-	<%= javascript_include_tag 'dd_belatedpng.js'  %>
+    <%= javascript_include_tag 'dd_belatedpng.js'  %>
     <script>DD_belatedPNG.fix('img, .png_bg'); // Fix any <img> or .png_bg bg-images. Also, please read goo.gl/mZiyb </script>
   <![endif]-->
   <script language="javascript" type="text/javascript">
