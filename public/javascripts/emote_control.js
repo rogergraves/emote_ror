@@ -2,7 +2,7 @@ $(document).ready(function() {
     $('#links-dialog').dialog({
         title: 'Links to ScoreCard',
         autoOpen: false,
-        closeOnEscape: false,
+        closeOnEscape: true,
         modal: true,
         width: 400
     });
