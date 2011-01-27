@@ -12,6 +12,18 @@ namespace :dev_test do
     puts "\n\nDone"
   end
 
+  desc "Deletes specified user and all connected data"
+  task :vanish_user, :user_id, :needs => :environment do |t, args|
+    throw "ERROR: user_id not supplied!" if args.user_id.nil?
+    users = User.find(args.user_id.split(/;/)) || raise("User(s) not found")
+    users = [users] unless users.is_a?(Array)
+    users.each do |user|
+      puts "Deleting #{user.email}..."
+      user.destroy
+    end
+    puts "\nDone"
+  end
+
   desc "Adds products of all types to a specified user"
   task :add_all_products, :user_id, :needs => :environment do |t, args|
     throw "ERROR: user_id not supplied!" if args.user_id.nil?
