@@ -73,7 +73,7 @@
     <% if current_user.can_add_scorecard? %>
         <%= link_to image_tag('create-emote_button.png'), new_account_survey_path %>
         <div id="add-scorecard">
-            You currently are subscribed to <%= current_user.scorecards_available %> ScoreCards. <%= link_to 'Click here', new_account_subscription_path %> to add more to your account.
+            You can add up to <%= pluralize(current_user.scorecards_available, 'more ScoreCard') %> with your current subscriptions. <%= link_to 'Click here', new_account_subscription_path %> to add more to your account.   
         </div>
     <% else %>
         <div id="scorecard-limit">
