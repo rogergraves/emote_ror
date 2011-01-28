@@ -13,6 +13,7 @@ class SurveysController < ApplicationController
   def create
     @survey = Survey.new params[:survey] 
     @survey.user = current_user
+    @survey.active = true
     if @survey.save
         flash[:notice] = 'e.mote was published'
     else
