@@ -15,7 +15,6 @@
         <th>ACTIVE</th>
         <th>MAKE PUBLIC</th>
         <th>SCORECARD EMBED/LINK</th>
-        <th>SCORECARD</th>
         <th>e.mote LINK</th>
         <th></th>
       </tr>
@@ -23,7 +22,11 @@
     <% @surveys.each do |survey| %>
       <tr class="<%= cycle('odd','even') %>">
         <td class="project-name first-col">
-          <%= survey.project_name %>
+          <% if survey.active %>
+            <%= link_to survey.project_name, survey.emote_direct_link, :target => 'emotepreview'%>
+          <% else %>
+            <%= survey.project_name %>
+          <% end %>
         </td>
         <td>
           <%= survey.score %>
@@ -53,11 +56,8 @@
             <%= image_tag('get_code_button-disabled.png') %>
           <% end %>
         <td>
-          <%= link_to image_tag('open_button.png'), scorecard_account_survey_path(survey)%>
-        </td>
-        <td>
           <% if survey.active %>
-            <%= link_to image_tag('emote_link_enabled.png'), survey.emote_direct_link, :target => 'emotepreview'%>
+            <%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), survey.emote_direct_link, :target => 'emotepreview', :title => 'Go to e.mote™'%>
           <% else %>
             <%= image_tag('emote_link_disabled.png') %>
           <% end %>
