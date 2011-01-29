@@ -832,7 +832,7 @@ table.table_data{
 /* ------- ScoreCard page ------- */
 
 #container #content-win-centr-scorecard{
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 78%;
 }
@@ -898,7 +898,7 @@ table.table_data{
 }
 
 #content-win-centr #getting-account{
-    margin-top: 50px;
+    margin-top: 30px;
     margin-left: 45px;
 }
 
@@ -914,7 +914,6 @@ table.table_data{
     font-size: 16px;
     float:left;
     width: 210px;
-    margin-left: 50px;
     margin-bottom: 12px;
     margin-top: 5px;
 }
@@ -922,13 +921,30 @@ table.table_data{
 #getting-account .field input{
     border: 1px solid black;
     font-size: 18px;
-    width: 245px;
+    width: 300px;
 }
 
-.boxshadow #getting-account .field input{
+#getting-account .field select{
+    border: 1px solid black;
+    font-size: 18px;
+    width: 300px;
+}
+
+.boxshadow #getting-account .field input, select{
     -moz-box-shadow: 0px 2px 2px #999999;
     -webkit-box-shadow: 0px 2px 2px #999999;
     box-shadow: 0px 2px 2px #999999;
+}
+
+.star_note {
+    float: left;
+    margin-top: 8px;
+    text-align: left;
+}
+
+.getting-started_errors{
+    width: 510px;
+    padding-top: 12px;
 }
 
 /* Top menu */

@@ -22,12 +22,7 @@
 
         <div class="field">
           <%= f.label :email, 'Email Address:' %>
-          <%= f.text_field :email %>*
-        </div>
-
-        <div class="field">
-          <%= f.label :country_code, 'Country:' %>
-          <%= f.select :country_code, options_for_select( Country::LIST.collect {|c| [c[:name], c[:iso]]}, session[:geo_location].country_code) %>
+          <%= f.text_field :email %>&nbsp;&lowast;
         </div>
 
         <div class="field">
@@ -35,14 +30,19 @@
           <%= f.telephone_field :phone_number %>
         </div>
 
+        <div class="field">
+          <%= f.label :country_code, 'Country:' %>
+          <%= f.select :country_code, options_for_select( Country::LIST.collect {|c| [c[:name], c[:iso]]}, session[:geo_location].country_code) %>
+        </div>
+
+        <span class="star_note">&lowast; A valid working email address is required</span>
+
         <p class="create_acc">
-          <%=  image_submit_tag("create_acc_button.png") %> <%= link_to 'Cancel', root_path %>
+          <%=  image_submit_tag("create_acc_button.png") %>&nbsp;&nbsp;&nbsp; <%= link_to 'Cancel', root_path %>
         </p>
-        <p align="center">* A valid working email address is required</p>
 
       <% end %>
 
-<%= errors_for(resource) %><%= flash_messages %>
-
+        <div class="getting-started_errors"><%= errors_for(resource) %><%= flash_messages %></div>
 </div>
 </div>
