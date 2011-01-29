@@ -1,8 +1,8 @@
 module ApplicationHelper
 
   def flash_messages(opts = {})
-    show_alert = (opts[:alert] || true) && !alert.blank?
-    show_notice = (opts[:notice] || true) && !notice.blank?
+    show_alert = (opts.has_key?(:alert) ? opts[:alert] : true) && !alert.blank?
+    show_notice = (opts.has_key?(:notice) ? opts[:notice] : true) && !notice.blank?
 
     return '' unless show_notice || show_alert
 

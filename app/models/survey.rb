@@ -42,7 +42,7 @@ class Survey < ActiveRecord::Base
       begin
         File.delete("#{SURVEY_STORAGE_PATH}#{self.code}.xml")
       rescue
-        # i'm sleeping, need to add something here later
+        #TODO i'm sleeping, need to add something here later
       end
     end
   end
