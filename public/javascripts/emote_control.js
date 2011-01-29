@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#links-dialog').dialog({
+    $('#links-dialog').removeAttr('style').dialog({
         title: 'Links to ScoreCard',
         autoOpen: false,
         closeOnEscape: true,
