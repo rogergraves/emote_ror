@@ -37,7 +37,7 @@
       <div class="big-text">No Account?</div>
       <div class="medium-text">No Problem.</div>
     </div>
-    <img src="images/right_arrow.png"/>
+    <%= link_to image_tag('right_arrow.png'), new_registration_path(resource_name), :title =>'Create an account' %>
     <div id="create-one">
       <%= link_to 'Create One', new_registration_path(resource_name), :class => 'big-text' %>
       <div class="medium-text">It's easy, we swear.</div>
