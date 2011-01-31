@@ -26,6 +26,7 @@
 				"height", "100%",
 				"align", "middle",
 				"id", "main",
+				'wmode', 'opaque',
 				"quality", "high",
 				"bgcolor", "#ffffff",
 				"name", "main",
@@ -41,6 +42,7 @@
 					"height", "100%",
 					"align", "middle",
 					"id", "main",
+					'wmode', 'opaque',
 					"quality", "high",
 					"bgcolor", "#ffffff",
 					"name", "main",
@@ -63,6 +65,7 @@
 					<param name="movie" value="/fx/main.swf?survey="+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" />
 					<param name="quality" value="high" />
 					<param name="bgcolor" value="#ffffff" />
+					<param name="wmode" value="opaque" />
 					<param name="allowScriptAccess" value="sameDomain" />
 					<embed src="main.swf?survey="+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" quality="high" bgcolor="#ffffff"
 						width="1140" height="100%" name="main" align="middle"
