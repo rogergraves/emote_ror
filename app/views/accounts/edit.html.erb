@@ -1,6 +1,6 @@
 <div id="content-win-centr" role="main">
   <div id="update-info">
-      <span class="big-text">Update Personal Information</span>
+      <span class="big-text">Account Information</span>
       <br/>
 
       <%= form_for(@account, :as => :account, :url => account_path) do |f| %>
@@ -25,6 +25,11 @@
         </div>
 
         <div class="field">
+          <%= f.label :phone_number, 'Phone:' %>
+          <%= f.telephone_field :phone_number %>
+        </div>
+
+        <div class="field">
           <%= f.label :country_code, 'Country:' %>
           <%= f.select :country_code, options_for_select( Country::LIST.collect {|c| [c[:name], c[:iso]]}, @account.country_code || session[:geo_location].country_code) %>
         </div>
@@ -32,16 +37,6 @@
         <div class="field">
           <%= f.label :password, 'Change Password:' %>
           <%= f.password_field :password %>
-        </div>
-
-        <div class="field">
-          <%= f.label :password_confirmation, 'Password (verify):' %>
-          <%= f.password_field :password_confirmation %>
-        </div>
-
-        <div class="field">
-          <%= f.label :phone_number, 'Phone Number:' %>
-          <%= f.telephone_field :phone_number %>
         </div>
 
         <div class="error-update">

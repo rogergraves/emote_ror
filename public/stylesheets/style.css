@@ -748,7 +748,7 @@ table.table_data{
 }
 
 #update-info form{
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 #update-info .field{
@@ -759,18 +759,29 @@ table.table_data{
     font-size: 15px;
     float:left;
     width: 210px;
-    margin-left: 50px;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     margin-top: 2px;
 }
 
 #update-info .field input{
     border: 1px solid black;
     font-size: 18px;
-    width: 245px;
+    width: 300px;
 }
 
 .boxshadow #update-info .field input{
+    -moz-box-shadow: 0px 2px 2px #999999;
+    -webkit-box-shadow: 0px 2px 2px #999999;
+    box-shadow: 0px 2px 2px #999999;
+}
+
+#update-info .field select{
+    border: 1px solid black;
+    font-size: 18px;
+    width: 300px;
+}
+
+.boxshadow #update-info .field input, select{
     -moz-box-shadow: 0px 2px 2px #999999;
     -webkit-box-shadow: 0px 2px 2px #999999;
     box-shadow: 0px 2px 2px #999999;
