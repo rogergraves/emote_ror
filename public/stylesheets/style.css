@@ -579,7 +579,7 @@ form .field_forgetpw{
 
 .payment_history{
     float: left;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .payment_history_data{
@@ -599,7 +599,7 @@ table.table_data{
     border: 1px solid #dbdcdd;
     border-bottom: 1px solid #000;
     text-align: left;
-    padding: 0 2px;
+    padding: 0 5px;
 }
 
 .cell_underline th{
@@ -607,6 +607,12 @@ table.table_data{
 }
 
 .table_cell td{
+    border: 1px solid #dbdcdd;
+}
+
+.table_cell_left td{
+    text-align: left;
+    padding-left: 5px;
     border: 1px solid #dbdcdd;
 }
 

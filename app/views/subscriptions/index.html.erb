@@ -1,20 +1,22 @@
 <div id="content-win-centr" role="main">
   <div id="viewactivity-content">
-   <span class="big-text">Current Subscriptions</span>
-      <div class="total_cards">
-        <%= pluralize(current_user.scorecards_total, 'Total ScoreCard') %>
-      </div>
-      
-      <div class="clearstring"></div>
+   <span class="big-text">Account Activity</span>
 
-      <div class="currentsubs">
-        <% @subscriptions.each do |subscription| %>
-          <%= pluralize(subscription.emote_amount, 'ScoreCard') %> until <%= subscription.end_date.strftime('%d %B %Y') %><br/>
-        <% end %>
-      </div>
-   
-      <div class="add_scorecards_button">
-        <%= link_to image_tag("add_scorecards_button.png"), new_account_subscription_path %>
+
+     <div class="currentsubs">
+    
+        <table class="table_data">
+            <tr class="table_head">
+              <th>Subscriptions</th>
+              <th>Expiration</th>
+            </tr>
+            <% @subscriptions.each do |subscription| %>
+            <tr class="table_cell_left">
+              <td><%= pluralize(subscription.emote_amount, 'e.mote') %></td>
+              <td><%= subscription.end_date.strftime('%d-%B-%Y') %></td>
+            </tr>
+            <% end %>    
+          </table>    
       </div>
 
       <div class="payment_history">
@@ -45,5 +47,4 @@
         </div>
     </div>
   </div>
-  <span class="change_info"><%= link_to 'Change Information on My Account', edit_account_path %></span>
 </div>
