@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('#links-dialog').removeAttr('style').dialog({
-        title: 'Links to ScoreCard',
+        title: 'Link to e.mote&trade;',
         autoOpen: false,
         closeOnEscape: true,
         modal: true,
