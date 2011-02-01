@@ -14,6 +14,7 @@ class SurveysController < ApplicationController
     @survey = Survey.new params[:survey] 
     @survey.user = current_user
     @survey.active = true
+    @survey.project_name.gsub!(/(\.|\n|\s)*$/,'').gsub!(/^(\s)/,'')
     if @survey.save
         flash[:notice] = 'e.mote was published'
     else
