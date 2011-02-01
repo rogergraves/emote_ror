@@ -38,11 +38,7 @@
           <% end %>
         </td>
         <td>
-          <% if survey.active %>
-            <%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), survey.emote_direct_link, :target => 'emotepreview', :title => 'Go to e.mote™'%>
-          <% else %>
-            <%= image_tag('emote_link_disabled.png') %>
-          <% end %>
+            <%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), '#', :onclick => "showLinks('#{survey.emote_direct_link}');", :title => 'Go to e.mote™'%>
         </td>
         <td class="last-col">
           <%= link_to image_tag('trash_icon.png'), account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete this e.mote and all collected data.' %>
@@ -73,4 +69,5 @@
   <br/>
   <p>Paste this HTML to embed in website:</p>
   <%= text_field_tag 'scorecard_embed_link', 'scorecard_embed_link', :readonly => true, :size => 60 %>
+  <span class="open_emote"><%= link_to image_tag('open_emote_button.png', :alt => 'Open e.mote'), '#' %></span>
 </div>

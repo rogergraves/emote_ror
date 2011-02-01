@@ -1140,6 +1140,13 @@ table.table_data{
     font-size: 12px;
 }
 
+.open_emote{
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+}
+
 /* ------- Tooltips for e.mote Control page ------- */
 
 .tooltip {
