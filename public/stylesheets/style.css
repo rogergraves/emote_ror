@@ -1165,14 +1165,22 @@ table.table_data{
         position: absolute; left: 1em; top: 2em; z-index: 99;
         margin-left: 0; width: 250px;
 }
+.tooltipleft:hover span {
+        position: absolute; left: -215px; top: 2em;
+}
 .tooltip:hover em {
         font-family: Candara, Tahoma, Geneva, sans-serif; font-size: 1.2em; font-weight: bold;
         display: block; padding: 0.2em 0 0.6em 0;
 }
-.classic { padding: 0.8em 1em; }
+.classic { padding: 0.8em 1em;}
 .custom { padding: 0.5em 0.8em 0.8em 2em; }
-* html a:hover { background: transparent; }
+* html a:hover { background: transparent;}
 .classic {background: #FFFFAA; border: 1px solid #FFAD33; }
+
+.tooltiprigth span{
+    margin-right: -999em;
+    position: absolute;
+}
 
 /* ------- Create e.mote Page ------ */
 #content-win-centr2{
