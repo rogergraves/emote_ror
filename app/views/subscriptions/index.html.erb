@@ -31,7 +31,7 @@
             </tr>
             <% @payments.each do |payment| %>
               <tr class="table_cell">
-                <td><%= payment.created_at.strftime('%d-%b-%y') %></td>
+                <td><%= payment.created_at.strftime('%d-%b-%Y') %></td>
               <% if payment.trial? %>
                 <td>1 Pack</td>
                 <td>0.00</td>
