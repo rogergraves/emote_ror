@@ -20,13 +20,15 @@
       <tr class="<%= cycle('odd','even') %>">
         <td class="project-name first-col">
           <% if survey.active %>
-            <%= link_to survey.project_name, survey.emote_direct_link, :target => 'emotepreview'%>
+            <%= link_to survey.project_name, scorecard_account_survey_path(survey), :target => 'scorecard'%>
           <% else %>
             <%= survey.project_name %>
           <% end %>
         </td>
         <td>
-          <%= survey.code %>
+          <% if survey.active %>
+            <%= survey.code %>
+          <% end %>
         </td>
         <td valign="middle">
           <%= survey.created_at.strftime('%m/%d/%Y') %>
@@ -38,7 +40,9 @@
           <% end %>
         </td>
         <td>
+          <% if survey.active %>
             <%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), '#', :onclick => "showLinks('#{survey.emote_direct_link}');", :title => 'Go to e.mote™'%>
+          <% end %>
         </td>
         <td class="last-col">
           <%= link_to image_tag('trash_icon.png'), account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete this e.mote and all collected data.' %>
@@ -69,5 +73,5 @@
   <br/>
   <p>Paste this HTML to embed in website:</p>
   <%= text_field_tag 'scorecard_embed_link', 'scorecard_embed_link', :readonly => true, :size => 60 %>
-  <span class="open_emote"><%= link_to image_tag('open_emote_button.png', :alt => 'Open e.mote'), '#' %></span>
+  <span class="open_emote"><%= link_to image_tag('open_emote_button.png', :alt => 'Open e.mote'), '#', :id => 'open-emote-link', :target => 'emotepreview' %></span>
 </div>
