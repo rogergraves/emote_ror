@@ -32,9 +32,9 @@
           <%= survey.created_at.strftime('%m/%d/%Y') %>
         </td>
         <td>
-          <%= form_for("survey_#{survey.id}_active", :url => account_survey_path(survey), :html => {:method => :put, :id => "survey_#{survey.id}_active_form"}) do |f| %>
-            <%= hidden_field_tag 'property', 'active' %>
-            <%= check_box_tag "survey_#{survey.id}_active", true, survey.active, :onchange => "$('#survey_#{survey.id}_active_form').submit();" %>
+          <%= form_for("survey_#{survey.id}_archive", :url => account_survey_path(survey), :html => {:method => :put, :id => "survey_#{survey.id}_archive_form"}) do |f| %>
+            <%= hidden_field_tag 'property', 'archive' %>
+            <%= check_box_tag "survey_#{survey.id}_archive", true, !survey.active, :onchange => "$('#survey_#{survey.id}_archive_form').submit();" %>
           <% end %>
         </td>
         <td>

@@ -25,7 +25,7 @@ class SurveysController < ApplicationController
   def update
     begin
       survey = current_user.surveys.find(params[:id])
-      survey.active = params["survey_#{params[:id]}_active"] if params[:property] == 'active'
+      survey.active = !params["survey_#{params[:id]}_archive"] if params[:property] == 'archive'
       survey.public = params["survey_#{params[:id]}_public"] if params[:property] == 'public'
       survey.save
     rescue
