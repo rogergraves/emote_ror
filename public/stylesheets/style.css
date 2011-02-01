@@ -570,17 +570,6 @@ form .field_forgetpw{
     overflow-x: hidden;
 }
 
-.total_cards{
-    float: right;
-    font-size: 14px;
-    margin-top: 5px;
-    margin-right: 5px;
-}
-
-.clearstring {
-    clear:both;
-}
-
 .currentsubs{
     float: left;
     font-size: 13px;
@@ -588,15 +577,9 @@ form .field_forgetpw{
     margin-left: 30px;
 }
 
-.add_scorecards_button{
-    float: left;
-    width: 100%;
-    margin: 20px 0;
-    text-align: center;
-}
-
 .payment_history{
     float: left;
+    margin-top: 20px;
 }
 
 .payment_history_data{
@@ -632,37 +615,24 @@ table.table_data{
     padding-right: 2px;
 }
 
-.change_info{
-    float: left;
-    width: 540px;
-    margin-top: 10px;
-    margin-left: 30px;
-    text-align: center;
-}
-
-.change_info a{
-    font-size: 13px;
-    color: #0006ff;
-    text-decoration: none;
-}
-
-.change_info a:hover{
-    text-decoration: underline;
-}
 /* ------- Subscriptions page ------- */
 
 .medium-text-subsc{
+    float: left;
     font-size: 13px;
+    margin-top: 10px;
 }
 
 .subsc-list{
+    float: left;
     font-weight: bold;
-    margin: 5px 0;
+    margin-top: 5px;
+    margin-bottom: 10px;
     margin-left: 40px;
 }
 
 #content-win-centr #subscription-content{
-    margin-top: 10px;
+    margin-top: 20px;
     margin-left: 30px;
     width: 565px;
     height: 350px;
@@ -674,7 +644,6 @@ table.table_data{
     background: url('../images/1_pack.png') no-repeat;
     width: 552px;
     height: 44px;
-    margin-top: 5px;
 }
 
 .five-pack{
@@ -744,7 +713,7 @@ table.table_data{
 .subscr_order{
     width: 565px;
     margin-left: 30px;
-    margin-top: -15px;
+    margin-top: -25px;
     float: left;
     text-align: center;
 }
