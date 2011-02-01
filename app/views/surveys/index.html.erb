@@ -8,15 +8,12 @@
     <caption>e.mote Control</caption>
     <thead>
       <tr>
-        <th class="project-name">PROJECT NAME</th>
-        <th>e.mote SCORE</th>
-        <th>START DATE</th>
-        <th>TOTAL e.moters</th>
-        <th>ACTIVE</th>
-        <th>MAKE PUBLIC</th>
-        <th>SCORECARD EMBED/LINK</th>
-        <th>e.mote LINK</th>
-        <th></th>
+        <th class="project-name"><a class="tooltip" href="#">e.mote NAME<span class="classic">Click on e.mote name to see ScoreCard.</span></a></th>
+        <th><a class="tooltip" href="#">CODE<span class="classic">Enter this code at http://emotethis.com to take the e.mote</span></a></th>
+        <th><a class="tooltip" href="#">START DATE<span class="classic">Date the e.mote was created.</span></a></th>
+        <th><a class="tooltip" href="#">ARCHIVE<span class="classic">Prevent new e.motes from being submitted. The message "e.mote no longer active" will be shown.</span></a></th>
+        <th><a class="tooltip" href="#">GET e.mote LINK<span class="classic">Get a link to copy/paste into emails, websites, IM, Facebook, Twitter, etc.Purge an e.mote and its data. This will free up a slot so you can create a new e.mote.</span></a></th>
+        <th><a class="tooltip" href="#">DELETE<span class="classic">Purge an e.mote and its data. This will free up a slot so you can create a new e.mote.</span></a></th>
       </tr>
     </thead>
     <% @surveys.each do |survey| %>
@@ -29,13 +26,10 @@
           <% end %>
         </td>
         <td>
-          <%= survey.score %>
+          <%= survey.code %>
         </td>
         <td valign="middle">
           <%= survey.created_at.strftime('%m/%d/%Y') %>
-        </td>
-        <td valign="middle">
-          <%= survey.responses_count %>
         </td>
         <td>
           <%= form_for("survey_#{survey.id}_active", :url => account_survey_path(survey), :html => {:method => :put, :id => "survey_#{survey.id}_active_form"}) do |f| %>
@@ -43,18 +37,6 @@
             <%= check_box_tag "survey_#{survey.id}_active", true, survey.active, :onchange => "$('#survey_#{survey.id}_active_form').submit();" %>
           <% end %>
         </td>
-        <td>
-          <%= form_for("survey_#{survey.id}_active", :url => account_survey_path(survey), :html => {:method => :put, :id => "survey_#{survey.id}_public_form"}) do |f| %>
-            <%= hidden_field_tag 'property', 'public' %>
-            <%= check_box_tag "survey_#{survey.id}_public", true, survey.public, :onchange => "$('#survey_#{survey.id}_public_form').submit();" %>
-          <% end %>
-        </td>
-        <td>
-          <% if survey.public_scorecard %>
-            <%= link_to image_tag('get_code_button.png'), '#', :onclick => "showLinks('#{public_scorecard_account_surveys_url(:code => survey.code)}');" %></td>
-          <% else %>
-            <%= image_tag('get_code_button-disabled.png') %>
-          <% end %>
         <td>
           <% if survey.active %>
             <%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), survey.emote_direct_link, :target => 'emotepreview', :title => 'Go to e.mote™'%>
