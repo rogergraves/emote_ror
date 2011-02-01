@@ -20,37 +20,25 @@ class Subscription < ActiveRecord::Base
                 :prod_code => 'a135b60381e3903405b02ee571ecff66', # Digest::MD5.hexdigest("1 Pack")
                 :amount => 1,
                 :name => "1 Pack",
-                :price => 99,
-                :short_desc => 'Add 1 ScoreCard to your account for 12 months.',
-                :long_desc => 'Average cost is $8.25 per ScoreCard per month.',
-                :savings => ""
+                :price => 99
               },
               {
                 :prod_code => '72aaa7938815a1268fa642468b6ae7bc',
                 :amount => 5,
                 :name => "5 Pack",
-                :price => 299,
-                :short_desc => 'Add 5 ScoreCards to your account for 12 months.',
-                :long_desc => 'Average cost is $5 per ScoreCard per month.',
-                :savings => "$196 / year."
+                :price => 299
               },
               {
                 :prod_code => '25ccaa6255d6112a0d7a39054feb6d2f',
                 :amount => 10,
                 :name => "10 Pack",
-                :price => 399,
-                :short_desc => 'Add 10 ScoreCards to your account for 12 months.',
-                :long_desc => 'Average cost is $3.30 per ScoreCard per month.',
-                :savings => "$590 / year."
+                :price => 499
               },
               {
                 :prod_code => '3384de5df97bf2e2535f101329649119',
                 :amount => 25,
                 :name => "25 Pack",
-                :price => 499,
-                :short_desc => 'Add 25 ScoreCards to your account for 12 months.',
-                :long_desc => 'Average cost is $1.75 per ScoreCard per month.',
-                :savings => "$1975 / year."
+                :price => 999
               }
             ]
   
