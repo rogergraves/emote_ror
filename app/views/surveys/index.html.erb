@@ -19,11 +19,7 @@
     <% @surveys.each do |survey| %>
       <tr class="<%= cycle('odd','even') %>">
         <td class="project-name first-col">
-          <% if survey.active %>
-            <%= link_to survey.project_name, scorecard_account_survey_path(survey), :target => 'scorecard'%>
-          <% else %>
-            <%= survey.project_name %>
-          <% end %>
+          <%= link_to survey.project_name, scorecard_account_survey_path(survey), :target => 'scorecard'%>
         </td>
         <td>
           <% if survey.active %>
