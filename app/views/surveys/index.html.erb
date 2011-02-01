@@ -27,7 +27,7 @@
           <% end %>
         </td>
         <td valign="middle">
-          <%= survey.created_at.strftime('%m/%d/%Y') %>
+          <%= survey.created_at.strftime('%d %b %Y') %>
         </td>
         <td>
           <%= form_for("survey_#{survey.id}_archive", :url => account_survey_path(survey), :html => {:method => :put, :id => "survey_#{survey.id}_archive_form"}) do |f| %>
