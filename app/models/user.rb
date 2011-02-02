@@ -40,7 +40,11 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :full_name, :country_code, :company, :job_title, :phone_number
+                  :full_name, :country_code, :company, :job_title, :phone_number, :tos_agree
+
+  attr_accessor :tos_agree
+  validates :tos_agree, :acceptance => {:on => :create}
+
 
   before_validation(:on => :create) do |user|
     user.password = user.password_confirmation = rand(Time.now.to_i).to_s(24) #Password auto-generated

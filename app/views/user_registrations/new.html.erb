@@ -35,7 +35,7 @@
           <%= f.select :country_code, options_for_select( Country::LIST.collect {|c| [c[:name], c[:iso]]}, session[:geo_location].country_code) %>
         </div>
 
-        <span class="terms_note"><input type="checkbox" name="terms_note" value="terms_note" /> I agree to all terms of the <%= link_to "Master Subscription Agreement", 'http://inspirationengine.com/?page_id=343', :target => '_blank' %>.</span>
+        <span class="terms_note"><%= f.check_box :tos_agree %> I agree to all terms of the <%= link_to "Master Subscription Agreement", 'http://inspirationengine.com/?page_id=343', :target => '_blank' %>.</span>
         
         <div class="getting-started_errors"><%= errors_for(resource) %><%= flash_messages %></div>
         
