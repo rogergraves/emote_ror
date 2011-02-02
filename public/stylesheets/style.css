@@ -839,7 +839,7 @@ table.table_data{
     text-align: center;
 }
 
-.survey-title{
+.survey-title {
     width: 100%;
     text-align: center;
     font-size: 16px;
@@ -848,14 +848,8 @@ table.table_data{
     padding-top: 10px;
 }
 
-#content-win-centr-scorecard .scorecard-text-layer{
-    clear: both;
-    width: 1140px;
-    height: 35px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 5px;
-    text-align: left;
+.survey-title:first-letter{
+    text-transform: capitalize;
 }
 
 /* --end-- */
