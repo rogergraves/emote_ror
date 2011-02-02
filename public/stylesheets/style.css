@@ -779,9 +779,10 @@ table.table_data{
 }
 
 .create_acc{
-    position: absolute;
+    position: relative;
     margin-left: 200px;
-    bottom: 10px;
+    padding-top: 10px;
+    float: left;
 }
 
 /* ------- All Finished! page ------- */
@@ -925,15 +926,22 @@ table.table_data{
     box-shadow: 0px 2px 2px #999999;
 }
 
-.star_note {
+.terms_note{
     float: left;
     margin-top: 8px;
-    text-align: left;
+    font-size: 12px;
+}
+
+.star_note {
+    float: left;
+    width: 530px;
+    margin-top: 3px;
+    text-align: center;
 }
 
 .getting-started_errors{
     width: 510px;
-    padding-top: 12px;
+    margin: 0 auto;
 }
 
 /* Top menu */
@@ -1131,7 +1139,11 @@ table.table_data{
 
 #content-win-control #create-emote #add-scorecard{
     margin-top: 10px;
-    font-size: 12px;
+    font-size: 14px;
+}
+
+#content-win-control #create-emote #scorecard-limit{
+    font-size: 14px;
 }
 
 .open_emote{

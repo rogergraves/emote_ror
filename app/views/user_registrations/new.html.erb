@@ -35,14 +35,16 @@
           <%= f.select :country_code, options_for_select( Country::LIST.collect {|c| [c[:name], c[:iso]]}, session[:geo_location].country_code) %>
         </div>
 
+        <span class="terms_note"><input type="checkbox" name="terms_note" value="terms_note" /> I agree to all terms of the <%= link_to "Master Subscription Agreement", 'http://inspirationengine.com/?page_id=343', :target => '_blank' %>.</span>
+        
+        <div class="getting-started_errors"><%= errors_for(resource) %><%= flash_messages %></div>
+        
+        <div class="create_acc">
+          <%=  image_submit_tag("create_acc_button.png") %>&nbsp;&nbsp;&nbsp; <%= link_to 'Cancel', root_path %>
+        </div>
+
         <span class="star_note">&lowast; A valid working email address is required</span>
 
-        <p class="create_acc">
-          <%=  image_submit_tag("create_acc_button.png") %>&nbsp;&nbsp;&nbsp; <%= link_to 'Cancel', root_path %>
-        </p>
-
       <% end %>
-
-        <div class="getting-started_errors"><%= errors_for(resource) %><%= flash_messages %></div>
 </div>
 </div>
