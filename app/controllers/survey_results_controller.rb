@@ -14,10 +14,10 @@ class SurveyResultsController < ApplicationController
     # /account/surveys/:survey_id/survey_results/delete_response
     begin
       @result = @survey.survey_results.find(:first, :conditions => { :survey_result_id => params[:id] })
-      @result.id_deleted = true
+      @result.is_removed = true
       @result.save
       render :text => '<?xml version="1.0" encoding="UTF-8"?><result success="true" />'
-    rescue
+    rescue Exception => e
       render :text => '<?xml version="1.0" encoding="UTF-8"?><result success="false" />'
     end
   end
