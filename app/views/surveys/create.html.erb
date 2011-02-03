@@ -1,13 +1,9 @@
 <div id="content-win-centr" role="main">
   <div id="allfinished">
       <span class="big-text">Your e.mote<sup><small>TM</small></sup> is ready!</span>
-      <br/>
 
-      <span class="acc_text">Send the following link via e-mail, SMS, or embed it as a link on your website. Or send them to <%= link_to "http://www.emotethis.com", 'http://www.emotethis.com', :target => '_blank' %> to enter your e.mote code: <strong><%= @survey.code %></strong></span>
-
-      <div class="emotelink">
-        <%= text_field_tag 'emote_link', @survey.emote_direct_link, :readonly => true, :size => 50 %>
-        <span class="emotelink_img"><%= link_to image_tag("emote_link_enabled.png", :alt => 'Go to e.mote(tm)', :title => 'Go to e.mote(tm)'), @survey.emote_direct_link, :target => '_blank' %></span>
+      <div class="previewmote_btn">
+      <%= link_to image_tag("preview_emote_button.png"), account_surveys_path %>
       </div>
 
       <div class="goback_btn">
