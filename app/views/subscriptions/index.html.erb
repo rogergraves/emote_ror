@@ -33,11 +33,11 @@
               <tr class="table_cell">
                 <td><%= payment.created_at.strftime('%d-%b-%Y') %></td>
               <% if payment.trial? %>
-                <td>1 Pack</td>
+                <td><%= raw Subscription::OPTIONS.first[:name] %></td>
                 <td>0.00</td>
                 <td class="table_cell_right">FREE TRIAL</td>
               <% else %>
-                <td><%= payment.transaction.description %></td>
+                <td><%= raw payment.transaction.description %></td>
                 <td><%= number_to_currency(payment.transaction.total, :unit => Country.curr_code_to_symbol(payment.transaction.currency)) %></td>
                 <td class="table_cell_right"><%= payment.transaction.token %></td>
               <% end %>
