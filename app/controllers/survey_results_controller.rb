@@ -16,9 +16,9 @@ class SurveyResultsController < ApplicationController
       @result = @survey.survey_results.find(:first, :conditions => { :survey_result_id => params[:id] })
       @result.is_removed = true
       @result.save
-      render :text => '<?xml version="1.0" encoding="UTF-8"?><result success="true" />'
+      render :xml => '<?xml version="1.0" encoding="UTF-8"?><result success="true" />'
     rescue Exception => e
-      render :text => '<?xml version="1.0" encoding="UTF-8"?><result success="false" />'
+      render :xml => '<?xml version="1.0" encoding="UTF-8"?><result success="false" />'
     end
   end
   protected
