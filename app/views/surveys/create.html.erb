@@ -1,9 +1,9 @@
 <div id="content-win-centr" role="main">
   <div id="allfinished">
-      <span class="big-text">Your e.mote<sup><small>TM</small></sup> is ready!</span>
+    <span class="big-text">Your e.mote&trade; is ready!</span>
 
       <div class="previewmote_btn">
-      <%= link_to image_tag("preview_emote_button.png"), account_surveys_path %>
+      <%= link_to image_tag("preview_emote_button.png"), @survey.emote_direct_link, :target => 'emotepreview' %>
       </div>
 
       <div class="goback_btn">
