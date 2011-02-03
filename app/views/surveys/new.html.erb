@@ -8,10 +8,11 @@
 	<%= form_for @survey, :as => :survey, :url => account_surveys_path, :html => {:method => :post} do |f| %>
 	<div id="preview-win">
 	    <div id="preview-text">Tell us how you felt about your most recent experience with <br/>
-		<input id="emote-subject" name="" value="[ENTER SUBJECT HERE]">
+		<%= f.text_field :project_name, :id => 'emote-subject' %>
 	    </div>
         </div>
-	<div id="publish-button"><%= image_submit_tag("publish_button.png") %> <%= link_to 'Cancel', account_surveys_path %></div>
+	<%= errors_for(@survey) %>
+        <div id="publish-button"><%= image_submit_tag("publish_button.png") %> <%= link_to 'Cancel', account_surveys_path %></div>
         <% end %>
     </div>
 
