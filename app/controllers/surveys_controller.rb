@@ -37,7 +37,7 @@ class SurveysController < ApplicationController
   def destroy
     #TODO What if .delete will fail? done? sure, sweety, thanx! :P
     begin
-      current_user.surveys.find(params[:id]).delete
+      current_user.surveys.find(params[:id]).destroy
       flash[:notice] = 'e.mote&trade; was deleted'
     rescue
       flash[:error] = 'Error deleting e.mote&trade;'
