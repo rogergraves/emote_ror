@@ -1,29 +1,19 @@
-<div id="content-win-centr2">
-    <div id="win1" class="win">
-	<div id="internal">
-	    <div class="big-text">1. Enter e.mote&trade; subject</div>
-	    <div class="instruction">Edit the subject (dining, service, etc.). It should be clear and consice (one of three words) 
-		    and focus on experiences that generate emotion:
-	    </div>
-	    <%= form_for @survey, :as => :survey, :url => account_surveys_path, :html => {:method => :post} do |f| %>
-		<div class="field">
-                  <%= f.text_field :project_name %>
-                </div>
-                <%= errors_for(@survey) %>
+<div id="content-win-centr">
 
-		<div id="publish-text" class="big-text">3. Publish e.mote&trade;</div>
-		<div id="publish-button"><%= image_submit_tag("publish_button.png") %> <%= link_to 'Cancel', account_surveys_path %></div>
-	    <% end %>
+    <div id="create-survey">
+        <div class="big-text">Create e.mote&trade; </div>
+        <div class="instruction">Enter the subject (dining, service, etc.). It should be clear and concise (one to three words)
+	    and focus on experiences that generate emtion.
 	</div>
+	<%= form_for @survey, :as => :survey, :url => account_surveys_path, :html => {:method => :post} do |f| %>
+	<div id="preview-win">
+	    <div id="preview-text">Tell us how you felt about your most recent experience with <br/>
+		<input id="emote-subject" name="" value="[ENTER SUBJECT HERE]">
+	    </div>
+        </div>
+	<div id="publish-button"><%= image_submit_tag("publish_button.png") %> <%= link_to 'Cancel', account_surveys_path %></div>
+        <% end %>
     </div>
 
-    <div id="win2" class="win">
-	<div id="internal">
-	    <div class="big-text">2. Preview your e.mote&trade; text</div>
-	    <div id="preview-win">
-		<div id="preview-text">Tell us how you felt about your most recent experience with <span id="input-text"><%= @survey.project_name.blank? ? '[START TYPING e.mote SUBJECT]' : @survey.project_name %></span>.</div>
-	    </div>
-	</div>
-    </div>
 </div>
 
