@@ -818,9 +818,16 @@ table.table_data{
     margin-left: 5px;
 }
 
+.previewmote_btn{
+    float: left;
+    margin-top: 65px;
+    width: 100%;
+    text-align: center;
+}
+
 .goback_btn{
     float: left;
-    margin-top: 45px;
+    margin-top: 35px;
     width: 100%;
     text-align: center;
 }
