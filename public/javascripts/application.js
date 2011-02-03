@@ -46,4 +46,34 @@ $(document).ready(function(){
     $("#survey_new .field input[type='text']").keyup( function(){
 	$("#input-text").html($(this).val());
     });
+
+
+    var defaulttext_inputs = $(".defaultText");
+
+    defaulttext_inputs.each(function(index, thisInput){
+        $(this).parents('form:first').submit(function(){
+            if ($(thisInput).val() == $(thisInput).attr('default_text')){
+                $(thisInput).val("");
+            }
+        })
+    });
+
+    defaulttext_inputs.focus(function(src)
+    {
+        if ($(this).val() == $(this).attr('default_text')){
+            $(this).removeClass("defaultTextActive");
+            $(this).val("");
+        }
+    });
+
+    defaulttext_inputs.blur(function()
+    {
+        if ($(this).val() == ""){
+            $(this).addClass("defaultTextActive");
+            $(this).val($(this).attr('default_text'));
+        }
+    });
+
+    defaulttext_inputs.blur();
+
 });

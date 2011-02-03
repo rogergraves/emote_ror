@@ -24,7 +24,7 @@ class Survey < ActiveRecord::Base
   has_many :survey_results, :foreign_key => :code, :primary_key => :code
   
   validates :user, :presence => true
-  validates :project_name, :presence => true, :uniqueness => {:scope => :user_id}
+  validates :project_name, :presence => true, :uniqueness => {:scope => :user_id}, :length => { :maximum => 255 }
   validates :code, :presence => true, :uniqueness => true
 
   alias_attribute :public_scorecard, :public 

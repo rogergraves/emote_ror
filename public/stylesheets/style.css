@@ -1299,6 +1299,10 @@ table.table_data{
 /* ------ EOF Create e.mote Page ---- */
 
 /* --- New create survey page --- */
+
+.defaultText { font-style: normal; }
+.defaultTextActive { color: #a1a1a1; font-style: italic; }
+
 #content-win-centr #create-survey{
     margin-top: 35px;
     margin-left: 35px;
