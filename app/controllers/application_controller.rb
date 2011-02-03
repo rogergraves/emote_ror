@@ -19,7 +19,16 @@ protected
     if resource_or_scope.kind_of?(User)
       account_surveys_path
     else #Admins [for future]
-      super
+      super(resource_or_scope)
+    end
+  end
+
+  #Overrides the path where user is redirected after initial password setup
+  def after_update_path_for(resource_or_scope)
+    if resource_or_scope.kind_of?(User)
+      new_account_survey_path
+    else #Admins [for future]
+      super(resource_or_scope)
     end
   end
 
