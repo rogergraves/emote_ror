@@ -37,7 +37,7 @@
 		} else if (hasRequestedVersion) {
 			AC_FL_RunContent(
 					"src", "/fx/main",
-					"FlashVars", "survey=<%= @survey.code -%>&action_token=<%= @survey.action_token -%>",
+					"FlashVars", "survey=<%= @survey.code -%>&survey_id=<%= @survey.id -%>&action_token=<%= @survey.action_token -%>",
 					"width", "1140",
 					"height", "100%",
 					"align", "middle",
@@ -62,12 +62,12 @@
 		  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
 					id="main" width="1140" height="100%"
 					codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
-					<param name="movie" value="/fx/main.swf?survey='+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" />
+					<param name="movie" value="/fx/main.swf?survey_id='+<%= @survey.id -%>+'&survey='+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" />
 					<param name="quality" value="high" />
 					<param name="bgcolor" value="#ffffff" />
 					<param name="wmode" value="opaque" />
 					<param name="allowScriptAccess" value="sameDomain" />
-					<embed src="main.swf?survey='+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" quality="high" bgcolor="#ffffff"
+					<embed src="main.swf?survey_id='+<%= @survey.id -%>+'&survey='+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" quality="high" bgcolor="#ffffff"
 						width="1140" height="100%" name="main" align="middle"
 						play="true"
 						loop="false"

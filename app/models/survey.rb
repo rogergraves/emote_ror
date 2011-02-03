@@ -21,6 +21,8 @@ class Survey < ActiveRecord::Base
   
   belongs_to :user
   
+  has_many :survey_results, :foreign_key => :code, :primary_key => :code
+  
   validates :user, :presence => true
   validates :project_name, :presence => true, :uniqueness => {:scope => :user_id}
   validates :code, :presence => true, :uniqueness => true

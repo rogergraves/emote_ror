@@ -17,6 +17,13 @@ EmoteRor::Application.routes.draw do
       collection do
         get 'public_scorecard'
       end
+      resource :survey_results do
+        collection do
+          get 'charts'
+          get 'verbatims'
+          get 'delete_response'
+        end
+      end
     end
   end
   
