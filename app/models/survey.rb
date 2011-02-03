@@ -21,11 +21,7 @@ class Survey < ActiveRecord::Base
   
   belongs_to :user
   
-  has_many :survey_results, :conditions => 'survey_result.code = LOWER(\'#{code}\')'
-  #:finder_sql => 'SELECT * FROM survey_result WHERE survey_result.code = LOWER(\'#{code}\')'
-  # 
-  
-  # 
+  has_many :survey_results, :foreign_key => :code, :primary_key => :code
   
   validates :user, :presence => true
   validates :project_name, :presence => true, :uniqueness => {:scope => :user_id}

@@ -2,7 +2,7 @@ class SurveyResult < ActiveRecord::Base
   set_table_name  'survey_result'
   set_primary_key 'survey_result_id'
   
-  belongs_to  :survey
+  belongs_to :survey, :foreign_key => :code
   
   def id
     read_attribute(:survey_result_id)
