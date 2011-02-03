@@ -32,20 +32,20 @@ class Survey < ActiveRecord::Base
   attr_accessible :project_name, :public, :active
   
   after_save do
-    if self.active?
-      survey_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-      <survey>
-      <stimulus short=\"#{self.project_name}\"><![CDATA[Consider every aspect of your most recent experience with <span class=\"bold-text\">#{self.project_name}</span>.
-      What was that like for you? How would you describe your feelings about this experience to someone else?]]></stimulus>
-        <thanks>Thank you for e.moting!</thanks>
-      </survey>"
-      File.open("#{SURVEY_STORAGE_PATH}#{self.code}.xml", 'w') {|f| f.write(survey_xml) }
-    else
-      begin
-        File.delete("#{SURVEY_STORAGE_PATH}#{self.code}.xml")
-      rescue
-        #TODO i'm sleeping, need to add something here later
-      end
+    survey_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <survey status='#{ (self.active?) ? 'on' : 'off' }'>
+    <stimulus short=\"#{self.project_name}\"><![CDATA[Consider every aspect of your most recent experience with <span class=\"bold-text\">#{self.project_name}</span>.
+    What was that like for you? How would you describe your feelings about this experience to someone else?]]></stimulus>
+      <thanks>Thank you for e.moting!</thanks>
+    </survey>"
+    File.open("#{SURVEY_STORAGE_PATH}#{self.code}.xml", 'w') {|f| f.write(survey_xml) }
+  end
+  
+  before_destroy do
+    begin
+      File.delete("#{SURVEY_STORAGE_PATH}#{self.code}.xml")
+    rescue
+      #TODO i'm sleeping, need to add something here later
     end
   end
   
