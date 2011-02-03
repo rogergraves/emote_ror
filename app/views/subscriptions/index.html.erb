@@ -12,7 +12,7 @@
             </tr>
             <% @subscriptions.each do |subscription| %>
             <tr class="table_cell_left">
-              <td><%= pluralize(subscription.emote_amount, 'e.mote') %></td>
+              <td><%= pluralize(subscription.emote_amount, 'e.mote') %>&trade;</td>
               <td><%= subscription.end_date.strftime('%d-%b-%Y') %></td>
             </tr>
             <% end %>    
