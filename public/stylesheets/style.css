@@ -1296,9 +1296,73 @@ table.table_data{
     -webkit-border-radius: 40px;
     -moz-border-radius: 40px;
 }
-
-    
 /* ------ EOF Create e.mote Page ---- */
+
+/* --- New create survey page --- */
+#content-win-centr #create-survey{
+    margin-top: 35px;
+    margin-left: 35px;
+    margin-right: 35px;
+}
+
+
+#content-win-centr #create-survey #preview-win{
+    height: 190px;
+    width: 360px;
+    border: 7px solid #9cb3c5;
+    background-color: #003882;
+    color: black;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+.borderradius #content-win-centr #create-survey #preview-win{
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+}
+
+#content-win-centr #create-survey #emote-subject{
+    background-color: #ffc47e;
+    border: 2px solid #003882;
+/*    text-align: center; */
+    margin-top: 10px;
+    width: 250px;
+    font-weight: bold;
+    color: #000;
+}
+
+#content-win-centr  #create-survey   #preview-text{
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 50px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+#content-win-centr .instruction{
+    margin-top: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+#content-win-centr  #create-survey #publish-button{
+    margin-top: 20px;
+    text-align: center;
+}
+
+#content-win-centr  #create-survey #publish-button a{
+    margin-left: 10px;
+}
+
+
+/* --- EOF New create survey page --- */
+    
+
 
 /*
  * media queries for responsive design
