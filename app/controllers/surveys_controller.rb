@@ -16,7 +16,7 @@ class SurveysController < ApplicationController
     @survey.active = true
     @survey.project_name.gsub!(/(\.|\n|\s)*$/,'').gsub!(/^(\s)/,'')
     if @survey.save
-        flash[:notice] = 'e.mote was published'
+        flash[:notice] = 'e.mote&trade; was published'
     else
         render :action => 'new'
     end
@@ -38,9 +38,9 @@ class SurveysController < ApplicationController
     #TODO What if .delete will fail? done? sure, sweety, thanx! :P
     begin
       current_user.surveys.find(params[:id]).delete
-      flash[:notice] = 'e.mote was deleted'
+      flash[:notice] = 'e.mote&trade; was deleted'
     rescue
-      flash[:error] = 'Error deleting e.mote'
+      flash[:error] = 'Error deleting e.mote&trade;'
     end
     redirect_to :action => 'index'
   end

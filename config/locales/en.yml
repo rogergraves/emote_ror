@@ -7,7 +7,7 @@ en:
         company: "Organization name"
         tos_agree: "The Master Subscription Agreement"
       survey:
-        project_name: "e.mote subject"
+        project_name: "e.mote&trade; subject"
     errors:
       messages:
         taken: "you have specified already exists"
