@@ -12,16 +12,13 @@ class SurveyResultsController < ApplicationController
   
   def delete_response
     # /account/surveys/:survey_id/survey_results/delete_response
-    respond_to do |format|
-      format.xml do
-        begin
-          @result = @survey.survey_results.find(:first, :conditions => { :survey_result_id => params[:id] })
-          @result.id_deleted = true
-          @result.save
-        rescue
-          
-        end
-      end
+    begin
+      @result = @survey.survey_results.find(:first, :conditions => { :survey_result_id => params[:id] })
+      @result.id_deleted = true
+      @result.save
+      render :text => '<?xml version="1.0" encoding="UTF-8"?><result success="true" />'
+    rescue
+      render :text => '<?xml version="1.0" encoding="UTF-8"?><result success="false" />'
     end
   end
   protected
