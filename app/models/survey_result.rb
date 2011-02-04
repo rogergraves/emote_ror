@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20110123204321
+#
+# Table name: survey_result
+#
+#  survey_result_id :integer(8)      not null, primary key
+#  start_time       :datetime
+#  end_time         :datetime
+#  ip               :string(50)
+#  emote            :string(255)
+#  intensity_level  :integer(4)
+#  verbatim         :text(16777215)
+#  code             :string(255)
+#
+
 class SurveyResult < ActiveRecord::Base
   set_table_name  'survey_result'
   set_primary_key 'survey_result_id'
