@@ -1,18 +1,23 @@
 $(document).ready(function() {
-    $('#links-dialog').removeAttr('style').dialog({
+    var dlg = $('#links-dialog');
+    dlg.removeAttr('style').dialog({
         title: 'Link to e.mote&trade;',
         autoOpen: false,
         closeOnEscape: true,
         modal: true,
-        width: 400
+        width: 450
     });
-    $('#links-dialog').find('input[type=text]').click(function(){
+    dlg.find('input[type=text]').click(function(){
         this.select();
+    });
+    dlg.find('#open-emote-link').click(function(){
+        dlg.dialog('close');
+        return true;
     });
 });
 
 function showLinks(scorecard_direct_link){
-    var dlg = $('#links-dialog')
+    var dlg = $('#links-dialog');
     dlg.find('#scorecard_direct_link').val(scorecard_direct_link);
     dlg.find('#scorecard_embed_link').val('<a href="'+scorecard_direct_link+'" target="emote">Click here</a>');
     dlg.find('#open-emote-link').attr('href', scorecard_direct_link);
