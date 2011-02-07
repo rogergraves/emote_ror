@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8"/>
+  <title><%= @title || 'My e.motes' %></title>
+  <meta name="description" content=""/>
+  <meta name="author" content=""/>
+  <%= javascript_include_tag :defaults  %>
+  <link rel="Shortcut Icon" href="/favicon.ico"/>
+  <%= csrf_meta_tag %>
+</head>
+
+<body>
+      <%= yield %>
+</body>
+</html>
