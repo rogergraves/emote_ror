@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :geocode_by_ip
   
+  layout :layout_by_resource 
+  
 protected
 
   def geocode_by_ip
@@ -30,6 +32,14 @@ protected
     else #Admins [for future]
       super(resource_or_scope)
     end
+  end
+  
+  def layout_by_resource 
+    if devise_controller? && resource_name == :admin 
+      "admin" 
+    else 
+      "application" 
+    end 
   end
 
 end
