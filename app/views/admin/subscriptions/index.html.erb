@@ -16,7 +16,7 @@
 		<td><%= subscription.emote_amount %></td>
 		<td><%= link_to subscription.created_at, edit_admin_subscription_path(subscription) %></td>
 		<td><%= subscription.transaction.total rescue 0 %></td>
-		<td><%= subscription.transaction.token rescue 'Corrupted' %></td>
+		<td><%= subscription.transaction.token rescue 'TRIAL' %></td>
 	</tr>
 	<% end %>
 </table>
