@@ -1,0 +1,9 @@
+<%= f.label :user_id, 'For user' %>
+<%= f.select :user_id, users.map {|u| [u.email, u.id]} %><br/>
+<%= f.label :emote_amount, 'Number of emotes' %>
+<%= f.select :emote_amount, [1, 5, 10, 25] %><br/>
+<%= f.label :start_date, 'Start date' %>
+<%= f.text_field :start_date %><br/>
+<%= f.label :end_date, 'End date' %>
+<%= f.text_field :end_date %><br/>
+<%= errors_for(subscription) %>
