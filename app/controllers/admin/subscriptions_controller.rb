@@ -2,7 +2,8 @@ class Admin::SubscriptionsController < Admin::BaseController
   before_filter :load_users, :only => [:new, :create, :edit, :update]
 
   def index
-    @subscriptions = Subscription.paginate(:page => params[:page], :conditions => ["`users`.`email` LIKE ? or `paypal_transactions`.`token` LIKE ?", "%#{params[:filter]}%","%#{params[:filter]}%"], :include => [:user, :transaction])
+    conditions = (params[:exclude_trial]) ? ["(`users`.`email` LIKE ? or `paypal_transactions`.`token` LIKE ?) and `paypal_transactions`.`id` is not null", "%#{params[:filter]}%","%#{params[:filter]}%"] : ["`users`.`email` LIKE ? or `paypal_transactions`.`token` LIKE ?", "%#{params[:filter]}%","%#{params[:filter]}%"]
+    @subscriptions = Subscription.paginate(:page => params[:page], :conditions => conditions, :include => [:user, :transaction])
   end
   
   def new

@@ -1,6 +1,7 @@
 <h4>Subscriptions:</h4>
 <form>
 	<%= text_field_tag :filter, params[:filter] %>
+	Exclude trials <%= check_box_tag :exclude_trial, true, params[:exclude_trial] %>
 </form><input type="submit" value="Filter" onclick="document.forms[0].submit()">
 <table width="100%">
 	<tr>
