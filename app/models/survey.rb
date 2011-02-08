@@ -20,7 +20,10 @@ class Survey < ActiveRecord::Base
   require 'zlib'
   
   cattr_reader :per_page
-  @@per_page = 20
+  @@per_page = 50
+  
+  attr_accessor :force_creation
+  @force_creation = false
   
   belongs_to :user
   
@@ -32,7 +35,7 @@ class Survey < ActiveRecord::Base
 
   alias_attribute :public_scorecard, :public 
   alias_attribute :short_stimulus, :project_name
-  attr_accessible :project_name, :public, :active
+  attr_accessible :project_name, :public, :active, :user_id
   
   after_save do
     survey_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
@@ -57,7 +60,7 @@ class Survey < ActiveRecord::Base
   end
 
   validate(:on => :create) do |survey|
-    unless survey.user(true).can_add_scorecard?
+    if !survey.user(true).can_add_scorecard? && !@force_creation
       survey.errors[:user] = ' cannot add more emotes'
     end
   end

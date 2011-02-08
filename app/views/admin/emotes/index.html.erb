@@ -2,20 +2,23 @@
 <form>
 	<%= text_field_tag :filter, params[:filter] %>
 </form><input type="submit" value="Filter" onclick="document.forms[0].submit()">
-<table>
+<table width="100%">
 	<tr>
 		<th>Owner</th>
 		<th>Name</th>
 		<th>Code</th>
 		<th>Active</th>
+		<th>&nbsp;</th>
 	</tr>
 	<% @emotes.each do |emote| %>
 	<tr>
 		<td><%= emote.user.email %></td>
-		<td><%= emote.project_name %></td>
-		<td><%= emote.code %></td>
+		<td><%= link_to emote.project_name, edit_admin_emote_path(emote) %></td>
+		<td><%= link_to emote.code, emote.emote_direct_link %></td>
 		<td><%= (emote.active?) ? 'Yes' : 'No' %></td>
 	</tr>
 	<% end %>
 </table>
 <%= will_paginate @emotes %>
+<br/><br/>
+<%= link_to 'New e.mote', new_admin_emote_path %>
