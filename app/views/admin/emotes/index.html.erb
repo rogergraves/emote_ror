@@ -1,0 +1,21 @@
+<h4>Emotes:</h4>
+<form>
+	<%= text_field_tag :filter, params[:filter] %>
+</form><input type="submit" value="Filter" onclick="document.forms[0].submit()">
+<table>
+	<tr>
+		<th>Owner</th>
+		<th>Name</th>
+		<th>Code</th>
+		<th>Active</th>
+	</tr>
+	<% @emotes.each do |emote| %>
+	<tr>
+		<td><%= emote.user.email %></td>
+		<td><%= emote.project_name %></td>
+		<td><%= emote.code %></td>
+		<td><%= (emote.active?) ? 'Yes' : 'No' %></td>
+	</tr>
+	<% end %>
+</table>
+<%= will_paginate @emotes %>

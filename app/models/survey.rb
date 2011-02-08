@@ -19,6 +19,9 @@
 class Survey < ActiveRecord::Base
   require 'zlib'
   
+  cattr_reader :per_page
+  @@per_page = 3
+  
   belongs_to :user
   
   has_many :survey_results, :foreign_key => :code, :primary_key => :code

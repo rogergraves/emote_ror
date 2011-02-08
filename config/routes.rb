@@ -31,6 +31,7 @@ EmoteRor::Application.routes.draw do
     resources :accounts
     resources :emotes
     resources :subscriptions
+    root :to => "base#index"
   end
   
 

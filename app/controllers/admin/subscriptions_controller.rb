@@ -1,2 +1,2 @@
-class Admin::SubscriptionsController < ApplicationController
+class Admin::SubscriptionsController < Admin::BaseController
 end

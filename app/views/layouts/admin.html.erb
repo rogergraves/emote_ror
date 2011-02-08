@@ -10,6 +10,18 @@
 </head>
 
 <body>
+	<div id="top_menu">
+		<% if admin_signed_in? %>
+			<%= link_to 'Accounts List', admin_accounts_path %>
+			<%= link_to 'e.motes List', admin_emotes_path %>
+			<%= link_to 'Subscriptions List', admin_subscriptions_path %>
+		<% end %>
+	</div>
+	<div id="content">
       <%= yield %>
+	</div>
+	<div id="footer">
+		
+	</div>
 </body>
 </html>
