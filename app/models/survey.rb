@@ -20,7 +20,7 @@ class Survey < ActiveRecord::Base
   require 'zlib'
   
   cattr_reader :per_page
-  @@per_page = 3
+  @@per_page = 20
   
   belongs_to :user
   
