@@ -32,7 +32,6 @@ EmoteRor::Application.routes.draw do
     resources :emotes
     resources :subscriptions
   end
-  match "/endpoint" => proc { |env| [ 200, {}, [ "my posts" ] ] }
   
 
   #All-purpose thingy
