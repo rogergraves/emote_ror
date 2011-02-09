@@ -21,7 +21,7 @@ class Admin::AccountsController < Admin::BaseController
 
   def edit
      @user = User.find(params[:id])
-     @new_note = Note.new
+     @note = Note.new
   end
 
   def update

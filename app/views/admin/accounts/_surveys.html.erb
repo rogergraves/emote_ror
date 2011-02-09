@@ -1,0 +1,24 @@
+<table width="60%">
+        <% columns = ['e.mote name', 'CODE', 'START DATE', 'ARCHIVED', 'RESPONSES', 'Action'] %>
+	<tr>
+          <% columns.each do |header| %>
+            <th align="left"><%= header %></th>
+          <% end %>
+	</tr>
+	<% surveys.each do |emote| %>
+          <tr>
+            <td><%= emote.project_name %></td>
+            <td><%= emote.code %></td>
+            <td><%= emote.created_at %></td>
+            <td><%= emote.active ? 'No' : 'Yes' %></td>
+            <td><%= emote.responses_count %></td>
+            <td><%= link_to 'Edit', edit_admin_emote_path(emote) %></td>
+          </tr>
+	<% end %>
+        <tr>
+          <% (columns.size-1).times { %> <td>&nbsp;</td> <% } %>
+          <td>
+            <%=  link_to 'Add', new_admin_emote_path %>
+          </td>
+        </tr>
+</table>

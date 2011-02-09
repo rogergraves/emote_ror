@@ -47,3 +47,16 @@
     });
   </script>
 <% end %>
+
+<br/>
+<br/>
+<h4>e.motes for this user</h4>
+<br/>
+<%= render :partial => 'surveys', :locals => { :surveys => @user.surveys } %>
+
+<br/>
+<br/>
+<h4>Subscriptions for this user</h4>
+<br/>
+<%= render :partial => 'subscriptions', :locals => { :subscriptions => @user.subscriptions } %>
+
