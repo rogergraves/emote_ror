@@ -1,0 +1,5 @@
+<h4>Edit user</h4>
+<%= form_for @user, :as => :user, :url => admin_accounts_path(@user), :html => { :method => :put } do |f| %>
+	<%#= render :partial => 'form', :locals => { :f => f, :users => @users, :user => @user } %>
+	<%= submit_tag 'Save' %> or <%= link_to 'Cancel', admin_accounts_path %>
+<% end%>

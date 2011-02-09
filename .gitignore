@@ -6,4 +6,5 @@ db/sphinx
 nbproject
 .DS_Store
 */.DS_Store
+_stuff
 

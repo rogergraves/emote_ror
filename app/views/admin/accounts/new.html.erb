@@ -1,0 +1,5 @@
+<h4>New e.mote</h4>
+<% form_for @emote, :as => :emote, :url => admin_emotes_path, :html => { :method => :post } do |f| %>
+	<%= render :partial => 'form', :locals => { :f => f, :users => @users, :emote => @emote } %>
+	<%= submit_tag 'Create' %> or <%= link_to 'Cancel', admin_emotes_path %>
+<% end%>
