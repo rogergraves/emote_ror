@@ -8,6 +8,8 @@ en:
         tos_agree: "The Master Subscription Agreement"
       survey:
         project_name: "e.mote subject"
+      note:
+        text: "Note text"
     errors:
       messages:
         taken: "you have specified already exists"

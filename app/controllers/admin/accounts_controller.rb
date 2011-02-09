@@ -40,17 +40,17 @@ class Admin::AccountsController < Admin::BaseController
   end
   
   def add_note
-    @new_note = Note.new
     @user = User.find(params[:id])
     @note = Note.new params[:note]
     @note.creator = current_admin
     @note.subject = @user
     if @note.save
       flash[:notice] = 'Note added'
+      @note = Note.new
+      @user.reload
     else
       flash[:alert] = 'Error adding note'
     end
-    @user.reload
     render :edit
   end
 

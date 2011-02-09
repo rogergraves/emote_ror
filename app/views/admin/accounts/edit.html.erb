@@ -25,10 +25,11 @@
       <br/>
       <div style="text-align: left">
         <textarea cols="60" rows="10" readonly="readonly"><%= @user.admin_notes.map{|note| "#{note.created_at.strftime('%m/%d/%Y')} -- #{note.text}\n\n"  } %></textarea>
-        <%= form_for @new_note, :as => :note, :url => add_note_admin_account_path(@user), :method => :post do |f| %>
+        <%= form_for @note, :url => add_note_admin_account_path(@user), :method => :post do |f| %>
           <%= f.text_field :text, :size => 45 %>
           <%= f.submit %>
         <% end %>
+        <%= errors_for(@note) %>
       </div>
 
     </td>
