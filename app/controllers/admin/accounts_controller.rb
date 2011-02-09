@@ -21,6 +21,7 @@ class Admin::AccountsController < Admin::BaseController
 
   def edit
      @user = User.find(params[:id])
+     @new_note = Note.new
   end
 
   def update
@@ -36,6 +37,21 @@ class Admin::AccountsController < Admin::BaseController
       flash[:alert] = 'Error saving user'
       render :edit
     end
+  end
+  
+  def add_note
+    @new_note = Note.new
+    @user = User.find(params[:id])
+    @note = Note.new params[:note]
+    @note.creator = current_admin
+    @note.subject = @user
+    if @note.save
+      flash[:notice] = 'Note added'
+    else
+      flash[:alert] = 'Error adding note'
+    end
+    @user.reload
+    render :edit
   end
 
   def destroy

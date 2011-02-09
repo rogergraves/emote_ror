@@ -28,7 +28,11 @@ EmoteRor::Application.routes.draw do
   end
   
   namespace :admin do
-    resources :accounts
+    resources :accounts do
+      member do
+        post 'add_note'
+      end
+    end
     resources :emotes
     resources :subscriptions
     root :to => "base#index"

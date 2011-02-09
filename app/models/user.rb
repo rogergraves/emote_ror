@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   has_many :subscriptions, :dependent => :destroy
   has_many :transactions, :dependent => :destroy, :class_name => 'PaypalTransaction', :foreign_key => 'user_id'
 
+  has_many :admin_notes, :as => :subject, :class_name => 'Note'
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable and :timeoutable

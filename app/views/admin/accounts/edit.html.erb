@@ -22,13 +22,13 @@
     <td align="center">
       <%= check_box_tag "chk-destroy-acc", false %> <%= label_tag 'chk-destroy-acc', "I'm going to delete this account" %>
       <%= button_to 'Delete Account', admin_account_path(@user), :method => :delete, :id => 'destroy-acc-btn', :disabled => true, :confirm => "This will destroy all data associated to this account. Operation is irreversible.\nAre you sure you want to delete account #{@user.email}?" %>
-      
+      <br/>
       <div style="text-align: left">
-        <textarea cols="60" rows="10" readonly="readonly">
-          notes, notes!
-        </textarea>
-        
-        
+        <textarea cols="60" rows="10" readonly="readonly"><%= @user.admin_notes.map{|note| "#{note.created_at.strftime('%m/%d/%Y')} -- #{note.text}\n\n"  } %></textarea>
+        <%= form_for @new_note, :as => :note, :url => add_note_admin_account_path(@user), :method => :post do |f| %>
+          <%= f.text_field :text, :size => 45 %>
+          <%= f.submit %>
+        <% end %>
       </div>
 
     </td>
