@@ -46,8 +46,8 @@
       </tr>
     <% end %>
   </table>
-
-  <div id="create-emote">
+</div>
+    <div id="create-emote">
     <% if current_user.can_add_scorecard? %>
         <%= link_to image_tag('create_emote_button.png'), new_account_survey_path %>
         <div id="add-scorecard">
@@ -58,8 +58,7 @@
             You don't have free slots for new e.mote&trade;. Delete one or buy more credits <%= link_to 'here', new_account_subscription_path %>
         </div>
     <% end %>
-  </div>
-</div>
+    </div>
 </div>
 
 <div id="links-dialog" style="visibility: hidden;">
