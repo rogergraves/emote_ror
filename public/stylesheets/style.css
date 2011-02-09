@@ -1075,7 +1075,6 @@ table.table_data{
     position: absolute;
     left: 50%;
     background-color: white;
-    overflow: auto;
 }
 
 .borderradius #content-win-control{
@@ -1089,7 +1088,7 @@ table.table_data{
     margin-right: auto;
     margin-left: auto;
     overflow: auto;
-    height: 410px;
+    height: 345px;
     margin-top: 13px;
 }
 
@@ -1124,7 +1123,6 @@ table.table_data{
     margin-bottom: 15px;
 }
 
-
 #content-win-control table td{
     vertical-align: middle;
 }
@@ -1151,11 +1149,12 @@ table.table_data{
 }
 
 #content-win-control #create-emote{
-    margin-top: 20px;
+    margin: 5px 20px;
+    width: 1060px;
 }
 
 #content-win-control #create-emote #add-scorecard{
-    margin-top: 10px;
+    margin-top: 3px;
     font-size: 14px;
 }
 
