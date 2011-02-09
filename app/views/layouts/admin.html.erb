@@ -39,7 +39,8 @@
             <%= link_to 'Stats', admin_root_path %> |
             <%= link_to 'Accounts List', admin_accounts_path %> |
             <%= link_to 'e.motes List', admin_emotes_path %> |
-            <%= link_to 'Subscriptions List', admin_subscriptions_path %>
+            <%= link_to 'Subscriptions List', admin_subscriptions_path %> //
+            <%= link_to 'Logout', destroy_admin_session_path %>
           </div>
         </div>
       <% end %>
@@ -52,6 +53,8 @@
 
     <div id="forfooter"> &nbsp; </div>
   </div>
+
+  <%= content_for :footer_js %>
 
   <div id="footer">
       <%= link_to image_tag('ie_logo.png', :id => 'ie-logo'), 'http://www.inspirationengine.com/', :target => '_blank' %>

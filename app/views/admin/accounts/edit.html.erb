@@ -1,5 +1,48 @@
 <h4>Edit user</h4>
-<%= form_for @user, :as => :user, :url => admin_accounts_path(@user), :html => { :method => :put } do |f| %>
-	<%#= render :partial => 'form', :locals => { :f => f, :users => @users, :user => @user } %>
-	<%= submit_tag 'Save' %> or <%= link_to 'Cancel', admin_accounts_path %>
-<% end%>
+<br/>
+<table>
+  <tr>
+    <td align="left" width="600">
+      <%= form_for @user, :as => :user, :url => admin_account_path(@user), :html => { :method => :put } do |f| %>
+        ID: <%= @user.id %>
+        <br/>
+        <%= render :partial => 'form', :locals => { :f => f, :users => @users, :user => @user } %>
+        <br/>
+        <%= f.label :password, 'Change password' %>
+        <%= f.text_field :password %>
+        <br/>
+        <%= f.label :password_confirmation, 'Change password (confirmation)' %>
+        <%= f.text_field :password_confirmation %>
+        <br/><br/>
+        <%= f.check_box :banned %> <%= f.label :banned, 'Disable account' %>
+        <br/><br/>
+        <%= submit_tag 'Modify account' %> or <%= link_to 'Cancel', admin_accounts_path %>
+      <% end%>
+    </td>
+    <td align="center">
+      <%= check_box_tag "chk-destroy-acc", false %> <%= label_tag 'chk-destroy-acc', "I'm going to delete this account" %>
+      <%= button_to 'Delete Account', admin_account_path(@user), :method => :delete, :id => 'destroy-acc-btn', :disabled => true, :confirm => "This will destroy all data associated to this account. Operation is irreversible.\nAre you sure you want to delete account #{@user.email}?" %>
+      
+      <div style="text-align: left">
+        <textarea cols="60" rows="10" readonly="readonly">
+          notes, notes!
+        </textarea>
+        
+        
+      </div>
+
+    </td>
+  </tr>
+</table>
+
+<% content_for :footer_js do %>
+  <script>
+    $('#chk-destroy-acc').click(function(){
+      if($(this).attr('checked')){
+        $('#destroy-acc-btn').removeAttr("disabled");
+      }else{
+        $('#destroy-acc-btn').attr("disabled", "disabled");
+      }
+    });
+  </script>
+<% end %>

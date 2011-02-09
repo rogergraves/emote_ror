@@ -24,13 +24,28 @@ class Admin::AccountsController < Admin::BaseController
   end
 
   def update
+    if params[:account][:password].blank?
+      params[:account].delete(:password)
+      params[:account].delete(:password_confirmation)
+    end
     @user = User.find(params[:id])
     if @user.update_attributes params[:user]
-      flash[:notice] = "User #{user.email} successfullu saved"
+      flash[:notice] = "User #{@user.email} successfully saved"
       redirect_to admin_accounts_path
     else
       flash[:alert] = 'Error saving user'
-      render :new
+      render :edit
+    end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    if @user.destroy
+      flash[:notice] = "User #{@user.email} successfully deleted"
+      redirect_to admin_accounts_path
+    else
+      flash[:alert] = 'Error deleting user'
+      render :edit
     end
   end
 

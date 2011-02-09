@@ -1,5 +1,22 @@
-<%= f.label :user_id, 'For user' %>
-<%= f.select :user_id, users.map {|u| [u.email, u.id]} %><br/>
-<%= f.label :project_name, 'Title' %>
-<%= f.text_field :project_name %><br/>
-<%= errors_for(emote) %>
+<%= errors_for(user) %>
+
+<%= f.label :email %>
+<%= f.email_field :email %>
+<br/>
+<%= f.label :full_name %>
+<%= f.text_field :full_name %>
+<br/>
+<%= f.label :company %>
+<%= f.text_field :company %>
+<br/>
+<%= f.label :job_title %>
+<%= f.text_field :job_title %>
+<br/>
+<%= f.label :phone_number %>
+<%= f.text_field :phone_number %>
+<br/>
+<%= f.label :country %>
+<%= f.select :country_code, options_for_select( Country::LIST.collect {|c| [c[:name], c[:iso]]}, user.country_code) %>
+<br/>
+
+

@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :full_name, :country_code, :company, :job_title, :phone_number, :tos_agree
+                  :full_name, :country_code, :company, :job_title, :phone_number, :tos_agree, :banned
 
   validates :email, :length => { :maximum => 255 }
   validates :full_name, :length => { :maximum => 100 }
