@@ -48,7 +48,7 @@ class SurveysController < ApplicationController
   def scorecard
     @survey = current_user.surveys.find(params[:id])
     redirect_to root_path if @survey.nil?
-    @survey.action_token = Digest::MD5.hexdigest("#{@survey.id}-==-#{@survey.code}-=-#{Time.now}")
+    @survey.generate_action_token!
     @survey.save!
   end
   

@@ -42,7 +42,7 @@
 
 <% if search %>
   <div id='search'>
-  <% form_tag({:action => @action}, {:method => 'get', :id => 'search_form'}) do %>
+  <%= form_tag({:action => @action}, {:method => 'get', :id => 'search_form'}) do %>
     <%=text_field_tag("q", params['q'], :size => 10 ) %> 
     <%= submit_tag 'Search'%> (by email, name, title, company)
   <% end %>
