@@ -61,7 +61,7 @@ class Survey < ActiveRecord::Base
 
   validate(:on => :create) do |survey|
     if !survey.user(true).can_add_scorecard? && !@force_creation
-      survey.errors[:user] = ' cannot add more emotes'
+      survey.errors[:user] = ' cannot add more e.motes'
     end
   end
 

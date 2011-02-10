@@ -6,13 +6,7 @@
       <%= form_for @user, :as => :user, :url => admin_account_path(@user), :html => { :method => :put } do |f| %>
         ID: <%= @user.id %>
         <br/>
-        <%= render :partial => 'form', :locals => { :f => f, :users => @users, :user => @user } %>
-        <br/>
-        <%= f.label :password, 'Change password' %>
-        <%= f.text_field :password %>
-        <br/>
-        <%= f.label :password_confirmation, 'Change password (confirmation)' %>
-        <%= f.text_field :password_confirmation %>
+        <%= render :partial => 'form', :locals => { :f => f, :password_label => 'Change password', :user => @user } %>
         <br/><br/>
         <%= f.check_box :banned %> <%= f.label :banned, 'Disable account' %>
         <br/><br/>

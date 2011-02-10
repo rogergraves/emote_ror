@@ -1,5 +1,8 @@
 <h4>New account</h4>
+<br/>
 <% form_for @user, :as => :user, :url => admin_accounts_path, :html => { :method => :post } do |f| %>
-	<%= render :partial => 'form', :locals => { :f => f, :user => @user } %>
-	<%= submit_tag 'Create' %> or <%= link_to 'Cancel', admin_accounts_path %>
+        <%= render :partial => 'form', :locals => { :f => f, :password_label => 'Password', :user => @user } %>
+	<br/>
+	<br/>
+        <%= submit_tag 'Create New Account' %> or <%= link_to 'Cancel', admin_accounts_path %>
 <% end%>

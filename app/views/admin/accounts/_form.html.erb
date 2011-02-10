@@ -18,5 +18,12 @@
 <%= f.label :country %>
 <%= f.select :country_code, options_for_select( Country::LIST.collect {|c| [c[:name], c[:iso]]}, user.country_code) %>
 <br/>
+<%= f.label :password, password_label %>
+<%= f.password_field :password %>
+<br/>
+<%= f.label :password_confirmation, "#{password_label} (confirmation)" %>
+<%= f.password_field :password_confirmation %>
+
+
 
 

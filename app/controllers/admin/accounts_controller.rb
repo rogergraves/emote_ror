@@ -11,7 +11,7 @@ class Admin::AccountsController < Admin::BaseController
   def create
     @user = User.new(params[:user])
     if @user.save
-      flash[:notice] = "User #{user.email} successfullu saved"
+      flash[:notice] = "User #{@user.email} successfullu saved"
       redirect_to admin_accounts_path
     else
       flash[:alert] = 'Error saving user'
@@ -25,9 +25,9 @@ class Admin::AccountsController < Admin::BaseController
   end
 
   def update
-    if params[:account][:password].blank?
-      params[:account].delete(:password)
-      params[:account].delete(:password_confirmation)
+    if params[:user][:password].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
     end
     @user = User.find(params[:id])
     if @user.update_attributes params[:user]
@@ -35,6 +35,7 @@ class Admin::AccountsController < Admin::BaseController
       redirect_to admin_accounts_path
     else
       flash[:alert] = 'Error saving user'
+      @note = Note.new
       render :edit
     end
   end
