@@ -45,7 +45,7 @@ class Subscription < ActiveRecord::Base
   KIND_REGULAR = 0
   KIND_TRIAL = 1
   
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   has_one :transaction, :dependent => :nullify, :class_name => 'PaypalTransaction', :foreign_key => 'subscription_id'
 
   validates :user, :presence => true

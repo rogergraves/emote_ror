@@ -25,7 +25,7 @@ class Survey < ActiveRecord::Base
   attr_accessor :force_creation
   @force_creation = false
   
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   
   has_many :survey_results, :foreign_key => :code, :primary_key => :code
   

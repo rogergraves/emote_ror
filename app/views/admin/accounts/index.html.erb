@@ -1,28 +1,6 @@
 <h4>Accounts:</h4>
-<form>
-  <%= text_field_tag :filter, params[:filter] %>
-</form><input type="submit" value="Filter" onclick="document.forms[0].submit()"/>
-<table width="100%">
-	<tr>
-          <% ['ID', 'Email', 'Name', 'Title', 'Company', 'Login count', 'Last login', 'eMotes', 'Subscriptions'].each do |header| %>
-            <th align="left"><%= header %></th>
-          <% end %>
-	</tr>
-	<% @users.each do |user| %>
-          <tr>
-            <td><%= user.id %></td>
-            <td><%= link_to user.email, edit_admin_account_path(user) %></td>
-            <td><%= user.full_name %></td>
-            <td><%= user.job_title %></td>
-            <td><%= user.company %></td>
-            <td><%= user.sign_in_count %></td>
-            <td><%= user.last_sign_in_at %></td>
-            <td><%= user.surveys.count %></td>
-            <td><%= user.subscriptions.count %></td>
-          </tr>
-	<% end %>
-</table>
-<%= will_paginate @users %>
+<br/>
+<%= sortable_table(:partial => 'users_table') %>
 
 <br/>
 

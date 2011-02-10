@@ -1,7 +1,32 @@
 class Admin::AccountsController < Admin::BaseController
 
+  sortable_table User,
+    :table_headings => [
+      ['ID', 'id'],
+      ['Email', 'email', :edit],
+      ['Name', 'full_name'],
+      ['Title', 'job_title'],
+      ['Company', 'company'],
+      ['Login count', 'sign_in_count'],
+      ['Last login', 'last_sign_in_at'],
+      ['eMotes', 'surveys_count'],
+      ['Subscriptions', 'subscriptions_count']
+    ],
+    :sort_map =>  {
+      'id' => ['users.id'],
+      'email' => ['users.email'],
+      'full_name' => ['users.full_name'],
+      'job_title' => ['users.job_title'],
+      'company' => ['users.company'],
+      'sign_in_count' => ['users.sign_in_count'],
+      'last_sign_in_at' => ['users.last_sign_in_at'],
+      'surveys_count' => ['surveys_count'],
+      'subscriptions_count' => ['subscriptions_count']
+    },
+    :search_array => ['users.email', 'users.full_name', 'users.job_title', 'users.company']
+
   def index
-    @users = User.paginate(:page => params[:page]) #, :conditions => ["`users`.`email` LIKE ? or `surveys`.`code` LIKE ? or `surveys`.`project_name` LIKE ?", "%#{params[:filter]}%","%#{params[:filter]}%","%#{params[:filter]}%"], :include => [:user])
+    get_sorted_objects(params)
   end
 
   def new
@@ -11,7 +36,7 @@ class Admin::AccountsController < Admin::BaseController
   def create
     @user = User.new(params[:user])
     if @user.save
-      flash[:notice] = "User #{@user.email} successfullu saved"
+      flash[:notice] = "User #{@user.email} successfully saved"
       redirect_to admin_accounts_path
     else
       flash[:alert] = 'Error saving user'
