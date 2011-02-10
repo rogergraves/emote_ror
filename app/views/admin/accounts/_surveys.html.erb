@@ -1,5 +1,5 @@
 <table width="60%">
-        <% columns = ['e.mote name', 'CODE', 'START DATE', 'ARCHIVED', 'RESPONSES', 'Action'] %>
+        <% columns = ['e.mote name', 'CODE', 'START DATE', 'STATE', 'RESPONSES', 'Action'] %>
 	<tr>
           <% columns.each do |header| %>
             <th align="left"><%= header %></th>
@@ -10,7 +10,7 @@
             <td><%= emote.project_name %></td>
             <td><%= emote.code %></td>
             <td><%= emote.created_at %></td>
-            <td><%= emote.active ? 'No' : 'Yes' %></td>
+            <td><%= emote.state_human %></td>
             <td><%= emote.responses_count %></td>
             <td><%= link_to 'Edit', edit_admin_emote_path(emote) %></td>
           </tr>

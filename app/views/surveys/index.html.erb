@@ -22,7 +22,7 @@
           <%= link_to survey.project_name, scorecard_account_survey_path(survey), :target => 'scorecard'%>
         </td>
         <td>
-          <% if survey.active %>
+          <% if survey.active? %>
             <%= survey.code %>
           <% end %>
         </td>
@@ -32,11 +32,11 @@
         <td>
           <%= form_for("survey_#{survey.id}_archive", :url => account_survey_path(survey), :html => {:method => :put, :id => "survey_#{survey.id}_archive_form"}) do |f| %>
             <%= hidden_field_tag 'property', 'archive' %>
-            <%= check_box_tag "survey_#{survey.id}_archive", true, !survey.active, :onchange => "$('#survey_#{survey.id}_archive_form').submit();" %>
+            <%= check_box_tag "survey_#{survey.id}_archive", true, survey.archived?, :onchange => "$('#survey_#{survey.id}_archive_form').submit();" %>
           <% end %>
         </td>
         <td>
-          <% if survey.active %>
+          <% if survey.active? %>
             <%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), '#', :onclick => "showLinks('#{survey.emote_direct_link}');", :title => 'Go to e.mote'%>
           <% end %>
         </td>

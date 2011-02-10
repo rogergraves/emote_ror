@@ -6,7 +6,7 @@ class Admin::EmotesController < Admin::BaseController
       ['Customer', 'user.email'],
       ['e.mote NAME', 'project_name', :edit],
       ['Code', "code"],
-      ['ARCHIVED', 'active', :archived],
+      ['STATE', 'state_human'],
       ['START DATE', "created_at"],
       ['RESPONSES', "responses_count"]
     ],
@@ -16,7 +16,7 @@ class Admin::EmotesController < Admin::BaseController
       'project_name' => ['surveys.project_name'],
       'code' => ['surveys.code'],
       'created_at' => ['surveys.created_at'],
-      'active' => ['surveys.active'],
+      'state_human' => ['surveys.state'],
       'responses_count' => ['surveys.responses_count']
     },
     :search_array => ['surveys.project_name', 'surveys.code']

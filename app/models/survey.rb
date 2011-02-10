@@ -18,6 +18,10 @@
 
 class Survey < ActiveRecord::Base
   require 'zlib'
+
+  STATE_ACTIVE = 0
+  STATE_ARCHIVED = 1
+  STATE_SUSPENDED = 2
   
   cattr_reader :per_page
   @@per_page = 50
@@ -63,6 +67,22 @@ class Survey < ActiveRecord::Base
     if !survey.user(true).can_add_scorecard? && !@force_creation
       survey.errors[:user] = ' cannot add more e.motes'
     end
+  end
+
+  def active?
+    state==STATE_ACTIVE
+  end
+
+  def archived?
+    state==STATE_ARCHIVED
+  end
+
+  def suspended?
+    state==STATE_SUSPENDED
+  end
+
+  def state_human
+    %w(Active Archived Suspended)[state]
   end
 
   def emote_direct_link

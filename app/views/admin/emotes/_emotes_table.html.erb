@@ -64,14 +64,13 @@
                <%=
                   case heading[2]
                   when :edit then link_to(object.project_name, edit_admin_emote_path(object))
-                  when :archived then object.active ? 'No' : 'Yes'
                   else object.instance_eval(heading[1])
                   end
                %>
              </td>
          <% end %>
              <td>
-               <%= button_to 'Scorecard', scorecard_admin_emote_path(object), :method => :get %>
+               <%= link_to 'View Scorecard', scorecard_admin_emote_path(object) %>
              </td>
   		</tr>
 	<%  end
