@@ -1,9 +1,36 @@
 class Admin::SubscriptionsController < Admin::BaseController
+
+  sortable_table Subscription,
+    :default_sort => ['user.email', 'DESC'],
+    :table_headings => [
+      ['Customer', 'user.email'],
+      ['Date purchased', 'created_at'],
+      ['Description', "transaction.description", nil, '1 emote'],
+      ['# of emotes', 'emote_amount'],
+      ['Transaction #', "transaction.token", nil, 'FREE TRIAL'],
+      ['Paid', "transaction.total", nil, '0'],
+      ['Begins', "start_date"],
+      ['Expires', "end_date"]
+    ],
+    :include_relations => [:user, :transaction],
+    :sort_map =>  {
+      'user.email' => ['users.email'],
+      'created_at' => ['subscriptions.created_at'],
+      'transaction.description' => ['paypal_transactions.description'],
+      'emote_amount' => ['subscriptions.emote_amount'],
+      'transaction.token' => ['paypal_transactions.token'],
+      'transaction.total' => ['paypal_transactions.total'],
+      'start_date' => ['subscriptions.start_date'],
+      'end_date' => ['subscriptions.end_date']
+    },
+    :search_array => ['paypal_transactions.token']
+
+
+
   before_filter :load_users, :only => [:new, :create, :edit, :update]
 
   def index
-    conditions = (params[:exclude_trial]) ? ["(`users`.`email` LIKE ? or `paypal_transactions`.`token` LIKE ?) and `paypal_transactions`.`id` is not null", "%#{params[:filter]}%","%#{params[:filter]}%"] : ["`users`.`email` LIKE ? or `paypal_transactions`.`token` LIKE ?", "%#{params[:filter]}%","%#{params[:filter]}%"]
-    @subscriptions = Subscription.paginate(:page => params[:page], :conditions => conditions, :include => [:user, :transaction])
+    get_sorted_objects(params)
   end
   
   def new

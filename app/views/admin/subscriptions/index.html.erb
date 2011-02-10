@@ -1,26 +1,7 @@
 <h4>Subscriptions:</h4>
-<form>
-	<%= text_field_tag :filter, params[:filter] %>
-	Exclude trials <%= check_box_tag :exclude_trial, true, params[:exclude_trial] %>
-</form><input type="submit" value="Filter" onclick="document.forms[0].submit()">
-<table width="100%">
-	<tr>
-		<th>Owner</th>
-		<th>Emotes</th>
-		<th>Date</th>
-		<th>Total</th>
-		<th>Token</th>
-	</tr>
-	<% @subscriptions.each do |subscription| %>
-	<tr>
-		<td><%= subscription.user.email %></td>
-		<td><%= subscription.emote_amount %></td>
-		<td><%= link_to subscription.created_at, edit_admin_subscription_path(subscription) %></td>
-		<td><%= subscription.transaction.total rescue 0 %></td>
-		<td><%= subscription.transaction.token rescue 'TRIAL' %></td>
-	</tr>
-	<% end %>
-</table>
-<%= will_paginate @subscriptions %>
+<br/>
+
+<%= sortable_table(:partial => 'subscriptions_table') %>
+
 <br/><br/>
 <%= link_to 'New subscription', new_admin_subscription_path %>

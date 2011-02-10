@@ -17,7 +17,7 @@ class Admin::EmotesController < Admin::BaseController
       'code' => ['surveys.code'],
       'created_at' => ['surveys.created_at'],
       'active' => ['surveys.active'],
-      'responses_count' => ['surveys.responses_count'],
+      'responses_count' => ['surveys.responses_count']
     },
     :search_array => ['surveys.project_name', 'surveys.code']
 
