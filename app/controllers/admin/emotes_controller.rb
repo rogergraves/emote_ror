@@ -1,7 +1,30 @@
 class Admin::EmotesController < Admin::BaseController
+
+  sortable_table Survey,
+    :default_sort => ['user.email', 'DESC'],
+    :table_headings => [
+      ['Customer', 'user.email'],
+      ['e.mote NAME', 'project_name', :edit],
+      ['Code', "code"],
+      ['ARCHIVED', 'active', :archived],
+      ['START DATE', "created_at"],
+      ['RESPONSES', "responses_count"]
+    ],
+    :include_relations => [:user],
+    :sort_map =>  {
+      'user.email' => ['users.email'],
+      'project_name' => ['surveys.project_name'],
+      'code' => ['surveys.code'],
+      'created_at' => ['surveys.created_at'],
+      'active' => ['surveys.active'],
+      'responses_count' => ['surveys.responses_count'],
+    },
+    :search_array => ['surveys.project_name', 'surveys.code']
+
+
   before_filter :load_users, :only => [:new, :create, :edit, :update]
   def index
-    @emotes = Survey.paginate(:page => params[:page], :conditions => ["`users`.`email` LIKE ? or `surveys`.`code` LIKE ? or `surveys`.`project_name` LIKE ?", "%#{params[:filter]}%","%#{params[:filter]}%","%#{params[:filter]}%"], :include => [:user])
+    get_sorted_objects(params)
   end
   
   def new
@@ -29,6 +52,13 @@ class Admin::EmotesController < Admin::BaseController
     else
       render :action => 'edit'
     end
+  end
+  
+  def scorecard
+    @survey = Survey.find params[:id]
+    @survey.generate_action_token!
+    @survey.save!
+    render :template => 'surveys/scorecard'
   end
   
   protected

@@ -79,4 +79,8 @@ protected
     self.code = Zlib::crc32("#{self.user ? self.user.full_name : 'no_user'}-#{self.user_id}--#{self.id}-#{self.project_name}-=-[OMATORE]-=-#{Time.now.to_i}").to_s(36).upcase
   end
 
+  def generate_action_token!
+    self.action_token = Digest::MD5.hexdigest("#{id}-==-#{code}-=-#{Time.now}")
+  end
+
 end

@@ -9,8 +9,8 @@ class Admin::AccountsController < Admin::BaseController
       ['Company', 'company'],
       ['Login count', 'sign_in_count'],
       ['Last login', 'last_sign_in_at'],
-      ['eMotes', 'surveys_count'],
-      ['Subscriptions', 'subscriptions_count']
+      ['eMotes', 'surveys.count'],
+      ['Subscriptions', 'subscriptions.count']
     ],
     :sort_map =>  {
       'id' => ['users.id'],
@@ -20,8 +20,8 @@ class Admin::AccountsController < Admin::BaseController
       'company' => ['users.company'],
       'sign_in_count' => ['users.sign_in_count'],
       'last_sign_in_at' => ['users.last_sign_in_at'],
-      'surveys_count' => ['surveys_count'],
-      'subscriptions_count' => ['subscriptions_count']
+      'surveys.count' => ['surveys_count'],
+      'subscriptions.count' => ['subscriptions_count']
     },
     :search_array => ['users.email', 'users.full_name', 'users.job_title', 'users.company']
 

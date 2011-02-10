@@ -33,7 +33,11 @@ EmoteRor::Application.routes.draw do
         post 'add_note'
       end
     end
-    resources :emotes
+    resources :emotes do
+      member do
+        get 'scorecard'
+      end
+    end
     resources :subscriptions
     root :to => "base#index"
   end

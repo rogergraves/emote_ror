@@ -44,7 +44,7 @@
   <div id='search'>
   <%= form_tag({:action => @action}, {:method => 'get', :id => 'search_form'}) do %>
     <%=text_field_tag("q", params['q'], :size => 10 ) %> 
-    <%= submit_tag 'Search'%> (by email, name, title, company)
+    <%= submit_tag 'Search'%> (by name, code)
   <% end %>
   </div>
 <% end %>
@@ -63,12 +63,16 @@
              <td>
                <%=
                   case heading[2]
-                  when :edit then link_to(object.email, edit_admin_account_path(object))
+                  when :edit then link_to(object.project_name, edit_admin_emote_path(object))
+                  when :archived then object.active ? 'No' : 'Yes'
                   else object.instance_eval(heading[1])
                   end
                %>
              </td>
          <% end %>
+             <td>
+               <%= button_to 'Scorecard', scorecard_admin_emote_path(object), :method => :get %>
+             </td>
   		</tr>
 	<%  end
 	 end %>
