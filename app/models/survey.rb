@@ -35,12 +35,12 @@ class Survey < ActiveRecord::Base
   
   validates :user, :presence => true
   validates :project_name, :presence => true, :uniqueness => {:scope => :user_id}, :length => { :maximum => 255 }
-  validates :code, :presence => true, :uniqueness => true
+  validates :code, :presence => true, :uniqueness => true, :length => { :maximum => 20 }
   validates :state, :inclusion => { :in => [STATE_ACTIVE, STATE_ARCHIVED, STATE_SUSPENDED] }
 
   alias_attribute :public_scorecard, :public 
   alias_attribute :short_stimulus, :project_name
-  attr_accessible :project_name, :public, :active, :user_id, :state
+  attr_accessible :project_name, :public, :active, :user_id, :state, :code
   
   after_save do
     survey_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
@@ -61,7 +61,7 @@ class Survey < ActiveRecord::Base
   end
   
   before_validation(:on => :create) do
-    generate_survey_code!
+    generate_survey_code! if self.code.blank?
   end
 
   validate(:on => :create) do |survey|
@@ -97,7 +97,13 @@ class Survey < ActiveRecord::Base
 protected
 
   def generate_survey_code!
-    self.code = Zlib::crc32("#{self.user ? self.user.full_name : 'no_user'}-#{self.user_id}--#{self.id}-#{self.project_name}-=-[OMATORE]-=-#{Time.now.to_i}").to_s(36).upcase
+    i = 0; kukan = 'x'
+    loop do
+      kukan = Zlib::crc32("#{self.user ? self.user.full_name : 'no_user'}-#{self.user_id}--#{self.id}-#{self.project_name}-=-[OMATORE]-=#{i}=-#{Time.now.to_i}").to_s(36).upcase
+      break kukan unless Survey.find(:first, :conditions => { :code => kukan })
+      i+=1
+    end
+    self.code = kukan
   end
 
   def generate_action_token!

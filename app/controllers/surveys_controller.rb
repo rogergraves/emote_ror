@@ -13,7 +13,7 @@ class SurveysController < ApplicationController
   def create
     @survey = Survey.new params[:survey] 
     @survey.user = current_user
-    @survey.active = true
+    @survey.state = Survey::STATE_ACTIVE
     @survey.project_name.gsub!(/(\.|\n|\s)*$/,'').gsub!(/^(\s)/,'')
     if @survey.save
         flash[:notice] = 'e.mote&trade; was published'
