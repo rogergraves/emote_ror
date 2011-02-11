@@ -36,10 +36,11 @@ class Survey < ActiveRecord::Base
   validates :user, :presence => true
   validates :project_name, :presence => true, :uniqueness => {:scope => :user_id}, :length => { :maximum => 255 }
   validates :code, :presence => true, :uniqueness => true
+  validates :state, :inclusion => { :in => [STATE_ACTIVE, STATE_ARCHIVED, STATE_SUSPENDED] }
 
   alias_attribute :public_scorecard, :public 
   alias_attribute :short_stimulus, :project_name
-  attr_accessible :project_name, :public, :active, :user_id
+  attr_accessible :project_name, :public, :active, :user_id, :state
   
   after_save do
     survey_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>

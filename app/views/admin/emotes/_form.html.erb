@@ -2,4 +2,7 @@
 <%= f.select :user_id, users.map {|u| [u.email, u.id]} %><br/>
 <%= f.label :project_name, 'Title' %>
 <%= f.text_field :project_name %><br/>
+<%= f.radio_button :state, Survey::STATE_ACTIVE %> Active<br/>
+<%= f.radio_button :state, Survey::STATE_ARCHIVED %> Archived<br/>
+<%= f.radio_button :state, Survey::STATE_SUSPENDED %> Suspended<br/>
 <%= errors_for(emote) %>

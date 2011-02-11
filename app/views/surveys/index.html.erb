@@ -30,10 +30,14 @@
           <%= survey.created_at.strftime('%d %b %Y') %>
         </td>
         <td>
-          <%= form_for("survey_#{survey.id}_archive", :url => account_survey_path(survey), :html => {:method => :put, :id => "survey_#{survey.id}_archive_form"}) do |f| %>
-            <%= hidden_field_tag 'property', 'archive' %>
-            <%= check_box_tag "survey_#{survey.id}_archive", true, survey.archived?, :onchange => "$('#survey_#{survey.id}_archive_form').submit();" %>
-          <% end %>
+          <%= if survey.suspended?
+            image_tag 'exclamation.png', :title => 'Suspended, contact support for details'
+          else
+            form_for("survey_#{survey.id}_archive", :url => account_survey_path(survey), :html => {:method => :put, :id => "survey_#{survey.id}_archive_form"}) do |f| 
+             hidden_field_tag 'property', 'archive'
+             check_box_tag "survey_#{survey.id}_archive", true, survey.archived?, :onchange => "$('#survey_#{survey.id}_archive_form').submit();" 
+            end
+          end %>
         </td>
         <td>
           <% if survey.active? %>
