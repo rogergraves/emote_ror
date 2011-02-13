@@ -34,7 +34,7 @@ namespace :deploy do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
   
-  after "bundle install","deploy:update_code", :symlink_config_files,
+  after "deploy:update_code", :symlink_config_files,
                               :fix_public_dir_permission,
                               :fix_tmp_dir_permission,
                               :fix_release_dir_permission,
