@@ -94,6 +94,10 @@ class Survey < ActiveRecord::Base
     "<iframe src='#{emote_direct_link}'/>" #Approx.
   end
 
+  def generate_action_token!
+    self.action_token = Digest::MD5.hexdigest("#{id}-==-#{code}-=-#{Time.now}")
+  end
+
 protected
 
   def generate_survey_code!
@@ -104,10 +108,6 @@ protected
       i+=1
     end
     self.code = kukan
-  end
-
-  def generate_action_token!
-    self.action_token = Digest::MD5.hexdigest("#{id}-==-#{code}-=-#{Time.now}")
   end
 
 end

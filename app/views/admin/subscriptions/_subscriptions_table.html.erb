@@ -61,7 +61,17 @@
 	    <tr id='<%=dom_id(object)%>' class='<%= cycle('odd', 'even') %>'>
          <% @headings.each do |heading| %>
              <td>
-               <%= object.instance_eval(heading[1]) rescue (heading[3] || h('<empty>')) %>
+               <%=
+               begin
+                case heading[2]
+                when :paid then number_to_currency(object.transaction.total, :unit => Country.curr_code_to_symbol(object.transaction.currency))
+                else object.instance_eval(heading[1])
+                end
+               rescue
+                heading[3] || h('<empty>')
+               end
+
+             %>
              </td>
          <% end %>
              <td>

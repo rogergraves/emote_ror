@@ -8,7 +8,7 @@ class Admin::SubscriptionsController < Admin::BaseController
       ['Description', "transaction.description", nil, '1 emote'],
       ['# of emotes', 'emote_amount'],
       ['Transaction #', "transaction.token", nil, 'FREE TRIAL'],
-      ['Paid', "transaction.total", nil, '0'],
+      ['Paid', "transaction.total", :paid, '0'],
       ['Begins', "start_date"],
       ['Expires', "end_date"]
     ],
