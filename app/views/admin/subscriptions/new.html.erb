@@ -1,5 +1,5 @@
 <h4>New subscription</h4>
 <% form_for @subscription, :as => :subscription, :url => admin_subscriptions_path, :html => { :method => :post } do |f| %>
-	<%= render :partial => 'form', :locals => { :f => f, :users => @users, :subscription => @subscription } %>
+	<%= render :partial => 'form', :locals => { :f => f, :subscription => @subscription } %>
 	<%= submit_tag 'Create' %> or <%= link_to 'Cancel', admin_subscriptions_path %>
 <% end%>

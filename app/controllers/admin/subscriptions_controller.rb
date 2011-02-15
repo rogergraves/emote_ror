@@ -58,16 +58,23 @@ class Admin::SubscriptionsController < Admin::BaseController
   end
   
   def edit
-    @subscription = Subscription.find params[:id]
+    @subscription = Subscription.find( params[:id], :include => [:transaction] )
   end
   
   def update
-    @subscription = Subscription.find params[:id]
+    @subscription = Subscription.find( params[:id], :include => [:transaction] )
+    @subscription.transaction.update_attributes params[:paypal_transaction]
     if @subscription.update_attributes params[:subscription]
       redirect_to admin_subscriptions_path
     else
       render :action => 'edit'
     end
+  end
+  
+  def destroy
+    @subscription = Subscription.find( params[:id] )
+    @subscription.destroy
+    redirect_to admin_subscriptions_path
   end
   
   protected

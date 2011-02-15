@@ -49,7 +49,8 @@ class Subscription < ActiveRecord::Base
   has_one :transaction, :dependent => :nullify, :class_name => 'PaypalTransaction', :foreign_key => 'subscription_id'
 
   validates :user, :presence => true
-  validates :emote_amount, :presence => true, :numericality => true, :inclusion => {:in => [1, 5, 10, 25]}
+  validates :emote_amount, :presence => true, :numericality => true, :inclusion => {:in => [-1, -5, -10, -25, 0, 1, 5, 10, 25]}
+  validates :transaction, :associated => true
   
   validates :start_date, :presence => true
   validates :end_date, :presence => true
