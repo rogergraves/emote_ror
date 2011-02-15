@@ -42,6 +42,8 @@ class Admin::SubscriptionsController < Admin::BaseController
     @subscription = Subscription.new
     @subscription.start_date = Time.now
     @subscription.end_date = 1.year.from_now
+    @subscription.transaction = PaypalTransaction.new
+    @subscription.transaction.user_id = @subscription.user_id
   end
   
   def create
