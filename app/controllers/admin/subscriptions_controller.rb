@@ -5,7 +5,7 @@ class Admin::SubscriptionsController < Admin::BaseController
     :table_headings => [
       ['Customer', 'user.email'],
       ['Date purchased', 'created_at'],
-      ['Description', "transaction.description", nil, '1 emote'],
+      ['Product', "transaction.description", nil, '1 emote'],
       ['# of emotes', 'emote_amount'],
       ['Transaction #', "transaction.token", nil, 'FREE TRIAL'],
       ['Paid', "transaction.total", :paid, '0'],
@@ -71,6 +71,6 @@ class Admin::SubscriptionsController < Admin::BaseController
   
   protected
     def load_users
-      @users = User.all
+      @users = User.all.sort_by(&:email)
     end  
 end

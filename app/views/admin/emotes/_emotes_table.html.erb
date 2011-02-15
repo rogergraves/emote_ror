@@ -25,6 +25,12 @@
                <%=
                   case heading[2]
                   when :edit then link_to(object.project_name, edit_admin_emote_path(object))
+                  when :code then
+                        if object.active?
+                          link_to(object.code, object.emote_direct_link, :target => '_blank')
+                        else
+                          object.code
+                        end
                   else object.instance_eval(heading[1])
                   end
                %>
