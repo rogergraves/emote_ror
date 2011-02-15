@@ -1,3 +1,5 @@
+require 'bundler/capistrano'
+
 set :application, 'emote'
 set :repository,  "git@github.com:inspirationengine/emote_ror.git"
 
