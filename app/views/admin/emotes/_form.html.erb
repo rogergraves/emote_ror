@@ -1,7 +1,7 @@
 <%= f.label :user_id, 'For user' %>
 <%= f.select :user_id, users.map {|u| [u.email, u.id]} %>
 <br/>
-<%= f.label :project_name, 'Title' %>
+<%= f.label :project_name, 'Subject' %>
 <%= f.text_field :project_name %>
 <br/>
 <%= f.label :code %>

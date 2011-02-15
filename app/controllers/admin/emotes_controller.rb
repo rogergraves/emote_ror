@@ -35,8 +35,10 @@ class Admin::EmotesController < Admin::BaseController
     @emote = Survey.new params[:emote]
     @emote.force_creation = true
     if @emote.save
+      flash[:notice] = "Emote successfully created"
       redirect_to admin_emotes_path
     else
+      flash[:alert] = 'Error creating emote'
       render :action => 'new'
     end
   end
@@ -48,8 +50,21 @@ class Admin::EmotesController < Admin::BaseController
   def update
     @emote = Survey.find params[:id]
     if @emote.update_attributes params[:emote]
+      flash[:notice] = "Emote successfully saved"
       redirect_to admin_emotes_path
     else
+      flash[:alert] = 'Error saving emote'
+      render :action => 'edit'
+    end
+  end
+
+  def destroy
+    @emote = Survey.find params[:id]
+    if @emote.destroy
+      flash[:notice] = "Emote successfully deleted"
+      redirect_to admin_emotes_path
+    else
+      flash[:alert] = 'Error deleting emote'
       render :action => 'edit'
     end
   end
