@@ -5,6 +5,9 @@
   <%= form_tag({:action => @action}, {:method => 'get', :id => 'search_form'}) do %>
     <%=text_field_tag("q", params['q'], :size => 10 ) %> 
     <%= submit_tag 'Search'%> (by transaction #)
+    <br/>
+    <%= check_box_tag :include_trial, true, params[:include_trial] %>
+    <%= label :include, :trial, 'Include trial' %>
   <% end %>
   </div>
 <% end %>

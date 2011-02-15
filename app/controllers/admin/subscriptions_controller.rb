@@ -30,7 +30,11 @@ class Admin::SubscriptionsController < Admin::BaseController
   before_filter :load_users, :only => [:new, :create, :edit, :update]
 
   def index
-    get_sorted_objects(params)
+    options = {}
+    unless params[:include_trial]=='true'
+      options = {:conditions => '`paypal_transactions`.`id` IS NOT NULL'}
+    end
+    get_sorted_objects(params, options)
   end
   
   def new
