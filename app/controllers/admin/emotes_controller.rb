@@ -5,7 +5,7 @@ class Admin::EmotesController < Admin::BaseController
     :table_headings => [
       ['Customer', 'user.email'],
       ['e.mote NAME', 'project_name', :edit],
-      ['Code', "code"],
+      ['Code', "code", :code],
       ['STATE', 'state_human'],
       ['START DATE', "created_at"],
       ['RESPONSES', "responses_count"]
@@ -78,6 +78,6 @@ class Admin::EmotesController < Admin::BaseController
   
   protected
     def load_users
-      @users = User.all
+      @users = User.all.sort_by(&:email)
     end
 end
