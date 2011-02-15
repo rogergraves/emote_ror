@@ -1,6 +1,7 @@
 class Admin::SubscriptionsController < Admin::BaseController
 
   sortable_table Subscription,
+    :per_page => 50,
     :default_sort => ['user.email', 'DESC'],
     :table_headings => [
       ['Customer', 'user.email'],

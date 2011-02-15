@@ -1,6 +1,7 @@
 class Admin::AccountsController < Admin::BaseController
 
   sortable_table User,
+    :per_page => 50,
     :table_headings => [
       ['ID', 'id'],
       ['Email', 'email', :edit],
@@ -26,7 +27,19 @@ class Admin::AccountsController < Admin::BaseController
     :search_array => ['users.email', 'users.full_name', 'users.job_title', 'users.company']
 
   def index
-    get_sorted_objects(params)
+    if request.xhr?
+      @users = User.paginate(:select => 'id, email', :page => params[:page])
+      table = ['<table cellpadding="10" cellspacing="10"><tr>']
+      @users.each_with_index do |user, index|
+        table << "<td><a href='##{user.id}' class='user-item'>#{user.email}</a></td>"
+        table << '</tr><tr>' if index!=0 && (index+1)%2==0
+      end
+      table << '</tr></table>'
+      #table << will_paginate(@users)
+      render :text => table.join("\n")
+    else
+      get_sorted_objects(params)
+    end
   end
 
   def new

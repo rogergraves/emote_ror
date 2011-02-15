@@ -1,6 +1,7 @@
 class Admin::EmotesController < Admin::BaseController
 
   sortable_table Survey,
+    :per_page => 50,
     :default_sort => ['user.email', 'DESC'],
     :table_headings => [
       ['Customer', 'user.email'],
