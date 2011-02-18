@@ -28,7 +28,7 @@
         <tr>
           <% (columns.size-1).times { %> <td>&nbsp;</td> <% } %>
           <td>
-            <%= link_to 'New', new_admin_subscription_path %>
+            <%= link_to 'New', new_admin_subscription_path(:user_id => user_id) %>
           </td>
         </tr>
 </table>

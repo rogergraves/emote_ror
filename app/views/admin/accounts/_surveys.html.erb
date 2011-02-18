@@ -18,7 +18,7 @@
         <tr>
           <% (columns.size-1).times { %> <td>&nbsp;</td> <% } %>
           <td>
-            <%=  link_to 'Add', new_admin_emote_path %>
+            <%=  link_to 'Add', new_admin_emote_path(:user_id => user_id) %>
           </td>
         </tr>
 </table>
