@@ -24,7 +24,7 @@ class Admin::SubscriptionsController < Admin::BaseController
       'start_date' => ['subscriptions.start_date'],
       'end_date' => ['subscriptions.end_date']
     },
-    :search_array => ['paypal_transactions.token']
+    :search_array => ['paypal_transactions.token', 'users.email']
 
 
 
