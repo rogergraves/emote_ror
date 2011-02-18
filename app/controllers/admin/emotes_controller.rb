@@ -79,7 +79,6 @@ class Admin::EmotesController < Admin::BaseController
     @survey = Survey.find params[:id]
     @survey.generate_action_token!
     @survey.save!
-    render :template => 'surveys/scorecard'
   end
   
 protected
