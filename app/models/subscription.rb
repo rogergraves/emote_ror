@@ -49,7 +49,7 @@ class Subscription < ActiveRecord::Base
   has_one :transaction, :dependent => :nullify, :class_name => 'PaypalTransaction', :foreign_key => 'subscription_id'
 
   validates :user, :presence => true
-  validates :emote_amount, :presence => true, :numericality => true, :inclusion => {:in => [-1, -5, -10, -25, 0, 1, 5, 10, 25]}
+  validates :emote_amount, :presence => true, :numericality => true #, :inclusion => {:in => [-1, -5, -10, -25, 0, 1, 5, 10, 25]}
   validates :transaction, :associated => true
   
   validates :start_date, :presence => true
@@ -60,6 +60,7 @@ class Subscription < ActiveRecord::Base
     errors.add(:base, ' trial is longer than 30 days') if subscription.trial? && subscription.end_date > 30.days.since(subscription.start_date)
     errors.add(:base, ' regular is longer than 1 year') if !subscription.trial? && subscription.end_date > 1.year.since(subscription.start_date)
     errors.add(:base, ' trial is restricted to 1 emote') if subscription.trial? && subscription.emote_amount != 1
+    errors.add(:emote_amount, ' must be other than zero') if subscription.emote_amount.zero?
   end
 
   def active?
