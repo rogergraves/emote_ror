@@ -1,5 +1,8 @@
 <h4>Emotes:</h4>
-<br/>
+<div style="float: right;">
+  <%= button_to 'Recalculate counters', refresh_counters_admin_emotes_path, :method => :get %>
+</div>
+
 <%= sortable_table(:partial => 'emotes_table') %>
 <br/><br/>
 <%= link_to 'New e.mote', new_admin_emote_path %>

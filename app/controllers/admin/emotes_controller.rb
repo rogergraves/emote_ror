@@ -31,6 +31,11 @@ class Admin::EmotesController < Admin::BaseController
   def new
     @emote = Survey.new
   end
+
+  def refresh_counters
+    refresh_response_counters
+    redirect_to :action => :index
+  end
   
   def create
     @emote = Survey.new params[:emote]
@@ -77,8 +82,26 @@ class Admin::EmotesController < Admin::BaseController
     render :template => 'surveys/scorecard'
   end
   
-  protected
-    def load_users
-      @users = User.all.sort_by(&:email)
+protected
+  def load_users
+    @users = User.all.sort_by(&:email)
+  end
+
+  def refresh_response_counters
+    begin
+      Survey.connection.execute <<-SQL
+        UPDATE
+          surveys,
+          (SELECT COUNT(*) AS responses_count, s.id AS emote_id
+           FROM surveys AS s INNER JOIN survey_result AS sr ON s.code = sr.code
+           WHERE sr.is_removed = 0 GROUP BY s.code) AS surveys_responses
+        SET surveys.responses_count = surveys_responses.responses_count
+        WHERE surveys.id = surveys_responses.emote_id;
+      SQL
+      flash[:notice] = 'Counters refreshed successfully'
+    rescue => e
+      flash[:alert] = e.message
     end
+  end
+
 end

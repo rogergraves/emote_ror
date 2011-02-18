@@ -34,6 +34,9 @@ EmoteRor::Application.routes.draw do
       end
     end
     resources :emotes do
+      collection do
+        get 'refresh_counters'
+      end
       member do
         get 'scorecard'
       end
