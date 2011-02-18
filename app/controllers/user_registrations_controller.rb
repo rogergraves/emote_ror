@@ -3,7 +3,7 @@ class UserRegistrationsController < Devise::RegistrationsController
   # POST /resource/sign_up
   def create
     build_resource
-
+    resource.password = resource.password_confirmation = rand(Time.now.to_i).to_s(24) #Password auto-generated
     if resource.save
       set_flash_message :notice, :signed_up
       #sign_in_and_redirect(resource_name, resource)

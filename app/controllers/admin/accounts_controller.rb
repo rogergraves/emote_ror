@@ -48,6 +48,7 @@ class Admin::AccountsController < Admin::BaseController
 
   def create
     @user = User.new(params[:user])
+    @user.skip_confirmation!
     if @user.save
       flash[:notice] = "User #{@user.email} successfully saved"
       redirect_to admin_accounts_path
