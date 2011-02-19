@@ -54,11 +54,6 @@ class User < ActiveRecord::Base
   attr_accessor :tos_agree
   validates :tos_agree, :acceptance => {:on => :create}
 
-
-  before_validation(:on => :create) do |user|
-    user.password = user.password_confirmation = rand(Time.now.to_i).to_s(24) #Password auto-generated
-  end
-
   before_create do |user|
     free_trial = Subscription.new(:emote_amount => 1, :start_date => DateTime.now)
     free_trial.trial = true
