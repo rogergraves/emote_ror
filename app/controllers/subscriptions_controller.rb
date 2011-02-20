@@ -39,27 +39,22 @@ class SubscriptionsController < ApplicationController
         :token    => params[:token],
         :currency => details.params['order_total_currency_id']
     )
-    #if details.success?
     if purchase.success?
       subscription = Subscription.new(:start_date => DateTime.now, :user_id => current_user.id)
       subscription.emote_amount = subscription_obj[:amount] if (details.params['order_total'].to_f == subscription_obj[:price].to_f)
       subscription.trial = false #Auto sets duration
-      transaction = PaypalTransaction.new
-      transaction.user = current_user
-      transaction.subscription = subscription
-      transaction.token = details.token
-      transaction.date = Time.now
-      transaction.currency = details.params['order_total_currency_id']
-      transaction.total = details.params['order_total']
-      transaction.customer_name = [details.params['first_name'], details.params['middle_name'], details.params['last_name']].compact.join(' ')
-      transaction.customer_id = details.payer_id
-      transaction.customer_address = [details.params['street1'], details.params['city_name'], details.params['postal_code'], details.params['payer_country']].compact.join(', ')
-      transaction.customer_email = details.email
-      transaction.customer_phone = details.params['phone']
-      transaction.description = subscription_obj[:name]
-      transaction.product_code = subscription_obj[:prod_code]
-      subscription.save # do we need to save it? -=- It should be saved by transaction.save but we need to be 100% sure
-      transaction.save
+      subscription.token = details.token
+      subscription.purchase_date = Time.now
+      subscription.currency = details.params['order_total_currency_id']
+      subscription.total_paid = details.params['order_total'].to_f
+      subscription.customer_name = [details.params['first_name'], details.params['middle_name'], details.params['last_name']].compact.join(' ')
+      subscription.customer_id = details.payer_id
+      subscription.customer_address = [details.params['street1'], details.params['city_name'], details.params['postal_code'], details.params['payer_country']].compact.join(', ')
+      subscription.customer_email = details.email
+      subscription.customer_phone = details.params['phone']
+      subscription.description = subscription_obj[:name]
+      subscription.product_code = subscription_obj[:prod_code]
+      subscription.save
       flash[:notice] = "Thank you!"
     end
     redirect_to account_subscriptions_path

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110123204321
+# Schema version: 20110220073519
 #
 # Table name: users
 #
@@ -25,12 +25,14 @@
 #  confirmation_token   :string(255)
 #  confirmed_at         :datetime
 #  confirmation_sent_at :datetime
+#  banned               :boolean(1)      default(FALSE)
+#  surveys_count        :integer(4)      default(0)
+#  subscriptions_count  :integer(4)      default(0)
 #
 
 class User < ActiveRecord::Base
   has_many :surveys, :dependent => :destroy
   has_many :subscriptions, :dependent => :destroy
-  has_many :transactions, :dependent => :destroy, :class_name => 'PaypalTransaction', :foreign_key => 'user_id'
 
   has_many :admin_notes, :as => :subject, :class_name => 'Note', :dependent => :destroy
 

@@ -1,16 +1,27 @@
 # == Schema Information
-# Schema version: 20110119224018
+# Schema version: 20110220073519
 #
 # Table name: subscriptions
 #
-#  id           :integer(4)      not null, primary key
-#  user_id      :integer(4)
-#  emote_amount :integer(4)      default(0)
-#  created_at   :datetime
-#  updated_at   :datetime
-#  start_date   :datetime        not null
-#  end_date     :datetime        not null
-#  kind         :integer(4)      default(0), not null
+#  id               :integer(4)      not null, primary key
+#  user_id          :integer(4)
+#  emote_amount     :integer(4)      default(0)
+#  created_at       :datetime
+#  updated_at       :datetime
+#  start_date       :datetime        not null
+#  end_date         :datetime        not null
+#  kind             :integer(4)      default(0), not null
+#  token            :string(255)
+#  purchase_date    :datetime
+#  total_paid       :float           default(0.0), not null
+#  customer_name    :string(255)
+#  customer_id      :string(32)
+#  customer_address :string(255)
+#  customer_email   :string(255)
+#  customer_phone   :string(50)
+#  description      :string(255)
+#  product_code     :string(64)
+#  currency         :string(10)      default("USD")
 #
 
 class Subscription < ActiveRecord::Base
@@ -46,20 +57,18 @@ class Subscription < ActiveRecord::Base
   KIND_TRIAL = 1
   
   belongs_to :user, :counter_cache => true
-  has_one :transaction, :dependent => :nullify, :class_name => 'PaypalTransaction', :foreign_key => 'subscription_id'
 
   validates :user, :presence => true
   validates :emote_amount, :presence => true, :numericality => true #, :inclusion => {:in => [-1, -5, -10, -25, 0, 1, 5, 10, 25]}
-  validates :transaction, :associated => true
   
   validates :start_date, :presence => true
   validates :end_date, :presence => true
+  validates :purchase_date, :presence => true
 
   validate do |subscription|
-    errors.add(:base, ' end_date should be after start_date') if subscription.end_date <= subscription.start_date
-    errors.add(:base, ' trial is longer than 30 days') if subscription.trial? && subscription.end_date > 30.days.since(subscription.start_date)
-    errors.add(:base, ' regular is longer than 1 year') if !subscription.trial? && subscription.end_date > 1.year.since(subscription.start_date)
-    errors.add(:base, ' trial is restricted to 1 emote') if subscription.trial? && subscription.emote_amount != 1
+    errors.add(:base, 'end_date should be after start_date') if subscription.end_date <= subscription.start_date
+    errors.add(:base, 'Trial cannot be longer than 30 days') if subscription.trial? && subscription.end_date > 30.days.since(subscription.start_date)
+    errors.add(:base, 'Trial is restricted to 1 emote') if subscription.trial? && subscription.emote_amount != 1
     errors.add(:emote_amount, ' must be other than zero') if subscription.emote_amount.zero?
   end
 
@@ -74,10 +83,12 @@ class Subscription < ActiveRecord::Base
   def trial=(val)
     if val
       self.kind = KIND_TRIAL
-      self.end_date = 30.days.since(start_date)
+      self.end_date = 30.days.since(start_date) if start_date?
     else
       self.kind = KIND_REGULAR
-      self.end_date = 1.year.since(start_date)
+      self.end_date = 1.year.since(start_date) if start_date?
+      self.token = 'FREE TRIAL'
+      self.purchase_date = DateTime.now
     end
     true
   end
