@@ -7,19 +7,11 @@
 	</tr>
 	<% subscriptions.each do |subscription| %>
           <tr>
-            <% unless subscription.trial? %>
-              <td><%= subscription.transaction.date %></td>
-              <td><%= raw subscription.transaction.description %></td>
-              <td><%= subscription.emote_amount %></td>
-              <td><%= subscription.transaction.token %></td>
-              <td><%= subscription.transaction.total %></td>
-            <% else %>
-              <td><%= subscription.created_at %></td>
-              <td>1 emote trial</td>
-              <td><%= subscription.emote_amount %></td>
-              <td>TRIAL</td>
-              <td>0</td>
-            <% end %>
+            <td><%= subscription.purchase_date %></td>
+            <td><%= raw subscription.description %></td>
+            <td><%= subscription.emote_amount %></td>
+            <td><%= subscription.token %></td>
+            <td><%= subscription.total_paid %></td>
             <td><%= subscription.start_date.to_s(:short) %></td>
             <td><%= subscription.end_date.to_s(:short) %></td>
             <td><%= link_to 'Edit', edit_admin_subscription_path(subscription) %></td>

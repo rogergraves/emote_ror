@@ -1,15 +1,20 @@
 <%= f.label :emote_amount, 'Number of emotes' %>
 <%= f.number_field :emote_amount %><br/>
 <%= f.label :start_date, 'Start date' %>
-<%= f.text_field :start_date %><br/>
+<%= f.text_field :start_date, :class => 'date-picker' %><br/>
 <%= f.label :end_date, 'End date' %>
-<%= f.text_field :end_date %><br/>
-<%= fields_for @subscription.transaction do |t| %>
-Paid <%= t.select :currency, ['USD','EUR','GBP'] %><%= t.text_field :total %><br/>
-	<%= t.label :token, 'Transaction # (Token)' %>
-	<%= t.text_field :token %><br/>
-<% end %>
+<%= f.text_field :end_date, :class => 'date-picker' %><br/>
+<%= f.label :total_paid, 'Paid' %> <%= f.select :currency, ['USD','EUR','GBP'] %><%= f.text_field :total_paid %><br/>
+<%= f.label :token, 'Transaction # (Token)' %>
+<%= f.text_field :token %><br/>
 <%= errors_for(subscription) %>
 <script>
-	$(function() { $("#subscription_start_date").datepicker(); $("#subscription_end_date").datepicker(); });
+	$(function() {
+          $(".date-picker").datepicker({
+                dateFormat: "yy-mm-dd",
+                showOn: "button",
+                buttonImage: "/images/calendar.gif",
+                buttonImageOnly: true
+          });
+        });
 </script>

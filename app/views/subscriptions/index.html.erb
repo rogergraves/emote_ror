@@ -32,15 +32,9 @@
             <% @payments.each do |payment| %>
               <tr class="table_cell">
                 <td><%= payment.created_at.strftime('%d-%b-%Y') %></td>
-              <% if payment.trial? %>
-                <td><%= raw Subscription::OPTIONS.first[:name] %></td>
-                <td>0.00</td>
-                <td class="table_cell_right">FREE TRIAL</td>
-              <% else %>
-                <td><%= raw payment.transaction.description %></td>
-                <td><%= number_to_currency(payment.transaction.total, :unit => Country.curr_code_to_symbol(payment.transaction.currency)) %></td>
-                <td class="table_cell_right"><%= payment.transaction.token %></td>
-              <% end %>
+                <td><%= raw payment.description %></td>
+                <td><%= number_to_currency(payment.total_paid, :unit => Country.curr_code_to_symbol(payment.currency)) %></td>
+                <td class="table_cell_right"><%= payment.token %></td>
               </tr>
             <% end %>
           </table>

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110123204321
+# Schema version: 20110220073519
 #
 # Table name: users
 #
@@ -25,6 +25,9 @@
 #  confirmation_token   :string(255)
 #  confirmed_at         :datetime
 #  confirmation_sent_at :datetime
+#  banned               :boolean(1)      default(FALSE)
+#  surveys_count        :integer(4)      default(0)
+#  subscriptions_count  :integer(4)      default(0)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110123204321
+# Schema version: 20110220073519
 #
 # Table name: survey_result
 #
@@ -11,6 +11,7 @@
 #  intensity_level  :integer(4)
 #  verbatim         :text(16777215)
 #  code             :string(255)
+#  is_removed       :integer(1)      default(0)
 #
 
 class SurveyResult < ActiveRecord::Base

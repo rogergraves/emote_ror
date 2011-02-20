@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110123204321
+# Schema version: 20110220073519
 #
 # Table name: surveys
 #
@@ -8,12 +8,12 @@
 #  project_name    :string(255)     not null
 #  score           :float           default(0.0)
 #  responses_count :integer(4)      default(0)
-#  active          :boolean(1)      default(FALSE)
 #  public          :boolean(1)      default(FALSE)
 #  created_at      :datetime
 #  updated_at      :datetime
 #  code            :string(20)      not null
 #  action_token    :string(255)
+#  state           :integer(4)      default(0), not null
 #
 
 require 'test_helper'

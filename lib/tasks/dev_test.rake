@@ -35,22 +35,11 @@ namespace :dev_test do
       subscription = Subscription.new(:start_date => DateTime.now, :user_id => user.id)
       subscription.emote_amount = subscr_type[:amount]
       subscription.trial = false #Auto sets duration
-      transaction = PaypalTransaction.new
-      transaction.user = user
-      transaction.subscription = subscription
-      transaction.token = 'TEST-PURCHASE'
-      transaction.date = Time.now
-      transaction.currency = Country.find_by_country_code(user.country_code || 'US')[:currency]
-      transaction.total = subscr_type[:price]
-      transaction.customer_name = username
-      transaction.customer_id = 0
-      transaction.customer_address = "#{username}'s address here"
-      transaction.customer_email = user.email
-      transaction.customer_phone = "#{username}'s phone"
-      transaction.description = subscr_type[:name]
-      transaction.product_code = subscr_type[:prod_code]
+      subscription.token = 'TEST-PURCHASE'
+      subscription.date = Time.now
+      subscription.description = subscr_type[:name]
+      subscription.product_code = subscr_type[:prod_code]
       subscription.save
-      transaction.save
     end
     puts "Done"
   end
