@@ -37,7 +37,7 @@
                           "src", "/fx/main",
                           "FlashVars", "survey=<%= @survey.code -%>&survey_id=<%= @survey.id -%>&action_token=<%= @survey.action_token -%>",
                           "width", "1140",
-                          "height", "90%",
+                          "height", "100%",
                           "align", "middle",
                           "id", "main",
                           'wmode', 'opaque',
@@ -66,13 +66,13 @@
   <param name="wmode" value="opaque" />
   <param name="allowScriptAccess" value="sameDomain" />
   <embed src="main.swf?survey_id='+<%= @survey.id -%>+'&survey='+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" quality="high" bgcolor="#ffffff"
-          width="1140" height="90%" name="main" align="middle"
+          width="1140" height="100%" name="main" align="middle"
           play="true"
           loop="false"
           quality="high"
           allowScriptAccess="sameDomain"
           type="application/x-shockwave-flash"
-          pluginspage="http://www.adobe.com/go/getflashplayer" />
+          pluginspage="http://www.adobe.com/go/getflashplayer">
   </embed>
 </object>
 </noscript>
