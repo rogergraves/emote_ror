@@ -32,6 +32,7 @@ class SubscriptionsController < ApplicationController
   def paypal_success
     subscription_obj = Subscription::OPTIONS.select{|s| s[:prod_code] == session[:selected_subscription_code]}.first rescue Subscription::OPTIONS.last
     details = EXPRESS_GATEWAY.details_for(params[:token]) unless params[:token].blank?
+=begin
     purchase = EXPRESS_GATEWAY.purchase(
         (subscription_obj[:price]*100).to_i,
         :ip       => request.remote_ip,
@@ -39,7 +40,10 @@ class SubscriptionsController < ApplicationController
         :token    => params[:token],
         :currency => details.params['order_total_currency_id']
     )
+
     if purchase.success?
+=end    
+    if details.success?
       subscription = Subscription.new(:start_date => DateTime.now, :user_id => current_user.id)
       subscription.emote_amount = subscription_obj[:amount] if (details.params['order_total'].to_f == subscription_obj[:price].to_f)
       subscription.trial = false #Auto sets duration

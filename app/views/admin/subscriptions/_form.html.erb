@@ -4,6 +4,8 @@
 <%= f.text_field :start_date, :class => 'date-picker' %><br/>
 <%= f.label :end_date, 'End date' %>
 <%= f.text_field :end_date, :class => 'date-picker' %><br/>
+<%= f.label :description, 'Description' %>
+<%= f.text_field :description %><br/>
 <%= f.label :total_paid, 'Paid' %> <%= f.select :currency, ['USD','EUR','GBP'] %><%= f.text_field :total_paid %><br/>
 <%= f.label :token, 'Transaction # (Token)' %>
 <%= f.text_field :token %><br/>
