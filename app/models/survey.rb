@@ -16,7 +16,32 @@
 #  state           :integer(4)      default(0), not null
 #
 
-class Survey < ActiveRecord::Base
+class Survey
+  include Mongoid::Document
+  
+  field :user_id, :type => Integer
+  field :project_name, :type => String
+  field :score, :type => Float, :default => 0.0
+  field :responses_count, :type => Integer, :default => 0
+  field :public, :type => Boolean, :default => true
+  field :code, :type => String
+  index :code, :unique => true
+  field :action_token, :type => String
+  field :state, :type => Integer, :default => 0
+  field :created_at, :type => DateTime
+  field :updated_at, :type => DateTime
+
+  references_many :survey_responses, :dependent => :destroy
+
+  def user(reload = false)
+    @user_assoc = nil if reload
+    @user_assoc ||= User.find(user_id)
+  end
+
+  #belongs_to :user, :counter_cache => true
+  #has_many :survey_results, :foreign_key => :code, :primary_key => :code
+
+  
   require 'zlib'
 
   STATE_ACTIVE = 0
@@ -29,10 +54,6 @@ class Survey < ActiveRecord::Base
   attr_accessor :force_creation
   @force_creation = false
   
-  belongs_to :user, :counter_cache => true
-  
-  has_many :survey_results, :foreign_key => :code, :primary_key => :code
-  
   validates :user, :presence => true
   validates :project_name, :presence => true, :uniqueness => {:scope => :user_id}, :length => { :maximum => 255 }
   validates :code, :presence => true, :uniqueness => true, :length => { :maximum => 20 }
@@ -41,24 +62,6 @@ class Survey < ActiveRecord::Base
   alias_attribute :public_scorecard, :public 
   alias_attribute :short_stimulus, :project_name
   attr_accessible :project_name, :user_id, :state, :code
-  
-  after_save do
-    survey_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-    <survey status='#{ (self.active?) ? 'on' : 'off' }'>
-    <stimulus short=\"#{self.project_name}\"><![CDATA[Consider every aspect of your most recent experience with <span class=\"bold-text\">#{self.project_name}</span>.
-    What was that like for you? How would you describe your feelings about this experience to someone else?]]></stimulus>
-      <thanks>Thank you for e.moting!</thanks>
-    </survey>"
-    File.open("#{SURVEY_STORAGE_PATH}#{self.code}.xml", 'w') {|f| f.write(survey_xml) }
-  end
-  
-  before_destroy do
-    begin
-      File.delete("#{SURVEY_STORAGE_PATH}#{self.code}.xml")
-    rescue
-      #TODO i'm sleeping, need to add something here later
-    end
-  end
   
   before_validation(:on => :create) do
     generate_survey_code! if self.code.blank?
@@ -69,7 +72,7 @@ class Survey < ActiveRecord::Base
   end
 
   validate(:on => :create) do |survey|
-    if !survey.user(true).can_add_scorecard? && !@force_creation
+    if false && !survey.user(true).can_add_scorecard? && !@force_creation #FIXME ar bounds
       survey.errors[:user] = ' cannot add more e.motes'
     end
   end

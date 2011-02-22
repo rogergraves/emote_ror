@@ -13,6 +13,8 @@ gem "sortable_table", :git => 'git@github.com:duhast/sortable.git'
 
 gem 'mysql2'
 gem 'mysql'
+gem 'mongoid', "2.0.0.rc.6"
+gem "bson_ext", "~> 1.2"
 #gem 'sqlite3-ruby', :require => 'sqlite3'
 
 # Use unicorn as the web server

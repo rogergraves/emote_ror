@@ -1,4 +1,4 @@
-class SurveyResultsController < ApplicationController
+class SurveyResponsesController < ApplicationController
   before_filter :authenticate_user!, :except => [ :charts, :verbatims ]
   before_filter :find_survey
   

@@ -14,17 +14,19 @@
 #  is_removed       :integer(1)      default(0)
 #
 
-class SurveyResult < ActiveRecord::Base
-  set_table_name  'survey_result'
-  set_primary_key 'survey_result_id'
+class SurveyResponse
+  include Mongoid::Document
   
-  belongs_to :survey, :foreign_key => :code
+  field :start_time, :type => DateTime
+  field :end_time, :type => DateTime
+  field :ip, :type => String
+  field :emote, :type => String
+  field :intensity_level, :type => Integer
+  field :verbatim, :type => String
+  field :removed, :type => Boolean, :default => false
+
+  referenced_in :survey
+    
+  #belongs_to :survey, :foreign_key => :code
   
-  def id
-    read_attribute(:survey_result_id)
-  end
-  
-  def id=(id)
-    write_attribute(:survey_result_id, id)
-  end
 end
