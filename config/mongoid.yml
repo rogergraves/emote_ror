@@ -3,7 +3,7 @@ defaults: &defaults
   username: rubyriders
   password: 134711
   autocreate_indexes: true
-  allow_dynamic_fields: true
+  allow_dynamic_fields: false
   include_root_in_json: false
   parameterize_keys: true
   persist_in_safe_mode: false

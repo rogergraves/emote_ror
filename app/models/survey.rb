@@ -18,6 +18,7 @@
 
 class Survey
   include Mongoid::Document
+  include Mongoid::Timestamps
   
   field :user_id, :type => Integer
   field :project_name, :type => String
@@ -28,14 +29,17 @@ class Survey
   index :code, :unique => true
   field :action_token, :type => String
   field :state, :type => Integer, :default => 0
-  field :created_at, :type => DateTime
-  field :updated_at, :type => DateTime
 
   references_many :survey_responses, :dependent => :destroy
 
   def user(reload = false)
     @user_assoc = nil if reload
     @user_assoc ||= User.find(user_id)
+  end
+
+  def user=(val)
+    @user_assoc = val
+    self.user_id = val.id
   end
 
   #belongs_to :user, :counter_cache => true
@@ -72,7 +76,7 @@ class Survey
   end
 
   validate(:on => :create) do |survey|
-    if false && !survey.user(true).can_add_scorecard? && !@force_creation #FIXME ar bounds
+    if !survey.user(true).can_add_scorecard? && !@force_creation #FIXME ar bounds
       survey.errors[:user] = ' cannot add more e.motes'
     end
   end

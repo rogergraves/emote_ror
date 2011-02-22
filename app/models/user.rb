@@ -31,7 +31,13 @@
 #
 
 class User < ActiveRecord::Base
-  has_many :surveys, :dependent => :destroy
+  #has_many :surveys, :dependent => :destroy
+  def surveys(reload = false)
+    @surveys = nil if reload
+    @surveys ||= Survey.find(:all, :conditions => {:user_id => self.id})
+  end
+
+
   has_many :subscriptions, :dependent => :destroy
 
   has_many :admin_notes, :as => :subject, :class_name => 'Note', :dependent => :destroy
