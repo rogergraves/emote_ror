@@ -852,8 +852,8 @@ table.table_data{
 
 #content-win-centr-scorecard #scorecard-content{
     float: left;
-    min-height: 420px;
-    height: 86%;
+    min-height: 410px;
+    height: 85%;
     width: 100%;
     text-align: center;
 }
