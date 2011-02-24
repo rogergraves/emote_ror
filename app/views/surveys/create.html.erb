@@ -3,15 +3,15 @@
     <span class="big-text">Your e.mote&trade; is ready!</span>
 
       <div class="previewmote_btn">
-      <%= link_to image_tag("preview_emote_button.png"), @survey.emote_direct_link, :target => 'emotepreview' %>
+        <%= link_to image_tag("preview_emote_button.png"), @survey.emote_direct_link, :target => 'emotepreview' %>
       </div>
 
       <div class="makechanges_btn">
-      <%= link_to image_tag("make_changes_button.png") %>
+        <%= link_to image_tag("make_changes_button.png"), recreate_account_survey_path(@survey), :method => :delete %>
       </div>
 
       <div class="goback_btn">
-      <%= link_to image_tag("go_to_emote_control_button.png"), account_surveys_path %>
+        <%= link_to image_tag("go_to_emote_control_button.png"), account_surveys_path %>
       </div>
 
   </div>
