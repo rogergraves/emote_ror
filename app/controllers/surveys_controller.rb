@@ -9,6 +9,16 @@ class SurveysController < ApplicationController
   def new
     @survey = Survey.new
   end
+
+  def recreate
+    begin
+      current_user.surveys.find(params[:id]).destroy
+      redirect_to :action => :new
+    rescue
+      flash[:error] = 'Error deleting e.mote&trade;'
+      redirect_to :action => :index
+    end
+  end
   
   def create
     @survey = Survey.new params[:survey] 

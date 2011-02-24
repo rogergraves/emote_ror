@@ -13,6 +13,7 @@ EmoteRor::Application.routes.draw do
     resources :surveys do
       member do
         get 'scorecard'
+        delete 'recreate'
       end
       collection do
         get 'public_scorecard'
