@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :full_name, :country_code, :company, :job_title, :phone_number, :tos_agree, :banned
 
-  validates :email, :length => { :maximum => 255 }
+  validates :email, :length => { :maximum => 255 }, :uniqueness => true
   validates :full_name, :length => { :maximum => 100 }
   validates :job_title, :length => { :maximum => 60 }
   validates :phone_number, :length => { :maximum => 25 }

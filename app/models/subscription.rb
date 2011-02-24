@@ -84,10 +84,10 @@ class Subscription < ActiveRecord::Base
     if val
       self.kind = KIND_TRIAL
       self.end_date = 30.days.since(start_date) if start_date?
+      self.token = 'FREE TRIAL'
     else
       self.kind = KIND_REGULAR
       self.end_date = 1.year.since(start_date) if start_date?
-      self.token = 'FREE TRIAL'
       self.purchase_date = DateTime.now
     end
     true
