@@ -830,12 +830,12 @@ table.table_data{
 
 .previewmote_btn{
     float: left;
-    margin-top: 65px;
+    margin-top: 45px;
     width: 100%;
     text-align: center;
 }
 
-.goback_btn{
+.goback_btn, .makechanges_btn{
     float: left;
     margin-top: 35px;
     width: 100%;
