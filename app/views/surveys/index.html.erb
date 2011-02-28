@@ -47,7 +47,10 @@
         </td>
         <td>
           <% if survey.active? %>
-            <%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), '#', :onclick => "showLinks('#{survey.emote_direct_link}');", :title => 'Go to e.mote'%>
+            <!-- 
+				<%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), '#', :onclick => "showLinks('#{survey.emote_direct_link}');", :title => 'Go to e.mote'%>
+			-->
+			<%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), survey.emote_direct_link, :title => 'Go to e.mote'%>
           <% end %>
         </td>
         <td class="last-col">
