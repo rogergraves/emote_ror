@@ -61,7 +61,8 @@ class Survey < ActiveRecord::Base
   end
   
   before_validation(:on => :create) do
-    generate_survey_code! if self.code.blank?
+    generate_code!('code') if self.code.blank?
+    generate_code!('scorecard_code') if self.scorecard_code.blank?
   end
 
   before_validation do
@@ -104,14 +105,14 @@ class Survey < ActiveRecord::Base
 
 protected
 
-  def generate_survey_code!
+  def generate_code!(field)
     i = 0; kukan = 'x'
     loop do
       kukan = Zlib::crc32("#{self.user ? self.user.full_name : 'no_user'}-#{self.user_id}--#{self.id}-#{self.project_name}-=-[OMATORE]-=#{i}=-#{Time.now.to_i}").to_s(36).upcase
-      break kukan unless Survey.find(:first, :conditions => { :code => kukan })
+      break kukan unless Survey.find(:first, :conditions => { field.to_sym => kukan })
       i+=1
     end
-    self.code = kukan
+    self.send("#{field}=", kukan)
   end
 
 end

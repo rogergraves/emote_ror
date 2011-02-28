@@ -63,8 +63,8 @@ class SurveysController < ApplicationController
   end
   
   def public_scorecard
-    @survey = Survey.find_by_code(params[:code])
-    redirect_to(root_path) if @survey.nil? || !@survey.public?
+    @survey = Survey.find_by_scorecard_code(params[:code])
+    redirect_to(root_path) if @survey.nil? #|| !@survey.public?
   end
   
   private

@@ -15,9 +15,6 @@ EmoteRor::Application.routes.draw do
         get 'scorecard'
         delete 'recreate'
       end
-      collection do
-        get 'public_scorecard'
-      end
       resource :survey_results do
         collection do
           get 'charts'
@@ -27,6 +24,8 @@ EmoteRor::Application.routes.draw do
       end
     end
   end
+  
+  get 'scorecard/:code', :controller => 'surveys', :action => 'public_scorecard', :as => :public_scorecard
   
   namespace :admin do
     resources :accounts do
