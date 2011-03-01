@@ -13,7 +13,7 @@
         <th><a class="tooltip" href="#">START DATE<span class="classic">Date the e.mote&trade; was created.</span></a></th>
         <th><a class="tooltip" href="#">ARCHIVE<span class="classic">Prevent new e.motes&trade; from being submitted. The message "e.mote&trade; no longer active" will be shown.</span></a></th>
         <th><a class="tooltip" href="#">LINKS & BUTTONS<span class="classic">Get a link or embed image to paste into emails, websites, IM, Facebook, Twitter, etc.</span></a></th>
-        <th><a class="tooltip tooltipleft" href="#">VIEW e.mote&trade;<span class="classic">Get a link to copy/paste into emails, websites, IM, Facebook, Twitter, etc. </span></a></th>
+        <th><a class="tooltip tooltipleft" href="#">VIEW e.mote&trade;<span class="classic">Take e.mote&trade; survey</span></a></th>
         <th><a class="tooltip tooltipleft" href="#">DELETE<span class="classic">Purge an e.mote&trade; and its data. This will free up a slot so you can create a new e.mote&trade;.</span></a></th>
       </tr>
     </thead>
@@ -75,11 +75,18 @@
 </div>
 
 <div id="links-dialog" style="visibility: hidden;">
-  <p>Paste link in <strong>email</strong> or <strong>IM</strong>:</p>
-  <%= text_field_tag 'scorecard_direct_link', 'scorecard_direct_link', :readonly => true, :size => 60 %>
-  <br/>
-  <br/>
-  <p>Paste this HTML to embed in website:</p>
-  <%= text_field_tag 'scorecard_embed_link', 'scorecard_embed_link', :readonly => true, :size => 60 %>
-  <span class="open_emote"><%= link_to image_tag('open_emote_button.png', :alt => 'Open e.mote'), '#', :id => 'open-emote-link', :target => 'emotepreview' %></span>
+  <div class="popup-item">
+    <div class="left-part">Email or IM link:</div>
+    <div class="right-part"><%= text_field_tag 'scorecard_direct_link', 'scorecard_direct_link', :readonly => true, :size => 60 %></div>
+  </div>
+  <div class="popup-item">
+    <div class="left-part">Text website link:</div>
+    <div class="right-part"><%= text_field_tag 'scorecard_embed_link', 'scorecard_embed_link', :readonly => true, :size => 60 %></div>
+  </div>
+  <% 1.upto(13) do |button_number| %>
+    <div class="popup-item">
+      <div class="left-part"><%= image_tag "feedback_buttons/#{button_number}.png" %></div>
+      <div class="right-part"><%= text_field_tag "feedback-code-#{button_number}", "feedback-code-#{button_number}", :readonly => true, :class => 'feedback-code', :size => 60 %></div>
+    </div>
+  <% end %>
 </div>

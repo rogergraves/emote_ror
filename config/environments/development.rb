@@ -23,8 +23,9 @@ EmoteRor::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
   
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  
+  config.action_controller.asset_host = "porch.rubyriders.com:1910"
+  config.action_mailer.default_url_options = { :host => 'porch.rubyriders.com:1910' }
+
 end
 
 SURVEY_STORAGE_PATH = "#{Rails.root.to_s}/tmp/surveys/"

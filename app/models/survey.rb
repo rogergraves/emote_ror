@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110220073519
+# Schema version: 20110228231111
 #
 # Table name: surveys
 #
@@ -14,6 +14,7 @@
 #  code            :string(20)      not null
 #  action_token    :string(255)
 #  state           :integer(4)      default(0), not null
+#  scorecard_code  :string(20)      not null
 #
 
 class Survey < ActiveRecord::Base
@@ -93,10 +94,6 @@ class Survey < ActiveRecord::Base
 
   def emote_direct_link
     "http://emotethis.com/#{self.code}" # http://www.emotethis.com/browser/index.php?survey=#{self.code}
-  end
-
-  def scorecard_embed_link
-    "<iframe src='#{emote_direct_link}'/>" #Approx.
   end
 
   def generate_action_token!

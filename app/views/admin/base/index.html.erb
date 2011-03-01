@@ -1,1 +1,41 @@
 Some stats on usage
+<br/>
+<input id="selected-user" type="text" />
+<input id="selected-user-id" type="text" />
+
+<div id="user-chooser" />
+
+<script>
+
+  var onUserPageLoad = function(table_html){
+        var dlg = $('#user-chooser').html(table_html);
+        dlg.find('a.user-item').each(function(){
+          $(this).click(function(){
+            var item = $(this);
+            $('#selected-user').val(item.text());
+            $('#selected-user-id').val(item.attr('href').replace(/^#/, ""));
+            return false;
+          });
+        });
+        dlg.find('#wp > a').click(function(){
+          $.ajax({
+            url: $(this).attr('href'),
+            success: onUserPageLoad,
+            error: function(){ alert('ajax2 error'); }
+          });
+          return false;
+        });
+      }
+
+
+  $(document).ready(function(){
+    $.ajax({
+      url: "<%= admin_accounts_path %>",
+      success: onUserPageLoad,
+      error: function(){
+        alert('ajax error');
+      }
+    });
+  });
+
+</script>

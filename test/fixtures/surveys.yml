@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110220073519
+# Schema version: 20110228231111
 #
 # Table name: surveys
 #
@@ -14,6 +14,7 @@
 #  code            :string(20)      not null
 #  action_token    :string(255)
 #  state           :integer(4)      default(0), not null
+#  scorecard_code  :string(20)      not null
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
