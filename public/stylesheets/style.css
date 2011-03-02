@@ -1174,6 +1174,38 @@ table.table_data{
     text-align: center;
     margin-top: 5px;
 }
+/*
+#links-dialog{
+    border: 17px solid #dedede;
+ }
+
+.borderradius #links-dialog{
+    border-radius: 60px;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+}
+*/
+.popup-item{
+    width: 100%;
+    height: 108px;
+}
+
+.left-part{
+   float: left;
+   width: 236px;
+   text-align: right;
+}
+
+.right-part input{
+    width: 255px;
+    height: 47px;
+    border: 1px solid #ccc;
+}
+
+.right-part{
+    float: right;
+    margin-right: 5px;
+}
 
 /* ------- Tooltips for e.mote Control page ------- */
 
