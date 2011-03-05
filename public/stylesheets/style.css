@@ -1187,7 +1187,9 @@ table.table_data{
 */
 .popup-item{
     width: 100%;
-    height: 108px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    display: inline-block;
 }
 
 .left-part{

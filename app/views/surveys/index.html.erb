@@ -42,7 +42,7 @@
         </td>
         <td>
           <% if survey.active? %>
-            <%= link_to image_tag('blue_button.png', :alt => 'Get links and buttons for people to click to take e.mote'), '#', :onclick => "showLinks('#{survey.emote_direct_link}');", :title => 'VIEW e.mote'%>
+            <%= link_to image_tag('blue_button.png', :title => 'Get links and buttons for people to click to take e.mote'), '#', :onclick => "showLinks('#{survey.project_name}','#{survey.emote_direct_link}');", :title => 'VIEW e.mote'%>
           <% end %>
         </td>
         <td>
@@ -77,16 +77,16 @@
 <div id="links-dialog" style="visibility: hidden;">
   <div class="popup-item">
     <div class="left-part">Email or IM link:</div>
-    <div class="right-part"><%= text_field_tag 'scorecard_direct_link', 'scorecard_direct_link', :readonly => true, :size => 60 %></div>
+    <div class="right-part"><%= text_area_tag 'scorecard_direct_link', 'scorecard_direct_link', :readonly => true, :size => 60, :rows => 2, :cols => 35 %></div>
   </div>
   <div class="popup-item">
     <div class="left-part">Text website link:</div>
-    <div class="right-part"><%= text_field_tag 'scorecard_embed_link', 'scorecard_embed_link', :readonly => true, :size => 60 %></div>
+    <div class="right-part"><%= text_area_tag 'scorecard_embed_link', 'scorecard_embed_link', :readonly => true, :size => 60, :rows => 2, :cols => 35 %></div>
   </div>
   <% 1.upto(13) do |button_number| %>
     <div class="popup-item">
       <div class="left-part"><%= image_tag "feedback_buttons/#{button_number}.png" %></div>
-      <div class="right-part"><%= text_field_tag "feedback-code-#{button_number}", "feedback-code-#{button_number}", :readonly => true, :class => 'feedback-code', :size => 60 %></div>
+      <div class="right-part"><%= text_area_tag "feedback-code-#{button_number}", "feedback-code-#{button_number}", :readonly => true, :class => 'feedback-code', :rows => 3, :cols => 35 %></div>
     </div>
   <% end %>
 </div>
