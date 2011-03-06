@@ -871,6 +871,34 @@ table.table_data{
     text-transform: capitalize;
 }
 
+#content-win-centr-scorecard .share_scorecard{
+    position: relative;
+    left: 50%;
+    top: 100%;
+    margin-top: -65px;
+    margin-left: -570px;
+    width: 1128px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 5px 0;
+    border: 1px solid #d2d2d2;
+    background: url('/images/scorecard_share_bg.gif') repeat-x;
+}
+.borderradius #content-win-centr-scorecard .share_scorecard{
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+.share_scorecard input{
+    width: 360px;
+    border: 1px solid #ccc;
+}
+
+.share_scorecard .share_link_scorecard{
+    margin-left: 80px;
+}
+
 /* --end-- */
 
 #forfooter{
@@ -1174,17 +1202,7 @@ table.table_data{
     text-align: center;
     margin-top: 5px;
 }
-/*
-#links-dialog{
-    border: 17px solid #dedede;
- }
 
-.borderradius #links-dialog{
-    border-radius: 60px;
-    -webkit-border-radius: 60px;
-    -moz-border-radius: 60px;
-}
-*/
 .popup-item{
     width: 100%;
     margin-bottom: 5px;
