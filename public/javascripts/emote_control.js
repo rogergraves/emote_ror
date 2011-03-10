@@ -4,7 +4,7 @@ $(document).ready(function() {
         autoOpen: false,
         closeOnEscape: true,
         modal: true,
-        width: 550,
+        width: 570,
         height: 400
     });
     dlg.find('textarea').click(function(){
