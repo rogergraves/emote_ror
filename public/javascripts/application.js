@@ -76,4 +76,10 @@ $(document).ready(function(){
 
     defaulttext_inputs.blur();
 
+    $('.locked-selectall').click(function(){
+        this.select();
+    });
+    $('.locked-selectall').attr('readonly', true);
+
+
 });

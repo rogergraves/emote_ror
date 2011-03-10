@@ -7,9 +7,6 @@ $(document).ready(function() {
         width: 570,
         height: 400
     });
-    dlg.find('textarea').click(function(){
-        this.select();
-    });
 });
 
 function showLinks(emote_name, emote_link){
