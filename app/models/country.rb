@@ -43,6 +43,11 @@ class Country
     LIST.select {|c| c[:iso] == code }.first || LIST.first rescue LIST.first
   end
   
+  def self.get_country_currency(country_code)
+    LIST.select {|c| c[:iso] == country_code }.first[:currency] rescue 'USD'
+  end
+
+
   def self.curr_code_to_symbol(code)
     case code
       when 'USD' : '$'

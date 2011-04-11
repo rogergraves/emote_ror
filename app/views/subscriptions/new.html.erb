@@ -1,10 +1,20 @@
 <div id="content-win-centr" role="main">
   <div id="subscription-content">
   <span class="big-text">e.mote&trade; Subscriptions</span><br />
-    <span class="medium-text-subsc">We are currently undergoing changes to our subscription system. To order, please select a plan from our <%= link_to "pricing page", 'http://inspirationengine.com/?page_id=189', :target => '_blank' %> and send your request to <%= mail_to "orders@inspirationengine.com", 'orders@inspirationengine.com', :target => '_blank' %>.
-    <br /><br />
-    We apologize for the inconvenience.</span>
-
+    <span class="medium-text-subsc">
+      We are currently undergoing changes to our subscription system.
+      To order, please select a plan from our
+      <%
+        page_opts = case Country.get_country_currency(current_user.country_code)
+          when 'EUR' then {:lang => 'de'}
+          when 'GBP' then {:lang => 'gb' }
+          else {}
+        end
+      %>
+      <%= link_to "pricing page", "http://inspirationengine.com/?#{ page_opts.merge(:page_id => 189).to_query }", :target => '_blank' %> and send your request to <%= mail_to "orders@inspirationengine.com" %>.
+      <br /><br />
+      We apologize for the inconvenience.
+    </span>
   </div>
   <span class="subscr_order">
     <%= link_to "Subscription Terms", 'http://inspirationengine.com/?page_id=189', :target => '_blank' %>
