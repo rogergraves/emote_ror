@@ -635,8 +635,9 @@ table.table_data{
 
 .medium-text-subsc{
     float: left;
-    font-size: 13px;
-    margin-top: 10px;
+    font-size: 14px;
+    margin-top: 70px;
+    line-height: 1.7;
 }
 
 .subsc-list{
@@ -729,7 +730,7 @@ table.table_data{
 .subscr_order{
     width: 565px;
     margin-left: 30px;
-    margin-top: -25px;
+    margin-top: -15px;
     float: left;
     text-align: center;
 }

@@ -1,23 +1,12 @@
 <div id="content-win-centr" role="main">
   <div id="subscription-content">
-  <span class="big-text">Add an e.mote&trade; (or five...)</span>
-    <br/>
-    <span class="medium-text-subsc">Each e.mote&trade; includes:</span>
-    <ul class="subsc-list">
-      <li>One e.mote&trade; survey and its Scorecard</li>
-      <li>Unlimited e.mote&trade; responses</li>
-      <li>Replace your e.mote&trade; with a different one as many times as you want</li>
-      <li>Unlimited sharing and printing of Scorecard results</li>
-    </ul>
-    
-    <% Subscription::OPTIONS.each_with_index do |subscription, i| %>
-    <div class="<%= %w(one-pack five-pack ten-pack twentyfive-pack)[i] %>">
-      <p class="pack-price"> <%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %><%= subscription[:price] %> / year</p>
-      <span class="pack-purchase"><%= link_to image_tag("buy_button.png"), account_subscriptions_path(:prod_id => subscription[:prod_code]), { :method => :post } %></span>
-    </div>
-    <% end %>
+  <span class="big-text">e.mote&trade; Subscriptions</span><br />
+    <span class="medium-text-subsc">We are currently undergoing changes to our subscription system. To order, please select a plan from our <%= link_to "pricing page", 'http://inspirationengine.com/?page_id=189', :target => '_blank' %> and send your request to <%= mail_to "orders@inspirationengine.com", 'orders@inspirationengine.com', :target => '_blank' %>.
+    <br /><br />
+    We apologize for the inconvenience.</span>
+
   </div>
-  <span class="subscr_order">For Purchase Order accounts, educational or non-profit discounts, <a href="mailto:sales@inspirationegine.com">please contact us</a>.<br /><br />
+  <span class="subscr_order">
     <%= link_to "Subscription Terms", 'http://inspirationengine.com/?page_id=189', :target => '_blank' %>
   </span>
 </div>
