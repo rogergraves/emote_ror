@@ -70,7 +70,7 @@ class Subscription < ActiveRecord::Base #aka Plan
   end
 
   def human_name
-    opt_hash = OPTIONS.select{|o| o[:kind]==kind }.first
+    opt_hash = self.class.get_plan_hash(kind)
     opt_hash.nil? ? 'Custom' : opt_hash[:name]
   end
 
@@ -84,10 +84,11 @@ class Subscription < ActiveRecord::Base #aka Plan
     self.kind = new_plan_code
     info = self.class.get_plan_hash(new_plan_code)
     self.emote_amount = info[:amount]
+    self.save
   end
   
   def self.get_plan_hash(plan_code, most_expensive_as_default = false)
-    Subscription::OPTIONS.select{|s| s[:kind] == plan_code}.first || (most_expensive_as_default ? Subscription::OPTIONS.last : nil)
+    OPTIONS.select{|s| s[:kind] == plan_code}.first || (most_expensive_as_default ? OPTIONS.last : nil)
   end
   
   def calc_upgrade_price(new_plan_code)

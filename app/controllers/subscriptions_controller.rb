@@ -81,8 +81,8 @@ for #new view:
       payment.description = selected_purchase[:description]
       payment.currency = details.params['order_total_currency_id']
       payment.save
-
-      current_user.plan.upgrade!(plan_hash[:kind]) if (details.params['order_total'].to_f == plan_hash[:price].to_f)
+      expected_price = current_user.plan.calc_upgrade_price(selected_purchase[:plan_code])
+      current_user.plan.upgrade!(plan_hash[:kind]) if (details.params['order_total'].to_f == expected_price.to_f)
       flash[:notice] = "Thank you!"
     end
     redirect_to account_subscriptions_path
