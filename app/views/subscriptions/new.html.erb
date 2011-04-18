@@ -1,20 +1,32 @@
 <div id="content-win-centr" role="main">
   <div id="subscription-content">
-  <span class="big-text">e.mote&trade; Subscriptions</span><br />
-    <span class="medium-text-subsc">
-      We are currently undergoing changes to our subscription system.
-      To order, please select a plan from our
-      <%
-        page_opts = case Country.get_country_currency(current_user.country_code)
-          when 'EUR' then {:lang => 'de'}
-          when 'GBP' then {:lang => 'gb' }
-          else {}
-        end
-      %>
-      <%= link_to "pricing page", "http://inspirationengine.com/?#{ page_opts.merge(:page_id => 189).to_query }", :target => '_blank' %> and send your request to <%= mail_to "orders@inspirationengine.com" %>.
-      <br /><br />
-      We apologize for the inconvenience.
-    </span>
+  <span class="big-text">e.mote&trade; Subscriptions</span>
+  <br/>
+  <div>
+    Your current plan: <%= current_user.plan.human_name %>
+  </div>
+
+  <% Subscription::OPTIONS.each_with_index do |plan, i| %>
+    <% next if plan[:kind]=='free' %>
+    <% available = current_user.plan.can_upgrade_to?(plan[:kind]) %>
+    <div class="<%= %w(nope one-pack ten-pack twentyfive-pack)[i] %>">
+      <p class="pack-price"> 
+        <%= plan[:name] %>
+        (<%= plan[:amount] %> e.motes&trade;)
+        <br/>
+        <% if available %>
+          <%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %><%= current_user.plan.calc_upgrade_price(plan[:kind]) / 12 %> / month
+        <% end %>
+      </p>
+      <span class="pack-purchase">
+        <%= link_to_if available, image_tag("buy_button.png"), create_account_subscriptions_path(plan[:kind]), { :method => :post } do %>
+          <%= image_tag("buy_button_disabled.png", :disabled => true, :title => 'You cannot downgrade your account') %>
+        <% end %>
+      </span>
+    </div>
+  <% end %>
+
+
   </div>
   <span class="subscr_order">
     <%= link_to "Subscription Terms", 'http://inspirationengine.com/?page_id=189', :target => '_blank' %>

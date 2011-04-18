@@ -48,6 +48,11 @@ EmoteRor::Application.configure do
   config.active_support.deprecation = :notify
   config.application_host = "emote.inspirationengine.com"
 
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[EMote] ",
+    :sender_address => %{"notifier" <error@emotethis.com>},
+    :exception_recipients => %w{a@rubyriders.com oleg@rubyriders.com}
+
   config.action_controller.asset_host = config.application_host
   config.action_mailer.default_url_options = { :host => config.application_host }
   config.action_mailer.smtp_settings = {

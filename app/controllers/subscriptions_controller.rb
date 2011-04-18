@@ -2,35 +2,60 @@ class SubscriptionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   before_filter :authenticate_user!
   
+=begin
+  def quick_switch
+    p = current_user.plan
+    p.kind = params[:plan_code] if params[:plan_code]
+    p.end_date = params[:m_diff].to_i.months.since(p.start_date) if params[:m_diff]
+    p.save(false)
+    redirect_to :action => :new
+  end
+
+for #new view:
+
+  Switch plan: <% %w(free start expand magnify).each do |plan_code| %>
+    <%= link_to plan_code, url_for(:controller => 'subscriptions', :action => 'quick_switch', :plan_code => plan_code) %>
+  <%end%>
+  Switch months left: <% (1..12).each do |mleft| %>
+    <%= link_to mleft, url_for(:controller => 'subscriptions', :action => 'quick_switch', :m_diff => mleft) %>
+  <%end%>
+
+=end
   
   def index
-    @subscriptions = current_user.current_subscriptions
-    @payments = current_user.subscriptions.all(:order => 'id DESC')
-  end
-  
-  def new
-    
+    @payments = current_user.payments.all(:order => 'created_at DESC')
   end
   
   def create
-    # save settings to session
-    session[:selected_subscription_code] = params[:prod_id]
-    subscription_obj = Subscription::OPTIONS.select{|s| s[:prod_code] == params[:prod_id]}.first rescue Subscription::OPTIONS.last
-    price = subscription_obj[:price]
+    unless current_user.plan.can_upgrade_to?(params[:target_plan])
+      flash[:alert] = "You cannot upgrade to the specified plan"
+      render :new
+      return
+    end
+    
+    plan_hash = Subscription.get_plan_hash(params[:target_plan], true)
+    price = current_user.plan.calc_upgrade_price(params[:target_plan])
     currency = Country.find_by_country_code(current_user.country_code || 'US')[:currency]
+    selected_purchase = {
+      :plan_code => params[:target_plan],
+      :description => "Upgrade account from '#{current_user.plan.human_name}' to '#{plan_hash[:name]}' for #{Country.curr_code_to_symbol(currency)}#{price}"
+    }
     response = EXPRESS_GATEWAY.setup_purchase(
         price * 100, # convert to cents
         :ip                => request.remote_ip,
         :return_url        => paypal_success_account_subscriptions_url(:only_path => false),
         :cancel_return_url => paypal_cancel_account_subscriptions_url(:only_path => false),
-        :subtotal => price * 100, :allow_guest_checkout => true, :no_shipping => 1, :description => "#{subscription_obj[:name]} for #{Country.curr_code_to_symbol(currency)}#{price} ",
+        :subtotal => price * 100, :allow_guest_checkout => true, :no_shipping => 1, :description => selected_purchase[:description],
         :currency => currency
       )
+    # save settings to session
+    session[:selected_plan_purchase] = selected_purchase
     redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
   end
   
   def paypal_success
-    subscription_obj = Subscription::OPTIONS.select{|s| s[:prod_code] == session[:selected_subscription_code]}.first rescue Subscription::OPTIONS.last
+    selected_purchase = session[:selected_plan_purchase]
+    plan_hash = Subscription.get_plan_hash(selected_purchase[:plan_code], true)
     details = EXPRESS_GATEWAY.details_for(params[:token]) unless params[:token].blank?
 =begin
     purchase = EXPRESS_GATEWAY.purchase(
@@ -44,21 +69,20 @@ class SubscriptionsController < ApplicationController
     if purchase.success?
 =end    
     if details.success?
-      subscription = Subscription.new(:start_date => DateTime.now, :user_id => current_user.id)
-      subscription.emote_amount = subscription_obj[:amount] if (details.params['order_total'].to_f == subscription_obj[:price].to_f)
-      subscription.trial = false #Auto sets duration
-      subscription.token = details.token
-      subscription.purchase_date = Time.now
-      subscription.currency = details.params['order_total_currency_id']
-      subscription.total_paid = details.params['order_total'].to_f
-      subscription.customer_name = [details.params['first_name'], details.params['middle_name'], details.params['last_name']].compact.join(' ')
-      subscription.customer_id = details.payer_id
-      subscription.customer_address = [details.params['street1'], details.params['city_name'], details.params['postal_code'], details.params['payer_country']].compact.join(', ')
-      subscription.customer_email = details.email
-      subscription.customer_phone = details.params['phone']
-      subscription.description = subscription_obj[:name]
-      subscription.product_code = subscription_obj[:prod_code]
-      subscription.save
+      payment = Payment.new(:user_id => current_user.id, :source => 'paypal')
+      payment.token = details.token
+      payment.purchase_date = Time.now
+      payment.total_paid = details.params['order_total'].to_f
+      payment.customer_name = [details.params['first_name'], details.params['middle_name'], details.params['last_name']].compact.join(' ')
+      payment.customer_id = details.payer_id
+      payment.customer_address = [details.params['street1'], details.params['city_name'], details.params['postal_code'], details.params['payer_country']].compact.join(', ')
+      payment.customer_email = details.email
+      payment.customer_phone = details.params['phone']
+      payment.description = selected_purchase[:description]
+      payment.currency = details.params['order_total_currency_id']
+      payment.save
+
+      current_user.plan.upgrade!(plan_hash[:kind]) if (details.params['order_total'].to_f == plan_hash[:price].to_f)
       flash[:notice] = "Thank you!"
     end
     redirect_to account_subscriptions_path
@@ -69,4 +93,5 @@ class SubscriptionsController < ApplicationController
     redirect_to account_subscriptions_path
   end
     
+
 end

@@ -4,18 +4,17 @@
 
 
      <div class="currentsubs">
+       Your current plan: <b><%= current_user.plan.human_name %></b>
     
         <table class="table_data">
             <tr class="table_head">
-              <th>Subscriptions</th>
-              <th>Expiration</th>
+              <th>Includes</th>
+              <th>Expires</th>
             </tr>
-            <% @subscriptions.each do |subscription| %>
             <tr class="table_cell_left">
-              <td><%= pluralize(subscription.emote_amount, 'e.mote') %>&trade;</td>
-              <td><%= subscription.end_date.strftime('%d-%b-%Y') %></td>
+              <td><%= pluralize(current_user.plan.emote_amount, 'e.mote') %>&trade;</td>
+              <td><%= current_user.plan.end_date.strftime('%d-%b-%Y') %></td>
             </tr>
-            <% end %>    
           </table>    
       </div>
 
@@ -31,7 +30,7 @@
             </tr>
             <% @payments.each do |payment| %>
               <tr class="table_cell">
-                <td><%= payment.created_at.strftime('%d-%b-%Y') %></td>
+                <td><%= payment.purchase_date('%d-%b-%Y') %></td>
                 <td><%= raw payment.description %></td>
                 <td><%= number_to_currency(payment.total_paid, :unit => Country.curr_code_to_symbol(payment.currency)) %></td>
                 <td class="table_cell_right"><%= payment.token %></td>

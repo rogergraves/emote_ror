@@ -32,7 +32,8 @@
 
 class User < ActiveRecord::Base
   has_many :surveys, :dependent => :destroy
-  has_many :subscriptions, :dependent => :destroy
+  has_one :plan, :dependent => :destroy, :class_name => 'Subscription'
+  has_many :payments, :dependent => :destroy
 
   has_many :admin_notes, :as => :subject, :class_name => 'Note', :dependent => :destroy
 
@@ -57,18 +58,12 @@ class User < ActiveRecord::Base
   validates :tos_agree, :acceptance => {:on => :create}
 
   before_create do |user|
-    free_trial = Subscription.new(:emote_amount => 1, :start_date => DateTime.now)
-    free_trial.trial = true
-    user.subscriptions << free_trial
+    user.build_plan(:kind => 'free', :emote_amount => 1, :start_date => DateTime.now, :end_date => 1.year.from_now)
   end
   
-  def current_subscriptions
-    subscriptions.select(&:active?)
-  end
-
   # Total emote slots including active and outdated
   def scorecards_total
-    subscriptions.map(&:emote_amount).sum
+    plan.emote_amount
   end
   
   # Slots occupied by emotes
@@ -78,7 +73,7 @@ class User < ActiveRecord::Base
   
   # Number of paid active (non-occupied) slots
   def scorecards_available
-    current_subscriptions.map(&:emote_amount).sum - scorecards_used
+    scorecards_total - scorecards_used
   end
   
   def can_add_scorecard?
