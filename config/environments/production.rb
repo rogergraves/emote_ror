@@ -46,29 +46,25 @@ EmoteRor::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  
-  config.action_controller.asset_host = "emote.inspirationengine.com"
-  config.action_mailer.default_url_options = { :host => 'emote.inspirationengine.com' }
-  
-  #ActionMailer::Base.smtp_settings = {
-  #  :address              => "smtp.gmail.com",
-  #  :port                 => 587,
-  #  :domain               => 'mail.rubyriders.com',
-  #  :user_name            => 'delivery@rubyriders.com',
-  #  :password             => '134711',
-  #  :authentication       => 'plain',
-  #  :enable_starttls_auto => true
-  #}
-  
-  ActionMailer::Base.smtp_settings = {
-    :address              => "mail.inspirationengine.com",
-    :port                 => 26,
-    :domain               => 'inspirationengine.com',
-    :user_name            => 'support+inspirationengine.com',
-    :password             => '-3tR!GK',
-    :authentication       => 'plain',
-    :enable_starttls_auto => false
-  }
+  config.application_host = "emote.inspirationengine.com"
+
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[EMote] ",
+    :sender_address => %{"notifier" <error@emotethis.com>},
+    :exception_recipients => %w{a@rubyriders.com oleg@rubyriders.com}
+
+  config.action_controller.asset_host = config.application_host
+  config.action_mailer.default_url_options = { :host => config.application_host }
+  config.action_mailer.smtp_settings = {
+        :address              => "mail.inspirationengine.com",
+        :port                 => 26,
+        :domain               => 'inspirationengine.com',
+        :user_name            => 'support+inspirationengine.com',
+        :password             => '-3tR!GK',
+        :authentication       => 'plain',
+        :enable_starttls_auto => false
+    }
+
 end
 
 SURVEY_STORAGE_PATH = '/var/www/surveys/'
