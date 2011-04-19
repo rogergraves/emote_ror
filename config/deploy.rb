@@ -4,13 +4,13 @@ set :application, 'emote'
 set :repository,  "git@github.com:inspirationengine/emote_ror.git"
 
 set :scm, :git
-set :branch, "master"
 set :deploy_via, :checkout
 set :git_shallow_clone, 1
 default_run_options[:pty] = true
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
 task :live do
+  set :branch, "release"
   role :web, "emote.inspirationengine.com"                          # Your HTTP server, Apache/etc
   role :app, "emote.inspirationengine.com"                          # This may be the same as your `Web` server
   role :db,  "emote.inspirationengine.com", :primary => true # This is where Rails migrations will run
@@ -22,6 +22,7 @@ task :live do
 end
 
 task :stage do
+  set :branch, "master"
   role :web, "184.106.92.80"                          # Your HTTP server, Apache/etc
   role :app, "184.106.92.80"                          # This may be the same as your `Web` server
   role :db,  "184.106.92.80", :primary => true # This is where Rails migrations will run
