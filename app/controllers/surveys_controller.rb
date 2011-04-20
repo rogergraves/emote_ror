@@ -54,6 +54,16 @@ class SurveysController < ApplicationController
     end
     redirect_to :action => 'index'
   end
+
+  def wipe_responses
+    survey = current_user.surveys.find(params[:id])
+    if survey.survey_results.update_all :is_removed => 1
+      flash[:notice] = 'e.mote&trade; responses has been deleted'
+    else
+      flash[:error] = 'Error deleting e.mote&trade; responses'
+    end
+    redirect_to :action => 'index'
+  end
   
   def scorecard
     @survey = current_user.surveys.find(params[:id])

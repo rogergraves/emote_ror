@@ -15,6 +15,7 @@ EmoteRor::Application.routes.draw do
       member do
         get 'scorecard'
         delete 'recreate'
+        delete 'wipe_responses'
       end
       resource :survey_results do
         collection do

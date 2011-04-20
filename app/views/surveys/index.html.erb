@@ -48,14 +48,11 @@
         </td>
         <td>
           <% if survey.active? %>
-            <!-- 
-				<%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), '#', :onclick => "showLinks('#{survey.emote_direct_link}');", :title => 'Go to e.mote'%>
-			-->
-			<%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), survey.emote_direct_link, :title => 'Go to e.mote', :target => '_blank' %>
+            <%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), survey.emote_direct_link, :title => 'Go to e.mote', :target => '_blank' %>
           <% end %>
         </td>
         <td>
-          <%= link_to image_tag('eraser_icon.png'), account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete this e.mote\'s current data.' %>
+          <%= link_to image_tag('eraser_icon.png'), wipe_responses_account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete this e.mote''s current data.' %>
         </td>
         <td class="last-col">
           <%= link_to image_tag('trash_icon.png'), account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete this e.mote and all collected data.' %>
