@@ -1,22 +1,43 @@
-<div id="content-win-centr" role="main">
-  <div id="subscription-content">
-  <span class="big-text">e.mote&trade; Subscriptions</span><br />
-    <span class="medium-text-subsc">
-      We are currently undergoing changes to our subscription system.
-      To order, please select a plan from our
-      <%
-        page_opts = case Country.get_country_currency(current_user.country_code)
-          when 'EUR' then {:lang => 'de'}
-          when 'GBP' then {:lang => 'gb' }
-          else {}
-        end
-      %>
-      <%= link_to "pricing page", "http://inspirationengine.com/?#{ page_opts.merge(:page_id => 189).to_query }", :target => '_blank' %> and send your request to <%= mail_to "orders@inspirationengine.com" %>.
-      <br /><br />
-      We apologize for the inconvenience.
-    </span>
+<div id="content-win-subscr" role="main">
+  <div id="area">
+    <div id="subscription-content">
+    <span class="big-text">My Subscriptions</span><br />
+      <span class="medium-text-subsc">Your current plan: [Free]</span>
+      <span class="small-text-subsc">To upgrade to a customized plan email us at <%= mail_to "sales@inspirationengine.com" %>.</span>
+    </div>
+    <div class="start_box_usd">
+      <span class="upgr_btn_subscr"><%= link_to image_tag("upgrade_button.png"), :target => '_blank' %></span>
+    </div>
+    <div class="expand_box_usd">
+      <span class="upgr_btn_subscr"><%= link_to image_tag("upgrade_button.png"), :target => '_blank' %></span>
+    </div>
+    <div class="magnify_box_usd">
+      <span class="upgr_btn_subscr"><%= link_to image_tag("upgrade_button.png"), :target => '_blank' %></span>
+    </div>
+    <!-- Western European country -- EUR
+    <div class="start_box_usd">
+      <span class="upgr_btn_subscr"><%= link_to image_tag("upgrade_button.png"), :target => '_blank' %></span>
+    </div>
+    <div class="expand_box_usd">
+      <span class="upgr_btn_subscr"><%= link_to image_tag("upgrade_button.png"), :target => '_blank' %></span>
+    </div>
+    <div class="magnify_box_usd">
+      <span class="upgr_btn_subscr"><%= link_to image_tag("upgrade_button.png"), :target => '_blank' %></span>
+    </div>
+    -->
+    <!-- UK country -- GBP
+    <div class="start_box_usd">
+      <span class="upgr_btn_subscr"><%= link_to image_tag("upgrade_button.png"), :target => '_blank' %></span>
+    </div>
+    <div class="expand_box_usd">
+      <span class="upgr_btn_subscr"><%= link_to image_tag("upgrade_button.png"), :target => '_blank' %></span>
+    </div>
+    <div class="magnify_box_usd">
+      <span class="upgr_btn_subscr"><%= link_to image_tag("upgrade_button.png"), :target => '_blank' %></span>
+    </div>
+    -->
   </div>
-  <span class="subscr_order">
+  <div class="subscr_order">
     <%= link_to "Subscription Terms", 'http://inspirationengine.com/?page_id=189', :target => '_blank' %>
-  </span>
+  </div>
 </div>

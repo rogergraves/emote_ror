@@ -633,10 +633,50 @@ table.table_data{
 
 /* ------- Subscriptions page ------- */
 
+#content-win-subscr{
+    border: 17px solid #dedede;
+    width: 900px;
+    height: 99%;
+    max-height: 410px;
+    min-height: 250px;
+    background-color: white;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    margin-left: -440px;
+    margin-top: -280px;
+}
+
+.borderradius #content-win-subscr{
+    border-radius: 60px;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+}
+
+#content-win-subscr #area{
+    width: 850px;
+    margin-right: auto;
+    margin-left: auto;
+    overflow: auto;
+    height: 99%;
+    max-height: 355px;
+    min-height: 330px;
+    margin-top: 13px;
+}
+
+
 .medium-text-subsc{
     float: left;
     font-size: 14px;
-    margin-top: 70px;
+    margin-top: 10px;
+    line-height: 1.7;
+}
+
+.small-text-subsc{
+    float: right;
+    margin-right: 50px;
+    font-size: 12px;
+    margin-top: 14px;
     line-height: 1.7;
 }
 
@@ -648,89 +688,101 @@ table.table_data{
     margin-left: 40px;
 }
 
-#content-win-centr #subscription-content{
+#area #subscription-content{
+    margin-top: 5px;
+}
+
+.start_box_usd{
+    float: left;
+    background: url('../images/start_box_usd.jpg') no-repeat;
+    margin-left: -95px;
+    margin-top: 55px;
+    width: 238px;
+    height: 451px;
+}
+
+.expand_box_usd{
+    float: left;
+    background: url('../images/expand_box_usd.jpg') no-repeat;
     margin-top: 20px;
-    margin-left: 30px;
-    width: 565px;
-    height: 350px;
-    float: left;
+    margin-left: 10px;
+    width: 237px;
+    height: 451px;
 }
 
-.one-pack{
+.magnify_box_usd{
     float: left;
-    background: url('../images/1_pack.png') no-repeat;
-    width: 552px;
-    height: 44px;
+    background: url('../images/magnify_box_usd.jpg') no-repeat;
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 238px;
+    height: 451px;
 }
 
-.five-pack{
+.start_box_eur{
     float: left;
-    background: url('../images/5_pack.png') no-repeat;
-    width: 552px;
-    height: 44px;
-    margin-top: 5px;
+    background: url('../images/start_box_usd.jpg') no-repeat;
+    margin-left: -100px;
+    margin-top: 55px;
+    width: 238px;
+    height: 451px;
 }
 
-.ten-pack{
+.expand_box_eur{
     float: left;
-    background: url('../images/10_pack.png') no-repeat;
-    width: 552px;
-    height: 44px;
-    margin-top: 5px;
+    background: url('../images/expand_box_usd.jpg') no-repeat;
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 237px;
+    height: 451px;
 }
 
-.twentyfive-pack{
+.magnify_box_eur{
     float: left;
-    background: url('../images/25_pack.png') no-repeat;
-    width: 552px;
-    height: 44px;
-    margin-top: 5px;
+    background: url('../images/magnify_box_usd.jpg') no-repeat;
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 238px;
+    height: 451px;
 }
 
-.pack-title{
+.start_box_gbp{
+    float: left;
+    background: url('../images/start_box_usd.jpg') no-repeat;
+    margin-left: -100px;
+    margin-top: 55px;
+    width: 238px;
+    height: 451px;
+}
+
+.expand_box_gbp{
+    float: left;
+    background: url('../images/expand_box_usd.jpg') no-repeat;
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 237px;
+    height: 451px;
+}
+
+.magnify_box_gbp{
+    float: left;
+    background: url('../images/magnify_box_usd.jpg') no-repeat;
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 238px;
+    height: 451px;
+}
+
+.upgr_btn_subscr{
+    width: 100%;
+    float: left;
     text-align: center;
-    padding-top: 5px;
-    font-size: 30px;
-    text-transform: uppercase;
-}
-
-.pack-title a{
-    color: #fff;
-    text-decoration: none;
-}
-
-.pack-title a:hover{
-    color: #fff;
-    text-decoration: underline;
-}
-
-.pack-price {
-    font-size: 13px;
-    font-weight: bold;
-    text-align: center;
-    margin-left: 80px;
-    margin-top: 14px;
-    color: #000;
-}
-
-.pack-description {
-    font-size: 11px;
-    text-align: center;
-    color: #000;
-    margin: 15px 5px 0 5px;
-}
-
-.pack-purchase {
-    float: right;
-    margin-top: -24px;
-    margin-right: 10px;
-
+    margin-top: 460px;
 }
 
 .subscr_order{
-    width: 565px;
-    margin-left: 30px;
-    margin-top: -15px;
+    width: 100%;
+    margin-top: 15px;
     float: left;
     text-align: center;
 }
