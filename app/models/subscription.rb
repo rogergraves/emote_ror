@@ -1,97 +1,119 @@
 # == Schema Information
-# Schema version: 20110220073519
+# Schema version: 20110417191406
 #
 # Table name: subscriptions
 #
-#  id               :integer(4)      not null, primary key
-#  user_id          :integer(4)
-#  emote_amount     :integer(4)      default(0)
-#  created_at       :datetime
-#  updated_at       :datetime
-#  start_date       :datetime        not null
-#  end_date         :datetime        not null
-#  kind             :integer(4)      default(0), not null
-#  token            :string(255)
-#  purchase_date    :datetime
-#  total_paid       :float           default(0.0), not null
-#  customer_name    :string(255)
-#  customer_id      :string(32)
-#  customer_address :string(255)
-#  customer_email   :string(255)
-#  customer_phone   :string(50)
-#  description      :string(255)
-#  product_code     :string(64)
-#  currency         :string(10)      default("USD")
+#  id           :integer(4)      not null, primary key
+#  user_id      :integer(4)
+#  emote_amount :integer(4)      default(0)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  start_date   :datetime        not null
+#  end_date     :datetime        not null
+#  kind         :string(255)     not null
 #
 
-class Subscription < ActiveRecord::Base
+class Subscription < ActiveRecord::Base #aka Plan
   
   OPTIONS = [
               {
-                :prod_code => 'a135b60381e3903405b02ee571ecff66', # Digest::MD5.hexdigest("1 Pack")
+                :kind => 'free',
                 :amount => 1,
-                :name => "1 e.mote™",
-                :price => 99
+                :name => "Free"
               },
               {
-                :prod_code => '72aaa7938815a1268fa642468b6ae7bc',
-                :amount => 5,
-                :name => "5 e.motes™",
-                :price => 299
+                :kind => 'start',
+                :amount => 2,
+                :name => "Start"
               },
               {
-                :prod_code => '25ccaa6255d6112a0d7a39054feb6d2f',
+                :kind => 'expand',
                 :amount => 10,
-                :name => "10 e.motes™",
-                :price => 499
+                :name => "Expand"
               },
               {
-                :prod_code => '3384de5df97bf2e2535f101329649119',
+                :kind => 'magnify',
                 :amount => 25,
-                :name => "25 e.motes™",
-                :price => 999
+                :name => "Magnify"
               }
             ]
-  
-  KIND_REGULAR = 0
-  KIND_TRIAL = 1
+            
+  PLAN_KINDS = OPTIONS.map{|o| o[:kind] } << 'custom'
   
   belongs_to :user, :counter_cache => true
 
   validates :user, :presence => true
-  validates :emote_amount, :presence => true, :numericality => true #, :inclusion => {:in => [-1, -5, -10, -25, 0, 1, 5, 10, 25]}
+  validates :emote_amount, :presence => true, :numericality => true
   
   validates :start_date, :presence => true
   validates :end_date, :presence => true
-  validates :purchase_date, :presence => true
+  validates :kind, :inclusion => {:in => PLAN_KINDS}
 
   validate do |subscription|
     errors.add(:base, 'end_date should be after start_date') if subscription.end_date <= subscription.start_date
-    errors.add(:base, 'Trial cannot be longer than 30 days') if subscription.trial? && subscription.end_date > 30.days.since(subscription.start_date)
-    errors.add(:base, 'Trial is restricted to 1 emote') if subscription.trial? && subscription.emote_amount != 1
     errors.add(:emote_amount, ' must be other than zero') if subscription.emote_amount.zero?
+    if opt_hash = OPTIONS.select{|o| o[:kind]==subscription.kind }.first
+      errors.add(:base, "#{opt_hash[:name]} plan is restricted to #{opt_hash[:amount]} emote(s)") unless subscription.emote_amount == opt_hash[:amount]
+    end
   end
 
   def active?
     (start_date..end_date) === DateTime.now
   end
 
-  def trial?
-    kind == KIND_TRIAL
+  def is_free?
+    kind == 'free'
   end
 
-  def trial=(val)
-    self.purchase_date = DateTime.now
-    if val
-      self.kind = KIND_TRIAL
-      self.emote_amount = 1
-      self.end_date = 30.days.since(start_date) if start_date?
-      self.token = 'FREE TRIAL'
+  def is_custom?
+    kind == 'custom'
+  end
+
+  def human_name
+    opt_hash = self.class.get_plan_hash(kind)
+    opt_hash.nil? ? 'Custom' : opt_hash[:name]
+  end
+
+  def can_upgrade_to?(plan_code)
+    !!calc_upgrade_price(plan_code)
+  end
+
+  def upgrade!(new_plan_code)
+    self.start_date = DateTime.now
+    self.end_date = 1.year.since(self.start_date)
+    self.kind = new_plan_code
+    info = self.class.get_plan_hash(new_plan_code)
+    self.emote_amount = info[:amount]
+    self.save
+  end
+  
+  def self.get_plan_hash(plan_code, most_expensive_as_default = false)
+    OPTIONS.select{|s| s[:kind] == plan_code}.first || (most_expensive_as_default ? OPTIONS.last : nil)
+  end
+  
+  def calc_upgrade_price(new_plan_code)
+    today = Date.today
+    future = self.end_date
+    months_left = ((future.year-today.year)*12 + future.month) - today.month
+    return nil unless (0..12) === months_left
+    if self.kind=='custom'
+      nil
+    elsif self.kind=='free'
+      case new_plan_code
+       when 'start' then 588
+       when 'expand' then 1788
+       when 'magnify' then 2388
+       else nil
+      end
+    elsif self.kind=='start' && new_plan_code=='expand'
+      1788 - (months_left * 49)
+    elsif self.kind=='start' && new_plan_code=='magnify'
+      2388 - (months_left * 49)
+    elsif self.kind=='expand' && new_plan_code=='magnify'
+      2388 - (months_left * 149)
     else
-      self.kind = KIND_REGULAR
-      self.end_date = 1.year.since(start_date) if start_date?
+      nil
     end
-    true
   end
 
 end

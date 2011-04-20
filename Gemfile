@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.3'
 gem 'geokit'
 gem 'devise'
+gem "mail", ">= 2.1.3"
 gem 'activemerchant'
 gem "will_paginate", "~> 3.0.pre2"
 #gem "sortable_table", :path => 'D:/Projects/ukrteam/emote/sortable'

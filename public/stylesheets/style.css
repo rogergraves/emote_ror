@@ -599,8 +599,8 @@ form .field_forgetpw{
 }
 
 table.table_data{
-    width: 410px;
-    margin-left: 40px;
+    width: 510px;
+    margin-left: 0px;
     font-size: 13px;
     text-align: center;
 }

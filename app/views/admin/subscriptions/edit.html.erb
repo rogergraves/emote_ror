@@ -5,4 +5,3 @@
   <%= render :partial => 'form', :locals => { :f => f, :subscription => @subscription } %>
   <%= submit_tag 'Save' %> or <%= link_to 'Cancel', admin_subscriptions_path %>
 <% end %>
-<br/><%= button_to 'Delete this subscription', admin_subscription_path(@subscription), :method => :delete, :confirm => "This will destroy the subscription and all associated data. Operation is irreversible.\nAre you sure you want to delete it?" %>

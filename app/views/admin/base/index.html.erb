@@ -31,7 +31,7 @@ Some stats on usage
   $(document).ready(function(){
     $.ajax({
       url: "<%= admin_accounts_path %>",
-      success: onUserPageLoad,
+      success: function(){void(0);}, //onUserPageLoad,
       error: function(){
         alert('ajax error');
       }

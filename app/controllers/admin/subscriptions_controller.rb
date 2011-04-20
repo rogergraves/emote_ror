@@ -5,22 +5,16 @@ class Admin::SubscriptionsController < Admin::BaseController
     :default_sort => ['user.email', 'DESC'],
     :table_headings => [
       ['Customer', 'user.email'],
-      ['Date purchased', 'purchase_date'],
-      ['Product', "description"],
+      ['Plan', "kind"],
       ['# of emotes', 'emote_amount'],
-      ['Transaction #', "token"],
-      ['Paid', "total_paid", :paid],
       ['Begins', "start_date"],
       ['Expires', "end_date"]
     ],
     :include_relations => [:user],
     :sort_map =>  {
       'user.email' => ['users.email'],
-      'purchase_date' => ['subscriptions.purchase_date'],
-      'description' => ['subscriptions.description'],
+      'kind' => ['subscriptions.kind'],
       'emote_amount' => ['subscriptions.emote_amount'],
-      'token' => ['subscriptions.token'],
-      'total_paid' => ['subscriptions.total_paid'],
       'start_date' => ['subscriptions.start_date'],
       'end_date' => ['subscriptions.end_date']
     },
@@ -33,7 +27,7 @@ class Admin::SubscriptionsController < Admin::BaseController
   def index
     options = {}
     unless params[:include_trial]=='true'
-      options = {:conditions => '`subscriptions`.`kind` = 0'}
+      options = {:conditions => '`subscriptions`.`kind` <> "free"'}
     end
     get_sorted_objects(params, options)
   end
@@ -42,13 +36,10 @@ class Admin::SubscriptionsController < Admin::BaseController
     @subscription = Subscription.new
     @subscription.start_date = Time.now
     @subscription.end_date = 1.year.from_now
-    @subscription.token = 'ADMIN CREATED'
   end
   
   def create
-    @subscription = Subscription.new
-    @subscription.trial = false
-    @subscription.attributes = params[:subscription]
+    @subscription = Subscription.new(params[:subscription])
     if @subscription.save
       flash[:notice] = "Subscription successfully created"
       redirect_to admin_subscriptions_path
@@ -71,16 +62,6 @@ class Admin::SubscriptionsController < Admin::BaseController
       flash[:alert] = 'Error updating subscription'
       render :action => 'edit'
     end
-  end
-  
-  def destroy
-    @subscription = Subscription.find( params[:id] )
-    if @subscription.destroy
-      flash[:notice] = "Subscription successfully deleted"
-    else
-      flash[:alert] = 'Error deleting subscription'
-    end
-    redirect_to admin_subscriptions_path
   end
   
   protected
