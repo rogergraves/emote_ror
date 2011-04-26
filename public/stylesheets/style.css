@@ -664,7 +664,6 @@ table.table_data{
     margin-top: 13px;
 }
 
-
 .medium-text-subsc{
     float: left;
     font-size: 14px;
@@ -676,9 +675,13 @@ table.table_data{
     float: right;
     margin-right: 50px;
     font-size: 12px;
-    margin-top: 0px;
+    margin-top: -10px;
     line-height: 1.7;
     text-align: right;
+}
+
+.clear{
+    clear: both;
 }
 
 .subsc-list{
@@ -710,11 +713,16 @@ ul.start_box {
     padding-bottom: 10px;
 }
 
+#plan_area{
+    float: left;
+    margin-top: 10px;
+}
+
 .start_box_usd{
     float: left;
     background: url('../images/start_box.jpg') no-repeat;
-    margin-left: -95px;
-    margin-top: 55px;
+    margin-left: 44px;
+    margin-top: 20px;
     width: 238px;
     height: 451px;
 }

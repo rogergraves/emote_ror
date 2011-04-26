@@ -4,12 +4,14 @@
     <span class="big-text">My Subscriptions</span><br />
       <span class="medium-text-subsc">Your current plan: <%= current_user.plan.human_name %></span>
       <span class="small-text-subsc">To upgrade to a customized plan email us at <%= mail_to "sales@inspirationengine.com" %> <br />or call us at 435-565-1532 to place an order.</span>
+      <div class="clear"></div>
     </div>
 
-    <% Subscription::OPTIONS.each_with_index do |plan, i| %>
+      <% Subscription::OPTIONS.each_with_index do |plan, i| %>
       <% next if plan[:kind]=='free' %>
       <% available = current_user.plan.can_upgrade_to?(plan[:kind]) %>
 
+    <div id="plan_area">
       <div class="<%= plan[:kind] %>_box_<%= Country.get_country_currency(current_user.country_code).downcase %>">
         
         <p class="plan_description">
@@ -33,8 +35,9 @@
           <% end %>
         </span>
       </div>
+     </div>
     <% end %>
-
+    
   </div>
   <div class="subscr_order">
     <%= link_to "Subscription Terms", 'http://inspirationengine.com/?page_id=189', :target => '_blank' %>
