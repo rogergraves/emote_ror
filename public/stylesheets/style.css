@@ -676,8 +676,9 @@ table.table_data{
     float: right;
     margin-right: 50px;
     font-size: 12px;
-    margin-top: 14px;
+    margin-top: 0px;
     line-height: 1.7;
+    text-align: right;
 }
 
 .subsc-list{
@@ -692,9 +693,26 @@ table.table_data{
     margin-top: 5px;
 }
 
+.plan_description{
+    margin-top: 120px;
+}
+
+ul.start_box {
+    list-style-image: url('../images/checkbox.png');
+    font-size: 18px;
+    padding-left: 15px;
+    padding-right: 14px;
+}
+
+.start_box li{
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .start_box_usd{
     float: left;
-    background: url('../images/start_box_usd.jpg') no-repeat;
+    background: url('../images/start_box.jpg') no-repeat;
     margin-left: -95px;
     margin-top: 55px;
     width: 238px;
@@ -703,7 +721,7 @@ table.table_data{
 
 .expand_box_usd{
     float: left;
-    background: url('../images/expand_box_usd.jpg') no-repeat;
+    background: url('../images/expand_box.jpg') no-repeat;
     margin-top: 20px;
     margin-left: 10px;
     width: 237px;
@@ -712,61 +730,7 @@ table.table_data{
 
 .magnify_box_usd{
     float: left;
-    background: url('../images/magnify_box_usd.jpg') no-repeat;
-    margin-top: 20px;
-    margin-left: 10px;
-    width: 238px;
-    height: 451px;
-}
-
-.start_box_eur{
-    float: left;
-    background: url('../images/start_box_usd.jpg') no-repeat;
-    margin-left: -100px;
-    margin-top: 55px;
-    width: 238px;
-    height: 451px;
-}
-
-.expand_box_eur{
-    float: left;
-    background: url('../images/expand_box_usd.jpg') no-repeat;
-    margin-top: 20px;
-    margin-left: 10px;
-    width: 237px;
-    height: 451px;
-}
-
-.magnify_box_eur{
-    float: left;
-    background: url('../images/magnify_box_usd.jpg') no-repeat;
-    margin-top: 20px;
-    margin-left: 10px;
-    width: 238px;
-    height: 451px;
-}
-
-.start_box_gbp{
-    float: left;
-    background: url('../images/start_box_usd.jpg') no-repeat;
-    margin-left: -100px;
-    margin-top: 55px;
-    width: 238px;
-    height: 451px;
-}
-
-.expand_box_gbp{
-    float: left;
-    background: url('../images/expand_box_usd.jpg') no-repeat;
-    margin-top: 20px;
-    margin-left: 10px;
-    width: 237px;
-    height: 451px;
-}
-
-.magnify_box_gbp{
-    float: left;
-    background: url('../images/magnify_box_usd.jpg') no-repeat;
+    background: url('../images/magnify_box.jpg') no-repeat;
     margin-top: 20px;
     margin-left: 10px;
     width: 238px;
@@ -777,7 +741,7 @@ table.table_data{
     width: 100%;
     float: left;
     text-align: center;
-    margin-top: 460px;
+    margin-top: 60px;
 }
 
 .subscr_order{

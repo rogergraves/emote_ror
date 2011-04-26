@@ -3,7 +3,7 @@
     <div id="subscription-content">
     <span class="big-text">My Subscriptions</span><br />
       <span class="medium-text-subsc">Your current plan: <%= current_user.plan.human_name %></span>
-      <span class="small-text-subsc">To upgrade to a customized plan email us at <%= mail_to "sales@inspirationengine.com" %>.</span>
+      <span class="small-text-subsc">To upgrade to a customized plan email us at <%= mail_to "sales@inspirationengine.com" %> <br />or call us at 435-565-1532 to place an order.</span>
     </div>
 
     <% Subscription::OPTIONS.each_with_index do |plan, i| %>
@@ -11,15 +11,22 @@
       <% available = current_user.plan.can_upgrade_to?(plan[:kind]) %>
 
       <div class="<%= plan[:kind] %>_box_<%= Country.get_country_currency(current_user.country_code).downcase %>">
-        <!--
-        <p style="background-color: white">
-          Plan name: <%= plan[:name] %><br/>
-          Emotes amount: <%= plan[:amount] %><br/>
-        <% if available %>
-          Cost: <%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %><%= current_user.plan.calc_upgrade_price(plan[:kind]) / 12 %> / month
-        <% end %>
+        
+        <p class="plan_description">
+          <!-- Plan name: <%= plan[:name] %><br/> -->
+          <ul class="start_box">
+            <li><%= plan[:amount] %> e.motes&trade;</li>
+            <li>View unlimited responses</li>
+            <li>e.mote&trade; Scorecard sharing</li>
+            <li>Automatic Feature Updates</li>
+            <li>
+              <% if available %>
+                Cost: <%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %><%= current_user.plan.calc_upgrade_price(plan[:kind]) / 12 %> / month
+              <% end %>
+            </li>
+          </ul>
         </p>
-        -->
+
         <span class="upgr_btn_subscr">
           <%= link_to_if available, image_tag("upgrade_button.png"), create_account_subscriptions_path(plan[:kind]), { :method => :post } do %>
             &nbsp;
