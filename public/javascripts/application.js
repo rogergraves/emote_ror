@@ -1,14 +1,28 @@
 function setContentWin(){
     var el = $("#content-win-centr");
-
+    var sbscrEl = $("#content-win-subscr");
+    
     var win_height = $(window).height();
     var doc_height = $(document).height();
-    if(win_height < doc_height){
+    
+    if(sbscrEl){
+	if(win_height > 600){
+	    var newHeight = win_height - 220;
+    	    if(newHeight > 550) newHeight = 550;
+	    var margin_top = Math.ceil(win_height/2);
+	    sbscrEl.css({'height' : newHeight + 'px', 'margin-top' : margin_top + 'px'});
+	}else{
+	    sbscrEl.css({'height' : '350px', 'margin-top' : '-285px'});
+	}
+    }
+    if(el){
+	if(win_height < doc_height){
 	//centring by document
-	var top = Math.ceil((doc_height - 400) / 2);
-	el.css({'top' : top + 'px', 'margin-top' : '0'});
-    }else{
-	el.css({'top' :'50%', 'margin-top' : '-200px'});
+	    var top = Math.ceil((doc_height - 400) / 2);
+	    el.css({'top' : top + 'px', 'margin-top' : '0'});
+	}else{
+	    el.css({'top' :'50%', 'margin-top' : '-200px'});
+        }
     }
 }
 
@@ -17,7 +31,6 @@ $(document).ready(function(){
     $(window).resize(function() {
 	setContentWin();
     });
-
     $("#buttons .dropdown").mouseenter(function(){
 	var el = $(this).children("ul:first");
 	if(el.is(':hidden')){

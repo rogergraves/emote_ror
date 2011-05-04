@@ -635,16 +635,16 @@ table.table_data{
 
 #content-win-subscr{
     border: 17px solid #dedede;
+    padding-bottom: 50px;
     width: 900px;
-    height: 99%;
-    max-height: 410px;
-    min-height: 250px;
+    height: 350px;
+    min-height: 350px;
     background-color: white;
     position: relative;
     left: 50%;
     top: 50%;
-    margin-left: -440px;
-    margin-top: -280px;
+    margin-left: -450px;
+    margin-top: -285px;.
 }
 
 .borderradius #content-win-subscr{
@@ -659,9 +659,8 @@ table.table_data{
     margin-left: auto;
     overflow: auto;
     height: 99%;
-    max-height: 355px;
-    min-height: 330px;
     margin-top: 13px;
+....
 }
 
 .medium-text-subsc{
