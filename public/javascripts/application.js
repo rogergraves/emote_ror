@@ -8,8 +8,11 @@ function setContentWin(){
     if(sbscrEl){
 	if(win_height > 600){
 	    var newHeight = win_height - 220;
-    	    if(newHeight > 550) newHeight = 550;
-	    var margin_top = Math.ceil(win_height/2);
+    	    if(newHeight > 600) newHeight = 600;
+	    var margin_top =  Math.ceil(win_height/2) - 10;
+	    margin_top = "-" + margin_top;
+//	    alert(newHeight);
+//	    margin_top =;
 	    sbscrEl.css({'height' : newHeight + 'px', 'margin-top' : margin_top + 'px'});
 	}else{
 	    sbscrEl.css({'height' : '350px', 'margin-top' : '-285px'});
