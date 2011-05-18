@@ -60,14 +60,23 @@ EmoteRor::Application.configure do
   #  :enable_starttls_auto => true
   #}
   
+  #ActionMailer::Base.smtp_settings = {
+  #  :address              => "mail.inspirationengine.com",
+  #  :port                 => 26,
+  #  :domain               => 'inspirationengine.com',
+  #  :user_name            => 'support+inspirationengine.com',
+  #  :password             => '-3tR!GK',
+  #  :authentication       => 'plain',
+  #  :enable_starttls_auto => false
+  #}
   ActionMailer::Base.smtp_settings = {
-    :address              => "mail.inspirationengine.com",
-    :port                 => 26,
+    :address              => "smtp.gmail.com", 
+    :port                 => 587, 
     :domain               => 'inspirationengine.com',
-    :user_name            => 'support+inspirationengine.com',
-    :password             => '-3tR!GK',
-    :authentication       => 'plain',
-    :enable_starttls_auto => false
+    :user_name            => 'delivery@inspirationengine.com',
+    :password             => '%g9WKgLF',
+    :authentication       => 'plain', 
+    :enable_starttls_auto => true 
   }
 end
 
