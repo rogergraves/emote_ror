@@ -74,7 +74,7 @@ EmoteRor::Application.configure do
     :port                 => 587, 
     :domain               => 'inspirationengine.com',
     :user_name            => 'delivery@inspirationengine.com',
-    :password             => '%g9WKgLF',
+    :password             => '134711avs',
     :authentication       => 'plain', 
     :enable_starttls_auto => true 
   }
