@@ -1,22 +1,46 @@
-<div id="content-win-centr" role="main">
-  <div id="subscription-content">
-  <span class="big-text">e.mote&trade; Subscriptions</span><br />
-    <span class="medium-text-subsc">
-      We are currently undergoing changes to our subscription system.
-      To order, please select a plan from our
-      <%
-        page_opts = case Country.get_country_currency(current_user.country_code)
-          when 'EUR' then {:lang => 'de'}
-          when 'GBP' then {:lang => 'gb' }
-          else {}
-        end
-      %>
-      <%= link_to "pricing page", "http://inspirationengine.com/?#{ page_opts.merge(:page_id => 189).to_query }", :target => '_blank' %> and send your request to <%= mail_to "orders@inspirationengine.com" %>.
-      <br /><br />
-      We apologize for the inconvenience.
-    </span>
+<div id="content-win-subscr" role="main">
+  <div id="area">
+    <div id="subscription-content">
+    <span class="big-text">My Subscriptions</span><br />
+      <span class="medium-text-subsc">Your current plan: <%= current_user.plan.human_name %></span>
+      <span class="small-text-subsc">To upgrade to a customized plan email us at <%= mail_to "sales@inspirationengine.com" %> <br />or call us at 435-565-1532 to place an order.</span>
+      <div class="clear"></div>
+    </div>
+
+      <% Subscription::OPTIONS.each_with_index do |plan, i| %>
+      <% next if plan[:kind]=='free' %>
+      <% available = current_user.plan.can_upgrade_to?(plan[:kind]) %>
+
+    <div id="plan_area">
+      <div class="<%= plan[:kind] %>_box_<%= Country.get_country_currency(current_user.country_code).downcase %>">
+        
+        <p class="plan_description">
+          <!-- Plan name: <%= plan[:name] %><br/> -->
+          <ul class="start_box">
+            <li><%= plan[:amount] %> e.motes&trade;</li>
+            <li>View unlimited responses</li>
+            <li>e.mote&trade; Scorecard sharing</li>
+            <li>Automatic Feature Updates</li>
+            
+              <% if available %>
+              <li>
+                  Cost: <%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %><%= current_user.plan.calc_upgrade_price(plan[:kind]) / 12 %> / month
+              </li>
+              <% end %>
+          </ul>
+        </p>
+
+        <span class="upgr_btn_subscr">
+          <%= link_to_if available, image_tag("upgrade_button.png"), create_account_subscriptions_path(plan[:kind]), { :method => :post } do %>
+            &nbsp;
+          <% end %>
+        </span>
+      </div>
+     </div>
+    <% end %>
+    
   </div>
-  <span class="subscr_order">
+  <div class="subscr_order">
     <%= link_to "Subscription Terms", 'http://inspirationengine.com/?page_id=189', :target => '_blank' %>
-  </span>
+  </div>
 </div>

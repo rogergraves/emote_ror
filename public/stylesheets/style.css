@@ -570,10 +570,28 @@ form .field_forgetpw{
 
 /* ------- View Activity Page ------- */
 
-#content-win-centr #viewactivity-content{
+#content-win-centr_viewactivity{
+    top: 50%;
+    margin-top: -200px;
+    border: 17px solid #dedede;
+    width: 610px;
+    height: 400px;
+    margin-left: -315px;
+    position: absolute;
+    left: 50%;
+    background-color: #F4F4F4;
+}
+
+.borderradius #content-win-centr_viewactivity{
+    border-radius: 60px;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+}
+
+#content-win-centr_viewactivity #viewactivity-content{
     margin-top: 30px;
-    margin-left: 30px;
-    width: 540px;
+    margin-left: 20px;
+    width: 570px;
     height: 320px;
     float: left;
     overflow-y: auto;
@@ -599,10 +617,11 @@ form .field_forgetpw{
 }
 
 table.table_data{
-    width: 410px;
-    margin-left: 40px;
+    width: 510px;
+    margin-left: 0px;
     font-size: 13px;
     text-align: center;
+    background-color: #ffffff;
 }
 
 .table_head th{
@@ -631,13 +650,60 @@ table.table_data{
     padding-right: 2px;
 }
 
+.trans_message{
+    font-size: 14px;
+    color: #0006ff;
+}
+
 /* ------- Subscriptions page ------- */
+
+#content-win-subscr{
+    border: 17px solid #dedede;
+    padding-bottom: 50px;
+    width: 900px;
+    height: 350px;
+    min-height: 350px;
+    background-color: white;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    margin-left: -450px;
+    margin-top: -285px;
+}
+
+.borderradius #content-win-subscr{
+    border-radius: 60px;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+}
+
+#content-win-subscr #area{
+    width: 850px;
+    margin-right: auto;
+    margin-left: auto;
+    overflow: auto;
+    height: 99%;
+    margin-top: 13px;
+}
 
 .medium-text-subsc{
     float: left;
     font-size: 14px;
-    margin-top: 70px;
+    margin-top: 10px;
     line-height: 1.7;
+}
+
+.small-text-subsc{
+    float: right;
+    margin-right: 50px;
+    font-size: 12px;
+    margin-top: -10px;
+    line-height: 1.7;
+    text-align: right;
+}
+
+.clear{
+    clear: both;
 }
 
 .subsc-list{
@@ -648,89 +714,69 @@ table.table_data{
     margin-left: 40px;
 }
 
-#content-win-centr #subscription-content{
+#area #subscription-content{
+    margin-top: 5px;
+}
+
+.plan_description{
+    margin-top: 120px;
+}
+
+ul.start_box {
+    list-style-image: url('../images/checkbox.png');
+    font-size: 18px;
+    padding-left: 15px;
+    padding-right: 14px;
+}
+
+.start_box li{
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#plan_area{
+    float: left;
+    margin-top: 10px;
+}
+
+.start_box_usd{
+    float: left;
+    background: url('../images/start_box.jpg') no-repeat;
+    margin-left: 44px;
     margin-top: 20px;
-    margin-left: 30px;
-    width: 565px;
-    height: 350px;
-    float: left;
+    width: 238px;
+    height: 451px;
 }
 
-.one-pack{
+.expand_box_usd{
     float: left;
-    background: url('../images/1_pack.png') no-repeat;
-    width: 552px;
-    height: 44px;
+    background: url('../images/expand_box.jpg') no-repeat;
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 237px;
+    height: 451px;
 }
 
-.five-pack{
+.magnify_box_usd{
     float: left;
-    background: url('../images/5_pack.png') no-repeat;
-    width: 552px;
-    height: 44px;
-    margin-top: 5px;
+    background: url('../images/magnify_box.jpg') no-repeat;
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 238px;
+    height: 451px;
 }
 
-.ten-pack{
+.upgr_btn_subscr{
+    width: 100%;
     float: left;
-    background: url('../images/10_pack.png') no-repeat;
-    width: 552px;
-    height: 44px;
-    margin-top: 5px;
-}
-
-.twentyfive-pack{
-    float: left;
-    background: url('../images/25_pack.png') no-repeat;
-    width: 552px;
-    height: 44px;
-    margin-top: 5px;
-}
-
-.pack-title{
     text-align: center;
-    padding-top: 5px;
-    font-size: 30px;
-    text-transform: uppercase;
-}
-
-.pack-title a{
-    color: #fff;
-    text-decoration: none;
-}
-
-.pack-title a:hover{
-    color: #fff;
-    text-decoration: underline;
-}
-
-.pack-price {
-    font-size: 13px;
-    font-weight: bold;
-    text-align: center;
-    margin-left: 80px;
-    margin-top: 14px;
-    color: #000;
-}
-
-.pack-description {
-    font-size: 11px;
-    text-align: center;
-    color: #000;
-    margin: 15px 5px 0 5px;
-}
-
-.pack-purchase {
-    float: right;
-    margin-top: -24px;
-    margin-right: 10px;
-
+    margin-top: 60px;
 }
 
 .subscr_order{
-    width: 565px;
-    margin-left: 30px;
-    margin-top: -15px;
+    width: 100%;
+    margin-top: 15px;
     float: left;
     text-align: center;
 }

@@ -14,6 +14,7 @@
         <th><a class="tooltip" href="#">ARCHIVE<span class="classic">Prevent new e.motes&trade; from being submitted. The message "e.mote&trade; no longer active" will be shown.</span></a></th>
         <th><a class="tooltip" href="#">LINKS & BUTTONS<span class="classic">Get a link or embed image to paste into emails, websites, IM, Facebook, Twitter, etc.</span></a></th>
         <th><a class="tooltip tooltipleft" href="#">VIEW e.mote&trade;<span class="classic">Take e.mote&trade; survey</span></a></th>
+        <th><a class="tooltip tooltipleft" href="#">CLEAR DATA<span class="classic">Clear all the data from this e.mote Scorecard. This allows you to collect another set of 50 responses for this e.mote.</span></a></th>
         <th><a class="tooltip tooltipleft" href="#">DELETE<span class="classic">Purge an e.mote&trade; and its data. This will free up a slot so you can create a new e.mote&trade;.</span></a></th>
       </tr>
     </thead>
@@ -47,11 +48,11 @@
         </td>
         <td>
           <% if survey.active? %>
-            <!-- 
-				<%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), '#', :onclick => "showLinks('#{survey.emote_direct_link}');", :title => 'Go to e.mote'%>
-			-->
-			<%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), survey.emote_direct_link, :title => 'Go to e.mote', :target => '_blank' %>
+            <%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), survey.emote_direct_link, :title => 'Go to e.mote', :target => '_blank' %>
           <% end %>
+        </td>
+        <td>
+          <%= link_to image_tag('eraser_icon.png'), wipe_responses_account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete all the data recorded on this e.mote™ Scorecard.' %>
         </td>
         <td class="last-col">
           <%= link_to image_tag('trash_icon.png'), account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete this e.mote and all collected data.' %>

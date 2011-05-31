@@ -19,7 +19,7 @@ EmoteRor::Application.configure do
   # just comment this out and Rails will serve the files
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :debug
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
@@ -46,39 +46,20 @@ EmoteRor::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  config.application_host = "emote.inspirationengine.com"
-  
+  config.application_host = "portal.rubyriders.com"
+
   config.action_controller.asset_host = config.application_host
   config.action_mailer.default_url_options = { :host => config.application_host }
-  
-  #ActionMailer::Base.smtp_settings = {
-  #  :address              => "smtp.gmail.com",
-  #  :port                 => 587,
-  #  :domain               => 'mail.rubyriders.com',
-  #  :user_name            => 'delivery@rubyriders.com',
-  #  :password             => '134711',
-  #  :authentication       => 'plain',
-  #  :enable_starttls_auto => true
-  #}
-  
-  #ActionMailer::Base.smtp_settings = {
-  #  :address              => "mail.inspirationengine.com",
-  #  :port                 => 26,
-  #  :domain               => 'inspirationengine.com',
-  #  :user_name            => 'support+inspirationengine.com',
-  #  :password             => '-3tR!GK',
-  #  :authentication       => 'plain',
-  #  :enable_starttls_auto => false
-  #}
-  ActionMailer::Base.smtp_settings = {
-    :address              => "smtp.gmail.com", 
-    :port                 => 587, 
-    :domain               => 'inspirationengine.com',
-    :user_name            => 'delivery@inspirationengine.com',
-    :password             => '134711avs',
-    :authentication       => 'plain', 
-    :enable_starttls_auto => true 
-  }
+  config.action_mailer.smtp_settings = {
+        :address              => "mail.inspirationengine.com",
+        :port                 => 26,
+        :domain               => 'inspirationengine.com',
+        :user_name            => 'support+inspirationengine.com',
+        :password             => '-3tR!GK',
+        :authentication       => 'plain',
+        :enable_starttls_auto => false
+    }
+
 end
 
 SURVEY_STORAGE_PATH = '/var/www/surveys/'

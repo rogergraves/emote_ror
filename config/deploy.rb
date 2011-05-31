@@ -27,6 +27,7 @@ task :stage do
   role :app, "184.106.92.80"                          # This may be the same as your `Web` server
   role :db,  "184.106.92.80", :primary => true # This is where Rails migrations will run
 
+  set :rails_env, "staging"
   set :deploy_to, "/var/www/apps/#{application}"
   set :user, "root"
   set :password, "stagingfm66A2KIu"

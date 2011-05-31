@@ -48,9 +48,8 @@
 <br/>
 <%= render :partial => 'surveys', :locals => { :surveys => @user.surveys, :user_id => @user.id } %>
 
+<h4>User's plan: <%= @user.plan.human_name %></h4>
+<h4>User's payments</h4>
 <br/>
-<br/>
-<h4>Subscriptions for this user</h4>
-<br/>
-<%= render :partial => 'subscriptions', :locals => { :subscriptions => @user.subscriptions, :user_id => @user.id } %>
+<%= render :partial => 'payments', :locals => { :payments => @user.payments } %>
 
