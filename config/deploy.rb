@@ -19,6 +19,8 @@ task :live do
   set :user, "root"
   set :password, "web1Bd1XKmi06"
   set :group, "root"
+
+  before "deploy:migrate", :backup_live_db
 end
 
 task :stage do
@@ -55,8 +57,13 @@ namespace :deploy do
                               :fix_public_dir_permission,
                               :fix_tmp_dir_permission,
                               :fix_release_dir_permission,
+                              :backup_db,
                               "deploy:migrate"
                               
+end
+
+task :backup_live_db do
+  run "mysqldump emotethis > ~/db_dump/auto/emotethis_#{Time.now.strftime('%Y-%m-%d_%H-%M')}.sql"
 end
 
 task :symlink_config_files do
