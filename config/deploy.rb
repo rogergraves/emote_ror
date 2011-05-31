@@ -57,7 +57,6 @@ namespace :deploy do
                               :fix_public_dir_permission,
                               :fix_tmp_dir_permission,
                               :fix_release_dir_permission,
-                              :backup_db,
                               "deploy:migrate"
                               
 end
