@@ -21,7 +21,7 @@ class TransformSubscriptionToPlan < ActiveRecord::Migration
     
     User.all.each do |user|
       plan = Subscription.new
-      if plan_data = subscriptions.select{|s| s[:user_id] == user.id.to_s }.first
+      if plan_data = subscriptions.select{|s| s[:user_id].to_s == user.id.to_s }.first
         plan.attributes = plan_data
         plan.kind = case plan.emote_amount
           when 2 then 'start'
