@@ -20,7 +20,7 @@
     </thead>
     <% current_user.plan.emote_amount.times do |i| %>
       <% if survey = @surveys[i] %>
-        <tr class="<%= cycle('odd','even') %>">
+        <tr class="<%= cycle('odd','even') %> <%= survey.archived? ? 'disabled-row' : '' %>">
           <td class="first-col">
             <% if survey.suspended? %>
               <%=  image_tag 'exclamation.png', :title => 'Suspended, contact support for details' %>
@@ -33,11 +33,11 @@
             <% end %>
           </td>
           <td class="project-name">
-            <%= link_to survey.project_name, scorecard_account_survey_path(survey), :target => 'scorecard'%>
+            <%= link_to_if survey.archived?, survey.project_name, survey.emote_direct_link, :target => 'emote_preview'%>
           </td>
           <td valign="middle">
             <%#= ((Time.now - survey.created_at)/1.day).to_i %>
-            <%= time_ago_in_words(survey.created_at) %>
+            <%= survey.archived? ? 'n/a' : time_ago_in_words(survey.created_at) %>
           </td>
           <td valign="middle">
             <%= survey.responses_count %>
@@ -56,9 +56,9 @@
           </td>
         </tr>
     <% else %>
-        <tr class="<%= cycle('odd','even') %>">
+        <tr class="<%= cycle('odd','even') %> emtpy-row">
           <td>&nbsp;</td>
-          <td>(<%= link_to 'Click to create', new_account_survey_path %>)</td>
+          <td class="project-name">(<%= link_to 'Click to create', new_account_survey_path %>)</td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>

@@ -1190,6 +1190,17 @@ ul.start_box {
 
 #content-win-control table tr{
     border-bottom: 3px solid white;
+    height: 31px;
+}
+
+#content-win-control table .emtpy-row td {
+    color: #CCCCCC;
+    font-style: italic;
+    font-size: 12px;
+}
+
+#content-win-control table .disabled-row td {
+    color: #CCCCCC;
 }
 
 

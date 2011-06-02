@@ -2,6 +2,7 @@ require 'digest/md5'
 
 class SurveysController < ApplicationController
   before_filter :authenticate_user!, :except => [:public_scorecard]
+
   def index
     @surveys = current_user.surveys.all
   end
@@ -35,7 +36,7 @@ class SurveysController < ApplicationController
   def update
     begin
       survey = current_user.surveys.find(params[:id])
-      survey.state = (params["survey_#{params[:id]}_archive"] ? Survey::STATE_ARCHIVED : Survey::STATE_ACTIVE) if params[:property] == 'archive'
+      survey.state = (params["survey_#{params[:id]}_archive"]=='true' ? Survey::STATE_ARCHIVED : Survey::STATE_ACTIVE) if params[:property] == 'archive'
       survey.public = params["survey_#{params[:id]}_public"] if params[:property] == 'public'
       survey.save
     rescue
