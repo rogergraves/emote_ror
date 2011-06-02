@@ -65,11 +65,11 @@
     <% if current_user.can_add_scorecard? %>
         <%= link_to image_tag('create_emote_button.png'), new_account_survey_path %>
         <div id="add-scorecard">
-          You can add up to <%= pluralize(current_user.scorecards_available, 'more emote') %>&trade; with your current subscriptions. <%= link_to 'Click here', new_account_subscription_path %> to add more to your account.
+          You can add up to <%= pluralize(current_user.scorecards_available, 'more emote') %>&trade; with your current subscription. <%= link_to 'Click here', new_account_subscription_path %> to upgrade.
         </div>
     <% else %>
         <div id="scorecard-limit">
-            You don't have free slots for new e.mote&trade;. Delete one or buy more credits <%= link_to 'here', new_account_subscription_path %>
+          You are using the maximum number of e.motes&trade;. To create a new e.mote&trade; you may delete one or <%= link_to 'upgrade your plan', new_account_subscription_path %>.
         </div>
     <% end %>
     </div>
