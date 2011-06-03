@@ -114,12 +114,12 @@ class Survey < ActiveRecord::Base
     )
   end
 
-protected
+#protected
 
   def generate_code!(field)
     i = 0; kukan = 'x'
     loop do
-      kukan = Zlib::crc32("#{self.user ? self.user.full_name : 'no_user'}-#{self.user_id}--#{self.id}-#{self.project_name}-=-[OMATORE]-=#{i}//#{field}=-#{Time.now.to_i}").to_s(36).upcase
+      kukan = Zlib::crc32("#{self.user ? self.user.full_name : 'no_user'}-#{self.user_id}--#{self.id}-#{self.project_name}-=-[OMATORE]-=#{i}=-#{Time.now.to_i}--#{field}").to_s(36).upcase
       break kukan unless Survey.find(:first, :conditions => { field.to_sym => kukan })
       i+=1
     end
