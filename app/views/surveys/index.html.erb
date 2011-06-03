@@ -10,7 +10,7 @@
       <tr>
         <th><a class="tooltip" href="#">ON/OFF<span class="classic">Prevent new e.motes&trade; from being submitted. The message "e.mote&trade; no longer active" will be shown.</span></a></th>
         <th class="project-name"><a class="tooltip" href="#">E.MOTE&trade; SUBJECT<span class="classic">Click on e.mote&trade; name to see Scorecard.</span></a></th>
-        <th><a class="tooltip" href="#">ACTIVE FOR<span class="classic">Date the e.mote&trade; was created.</span></a></th>
+        <th><a class="tooltip" href="#">TIME ACTIVE<span class="classic">Date the e.mote&trade; was created.</span></a></th>
         <th><a class="tooltip" href="#">RESPONSES<span class="classic">Enter this code at http://emotethis.com to take the e.mote&trade;</span></a></th>
         <th><a class="tooltip" href="#">LINKS & QR CODES<span class="classic">Get a link or embed image to paste into emails, websites, IM, Facebook, Twitter, etc.</span></a></th>
         <th><a class="tooltip tooltipleft" href="#">VIEW SCORECARD<span class="classic">Take e.mote&trade; survey</span></a></th>
@@ -28,28 +28,31 @@
               <%= form_for("survey_#{survey.id}_archive", :url => account_survey_path(survey), :html => {:method => :put, :id => "survey_#{survey.id}_archive_form"}) do |f| %>
                <%= hidden_field_tag 'property', 'archive' %>
                <%= hidden_field_tag "survey_#{survey.id}_archive", !survey.archived? %>
-               <%= image_submit_tag(survey.archived? ? 'off_icon.png' : 'on_icon.png') %>
+               <%= image_submit_tag(survey.archived? ? 'off_icon.png' : 'on_icon.png', :title => "Switch #{survey.archived? ? 'on' : 'off'}") %>
               <% end %>
             <% end %>
           </td>
           <td class="project-name">
-            <%= link_to_if survey.archived?, survey.project_name, survey.emote_direct_link, :target => 'emote_preview'%>
+            <%= link_to_if !survey.archived?, survey.project_name, survey.emote_direct_link, :target => 'emote_preview'%>
           </td>
           <td valign="middle">
             <%#= ((Time.now - survey.created_at)/1.day).to_i %>
-            <%= survey.archived? ? 'n/a' : time_ago_in_words(survey.created_at) %>
+            <%= survey.archived? ? '(none)' : time_ago_in_words(survey.activated_at) %>
           </td>
           <td valign="middle">
             <%= survey.responses_count %>
+            <% if survey.new_responses_count>0 %>
+              <span class="new-responses">(<%= survey.new_responses_count %> new)</span>
+            <% end %>
           </td>
           <td>
             <%= link_to_function image_tag('links_icon.png', :title => 'Get links and buttons for people to click to take e.mote'), "showLinks('#{survey.project_name}','#{survey.emote_direct_link}', '#{survey.code}');" %>
           </td>
           <td>
-            <%= link_to image_tag('scorecard_icon.png'), wipe_responses_account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete all the data recorded on this e.mote™ Scorecard.' %>
+            <%= link_to image_tag('scorecard_icon.png'), scorecard_account_survey_path(survey) %>
           </td>
           <td>
-            <%= link_to image_tag('alert_icon.png'), wipe_responses_account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete all the data recorded on this e.mote™ Scorecard.' %>
+            <%= link_to_function image_tag('alert_icon.png'), 'alert("Not implemented")'  %>
           </td>
           <td class="last-col">
             <%= link_to image_tag('trash_icon.png'), account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete this e.mote and all collected data.' %>

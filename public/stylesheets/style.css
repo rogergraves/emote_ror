@@ -1199,6 +1199,11 @@ ul.start_box {
     font-size: 12px;
 }
 
+#content-win-control table .new-responses {
+    color: red;
+    font-size: 10px;
+}
+
 #content-win-control table .disabled-row td {
     color: #CCCCCC;
 }

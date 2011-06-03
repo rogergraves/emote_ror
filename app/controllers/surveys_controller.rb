@@ -70,6 +70,7 @@ class SurveysController < ApplicationController
     @survey = current_user.surveys.find(params[:id])
     redirect_to root_path if @survey.nil?
     @survey.generate_action_token!
+    @survey.scorecard_viewed_at = DateTime.now
     @survey.save!
   end
   

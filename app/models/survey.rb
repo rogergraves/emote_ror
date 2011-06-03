@@ -76,6 +76,10 @@ class Survey < ActiveRecord::Base
     end
   end
 
+  before_save do |survey|
+    survey.activated_at = DateTime.now if survey.state_changed? && survey.state == STATE_ACTIVE
+  end
+
   def active?
     state==STATE_ACTIVE
   end
@@ -100,12 +104,22 @@ class Survey < ActiveRecord::Base
     self.action_token = Digest::MD5.hexdigest("#{id}-==-#{code}-=-#{Time.now}")
   end
 
+  def new_responses_count(refresh = false)
+    @new_responses_count = nil if refresh
+    @new_responses_count ||= Survey.connection.select_value(<<-SQL
+        SELECT count(*) FROM survey_result AS sr
+          INNER JOIN surveys AS s ON s.code=sr.code
+          WHERE s.id=#{self.id} AND sr.is_removed=0 AND sr.end_time >= '#{self.scorecard_viewed_at.to_s(:db)}';
+      SQL
+    )
+  end
+
 protected
 
   def generate_code!(field)
     i = 0; kukan = 'x'
     loop do
-      kukan = Zlib::crc32("#{self.user ? self.user.full_name : 'no_user'}-#{self.user_id}--#{self.id}-#{self.project_name}-=-[OMATORE]-=#{i}=-#{Time.now.to_i}").to_s(36).upcase
+      kukan = Zlib::crc32("#{self.user ? self.user.full_name : 'no_user'}-#{self.user_id}--#{self.id}-#{self.project_name}-=-[OMATORE]-=#{i}//#{field}=-#{Time.now.to_i}").to_s(36).upcase
       break kukan unless Survey.find(:first, :conditions => { field.to_sym => kukan })
       i+=1
     end
