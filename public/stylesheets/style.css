@@ -1259,6 +1259,37 @@ ul.start_box {
     font-size: 14px;
 }
 
+#delete-dialog #clear-pane {
+    display: block;
+    width: 200px;
+    height: 100px;
+    float: left;
+    margin: 40px;
+}
+
+#delete-dialog #delete-pane {
+    display: block;
+    width: 200px;
+    height: 100px;
+    float: left;
+    border-left: thin solid #999999;
+    padding: 40px;
+}
+
+#delete-dialog h3 {
+    text-align: center;
+}
+
+#delete-dialog img {
+    text-align: center;
+    position: absolute;
+    top: 150px;
+}
+
+#delete-dialog p {
+    text-align: justify;
+}
+
 .open_emote{
     float: left;
     width: 100%;

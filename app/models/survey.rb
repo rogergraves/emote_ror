@@ -61,9 +61,10 @@ class Survey < ActiveRecord::Base
     end
   end
   
-  before_validation(:on => :create) do
-    generate_code!('code') if self.code.blank?
-    generate_code!('scorecard_code') if self.scorecard_code.blank?
+  before_validation(:on => :create) do |survey|
+    generate_code!('code') if survey.code.blank?
+    generate_code!('scorecard_code') if survey.scorecard_code.blank?
+    survey.scorecard_viewed_at = survey.activated_at = DateTime.now
   end
 
   before_validation do

@@ -1,12 +1,21 @@
 $(document).ready(function() {
-    var dlg = $('#links-dialog');
-    dlg.removeAttr('style').dialog({
+    var link_dlg = $('#links-dialog');
+    link_dlg.removeAttr('style').dialog({
         autoOpen: false,
         closeOnEscape: true,
         modal: true,
         width: 570,
         height: 400
     });
+    
+    var delete_dlg = $('#delete-dialog');
+    delete_dlg.removeAttr('style').dialog({
+        autoOpen: false,
+        closeOnEscape: true,
+        modal: true,
+        width: 590,
+        height: 250
+    });    
 });
 
 function showLinks(emote_name, emote_link, emote_code){
@@ -30,3 +39,11 @@ function showLinks(emote_name, emote_link, emote_code){
     dlg.dialog('open');
     return false;
 }
+
+function showDelete(emote_name, emote_id){
+    var dlg = $('#delete-dialog');
+    dlg.dialog({title: 'Clear Data or Delete "'+emote_name+'"'});
+    dlg.dialog('open');
+    return false;
+}
+

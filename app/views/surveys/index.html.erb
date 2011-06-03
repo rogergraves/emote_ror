@@ -41,7 +41,7 @@
           </td>
           <td valign="middle">
             <%= survey.responses_count %>
-            <% if survey.new_responses_count>0 %>
+            <% if survey.new_responses_count > 0 %>
               <span class="new-responses">(<%= survey.new_responses_count %> new)</span>
             <% end %>
           </td>
@@ -55,7 +55,7 @@
             <%= link_to_function image_tag('alert_icon.png'), 'alert("Not implemented")'  %>
           </td>
           <td class="last-col">
-            <%= link_to image_tag('trash_icon.png'), account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete this e.mote and all collected data.' %>
+            <%= link_to_function image_tag('trash_icon.png'), "$('#delete-dialog #clear-pane a').attr('href', '#{wipe_responses_account_survey_path(survey)}'); $('#delete-dialog #delete-pane a').attr('href', '#{account_survey_path(survey)}'); showDelete('#{survey.project_name}', #{survey.id})" %>
           </td>
         </tr>
     <% else %>
@@ -74,7 +74,7 @@
   </table>
 </div>
   <div id="create-emote">
-    Need more e.motes&trade? <%= link_to image_tag('upgrade_now_button.png'), new_account_subscription_path %>
+    Need more e.motes&trade;? <%= link_to image_tag('upgrade_now_button.png'), new_account_subscription_path %>
   </div>
 </div>
 
@@ -93,4 +93,26 @@
       <div class="right-part"><%= text_area_tag "feedback-code-#{button_number}", "feedback-code-#{button_number}", :class => 'locked-selectall feedback-code', :rows => 3, :cols => 35 %></div>
     </div>
   <% end %>
+</div>
+
+<div id="delete-dialog" style="visibility: hidden;">
+  <div id="clear-pane">
+    <h3>Clear Data</h3>
+    <br/>
+    <p>
+      Clear all the data from the Scorecard.
+      <% if current_user.plan.is_free? %>This allows you to collect another set of responses for this e.moteTM.<% end %>
+    </p>
+    <br/>
+    <%= link_to image_tag('clear_data_button.png'), '', :method => :delete, :confirm => 'This cannot be undone. Are you sure?' %>
+  </div>
+  <div id="delete-pane">
+    <h3>Delete e.mote&trade;</h3>
+    <br/>
+    <p>
+      Delete an e.moteTM and its Scorecard. This gives you room to create a new e.moteTM.
+    </p>
+    <br/>
+    <%= link_to image_tag('delete_emote_button.png'), '', :method => :delete, :confirm => 'This cannot be undone. Are you sure?' %>
+  </div>
 </div>
