@@ -1,4 +1,4 @@
-<% content_for :footer_js, javascript_include_tag('jquery-ui-1.8.9.custom.min.js', 'emote_control.js') %>
+<% content_for :footer_js, javascript_include_tag('jquery-ui-1.8.9.custom.min.js', 'emote_control.js', 'QRCode.js') %>
 <% content_for :head_css, stylesheet_link_tag('jquery-ui-1.8.9.custom.css') %>
 
 <div id="content-win-control" role="main">
@@ -79,20 +79,27 @@
 </div>
 
 <div id="links-dialog" style="visibility: hidden;">
-  <div class="popup-item">
-    <div class="left-part">Email or IM link:</div>
-    <div class="right-part"><%= text_area_tag 'scorecard_direct_link', 'scorecard_direct_link', :class => 'locked-selectall', :size => 60, :rows => 2, :cols => 35 %></div>
-  </div>
-  <div class="popup-item">
-    <div class="left-part">Text website link:</div>
-    <div class="right-part"><%= text_area_tag 'scorecard_embed_link', 'scorecard_embed_link', :class => 'locked-selectall', :size => 60, :rows => 2, :cols => 35 %></div>
-  </div>
-  <% 1.upto(13) do |button_number| %>
+  <div id="links-pane">
     <div class="popup-item">
-      <div class="left-part"><%= image_tag "feedback_buttons/#{button_number}.png" %></div>
-      <div class="right-part"><%= text_area_tag "feedback-code-#{button_number}", "feedback-code-#{button_number}", :class => 'locked-selectall feedback-code', :rows => 3, :cols => 35 %></div>
+      <div class="left-part">Email or IM link:</div>
+      <div class="right-part"><%= text_area_tag 'scorecard_direct_link', 'scorecard_direct_link', :class => 'locked-selectall', :size => 60, :rows => 2, :cols => 35 %></div>
     </div>
-  <% end %>
+    <div class="popup-item">
+      <div class="left-part">Text website link:</div>
+      <div class="right-part"><%= text_area_tag 'scorecard_embed_link', 'scorecard_embed_link', :class => 'locked-selectall', :size => 60, :rows => 2, :cols => 35 %></div>
+    </div>
+    <% %w(emote_black emote_white).each do |icon| %>
+      <div class="popup-item">
+        <div class="left-part"><%= image_tag "feedback_buttons/#{icon}.png" %></div>
+        <div class="right-part"><%= text_area_tag "feedback-code-#{icon}", "feedback-code-#{icon}", :class => 'locked-selectall feedback-code', :rows => 3, :cols => 35 %></div>
+      </div>
+    <% end %>
+  </div>
+  <div id="qr-pane">
+    QR Code
+    <br/><br/>
+    <div id="qr-code"/>
+  </div>
 </div>
 
 <div id="delete-dialog" style="visibility: hidden;">

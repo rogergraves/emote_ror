@@ -4,8 +4,8 @@ $(document).ready(function() {
         autoOpen: false,
         closeOnEscape: true,
         modal: true,
-        width: 570,
-        height: 400
+        width: 600,
+        height: 370
     });
     
     var delete_dlg = $('#delete-dialog');
@@ -35,7 +35,8 @@ function showLinks(emote_name, emote_link, emote_code){
       img_path = $(this).parent().prev().find('img').attr('src');
       $(this).val(embed_js.replace(/%CONTENT%/, "<img src='"+img_path+"' border='0'/>"))
     });
-    dlg.dialog({title: 'Embed links for "'+emote_name+'" e.mote&trade; survey'});
+    dlg.find('#qr-code').QRCode(emote_link, {width: 200, height: 200});
+    dlg.dialog({title: 'Embed links &amp; QR code for "'+emote_name+'" e.mote&trade; survey'});
     dlg.dialog('open');
     return false;
 }

@@ -1297,28 +1297,44 @@ ul.start_box {
     margin-top: 5px;
 }
 
-.popup-item{
-    width: 100%;
+
+#links-dialog #links-pane {
+    float: left;
+    width: 350px;
+}
+
+#links-dialog #qr-pane {
+    float: right;
+    text-align: center;
+}
+
+#links-dialog #qr-pane p {
+    text-align: justify;
+}
+
+
+#links-dialog .popup-item{
     margin-bottom: 5px;
     margin-top: 5px;
     display: inline-block;
 }
 
-.left-part{
+#links-dialog .left-part{
    float: left;
-   width: 236px;
+   width: 80px;
    text-align: right;
+   margin-right: 3px;
 }
 
-.right-part input{
+#links-dialog .right-part input{
     width: 255px;
     height: 47px;
     border: 1px solid #ccc;
 }
 
-.right-part{
-    float: right;
-    margin-right: 5px;
+#links-dialog .right-part{
+    float: left;
+    margin-left: 5px;
 }
 
 /* ------- Tooltips for e.mote Control page ------- */
