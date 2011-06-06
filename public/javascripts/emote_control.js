@@ -16,6 +16,24 @@ $(document).ready(function() {
         width: 590,
         height: 250
     });    
+
+    var alerts_dlg = $('#alerts-dialog');
+    alerts_dlg.find('form').bind('ajax:success', function(e, data, status) {
+        if(status=='success'){
+            alert("Settings saved");
+            $('#alerts-dialog').dialog('close');
+        } else {
+            alert(data);
+        }
+    });
+    alerts_dlg.removeAttr('style').dialog({
+        title: "Activity Alerts",
+        autoOpen: false,
+        closeOnEscape: true,
+        modal: true,
+        width: 400,
+        height: 300
+    });
 });
 
 function showLinks(emote_name, emote_link, emote_code){
@@ -42,10 +60,33 @@ function showLinks(emote_name, emote_link, emote_code){
     return false;
 }
 
-function showDelete(emote_name, emote_id){
+function showDelete(emote_name, emote_code){
     var dlg = $('#delete-dialog');
     dlg.dialog({title: 'Clear Data or Delete "'+emote_name+'"'});
     dlg.dialog('open');
     return false;
 }
+
+function showAlerts(emote_name, settings_url){
+    $('#alerts-dialog form').attr('action', settings_url);
+    $.ajax({
+        url: settings_url,
+        dataType: 'json',
+        success: onAlertSettingsData
+    });
+    return false;
+}
+
+function onAlertSettingsData(json){
+    var dlg = $('#alerts-dialog');
+    //dlg.dialog({title: 'Alerts for "'+emote_name+'"'});
+    dlg.find("#activity-updates input:radio").each(function(){
+      $(this).attr('checked', $(this).attr('value')==json.activity_report_interval)
+    });
+    dlg.find("#respondent-emails input:radio").each(function(){
+      $(this).attr('checked', $(this).attr('value')==json.store_respondent_contacts)
+    });
+    dlg.dialog('open');
+}
+
 

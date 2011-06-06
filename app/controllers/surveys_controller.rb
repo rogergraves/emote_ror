@@ -86,5 +86,20 @@ class SurveysController < ApplicationController
       render :status => 404, :text => 'Not found'
     end
   end
+  
+  def settings
+    @survey = Survey.find(params[:id])
+    if request.post?
+      @survey.update_attribute(:store_respondent_contacts, params[:respondent_email]=='true')
+      current_user.update_attribute(:activity_report_interval, params[:activity_interval])
+      render :status => 200, :text => 'ok'
+    else
+      resp = {
+        :activity_report_interval => current_user.activity_report_interval,
+        :store_respondent_contacts => (@survey.store_respondent_contacts || false).to_s
+      }
+      render :json => resp
+    end
+  end
 
 end

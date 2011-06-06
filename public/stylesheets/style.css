@@ -1290,6 +1290,14 @@ ul.start_box {
     text-align: justify;
 }
 
+#alerts-dialog #activity-updates {
+    text-align: center;
+}
+
+#alerts-dialog #respondent-emails {
+    text-align: center;
+}
+
 .open_emote{
     float: left;
     width: 100%;

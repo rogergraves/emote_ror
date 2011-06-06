@@ -1,4 +1,4 @@
-<% content_for :footer_js, javascript_include_tag('jquery-ui-1.8.9.custom.min.js', 'emote_control.js', 'QRCode.js') %>
+<% content_for :footer_js, javascript_include_tag('jquery-ui-1.8.9.custom.min.js', 'emote_control.js') %>
 <% content_for :head_css, stylesheet_link_tag('jquery-ui-1.8.9.custom.css') %>
 
 <div id="content-win-control" role="main">
@@ -58,7 +58,7 @@
             <%= link_to image_tag('scorecard_icon.png'), scorecard_account_survey_path(survey) %>
           </td>
           <td>
-            <%= link_to_function image_tag('alert_icon.png'), 'alert("Not implemented")'  %>
+            <%= link_to_function image_tag('alert_icon.png'), "showAlerts('#{survey.project_name}', '#{settings_account_survey_path(survey)}')"  %>
           </td>
           <td class="last-col">
             <%= link_to_function image_tag('trash_icon.png'), "$('#delete-dialog #clear-pane a').attr('href', '#{wipe_responses_account_survey_path(survey)}'); $('#delete-dialog #delete-pane a').attr('href', '#{account_survey_path(survey)}'); showDelete('#{survey.project_name}', #{survey.id})" %>
@@ -111,6 +111,35 @@
     <br/>
     <%= link_to 'Download', '#', :id => 'download-link' %>
   </div>
+</div>
+
+<div id="alerts-dialog" style="visibility: hidden;">
+  <%= form_for :activity_settings, :url => '#', :remote => true do %>
+    <div id="activity-updates">
+      Email me updates on e.mote&trade; activity:
+      <br/>
+      <% User::REPORT_INTERVAL_OPTIONS.each do |option| %>
+        <%= radio_button_tag 'activity_interval', option %>
+        <%= label_tag "activity_interval_#{option}", option.humanize %>
+        <br/>
+      <% end %>
+    </div>
+    <br/><br/>
+    <div id="respondent-emails">
+      I want e.mote&trade; respondents to be able to leave<br/>
+      their email address so I can contact them:
+      <br/>
+      <%= radio_button_tag 'respondent_email', true %>
+      <%= label_tag "respondent_email_true", 'Yes' %>
+      <br/>
+      <%= radio_button_tag 'respondent_email', false %>
+      <%= label_tag "respondent_email_false", 'No' %>
+    </div>
+    <br/>
+    <center>
+    <%= image_submit_tag 'save_settings_button.png' %>
+    </center>
+  <% end %>
 </div>
 
 <div id="delete-dialog" style="visibility: hidden;">
