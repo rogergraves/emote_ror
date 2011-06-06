@@ -56,6 +56,7 @@ class Survey < ActiveRecord::Base
   before_destroy do
     begin
       File.delete("#{SURVEY_STORAGE_PATH}#{self.code}.xml")
+      File.delete(qrcode_file)
     rescue
       #TODO i'm sleeping, need to add something here later
     end
@@ -65,10 +66,14 @@ class Survey < ActiveRecord::Base
     generate_code!('code') if survey.code.blank?
     generate_code!('scorecard_code') if survey.scorecard_code.blank?
     survey.scorecard_viewed_at = survey.activated_at = DateTime.now
+    make_qrcode!
   end
 
   before_validation do
-    self.code.upcase! if self.code_changed?
+    if self.code_changed?
+      self.code.upcase! 
+      self.make_qrcode!
+    end
   end
 
   validate(:on => :create) do |survey|
@@ -99,6 +104,28 @@ class Survey < ActiveRecord::Base
 
   def emote_direct_link
     "http://emotethis.com/#{self.code}" # http://www.emotethis.com/browser/index.php?survey=#{self.code}
+  end
+  
+  def self.qrcode_file_path(survey_code)
+    File.join(Rails.root, 'public', 'images', 'qr', "emote_#{survey_code}_qr.png")
+  end
+  
+  def qrcode_file
+    self.class.qrcode_file_path(self.code)
+  end
+
+  def qrcode_url
+    "qr/emote_#{self.code}_qr.png"
+  end
+  
+  def make_qrcode!
+    old_qr = self.class.qrcode_file_path(self.code_was)
+    File.delete(old_qr) if File.exists?(old_qr)
+    qr_url = "http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=#{URI.escape(self.emote_direct_link)}"
+    File.open(qrcode_file, 'wb') do |qr_file|
+      png = Net::HTTP.get_response(URI.parse(qr_url))
+      qr_file.write png.body
+    end
   end
 
   def generate_action_token!

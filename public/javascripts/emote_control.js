@@ -35,7 +35,8 @@ function showLinks(emote_name, emote_link, emote_code){
       img_path = $(this).parent().prev().find('img').attr('src');
       $(this).val(embed_js.replace(/%CONTENT%/, "<img src='"+img_path+"' border='0'/>"))
     });
-    dlg.find('#qr-code').QRCode(emote_link, {width: 200, height: 200});
+    dlg.find('#qr-code').attr('src', '/images/qr/emote_'+emote_code+'_qr.png')
+    dlg.find('#download-link').attr('href', '/account/surveys/'+emote_code+'/get_qrcode')
     dlg.dialog({title: 'Embed links &amp; QR code for "'+emote_name+'" e.mote&trade; survey'});
     dlg.dialog('open');
     return false;

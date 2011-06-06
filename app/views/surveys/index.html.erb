@@ -102,9 +102,14 @@
     <% end %>
   </div>
   <div id="qr-pane">
-    QR Code
+    <a class="tooltip tooltipleft">QR Code<span class="classic">QR codes can be scanned by iPhone and Android cameras to immediately call up your e.mote&trade;. It’s a great way to encourage people to emote&trade; at a physical location where emailing them a link isn’t practical.</span></a>
     <br/><br/>
-    <div id="qr-code"/>
+    <div id="qr-code-cover">
+      <img src="" id="qr-code" alt="QR code"/>
+    </div>
+    
+    <br/>
+    <%= link_to 'Download', '#', :id => 'download-link' %>
   </div>
 </div>
 

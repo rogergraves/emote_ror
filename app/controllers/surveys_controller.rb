@@ -79,9 +79,8 @@ class SurveysController < ApplicationController
     redirect_to(root_path) if @survey.nil? #|| !@survey.public?
   end
   
-  private
-    def generate_action_token
-      
-    end
+  def get_qrcode
+    send_file Survey.qrcode_file_path(params[:id]), :type => 'image/png', :disposition => 'attachment'
+  end
 
 end
