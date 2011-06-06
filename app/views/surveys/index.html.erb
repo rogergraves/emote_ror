@@ -8,14 +8,20 @@
     <caption>e.mote&trade; Control</caption>
     <thead>
       <tr>
-        <th><a class="tooltip" href="#">ON/OFF<span class="classic">Prevent new e.motes&trade; from being submitted. The message "e.mote&trade; no longer active" will be shown.</span></a></th>
-        <th class="project-name"><a class="tooltip" href="#">E.MOTE&trade; SUBJECT<span class="classic">Click on e.mote&trade; name to see Scorecard.</span></a></th>
-        <th><a class="tooltip" href="#">TIME ACTIVE<span class="classic">Date the e.mote&trade; was created.</span></a></th>
-        <th><a class="tooltip" href="#">RESPONSES<span class="classic">Enter this code at http://emotethis.com to take the e.mote&trade;</span></a></th>
-        <th><a class="tooltip" href="#">LINKS & QR CODES<span class="classic">Get a link or embed image to paste into emails, websites, IM, Facebook, Twitter, etc.</span></a></th>
-        <th><a class="tooltip tooltipleft" href="#">VIEW SCORECARD<span class="classic">Take e.mote&trade; survey</span></a></th>
-        <th><a class="tooltip tooltipleft" href="#">ALERTS<span class="classic">Purge an e.mote&trade; and its data. This will free up a slot so you can create a new e.mote&trade;.</span></a></th>
-        <th><a class="tooltip tooltipleft" href="#">CLEAR/DELETE<span class="classic">Clear all the data from this e.mote Scorecard. This allows you to collect another set of 50 responses for this e.mote.</span></a></th>
+        <th><a class="tooltip" href="#">ON/OFF<span class="classic">When turned on, people can take the e.mote&trade; survey. When turned off, they get a "no longer active" message.</span></a></th>
+        <th class="project-name"><a class="tooltip" href="#">E.MOTE&trade; SUBJECT<span class="classic">Click on name to take e.mote&trade; survey.</span></a></th>
+        <th><a class="tooltip" href="#">TIME ACTIVE<span class="classic">How long the e.mote&trade; has been turned on.</span></a></th>
+        <th><a class="tooltip" href="#">RESPONSES<span class="classic">The total number of respondents who took the e.mote&trade; survey. New responses are based on when the Scorecard was last opened.</span></a></th>
+        <th><a class="tooltip" href="#">LINKS & QR CODES<span class="classic">Get a link or embed buttons to use in emails, websites, Skype, SMS, Facebook or Twitter. Download QR code graphics for Android and iPhones to scan and take the e.mote&trade;.</span></a></th>
+        <th><a class="tooltip tooltipleft" href="#">VIEW SCORECARD<span class="classic">See the e.mote&trade; results in the interactive Scorecard.</span></a></th>
+        <th><a class="tooltip tooltipleft" href="#">ALERTS<span class="classic">Get email alerts with updates on your e.motes&trade; activity, and set whether respondents can leave you their email address for personalized correspondence.</span></a></th>
+        <th><a class="tooltip tooltipleft" href="#">CLEAR/DELETE<span class="classic">
+                <% if current_user.plan.is_free? %>
+                  Clear all the data from this e.mote Scorecard. This allows you to collect another set of 50 responses for this e.mote.
+                <% else %>
+                  Clean out your data to start fresh, or delete the e.mote&trade; completely so you can free up a slot for a new one on a different subject.
+                <% end %>
+            </span></a></th>
       </tr>
     </thead>
     <% current_user.plan.emote_amount.times do |i| %>
