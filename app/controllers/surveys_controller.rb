@@ -80,7 +80,11 @@ class SurveysController < ApplicationController
   end
   
   def get_qrcode
-    send_file Survey.qrcode_file_path(params[:id]), :type => 'image/png', :disposition => 'attachment'
+    begin
+      send_file Survey.qrcode_file_path(params[:id]), :type => 'image/png', :disposition => 'attachment'
+    rescue ActionController::MissingFile
+      render :status => 404, :text => 'Not found'
+    end
   end
 
 end
