@@ -68,8 +68,10 @@ end
 task :symlink_config_files do
   run "ln -nfs #{deploy_to}/#{shared_dir}/config/database.yml #{release_path}/config/database.yml"
   run "ln -s #{deploy_to}/#{shared_dir}/thumbnails #{release_path}/public/thumbnails"
+  run "ln -s #{deploy_to}/#{shared_dir}/qr_codes #{release_path}/public/images/qr"
   #run "ln -s #{deploy_to}/#{shared_dir}/job_logs #{release_path}/public/job_logs"
   sudo "chmod -R a+rw #{release_path}/public/thumbnails"
+  sudo "chmod -R a+rw #{release_path}/public/images/qr"
 end
 
 task :fix_release_dir_permission do
