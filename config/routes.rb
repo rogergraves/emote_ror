@@ -29,6 +29,10 @@ EmoteRor::Application.routes.draw do
   
   get 'scorecard/:code', :controller => 'surveys', :action => 'public_scorecard', :as => :public_scorecard
   
+  get 'survey_results/all', :controller => 'survey_results', :action => 'all'
+  get 'survey_results/charts', :controller => 'survey_results', :action => 'charts'
+  get 'survey_results/verbatims', :controller => 'survey_results', :action => 'verbatims'
+  
   namespace :admin do
     resources :accounts do
       member do

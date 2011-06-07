@@ -18,6 +18,38 @@ class SurveyResult < ActiveRecord::Base
   set_table_name  'survey_result'
   set_primary_key 'survey_result_id'
   
+  EMOTIONS = {
+    'enthusiastic' => :positive,
+		'elated' => :positive,
+		'excited' => :positive,
+		'thrilled' => :positive,
+		'amazed' => :positive,
+		'happy' => :positive,
+		'satisfied' => :positive,
+		'surprised' => :positive,
+		'content' => :positive,
+		'delighted' => :positive,
+		'outraged' => :negative,
+		'angry' => :negative,
+		'unhappy' => :negative,
+		'frustrated' => :negative,
+		'irritated' => :negative,
+		'humiliated' => :negative,
+		'disgusted' => :negative,
+		'miserable' => :negative,
+		'dissatisfied' => :negative,
+		'uneasy' => :negative
+  }
+  
+  def self.positives
+    EMOTIONS.select {|k,v| v == :positive }.map {|k,v| k}
+  end
+  
+  def self.negatives
+    EMOTIONS.select {|k,v| v == :negative }.map {|k,v| k}
+  end
+  
+  
   belongs_to :survey, :foreign_key => :code
   
   def id
@@ -27,4 +59,5 @@ class SurveyResult < ActiveRecord::Base
   def id=(id)
     write_attribute(:survey_result_id, id)
   end
+  
 end
