@@ -183,7 +183,7 @@ class Survey < ActiveRecord::Base
           INNER JOIN surveys AS s ON s.code=sr.code
           WHERE s.id=#{self.id} AND sr.is_removed=0 AND sr.end_time >= '#{self.scorecard_viewed_at.to_s(:db)}';
       SQL
-    )
+    ).to_i
   end
 
 #protected
