@@ -1,20 +1,23 @@
 # == Schema Information
-# Schema version: 20110228231111
+# Schema version: 20110606172324
 #
 # Table name: surveys
 #
-#  id              :integer(4)      not null, primary key
-#  user_id         :integer(4)
-#  project_name    :string(255)     not null
-#  score           :float           default(0.0)
-#  responses_count :integer(4)      default(0)
-#  public          :boolean(1)      default(FALSE)
-#  created_at      :datetime
-#  updated_at      :datetime
-#  code            :string(20)      not null
-#  action_token    :string(255)
-#  state           :integer(4)      default(0), not null
-#  scorecard_code  :string(20)      not null
+#  id                        :integer(4)      not null, primary key
+#  user_id                   :integer(4)
+#  project_name              :string(255)     not null
+#  score                     :float           default(0.0)
+#  responses_count           :integer(4)      default(0)
+#  public                    :boolean(1)      default(FALSE)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  code                      :string(20)      not null
+#  action_token              :string(255)
+#  state                     :integer(4)      default(0), not null
+#  scorecard_code            :string(20)      not null
+#  activated_at              :datetime
+#  scorecard_viewed_at       :datetime
+#  store_respondent_contacts :boolean(1)      default(FALSE)
 #
 
 class Survey < ActiveRecord::Base
@@ -56,24 +59,34 @@ class Survey < ActiveRecord::Base
   before_destroy do
     begin
       File.delete("#{SURVEY_STORAGE_PATH}#{self.code}.xml")
+      File.delete(qrcode_file)
     rescue
       #TODO i'm sleeping, need to add something here later
     end
   end
   
-  before_validation(:on => :create) do
-    generate_code!('code') if self.code.blank?
-    generate_code!('scorecard_code') if self.scorecard_code.blank?
+  before_validation(:on => :create) do |survey|
+    generate_code!('code') if survey.code.blank?
+    generate_code!('scorecard_code') if survey.scorecard_code.blank?
+    survey.scorecard_viewed_at = survey.activated_at = DateTime.now
+    make_qrcode!
   end
 
   before_validation do
-    self.code.upcase! if self.code_changed?
+    if self.code_changed?
+      self.code.upcase! 
+      self.make_qrcode!
+    end
   end
 
   validate(:on => :create) do |survey|
     if !survey.user(true).can_add_scorecard? && !@force_creation
       survey.errors[:user] = ' cannot add more e.motes'
     end
+  end
+
+  before_save do |survey|
+    survey.activated_at = DateTime.now if survey.state_changed? && survey.state == STATE_ACTIVE
   end
 
   def active?
@@ -94,6 +107,28 @@ class Survey < ActiveRecord::Base
 
   def emote_direct_link
     "http://emotethis.com/#{self.code}" # http://www.emotethis.com/browser/index.php?survey=#{self.code}
+  end
+  
+  def self.qrcode_file_path(survey_code)
+    File.join(Rails.root, 'public', 'images', 'qr', "emote_#{survey_code}_qr.png")
+  end
+  
+  def qrcode_file
+    self.class.qrcode_file_path(self.code)
+  end
+
+  def qrcode_url
+    "qr/emote_#{self.code}_qr.png"
+  end
+  
+  def make_qrcode!
+    old_qr = self.class.qrcode_file_path(self.code_was)
+    File.delete(old_qr) if File.exists?(old_qr)
+    qr_url = "http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=#{URI.escape(self.emote_direct_link)}"
+    File.open(qrcode_file, 'wb') do |qr_file|
+      png = Net::HTTP.get_response(URI.parse(qr_url))
+      qr_file.write png.body
+    end
   end
 
   def generate_action_token!
@@ -139,6 +174,16 @@ class Survey < ActiveRecord::Base
       verbs << { :id => res.survey_result_id, :face => (res.emote+'_intensity_'+intensity_level.to_s), :timestamp => res.start_time.strftime("%d %b"), 'text'=> res.verbatim.gsub(/#{filter_str}/, "<b>#{filter_str}</b>")}
     end
     verbs
+  end
+
+  def new_responses_count(refresh = false)
+    @new_responses_count = nil if refresh
+    @new_responses_count ||= Survey.connection.select_value(<<-SQL
+        SELECT count(*) FROM survey_result AS sr
+          INNER JOIN surveys AS s ON s.code=sr.code
+          WHERE s.id=#{self.id} AND sr.is_removed=0 AND sr.end_time >= '#{self.scorecard_viewed_at.to_s(:db)}';
+      SQL
+    )
   end
 
 #protected

@@ -16,6 +16,9 @@ EmoteRor::Application.routes.draw do
         get 'scorecard'
         delete 'recreate'
         delete 'wipe_responses'
+        get 'get_qrcode'
+        get 'settings'
+        post 'settings'
       end
       resource :survey_results do
         collection do

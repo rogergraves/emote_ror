@@ -8,86 +8,158 @@
     <caption>e.mote&trade; Control</caption>
     <thead>
       <tr>
-        <th class="project-name"><a class="tooltip" href="#">e.mote&trade; NAME<span class="classic">Click on e.mote&trade; name to see Scorecard.</span></a></th>
-        <th><a class="tooltip" href="#">CODE<span class="classic">Enter this code at http://emotethis.com to take the e.mote&trade;</span></a></th>
-        <th><a class="tooltip" href="#">START DATE<span class="classic">Date the e.mote&trade; was created.</span></a></th>
-        <th><a class="tooltip" href="#">ARCHIVE<span class="classic">Prevent new e.motes&trade; from being submitted. The message "e.mote&trade; no longer active" will be shown.</span></a></th>
-        <th><a class="tooltip" href="#">LINKS & BUTTONS<span class="classic">Get a link or embed image to paste into emails, websites, IM, Facebook, Twitter, etc.</span></a></th>
-        <th><a class="tooltip tooltipleft" href="#">VIEW e.mote&trade;<span class="classic">Take e.mote&trade; survey</span></a></th>
-        <th><a class="tooltip tooltipleft" href="#">CLEAR DATA<span class="classic">Clear all the data from this e.mote Scorecard. This allows you to collect another set of 50 responses for this e.mote.</span></a></th>
-        <th><a class="tooltip tooltipleft" href="#">DELETE<span class="classic">Purge an e.mote&trade; and its data. This will free up a slot so you can create a new e.mote&trade;.</span></a></th>
+        <th><a class="tooltip" href="#">ON/OFF<span class="classic">When turned on, people can take the e.mote&trade; survey. When turned off, they get a "no longer active" message.</span></a></th>
+        <th class="project-name"><a class="tooltip" href="#">E.MOTE&trade; SUBJECT<span class="classic">Click on name to take e.mote&trade; survey.</span></a></th>
+        <th><a class="tooltip" href="#">TIME ACTIVE<span class="classic">How long the e.mote&trade; has been turned on.</span></a></th>
+        <th><a class="tooltip" href="#">RESPONSES<span class="classic">The total number of respondents who took the e.mote&trade; survey. New responses are based on when the Scorecard was last opened.</span></a></th>
+        <th><a class="tooltip" href="#">LINKS & QR CODES<span class="classic">Get a link or embed buttons to use in emails, websites, Skype, SMS, Facebook or Twitter. Download QR code graphics for Android and iPhones to scan and take the e.mote&trade;.</span></a></th>
+        <th><a class="tooltip tooltipleft" href="#">VIEW SCORECARD<span class="classic">See the e.mote&trade; results in the interactive Scorecard.</span></a></th>
+        <th><a class="tooltip tooltipleft" href="#">ALERTS<span class="classic">Get email alerts with updates on your e.motes&trade; activity, and set whether respondents can leave you their email address for personalized correspondence.</span></a></th>
+        <th><a class="tooltip tooltipleft" href="#">CLEAR/DELETE<span class="classic">
+                <% if current_user.plan.is_free? %>
+                  Clear all the data from this e.mote Scorecard. This allows you to collect another set of 50 responses for this e.mote.
+                <% else %>
+                  Clean out your data to start fresh, or delete the e.mote&trade; completely so you can free up a slot for a new one on a different subject.
+                <% end %>
+            </span></a></th>
       </tr>
     </thead>
-    <% @surveys.each do |survey| %>
-      <tr class="<%= cycle('odd','even') %>">
-        <td class="project-name first-col">
-          <%= link_to survey.project_name, scorecard_account_survey_path(survey), :target => 'scorecard'%>
-        </td>
-        <td>
-          <% if survey.active? %>
-            <%= survey.code %>
-          <% end %>
-        </td>
-        <td valign="middle">
-          <%= survey.created_at.strftime('%d %b %Y') %>
-        </td>
-        <td>
-          <% if survey.suspended? %>
-            <%=  image_tag 'exclamation.png', :title => 'Suspended, contact support for details' %>
-          <% else %>
-            <%= form_for("survey_#{survey.id}_archive", :url => account_survey_path(survey), :html => {:method => :put, :id => "survey_#{survey.id}_archive_form"}) do |f| %>
-             <%= hidden_field_tag 'property', 'archive' %>
-             <%= check_box_tag "survey_#{survey.id}_archive", true, survey.archived?, :onchange => "$('#survey_#{survey.id}_archive_form').submit();" %>
+    <% current_user.plan.emote_amount.times do |i| %>
+      <% if survey = @surveys[i] %>
+        <tr class="<%= cycle('odd','even') %> <%= survey.archived? ? 'disabled-row' : '' %>">
+          <td class="first-col">
+            <% if survey.suspended? %>
+              <%=  image_tag 'exclamation.png', :title => 'Suspended, contact support for details' %>
+            <% else %>
+              <%= form_for("survey_#{survey.id}_archive", :url => account_survey_path(survey), :html => {:method => :put, :id => "survey_#{survey.id}_archive_form"}) do |f| %>
+               <%= hidden_field_tag 'property', 'archive' %>
+               <%= hidden_field_tag "survey_#{survey.id}_archive", !survey.archived? %>
+               <%= image_submit_tag(survey.archived? ? 'off_icon.png' : 'on_icon.png', :title => "Switch #{survey.archived? ? 'on' : 'off'}") %>
+              <% end %>
             <% end %>
-          <% end %>
-        </td>
-        <td>
-          <% if survey.active? %>
-            <%= link_to_function image_tag('blue_button.png', :title => 'Get links and buttons for people to click to take e.mote'), "showLinks('#{survey.project_name}','#{survey.emote_direct_link}', '#{survey.code}');", :title => 'VIEW e.mote'%>
-          <% end %>
-        </td>
-        <td>
-          <% if survey.active? %>
-            <%= link_to image_tag('emote_link_enabled.png', :alt => 'Go to e.mote™'), survey.emote_direct_link, :title => 'Go to e.mote', :target => '_blank' %>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to image_tag('eraser_icon.png'), wipe_responses_account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete all the data recorded on this e.mote™ Scorecard.' %>
-        </td>
-        <td class="last-col">
-          <%= link_to image_tag('trash_icon.png'), account_survey_path(survey), :method => :delete, :confirm => 'Are you sure? This will permanently delete this e.mote and all collected data.' %>
-        </td>
-      </tr>
+          </td>
+          <td class="project-name">
+            <%= link_to_if !survey.archived?, survey.project_name, survey.emote_direct_link, :target => 'emote_preview'%>
+          </td>
+          <td valign="middle">
+            <%#= ((Time.now - survey.created_at)/1.day).to_i %>
+            <%= survey.archived? ? '(none)' : time_ago_in_words(survey.activated_at) %>
+          </td>
+          <td valign="middle">
+            <%= survey.responses_count %>
+            <% if survey.new_responses_count > 0 %>
+              <span class="new-responses">(<%= survey.new_responses_count %> new)</span>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to_function image_tag('links_icon.png', :title => 'Get links and buttons for people to click to take e.mote'), "showLinks('#{survey.project_name}','#{survey.emote_direct_link}', '#{survey.code}');" %>
+          </td>
+          <td>
+            <%= link_to image_tag('scorecard_icon.png'), scorecard_account_survey_path(survey) %>
+          </td>
+          <td>
+            <%= link_to_function image_tag('alert_icon.png'), "showAlerts('#{survey.project_name}', '#{settings_account_survey_path(survey)}')"  %>
+          </td>
+          <td class="last-col">
+            <%= link_to_function image_tag('trash_icon.png'), "$('#delete-dialog #clear-pane a').attr('href', '#{wipe_responses_account_survey_path(survey)}'); $('#delete-dialog #delete-pane a').attr('href', '#{account_survey_path(survey)}'); showDelete('#{survey.project_name}', #{survey.id})" %>
+          </td>
+        </tr>
+    <% else %>
+        <tr class="<%= cycle('odd','even') %> emtpy-row">
+          <td>&nbsp;</td>
+          <td class="project-name">(<%= link_to 'Click to create', new_account_survey_path %>)</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
     <% end %>
+  <% end %>
   </table>
 </div>
-    <div id="create-emote">
-    <% if current_user.can_add_scorecard? %>
-        <%= link_to image_tag('create_emote_button.png'), new_account_survey_path %>
-        <div id="add-scorecard">
-          You can add up to <%= pluralize(current_user.scorecards_available, 'more emote') %>&trade; with your current subscriptions. <%= link_to 'Click here', new_account_subscription_path %> to add more to your account.
-        </div>
-    <% else %>
-        <div id="scorecard-limit">
-            You don't have free slots for new e.mote&trade;. Delete one or buy more credits <%= link_to 'here', new_account_subscription_path %>
-        </div>
-    <% end %>
-    </div>
+  <div id="create-emote">
+    Need more e.motes&trade;? <%= link_to image_tag('upgrade_now_button.png'), new_account_subscription_path %>
+  </div>
 </div>
 
 <div id="links-dialog" style="visibility: hidden;">
-  <div class="popup-item">
-    <div class="left-part">Email or IM link:</div>
-    <div class="right-part"><%= text_area_tag 'scorecard_direct_link', 'scorecard_direct_link', :class => 'locked-selectall', :size => 60, :rows => 2, :cols => 35 %></div>
-  </div>
-  <div class="popup-item">
-    <div class="left-part">Text website link:</div>
-    <div class="right-part"><%= text_area_tag 'scorecard_embed_link', 'scorecard_embed_link', :class => 'locked-selectall', :size => 60, :rows => 2, :cols => 35 %></div>
-  </div>
-  <% 1.upto(13) do |button_number| %>
+  <div id="links-pane">
     <div class="popup-item">
-      <div class="left-part"><%= image_tag "feedback_buttons/#{button_number}.png" %></div>
-      <div class="right-part"><%= text_area_tag "feedback-code-#{button_number}", "feedback-code-#{button_number}", :class => 'locked-selectall feedback-code', :rows => 3, :cols => 35 %></div>
+      <div class="left-part">Email or IM link:</div>
+      <div class="right-part"><%= text_area_tag 'scorecard_direct_link', 'scorecard_direct_link', :class => 'locked-selectall', :size => 60, :rows => 2, :cols => 35 %></div>
     </div>
+    <div class="popup-item">
+      <div class="left-part">Text website link:</div>
+      <div class="right-part"><%= text_area_tag 'scorecard_embed_link', 'scorecard_embed_link', :class => 'locked-selectall', :size => 60, :rows => 2, :cols => 35 %></div>
+    </div>
+    <% %w(emote_black emote_white).each do |icon| %>
+      <div class="popup-item">
+        <div class="left-part"><%= image_tag "feedback_buttons/#{icon}.png" %></div>
+        <div class="right-part"><%= text_area_tag "feedback-code-#{icon}", "feedback-code-#{icon}", :class => 'locked-selectall feedback-code', :rows => 3, :cols => 35 %></div>
+      </div>
+    <% end %>
+  </div>
+  <div id="qr-pane">
+    <a class="tooltip tooltipleft">QR Code<span class="classic">QR codes can be scanned by iPhone and Android cameras to immediately call up your e.mote&trade;. It’s a great way to encourage people to emote&trade; at a physical location where emailing them a link isn’t practical.</span></a>
+    <br/><br/>
+    <div id="qr-code-cover">
+      <img src="" id="qr-code" alt="QR code"/>
+    </div>
+    
+    <br/>
+    <%= link_to 'Download', '#', :id => 'download-link' %>
+  </div>
+</div>
+
+<div id="alerts-dialog" style="visibility: hidden;">
+  <%= form_for :activity_settings, :url => '#', :remote => true do %>
+    <div id="activity-updates">
+      Email me updates on e.mote&trade; activity:
+      <br/>
+      <% User::REPORT_INTERVAL_OPTIONS.each do |option| %>
+        <%= radio_button_tag 'activity_interval', option %>
+        <%= label_tag "activity_interval_#{option}", option.humanize %>
+        <br/>
+      <% end %>
+    </div>
+    <br/><br/>
+    <div id="respondent-emails">
+      I want e.mote&trade; respondents to be able to leave<br/>
+      their email address so I can contact them:
+      <br/>
+      <%= radio_button_tag 'respondent_email', true %>
+      <%= label_tag "respondent_email_true", 'Yes' %>
+      <br/>
+      <%= radio_button_tag 'respondent_email', false %>
+      <%= label_tag "respondent_email_false", 'No' %>
+    </div>
+    <br/>
+    <center>
+    <%= image_submit_tag 'save_settings_button.png' %>
+    </center>
   <% end %>
+</div>
+
+<div id="delete-dialog" style="visibility: hidden;">
+  <div id="clear-pane">
+    <h3>Clear Data</h3>
+    <br/>
+    <p>
+      Clear all the data from the Scorecard.
+      <% if current_user.plan.is_free? %>This allows you to collect another set of responses for this e.moteTM.<% end %>
+    </p>
+    <br/>
+    <%= link_to image_tag('clear_data_button.png'), '', :method => :delete, :confirm => 'This cannot be undone. Are you sure?' %>
+  </div>
+  <div id="delete-pane">
+    <h3>Delete e.mote&trade;</h3>
+    <br/>
+    <p>
+      Delete an e.moteTM and its Scorecard. This gives you room to create a new e.moteTM.
+    </p>
+    <br/>
+    <%= link_to image_tag('delete_emote_button.png'), '', :method => :delete, :confirm => 'This cannot be undone. Are you sure?' %>
+  </div>
 </div>

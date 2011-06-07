@@ -2,6 +2,7 @@ require 'digest/md5'
 
 class SurveysController < ApplicationController
   before_filter :authenticate_user!, :except => [:public_scorecard]
+
   def index
     @surveys = current_user.surveys.all
   end
@@ -35,7 +36,7 @@ class SurveysController < ApplicationController
   def update
     begin
       survey = current_user.surveys.find(params[:id])
-      survey.state = (params["survey_#{params[:id]}_archive"] ? Survey::STATE_ARCHIVED : Survey::STATE_ACTIVE) if params[:property] == 'archive'
+      survey.state = (params["survey_#{params[:id]}_archive"]=='true' ? Survey::STATE_ARCHIVED : Survey::STATE_ACTIVE) if params[:property] == 'archive'
       survey.public = params["survey_#{params[:id]}_public"] if params[:property] == 'public'
       survey.save
     rescue
@@ -69,6 +70,7 @@ class SurveysController < ApplicationController
     @survey = current_user.surveys.find(params[:id])
     redirect_to root_path if @survey.nil?
     @survey.generate_action_token!
+    @survey.scorecard_viewed_at = DateTime.now
     @survey.save!
   end
   
@@ -77,9 +79,27 @@ class SurveysController < ApplicationController
     redirect_to(root_path) if @survey.nil? #|| !@survey.public?
   end
   
-  private
-    def generate_action_token
-      
+  def get_qrcode
+    begin
+      send_file Survey.qrcode_file_path(params[:id]), :type => 'image/png', :disposition => 'attachment'
+    rescue ActionController::MissingFile
+      render :status => 404, :text => 'Not found'
     end
+  end
+  
+  def settings
+    @survey = Survey.find(params[:id])
+    if request.post?
+      @survey.update_attribute(:store_respondent_contacts, params[:respondent_email]=='true')
+      current_user.update_attribute(:activity_report_interval, params[:activity_interval])
+      render :status => 200, :text => 'ok'
+    else
+      resp = {
+        :activity_report_interval => current_user.activity_report_interval,
+        :store_respondent_contacts => (@survey.store_respondent_contacts || false).to_s
+      }
+      render :json => resp
+    end
+  end
 
 end
