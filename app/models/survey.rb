@@ -134,6 +134,47 @@ class Survey < ActiveRecord::Base
   def generate_action_token!
     self.action_token = Digest::MD5.hexdigest("#{id}-==-#{code}-=-#{Time.now}")
   end
+  
+  def result_obj
+    score, total_emotions, pp_intensities, pp, mp, pn, mn = 0, 0, 0, 0, 0, 0, 0
+    emotions = SurveyResult::EMOTIONS.map {|k,v| {:value => 0, :name => k, :type => v, :color => ( (v == :positive) ? 'green' : 'red' )} }
+    
+    survey_results.where(:is_removed => 0).each do |res|
+      emote = emotions.select {|e| e[:name] == res.emote }.first
+      
+      if res.intensity_level >= 0 && res.intensity_level < 34 # Is positive or negative, intensity is bottom third
+				mn += 1
+			elsif res.intensity_level >= 34 && res.intensity_level < 66 # Is positive or negative, intensity is middle third
+				mp += 1
+			elsif emote[:type] == :negative # Is negative and intensity is >= 66
+				pn += 1
+			else # Is positive and intensity is >= 66
+				pp += 1
+				pp_intensities += res.intensity_level
+			end
+			
+			emote[:value] += 1
+			total_emotions += 1
+    end
+    score = (pp_intensities/pp).to_i
+    
+    { :bars => emotions, :pie => {:pp => pp, :mp => mp, :pn => pn, :mn => mn}, :totals => {:score => score, :total => total_emotions} }
+  end
+  
+  def verbatims_obj(filter_str = '')
+    # ('id'=> '875', 'face'=> 'uneasy_intensity_1', 'timestamp'=> '03 Jun', 'text'=> 'test1'),
+    verbs = []
+    ( filter_str == '' ? survey_results.where(:is_removed => 0).order('`start_time` DESC') : survey_results.where("`is_removed` = ? and `verbatim` like ?", false, "%#{filter_str}%").order('`start_time` DESC') ).each do |res|
+      intensity_level = 1
+			if res['intensity_level'] >= 33 && res['intensity_level'] < 66
+				intensity_level = 2
+			elsif res['intensity_level'] >= 66
+				intensity_level = 3
+			end
+      verbs << { :id => res.survey_result_id, :face => (res.emote+'_intensity_'+intensity_level.to_s), :timestamp => res.start_time.strftime("%d %b"), 'text'=> res.verbatim.gsub(/#{filter_str}/, "<b>#{filter_str}</b>")}
+    end
+    verbs
+  end
 
   def new_responses_count(refresh = false)
     @new_responses_count = nil if refresh

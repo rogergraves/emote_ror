@@ -1,7 +1,345 @@
 <div id="content-win-centr-scorecard" role="main">
   <div class="survey-title"><%= @survey.project_name %></div>
     <div id="scorecard-content">
-		<%= javascript_include_tag '/fx/AC_OETags.js' %>
+		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+		<%= javascript_include_tag 'highcharts.js' %>
+
+		<!-- 1a) Optional: add a theme file -->
+		<!--
+			<script type="text/javascript" src="../js/themes/gray.js"></script>
+		-->
+
+		<!-- 2. Add the JavaScript to initialize the chart on document ready -->
+		        <style type="text/css">
+		            .commentRow1 {
+		                display: inline-block;
+		                height:25px;
+		                width: 1150px;
+		                background-color: #FFFFFF;
+		                font-size: 11px;
+		            }
+		            .commentRow2 {
+		                display: inline-block;
+		                height:25px;
+		                width: 1150px;
+		                background-color: #CCCCCC;
+		                font-size: 11px;
+		            }
+		        </style>
+		
+				<script type="text/javascript">
+
+				    var colors = {'green': '#336600', 'red': '#990033', white: '#FFFFFF', grey: '#CCCCCC'};
+				    var intensity = {pp: 'enthusiasts', mp: 'participants', mn: 'indifferent', pn:'detractors'};
+				    var pieColors = {pp: '#009933', mp: '#000066', mn: '#999999', pn: '#990000'};
+				    var categories = ['THRILLED', 'CONTENT', 'UNEASY', 'SATISFIED', 'SURPRISED', 'IRRITATED', 'FRUSTRATED', 'HUMILIATED',
+				        'DISGUSTED', 'DISSATISFIED', 'MISERABLE', 'UNHAPPY', 'DELIGHTED', 'EXCITED', 'ELATED', 'AMAZED',
+				        'HAPPY', 'OUTRAGED', 'ENTHUSIASTIC', 'ANGRY'];
+
+				    var config = [
+				        {color:"green", name:"thrilled", value:5 },
+				        {color:"green", name:"content", value:4},
+				        {color:"red", name:"uneasy", value:3 },
+				        {color:"green", name:"satisfied", value:2 },
+				        {color:"green", name:"surprised", value:1 },
+				        {color:"red", name:"irritated", value:0 },
+				        {color:"red", name:"frustrated", value:0 },
+				        {color:"red", name:"humiliated", value:0 },
+				        {color:"red", name:"disgusted", value:0 },
+				        {color:"red", name:"dissatisfied", value:0 },
+				        {color:"red", name:"miserable", value:0 },
+				        {color:"red", name:"unhappy", value:0 },
+				        {color:"green", name:"delighted", value:0 },
+				        {color:"green", name:"excited", value:0 },
+				        {color:"green", name:"elated", value:0 },
+				        {color:"green", name:"amazed", value:0 },
+				        {color:"green", name:"happy", value:0 },
+				        {color:"red", name:"outraged", value:0 },
+				        {color:"green", name:"enthusiastic", value:0 },
+				        {color:"red", name:"angry", value:0 }
+				    ];
+
+				    var pieConfig = [
+				        {name:"pp", value:"3"},
+				        {name:"mp", value:"1"},
+				        {name:"pn", value:"0"},
+				        {name:"mn", value:"2"}
+				    ];
+
+				    var verbatimConfig = [
+				        {id: '875', face: 'uneasy_intensity_1', timestamp: '03 Jun', text: 'test1'},
+				        {id: '876', face: 'surprised_intensity_3', timestamp: '03 Jun', text: 'test2'},
+				        {id: '877', face: 'surprised_intensity_3', timestamp: '03 Jun', text: 'test3'},
+				        {id: '878', face: 'amazed_intensity_3', timestamp: '03 Jun', text: 'test4'},
+				        {id: '879', face: 'excited_intensity_2', timestamp: '03 Jun', text: 'test5'},
+				        {id: '880', face: 'excited_intensity_2', timestamp: '03 Jun', text: 'test6'}
+				    ];
+
+				    var strAjaxUrl = '/survey_results/all.json';
+
+				$(document).ready(function() {
+
+				    doAjax({
+				        data: {action_token: '', session: '', survey: '<%= @survey.code -%>'},
+				        successCallback: function(response, textStatus){
+				            var data = jQuery.parseJSON(response);
+				            renderBarChart(data.config);
+
+				            renderPieChart(data.pieConfig);
+
+				            loadComments(data.verbatim);
+				        },
+				        errorCallback: function(request, textStatus, errorThrown){
+				            alert('error');
+				            console.log(errorThrown);
+				       }
+				    });
+
+				    $('#btnCommentFilter').click(filterVerbatim);
+				});
+
+				    function renderBarChart(config){
+				        var data = [];
+				        for (var key in config) {
+				            var currentCfg = config[key];
+				            var obj = {y: parseInt(currentCfg.value), color: colors[currentCfg.color], name: currentCfg.name}
+				            data.push(obj);
+				        }
+
+				        var chart = new Highcharts.Chart({
+				        exporting: {enabled: false},
+				        chart: {
+				         renderTo: 'container',
+				         defaultSeriesType: 'column',
+				         margin: [ 50, 50, 100, 80]
+				        },
+				        title: {text: 'Emotion Spectrum'},
+				        xAxis: {
+				         categories: categories,
+				         labels: {
+				            rotation: -90,
+				            align: 'right',
+				            style: {font: 'normal 13px Verdana, sans-serif'}
+				         }
+				        },
+				        yAxis: {
+				         min: 0,
+				         title: {text: '' }
+				        },
+
+				        plotOptions: {
+				             column: {
+				                cursor: 'pointer',
+				                point: {
+				                   events: {
+				                      click: function() {
+				                         doAjax({
+				                             data: {action_token: '', session: '', survey: '', subset: this.config.name},
+				                             successCallback: function (response, textStatus) {
+				                              var data = jQuery.parseJSON(response);
+				                              loadComments(data.verbatim);
+				                           },
+				                           errorCallback: function(request, textStatus, errorThrown){
+				                              alert('error');
+				                              console.log(errorThrown);
+				                           }
+				                         });
+				                      }
+				                   }
+				                }
+				             }
+				        },
+				        legend: {enabled: false},
+				        tooltip: {
+				         formatter: function() { return '';}
+				        },
+				        series: [{
+				            name: '',
+				            data: data,
+				            dataLabels: {
+				               enabled: true,
+				               color: '#FFFFFF',
+				               align: 'right',
+				               x: -3,
+				               y: 15,
+				               formatter: function() {
+				                   return this.y;
+				                },
+				               style: {font: 'normal 13px Verdana, sans-serif'}
+				             }
+				            }]
+				        });
+				    }
+
+				    function renderPieChart(pieConfig){
+				        var pieData = [];
+
+				        var intTotalResponsesCount = 0;
+				        for (var key in pieConfig){
+				            var row = pieConfig[key];
+				            var obj = {name: intensity[row.name], y: parseInt(row.value), color: pieColors[row.name]};
+				            intTotalResponsesCount+= parseInt(row.value);
+				            pieData.push(obj);
+				        }
+
+				        var pieChart = new Highcharts.Chart({
+				              exporting: {enabled: false},
+				              chart: {
+				                 renderTo: 'piechart',
+				                 plotBackgroundColor: null,
+				                 plotBorderWidth: null,
+				                 plotShadow: false
+				              },
+				              title: {text: 'Barometer'},
+				              tooltip: {
+				                 formatter: function() {
+				                    var pct = this.y/intTotalResponsesCount * 100;
+				                    return '<b>'+ this.point.name +'</b>: '+ this.y +' responses (' + pct.toFixed(2) + '%)';
+				                 }
+				              },
+				              plotOptions: {
+				                 pie: {
+				                    allowPointSelect: true,
+				                    cursor: 'pointer',
+				                    dataLabels: {enabled: false},
+				                    showInLegend: true,
+				                    point: {
+				                       events: {
+				                          click: function() {
+				                             doAjax({
+				                                 data: {action_token: '', session: '',survey: '', subset: this.config.name},
+				                                 successCallback: function (response, textStatus) {
+				                                  var data = jQuery.parseJSON(response);
+				                                  loadComments(data.verbatim);
+				                               },
+				                               errorCallback: function(request, textStatus, errorThrown){
+				                                  alert('error');
+				                                  console.log(errorThrown);
+				                               }
+				                             });
+				                          }
+				                       }
+				                    }
+				                 }
+				              },
+				               series: [{
+				                 type: 'pie',
+				                 name: 'Barometer',
+				                 data: pieData
+				              }]
+				           });
+
+				        $('#totalResp').html("Total Responses: " + intTotalResponsesCount);
+				    }
+
+				    function loadComments(config){
+				        var verbatimHTML = '';
+				        var i=0;
+				        var span = '';
+				        for (var key in config){
+				            var remainder = i % 2;
+				            if (remainder == 1) span = "<span class='commentRow1'>";
+				            else span = "<span class='commentRow2'>";
+
+
+				            var row = config[key];
+				            verbatimHTML+= span + "<img width='20px' height='20px' src='verbatim_intensity/" +
+				                    row.face + ".png'>    " + row.text + "&nbsp;<span style='margin-left: 950px;'>" +
+				                    row.timestamp + "&nbsp;<button type='button' onclick='deleteVerbatim("+row.id+");'>delete</button> "+
+				                    "</span></span><br/>";
+				            i++;
+				        }
+
+				        $('#verbatimText').html(verbatimHTML);
+				    }
+
+				    function deleteVerbatim(id){
+				        var ok = confirm("Are you sure you want to delete this response? After you delete it there's no way to undo it.");
+				        if (ok){
+				             doAjax({
+				                 data: {action_token: '', session: '', survey: '', id: id},
+				                 successCallback: function (response, textStatus) {
+				                  var data = jQuery.parseJSON(response);
+				                  loadComments(data.verbatim);
+				               },
+				               errorCallback: function(request, textStatus, errorThrown){
+				                  alert('error');
+				                  console.log(errorThrown);
+				               }
+				             });
+				        }
+				    }
+
+				    function filterVerbatim(text){
+				        doAjax({
+				             data: {action_token: '', session: '', survey: '', search: $('#txtCommentFilter').val()},
+				             successCallback: function (response, textStatus) {
+				              var data = jQuery.parseJSON(response);
+				              loadComments(data.verbatim);
+				           },
+				           errorCallback: function(request, textStatus, errorThrown){
+				              alert('error');
+				              console.log(errorThrown);
+				           }
+				         });
+				    }
+
+				   /**
+				     *
+				     * @param config.data - data to be sent to server
+				     * @param config.successCallback - function to call on success
+				     * @param config.errorCallback - function to call on failure
+				     */
+				    function doAjax(config){
+				        $.ajax({
+				           type: "GET",
+				           url: strAjaxUrl,
+				           dataType: "html",
+				           data: config.data,
+				           cache: false,
+				           success: config.successCallback ,
+				           error: config.errorCallback
+				        });
+				    }
+						</script>
+						
+						<table>
+				            <tr>
+				                <td>
+				                    <!-- 3. Add the container -->
+				                    <div id="container" style="width: 800px; height: 400px; margin: 0 auto"></div>
+				                </td>
+				                <td>
+				                    <div id="totalResp" style="margin-left: 125px;"></div>
+				                    <div id="piechart" style="width: 400px; height: 360px; margin-left: 0px"></div>
+				                </td>
+				            </tr>
+				            <tr>
+				                <td></td>
+				                <td></td>
+				            </tr>
+				            <tr>
+				                <td></td>
+				                <td></td>
+				            </tr>
+				            <tr>
+				                <td style="width:100%;">
+				                    <span style="vertical-align: middle; margin-left:50px;">COMMENTS: ALL EMOTIONS</span>
+				                </td>
+				                <td>
+				                    <input type="button" id="seeAllComments" value="See all comments">
+				                    <input type="text" id="txtCommentFilter" size="20">
+				                    <input type="button" id="btnCommentFilter" value="Go">
+				                </td>
+				            </tr>
+				            <tr>
+				                <td style="width:100%;" colspan="2">
+				                    <div id="verbatimText" style="width: 100%; height: 400px; margin-left: 50px"></div>
+				                </td>
+				            </tr>
+				        </table>
+	
+		<!-- <%= javascript_include_tag '/fx/AC_OETags.js' %>
 
 		<script language="JavaScript" type="text/javascript">
 		var requiredMajorVersion = 10;
@@ -56,7 +394,7 @@
 		   	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
 		    document.write(alternateContent);  // insert non-flash content
 		  }
-		// -->
+		// 
 		</script>
 		<noscript>
 		  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
@@ -77,7 +415,7 @@
 						pluginspage="http://www.adobe.com/go/getflashplayer">
 					</embed>
 			</object>
-		</noscript>
+		</noscript>-->
     </div>
     <div class="share_scorecard">
 	<strong>Share Scorecard</strong> <span class="share_link_scorecard"><strong>Link: </strong><%= text_field_tag '', public_scorecard_url(:code => @survey.scorecard_code), :class => 'locked-selectall' %></span>
