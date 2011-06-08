@@ -156,7 +156,8 @@ class Survey < ActiveRecord::Base
 			emote[:value] += 1
 			total_emotions += 1
     end
-    score = (pp_intensities/pp).to_i
+    emotions.sort! {|a,b| b[:value]<=>a[:value] }
+    score = (pp_intensities/pp).to_i rescue 0
     
     { :bars => emotions, :pie => {:pp => pp, :mp => mp, :pn => pn, :mn => mn}, :totals => {:score => score, :total => total_emotions} }
   end
