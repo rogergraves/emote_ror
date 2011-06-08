@@ -39,19 +39,10 @@
 				    var configVerbatim = <%= raw @survey.verbatims_obj.to_json -%>;
 
 				$(document).ready(function() {
+                    renderBarChart(configBars);
+				    renderPieChart(configPie);
+                    loadComments(configVerbatim);
 
-				    doAjax({
-				        data: {},
-				        successCallback: function(response, textStatus){
-				            var data = jQuery.parseJSON(response);
-				            renderBarChart(data.bars);
-				            renderPieChart(data.pie);
-				        },
-				        errorCallback: function(request, textStatus, errorThrown){
-				            alert('error');
-				            console.log(errorThrown);
-				       }
-				    });
 
 				    $('#btnCommentFilter').click(filterVerbatim);
                     $('#seeAllComments').click(function (){
@@ -59,17 +50,6 @@
                         filterVerbatim();
                     });
 
-                    doAjax({
-                        url: "survey_results/verbatims.json",
-                        data: {filter: $('#txtCommentFilter').val()},
-				        successCallback: function(response, textStatus){
-				            var data = jQuery.parseJSON(response);
-				            loadComments(data);
-				        },
-				        errorCallback: function(request, textStatus, errorThrown){
-				            throw new Error('error fetching verbatims');
-				       }
-				    });
 				});
 
 				    function renderBarChart(config){
@@ -111,11 +91,14 @@
 				                point: {
 				                   events: {
 				                      click: function() {
+                                         var cfg = this.config;
 				                         doAjax({
-				                             data: {subset: this.config.name},
+				                             data: {name: cfg.name},
+                                             url: ' survey_results/verbatims.json',
 				                             successCallback: function (response, textStatus) {
 				                             var data = jQuery.parseJSON(response);
-				                             loadComments(data.verbatim);
+                                                 console.log({name: cfg.name});
+				                             loadComments(data);
 				                          },
 				                          errorCallback: function(request, textStatus, errorThrown){
 				                              console.log(errorThrown);
@@ -240,13 +223,14 @@
 				        if (ok){
 				             doAjax({
 				                 data: {id: id},
+                                 url: 'survey_results/delete_response.json',
 				                 successCallback: function (response, textStatus) {
-				                  var data = jQuery.parseJSON(response);
-				                  loadComments(data.verbatim);
+				                    $('#txtCommentFilter').val('');
+                                    filterVerbatim();
 				               },
 				               errorCallback: function(request, textStatus, errorThrown){
-				                  alert('error');
 				                  console.log(errorThrown);
+                                  throw new Error('error deleting a verbatim: ' + id);
 				               }
 				             });
 				        }
@@ -258,7 +242,6 @@
 				             data: {filter: $('#txtCommentFilter').val()},
 				             successCallback: function (response, textStatus) {
 				             var data = jQuery.parseJSON(response);
-                             console.log(data);
 				             loadComments(data);
 				           },
 				           errorCallback: function(request, textStatus, errorThrown){
@@ -275,7 +258,7 @@
 				     * @param config.errorCallback - function to call on failure
 				     */
 				    function doAjax(config){
-				       var strAjaxUrl = '/survey_results/all.json';
+				       var strAjaxUrl = 'survey_results/all.json';
 
                        if (!config.data) config.data = {};
                        config.data.survey = '<%= @survey.code -%>';
