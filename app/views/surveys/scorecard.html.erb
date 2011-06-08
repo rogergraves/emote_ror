@@ -94,7 +94,7 @@
                                          var cfg = this.config;
 				                         doAjax({
 				                             data: {name: cfg.name},
-                                             url: ' survey_results/verbatims.json',
+                                             url: '/account/surveys/1/survey_results/verbatims.json',
 				                             successCallback: function (response, textStatus) {
 				                             var data = jQuery.parseJSON(response);
                                                  console.log({name: cfg.name});
@@ -223,7 +223,7 @@
 				        if (ok){
 				             doAjax({
 				                 data: {id: id},
-                                 url: 'survey_results/delete_response.json',
+                                 url: '/account/surveys/1/survey_results/delete_response.json',
 				                 successCallback: function (response, textStatus) {
 				                    $('#txtCommentFilter').val('');
                                     filterVerbatim();
@@ -238,15 +238,15 @@
 
 				    function filterVerbatim(text){
 				        doAjax({
-                             url: 'survey_results/verbatims.json',
+                             url: '/account/surveys/1/survey_results/verbatims.json',
 				             data: {filter: $('#txtCommentFilter').val()},
 				             successCallback: function (response, textStatus) {
 				             var data = jQuery.parseJSON(response);
 				             loadComments(data);
 				           },
 				           errorCallback: function(request, textStatus, errorThrown){
-				              alert('error');
 				              console.log(errorThrown);
+                               throw new Error('error filtering verbatims');
 				           }
 				         });
 				    }
@@ -258,7 +258,7 @@
 				     * @param config.errorCallback - function to call on failure
 				     */
 				    function doAjax(config){
-				       var strAjaxUrl = 'survey_results/all.json';
+				       var strAjaxUrl = '/account/surveys/1/survey_results/all.json';
 
                        if (!config.data) config.data = {};
                        config.data.survey = '<%= @survey.code -%>';
