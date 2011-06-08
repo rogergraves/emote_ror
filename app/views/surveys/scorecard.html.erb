@@ -32,48 +32,11 @@
 				    var colors = {'green': '#336600', 'red': '#990033', white: '#FFFFFF', grey: '#CCCCCC'};
 				    var intensity = {pp: 'enthusiasts', mp: 'participants', mn: 'indifferent', pn:'detractors'};
 				    var pieColors = {pp: '#009933', mp: '#000066', mn: '#999999', pn: '#990000'};
-
-                    /* replace this with real data for bar Chart*/
-				    var configBars = [
-				        {color:"green", name:"thrilled", value:5 },
-				        {color:"green", name:"content", value:4},
-				        {color:"red", name:"uneasy", value:3 },
-				        {color:"green", name:"satisfied", value:2 },
-				        {color:"green", name:"surprised", value:1 },
-				        {color:"red", name:"irritated", value:0 },
-				        {color:"red", name:"frustrated", value:0 },
-				        {color:"red", name:"humiliated", value:0 },
-				        {color:"red", name:"disgusted", value:0 },
-				        {color:"red", name:"dissatisfied", value:0 },
-				        {color:"red", name:"miserable", value:0 },
-				        {color:"red", name:"unhappy", value:0 },
-				        {color:"green", name:"delighted", value:0 },
-				        {color:"green", name:"excited", value:0 },
-				        {color:"green", name:"elated", value:0 },
-				        {color:"green", name:"amazed", value:0 },
-				        {color:"green", name:"happy", value:0 },
-				        {color:"red", name:"outraged", value:0 },
-				        {color:"green", name:"enthusiastic", value:0 },
-				        {color:"red", name:"angry", value:0 }
-				    ];
-
-                    /* replace this with real data for Pie Chart*/
-				    var configPie = [
-				        {name:"pp", value:"3"},
-				        {name:"mp", value:"1"},
-				        {name:"pn", value:"0"},
-				        {name:"mn", value:"2"}
-				    ];
-
-                    /* replace this with real data for verbatims */
-				    var configVerbatim = [
-				        {id: '875', face: 'uneasy_intensity_1', timestamp: '03 Jun', text: 'test1'},
-				        {id: '876', face: 'surprised_intensity_3', timestamp: '03 Jun', text: 'test2'},
-				        {id: '877', face: 'surprised_intensity_3', timestamp: '03 Jun', text: 'test3'},
-				        {id: '878', face: 'amazed_intensity_3', timestamp: '03 Jun', text: 'test4'},
-				        {id: '879', face: 'excited_intensity_2', timestamp: '03 Jun', text: 'test5'},
-				        {id: '880', face: 'excited_intensity_2', timestamp: '03 Jun', text: 'test6'}
-				    ];
+					<% results = @survey.result_obj %>
+					var configTotals = <%= raw results[:totals].to_json -%>;
+				    var configBars = <%= raw results[:bars].to_json -%>;
+				    var configPie = <%= raw results[:pie].to_json -%>;
+				    var configVerbatim = <%= raw @survey.verbatims_obj.to_json -%>;
 
 
 				$(document).ready(function() {
