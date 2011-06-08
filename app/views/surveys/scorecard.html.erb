@@ -94,7 +94,7 @@
                                          var cfg = this.config;
 				                         doAjax({
 				                             data: {name: cfg.name},
-                                             url: '/account/surveys/1/survey_results/verbatims.json',
+                                             url: '/survey_results/verbatims.json',
 				                             successCallback: function (response, textStatus) {
 				                             var data = jQuery.parseJSON(response);
                                                  console.log({name: cfg.name});
@@ -223,7 +223,7 @@
 				        if (ok){
 				             doAjax({
 				                 data: {id: id},
-                                 url: '/account/surveys/1/survey_results/delete_response.json',
+                                 url: '/survey_results/delete_response.json',
 				                 successCallback: function (response, textStatus) {
 				                    $('#txtCommentFilter').val('');
                                     filterVerbatim();
@@ -238,7 +238,7 @@
 
 				    function filterVerbatim(text){
 				        doAjax({
-                             url: '/account/surveys/1/survey_results/verbatims.json',
+                             url: '/survey_results/verbatims.json',
 				             data: {filter: $('#txtCommentFilter').val()},
 				             successCallback: function (response, textStatus) {
 				             var data = jQuery.parseJSON(response);
@@ -258,7 +258,7 @@
 				     * @param config.errorCallback - function to call on failure
 				     */
 				    function doAjax(config){
-				       var strAjaxUrl = '/account/surveys/1/survey_results/all.json';
+				       var strAjaxUrl = '/survey_results/all.json';
 
                        if (!config.data) config.data = {};
                        config.data.survey = '<%= @survey.code -%>';
