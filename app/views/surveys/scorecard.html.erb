@@ -75,14 +75,12 @@
 				        {id: '880', face: 'excited_intensity_2', timestamp: '03 Jun', text: 'test6'}
 				    ];
 
-
 				$(document).ready(function() {
 
 				    doAjax({
 				        data: {},
 				        successCallback: function(response, textStatus){
 				            var data = jQuery.parseJSON(response);
-                            console.log(data);
 				            renderBarChart(data.bars);
 				            renderPieChart(data.pie);
 				        },
@@ -93,12 +91,16 @@
 				    });
 
 				    $('#btnCommentFilter').click(filterVerbatim);
+                    $('#seeAllComments').click(function (){
+                        $('#txtCommentFilter').val('');
+                        filterVerbatim();
+                    });
 
                     doAjax({
-                        url: "survey_results/verbatims.json?survey=" + '<%= @survey.code -%>' + "&filter=" + $('#txtCommentFilter').val(),
+                        url: "survey_results/verbatims.json",
+                        data: {filter: $('#txtCommentFilter').val()},
 				        successCallback: function(response, textStatus){
 				            var data = jQuery.parseJSON(response);
-                            console.log(data);
 				            loadComments(data);
 				        },
 				        errorCallback: function(request, textStatus, errorThrown){
@@ -289,10 +291,12 @@
 
 				    function filterVerbatim(text){
 				        doAjax({
-				             data: {search: $('#txtCommentFilter').val()},
+                             url: 'survey_results/verbatims.json',
+				             data: {filter: $('#txtCommentFilter').val()},
 				             successCallback: function (response, textStatus) {
-				              var data = jQuery.parseJSON(response);
-				              loadComments(data.verbatim);
+				             var data = jQuery.parseJSON(response);
+                             console.log(data);
+				             loadComments(data);
 				           },
 				           errorCallback: function(request, textStatus, errorThrown){
 				              alert('error');
