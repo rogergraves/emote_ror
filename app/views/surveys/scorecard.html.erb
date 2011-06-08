@@ -33,7 +33,8 @@
 				    var intensity = {pp: 'enthusiasts', mp: 'participants', mn: 'indifferent', pn:'detractors'};
 				    var pieColors = {pp: '#009933', mp: '#000066', mn: '#999999', pn: '#990000'};
 
-				    var config = [
+                    /* replace this with real data for bar Chart*/
+				    var configBars = [
 				        {color:"green", name:"thrilled", value:5 },
 				        {color:"green", name:"content", value:4},
 				        {color:"red", name:"uneasy", value:3 },
@@ -56,14 +57,16 @@
 				        {color:"red", name:"angry", value:0 }
 				    ];
 
-				    var pieConfig = [
+                    /* replace this with real data for Pie Chart*/
+				    var configPie = [
 				        {name:"pp", value:"3"},
 				        {name:"mp", value:"1"},
 				        {name:"pn", value:"0"},
 				        {name:"mn", value:"2"}
 				    ];
 
-				    var verbatimConfig = [
+                    /* replace this with real data for verbatims */
+				    var configVerbatim = [
 				        {id: '875', face: 'uneasy_intensity_1', timestamp: '03 Jun', text: 'test1'},
 				        {id: '876', face: 'surprised_intensity_3', timestamp: '03 Jun', text: 'test2'},
 				        {id: '877', face: 'surprised_intensity_3', timestamp: '03 Jun', text: 'test3'},
@@ -256,7 +259,7 @@
 				            var row = config[key];
 				            verbatimHTML+= tr + "\n<td align='left'>\n" +
                                     "&nbsp;&nbsp;<img width='20px' height='20px' src='/images/verbatim_intensity/" +
-				                    row.face + ".png'>    \n" + row.text + "\n</td>\n"+
+				                    row.face + ".png'>&nbsp;&nbsp;  \n" + row.text + "\n</td>\n"+
                                     "\n<td align='right'>\n" +
 				                    row.timestamp + "&nbsp;" +
                                     "\n<button type='button' onclick='deleteVerbatim("+row.id+");'>delete</button> \n"+
