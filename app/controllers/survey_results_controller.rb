@@ -51,6 +51,6 @@ class SurveyResultsController < ApplicationController
   end
   protected
     def find_survey
-      @survey = current_user.surveys.find_by_id(params[:survey_id]) rescue current_user.surveys.find_by_code(params[:survey_id])
+      @survey = current_user.surveys.find_by_id(params[:survey]) rescue current_user.surveys.find_by_code(params[:survey])
     end
 end
