@@ -27,32 +27,32 @@
 		            }
 		        </style>
 		
-				<script type="text/javascript">
+<script type="text/javascript">
 
-				    var colors = {'green': '#336600', 'red': '#990033', white: '#FFFFFF', grey: '#CCCCCC'};
-				    var intensity = {pp: 'enthusiasts', mp: 'participants', mn: 'indifferent', pn:'detractors'};
-				    var pieColors = {pp: '#009933', mp: '#000066', mn: '#999999', pn: '#990000'};
-					<% results = @survey.result_obj %>
-					var configTotals = <%= raw results[:totals].to_json -%>;
-				    var configBars = <%= raw results[:bars].to_json -%>;
-				    var configPie = <%= raw results[:pie].to_json -%>;
-				    var configVerbatim = <%= raw @survey.verbatims_obj.to_json -%>;
+    var colors = {'green': '#336600', 'red': '#990033', white: '#FFFFFF', grey: '#CCCCCC'};
+	var intensity = {pp: 'enthusiasts', mp: 'participants', mn: 'indifferent', pn:'detractors'};
+	var pieColors = {pp: '#009933', mp: '#000066', mn: '#999999', pn: '#990000'};
+	<% results = @survey.result_obj %>
+	var configTotals = <%= raw results[:totals].to_json -%>;
+	var configBars = <%= raw results[:bars].to_json -%>;
+	var configPie = <%= raw results[:pie].to_json -%>;
+	var configVerbatim = <%= raw @survey.verbatims_obj.to_json -%>;
 
-				$(document).ready(function() {
-                    renderBarChart(configBars);
-				    renderPieChart(configPie);
-                    loadComments(configVerbatim);
+    $(document).ready(function() {
+        renderBarChart(configBars);
+		renderPieChart(configPie);
+        loadComments(configVerbatim);
 
 
-				    $('#btnCommentFilter').click(filterVerbatim);
-                    $('#seeAllComments').click(function (){
-                        $('#txtCommentFilter').val('');
-                        filterVerbatim();
-                    });
+		$('#btnCommentFilter').click(filterVerbatim);
+        $('#seeAllComments').click(function (){
+            $('#txtCommentFilter').val('');
+            filterVerbatim();
+        });
 
-				});
+	});
 
-				    function renderBarChart(config){
+    function renderBarChart(config){
 				        var categories = [];
                         var data = [];
 				        for (var key in config) {
@@ -97,10 +97,9 @@
                                              url: '/survey_results/verbatims.json',
 				                             successCallback: function (response, textStatus) {
 				                             var data = jQuery.parseJSON(response);
-                                                 console.log({name: cfg.name});
 				                             loadComments(data);
 				                          },
-				                          errorCallback: function(request, textStatus, errorThrown){
+				                             errorCallback: function(request, textStatus, errorThrown){
 				                              console.log(errorThrown);
                                               throw new Error('error fetching verbatims for a pointer');
 				                          }
@@ -132,7 +131,7 @@
 				        });
 				    }
 
-				    function renderPieChart(pieConfig){
+	function renderPieChart(pieConfig){
 				        var pieData = [];
 
 				        var intTotalResponsesCount = 0;
@@ -169,10 +168,11 @@
 				                       events: {
 				                          click: function() {
 				                             doAjax({
+                                                 url: '/survey_results/verbatims.json',
 				                                 data: {subset: this.config.name},
 				                                 successCallback: function (response, textStatus) {
 				                                  var data = jQuery.parseJSON(response);
-				                                  loadComments(data.verbatim);
+				                                  loadComments(data);
 				                               },
 				                               errorCallback: function(request, textStatus, errorThrown){
 				                                  throw new Error('error fetching verbatims for a pie');
@@ -194,86 +194,103 @@
 				        $('#totalResp').html("Total Responses: " + intTotalResponsesCount);
 				    }
 
-				    function loadComments(config){
-				        var verbatimHTML = "<table style='width: 1150px;'>\n";
-				        var i=0;
-				        var tr = '';
-				        for (var key in config){
-				            var remainder = i % 2;
-				            if (remainder == 1) tr = "\n<tr class='commentRow1'>\n";
-				            else tr = "\n<tr class='commentRow2'>\n";
+    function loadComments(config){
+        var verbatimHTML = "<table style='width: 1150px;'>\n";
+        var i=0;
+        var tr = '';
+        for (var key in config){
+            var row = config[key];
+            var remainder = i % 2;
+
+            var strEvents = " onmouseover='showDelButton("+row.id+")' onmouseout='hideDelButton("+row.id+")'";
+            if (remainder == 1) tr = "\n<tr "+strEvents+" class='commentRow1'>\n";
+            else tr = "\n<tr " +strEvents+ " class='commentRow2'>\n";
 
 
-				            var row = config[key];
-				            verbatimHTML+= tr + "\n<td align='left'>\n" +
-                                    "&nbsp;&nbsp;<img width='20px' height='20px' src='/images/verbatim_intensity/" +
-				                    row.face + ".png'>&nbsp;&nbsp;  \n" + row.text + "\n</td>\n"+
-                                    "\n<td align='right'>\n" +
-				                    row.timestamp + "&nbsp;" +
-                                    "\n<button type='button' onclick='deleteVerbatim("+row.id+");'>delete</button> \n"+
-				                    "\n&nbsp;<td/>\n</tr>\n";
-				            i++;
-				        }
-                        verbatimHTML+= '\n</table>\n';
-				        $('#verbatimText').html(verbatimHTML);
-				    }
+            var strEmoteTitle = row.face.split('_')[0];
 
-				    function deleteVerbatim(id){
-				        var ok = confirm("Are you sure you want to delete this response? After you delete it there's no way to undo it.");
-				        if (ok){
-				             doAjax({
-				                 data: {id: id},
-                                 url: '/survey_results/delete_response.json',
-				                 successCallback: function (response, textStatus) {
-				                    $('#txtCommentFilter').val('');
-                                    filterVerbatim();
-				               },
-				               errorCallback: function(request, textStatus, errorThrown){
-				                  console.log(errorThrown);
-                                  throw new Error('error deleting a verbatim: ' + id);
-				               }
-				             });
-				        }
-				    }
+            verbatimHTML+= tr + "\n<td align='left'>\n" +
+                    "&nbsp;&nbsp;<img width='20px' height='20px' " +
+                    " title='" + strEmoteTitle + "'" +
+                    " src='/images/verbatim_intensity/" +
+                    row.face + ".png'>&nbsp;&nbsp;  \n" + row.text + "\n</td>\n"+
+                    "\n<td align='right'>\n" +
+                    row.timestamp + "&nbsp;" +
+                    "\n<button style='visibility:hidden;' id='btn_del_"+row.id+"' type='button' onclick='deleteVerbatim("+row.id+");'>" +
+                    "<img src='/images/trash_icon.png' width='15px' height='18px'></button> \n"+
+                    "\n&nbsp;<td/>\n</tr>\n";
+            i++;
+        }
+        verbatimHTML+= '\n</table>\n';
+        $('#verbatimText').html(verbatimHTML);
+    }
 
-				    function filterVerbatim(text){
-				        doAjax({
-                             url: '/survey_results/verbatims.json',
-				             data: {filter: $('#txtCommentFilter').val()},
-				             successCallback: function (response, textStatus) {
-				             var data = jQuery.parseJSON(response);
-				             loadComments(data);
-				           },
-				           errorCallback: function(request, textStatus, errorThrown){
-				              console.log(errorThrown);
-                               throw new Error('error filtering verbatims');
-				           }
-				         });
-				    }
+    function showDelButton(id){
+        document.getElementById('btn_del_' + id).style.visibility = 'visible';
+    }
 
-				   /**
-				     *
-				     * @param config.data - data to be sent to server
-				     * @param config.successCallback - function to call on success
-				     * @param config.errorCallback - function to call on failure
-				     */
-				    function doAjax(config){
-				       var strAjaxUrl = '/survey_results/all.json';
+    function hideDelButton(id){
+        document.getElementById('btn_del_' + id).style.visibility = 'hidden';
+    }
 
-                       if (!config.data) config.data = {};
-                       config.data.survey = '<%= @survey.code -%>';
-                       config.data.action_token = '';
-                       config.data.session = '';
-                       $.ajax({
-				           type: "GET",
-				           url: config.url || strAjaxUrl,
-				           dataType: "html",
-				           data: config.data,
-				           cache: false,
-				           success: config.successCallback ,
-				           error: config.errorCallback
-				        });
-				    }
+    function deleteVerbatim(id){
+        var ok = confirm("Are you sure you want to delete this response? After you delete it there's no way to undo it.");
+        if (ok){
+             doAjax({
+                 data: {id: id},
+                 url: '/survey_results/delete_response.json',
+                 successCallback: function (response, textStatus) {
+                    $('#txtCommentFilter').val('');
+                    filterVerbatim();
+               },
+                 errorCallback: function(request, textStatus, errorThrown){
+                  console.log(errorThrown);
+                  throw new Error('error deleting a verbatim: ' + id);
+               }
+             });
+        }
+    }
+
+    function filterVerbatim(text){
+        doAjax({
+             url: '/survey_results/verbatims.json',
+             data: {filter: $('#txtCommentFilter').val()},
+             successCallback: function (response, textStatus) {
+             var data = jQuery.parseJSON(response);
+             loadComments(data);
+           },
+             errorCallback: function(request, textStatus, errorThrown){
+              console.log(errorThrown);
+               throw new Error('error filtering verbatims');
+           }
+         });
+    }
+
+    /**
+     *
+     * @param config.data - data to be sent to server
+     * @param config.successCallback - function to call on success
+     * @param config.errorCallback - function to call on failure
+     */
+    function doAjax(config){
+       var strAjaxUrl = '/survey_results/verbatims.json';
+
+       if (!config.data) config.data = {};
+       config.data.survey = '<%= @survey.code -%>';
+       config.data.action_token = '';
+       config.data.session = '';
+       $.ajax({
+           type: "GET",
+           url: config.url || strAjaxUrl,
+           dataType: "html",
+           data: config.data,
+           cache: false,
+           success: config.successCallback ,
+           error: config.errorCallback
+        });
+    }
+
+
 						</script>
 						
 						<table>
