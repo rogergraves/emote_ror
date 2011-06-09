@@ -899,10 +899,122 @@ ul.start_box {
 
 #content-win-centr-scorecard #scorecard-content{
     float: left;
-    min-height: 410px;
     height: 85%;
     width: 100%;
     text-align: center;
+}
+
+.scorecard_data{
+     width: 1150px;
+     margin: 0 auto;
+     background: #585858;
+     padding: 15px 0 15px 0;
+}
+
+.scorecard_data .spectrum {
+    float: left;
+    width: 790px;
+    height: 270px;
+    margin: 0 0 0 15px;
+}
+
+.scorecard_data .t-responses{
+    float: left; 
+    width: 300px;
+    height: 60px;
+    line-height: 60px;
+    margin: 0 0 0 15px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    background: #000;
+    color: #bfbfbf;
+    font-size: 28px;
+    text-align: left;
+    padding: 0 0 0 15px;
+}
+
+.scorecard_data .barometer {
+    float: left;
+    width: 315px;
+    height: 200px;
+    margin: 10px 0 0 15px;
+    background: #000;
+    color: #bfbfbf;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+.scorecard_data .comments_data {
+    float: left;
+    width: 1120px;
+    height: 32px;
+    line-height: 32px;
+    margin: 15px 0 0 15px;
+    background: #a6a6a6;
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+}
+
+.scorecard_data .comments_data span{
+    font-size: 15px;
+    color: #000;
+    font-weight: bold;
+    margin-left: 25px;
+    float: left;
+}
+
+.scorecard_data .comments_data input{
+    float: left;
+    margin: 4px 10px 0 400px;
+}
+
+.scorecard_data .comments_data input.filter {
+    border: 2px solid #b7bbbe;
+    float: left;
+    width: 300px;
+    height: 14px;
+    line-height: 25px;
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    color: #000;
+    padding: 2px 10px;
+    margin: 4px 0 0 10px;
+}
+
+.scorecard_data .comments_data .field{
+    clear:both; 
+}
+
+.scorecard_data .comments_data .go-filter{
+     position: relative;
+     left: 445px;
+     bottom: 26px;
+}
+
+.table_comments {
+     float: left;
+     height: 200px;
+     overflow-y: auto;
+     overflow-x: hidden;
+     margin: 0 0 0 15px;
+     border: 1px solid #a6a6a6;
+     width: 1118px;
+}
+
+.table_comments tr.even{
+    background-color: #eee;
+}
+
+.table_comments tr.odd {
+    background-color: #dfdfdf;
+}
+
+.table_comments td {
+    height: 35px;
+    width: 1118px;
 }
 
 .survey-title {
@@ -1288,10 +1400,6 @@ ul.start_box {
 
 #delete-dialog p {
     text-align: justify;
-}
-
-#alerts-dialog #activity-updates p{
-    text-align: center;
 }
 
 #alerts-dialog #activity-updates input{
