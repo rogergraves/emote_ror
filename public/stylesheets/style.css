@@ -984,10 +984,6 @@ ul.start_box {
     margin: 4px 0 0 10px;
 }
 
-.scorecard_data .comments_data .field{
-    clear:both; 
-}
-
 .scorecard_data .comments_data .go-filter{
      position: relative;
      left: 445px;
@@ -997,24 +993,11 @@ ul.start_box {
 .table_comments {
      float: left;
      height: 200px;
+     width: 1118px;
      overflow-y: auto;
      overflow-x: hidden;
      margin: 0 0 0 15px;
      border: 1px solid #a6a6a6;
-     width: 1118px;
-}
-
-.table_comments tr.even{
-    background-color: #eee;
-}
-
-.table_comments tr.odd {
-    background-color: #dfdfdf;
-}
-
-.table_comments td {
-    height: 35px;
-    width: 1118px;
 }
 
 .survey-title {
