@@ -35,6 +35,7 @@ EmoteRor::Application.routes.draw do
   get 'survey_results/all', :controller => 'survey_results', :action => 'all'
   get 'survey_results/charts', :controller => 'survey_results', :action => 'charts'
   get 'survey_results/verbatims', :controller => 'survey_results', :action => 'verbatims'
+  get 'survey_results/delete_response', :controller => 'survey_results', :action => 'delete_response'
   
   namespace :admin do
     resources :accounts do
