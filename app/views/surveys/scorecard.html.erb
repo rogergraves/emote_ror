@@ -100,7 +100,7 @@
                                                  console.log({name: cfg.name});
 				                             loadComments(data);
 				                          },
-				                          errorCallback: function(request, textStatus, errorThrown){
+				                             errorCallback: function(request, textStatus, errorThrown){
 				                              console.log(errorThrown);
                                               throw new Error('error fetching verbatims for a pointer');
 				                          }
@@ -169,11 +169,11 @@
 				                       events: {
 				                          click: function() {
 				                             doAjax({
-
+                                                 url: '/survey_results/verbatims.json',
 				                                 data: {subset: this.config.name},
 				                                 successCallback: function (response, textStatus) {
 				                                  var data = jQuery.parseJSON(response);
-				                                  loadComments(data.verbatim);
+				                                  loadComments(data);
 				                               },
 				                               errorCallback: function(request, textStatus, errorThrown){
 				                                  throw new Error('error fetching verbatims for a pie');
