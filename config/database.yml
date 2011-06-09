@@ -1,11 +1,11 @@
 # SQLite version 3.x
 #   gem install sqlite3-ruby (not necessary on OS X Leopard)
 development:
-  adapter: mysql
+  adapter: mysql2
   encoding: utf8
   database: emote
   username: root
-  password: 
+  password:
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -15,11 +15,11 @@ test:
   encoding: utf8
   database: emote
   username: root
-  password: 
+  password:
 
 production:
   adapter: mysql2
   encoding: utf8
   database: emotethis
   username: root
-  password: 
+  password:

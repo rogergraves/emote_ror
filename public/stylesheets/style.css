@@ -1264,16 +1264,16 @@ ul.start_box {
     width: 200px;
     height: 100px;
     float: left;
-    margin: 40px;
+    margin: 10px 40px;
 }
 
 #delete-dialog #delete-pane {
     display: block;
     width: 200px;
-    height: 100px;
+    height: 160px;
     float: left;
     border-left: thin solid #999999;
-    padding: 40px;
+    padding: 10px 40px;
 }
 
 #delete-dialog h3 {
@@ -1281,21 +1281,27 @@ ul.start_box {
 }
 
 #delete-dialog img {
-    text-align: center;
     position: absolute;
-    top: 150px;
+    bottom: 30px;
+    margin: 0 0 0 35px;
 }
 
 #delete-dialog p {
     text-align: justify;
 }
 
-#alerts-dialog #activity-updates {
+#alerts-dialog #activity-updates p{
     text-align: center;
 }
 
-#alerts-dialog #respondent-emails {
-    text-align: center;
+#alerts-dialog #activity-updates input{
+    text-align: left;
+    margin-left: 150px;
+}
+
+#alerts-dialog #respondent-emails input{
+    text-align: left;
+    margin-left: 150px;
 }
 
 .open_emote{
