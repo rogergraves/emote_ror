@@ -198,13 +198,10 @@ class Survey < ActiveRecord::Base
         end
         
         add_to_list = (category == grouping)
-        require 'pp'
-        pp res['intensity_level']
 			end
 			
       verbs << { :id => res.survey_result_id, :face => (res.emote+'_intensity_'+intensity_level.to_s), :timestamp => res.start_time.strftime("%d %b"), 'text'=> res.verbatim.gsub(/#{filter_str}/, "<b>#{filter_str}</b>")} if add_to_list
     end
-    pp verbs
     verbs
   end
 
