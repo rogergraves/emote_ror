@@ -5,7 +5,7 @@ class SurveyResultsController < ApplicationController
   def all
     #@survey = Survey.first(:conditions => {:code => params[:survey]})
     result_obj = @survey.result_obj
-    verb_obj = @survey.verbatims_obj(params[:search])
+    verb_obj = @survey.verbatims_obj(params[:search], params[:name], params[:subset])
     formatted_response = {:config => @survey.result_obj[:bars], :pieConfig => @survey.result_obj[:pie], :verbatim => verb_obj  }
     
     respond_to do |format|
@@ -27,7 +27,7 @@ class SurveyResultsController < ApplicationController
     #@survey = Survey.first(:conditions => {:code => params[:survey]})
 
     respond_to do |format|
-      format.json { render :json => @survey.verbatims_obj(params[:filter]) }
+      format.json { render :json => @survey.verbatims_obj(params[:filter], params[:name], params[:subset]) }
     end
   end
   

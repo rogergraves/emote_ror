@@ -162,18 +162,49 @@ class Survey < ActiveRecord::Base
     { :bars => emotions, :pie => {:pp => pp, :mp => mp, :pn => pn, :mn => mn}, :totals => {:score => score, :total => total_emotions} }
   end
   
-  def verbatims_obj(filter_str = '')
+  def verbatims_obj(filter_str = '', emotion = '', grouping = nil)
     # ('id'=> '875', 'face'=> 'uneasy_intensity_1', 'timestamp'=> '03 Jun', 'text'=> 'test1'),
     verbs = []
-    ( filter_str == '' ? survey_results.where(:is_removed => 0).order('`start_time` DESC') : survey_results.where("`is_removed` = ? and `verbatim` like ?", false, "%#{filter_str}%").order('`start_time` DESC') ).each do |res|
+    conditions = "`is_removed` = 0"
+    query_params = []
+    unless filter_str.blank?
+      conditions << " and `verbatim` like ?"
+      query_params << "%#{filter_str}%"
+    end
+    unless emotion.blank?
+      conditions << " and `emote` = ?"
+      query_params << emotion
+    end
+  
+    survey_results.where([conditions]+query_params).order('`start_time` DESC').each do |res|
       intensity_level = 1
 			if res['intensity_level'] >= 33 && res['intensity_level'] < 66
 				intensity_level = 2
 			elsif res['intensity_level'] >= 66
 				intensity_level = 3
 			end
-      verbs << { :id => res.survey_result_id, :face => (res.emote+'_intensity_'+intensity_level.to_s), :timestamp => res.start_time.strftime("%d %b"), 'text'=> res.verbatim.gsub(/#{filter_str}/, "<b>#{filter_str}</b>")}
+			
+			add_to_list = true
+			unless grouping.blank?
+			  
+			  if res['intensity_level'] < 34
+           category = "indifferent"
+        elsif res['intensity_level'] < 66
+           category = "participants"
+        elsif SurveyResult.positives.include?(res['emote'])
+           category = "enthusiasts"
+        else
+           category = "detractors"
+        end
+        
+        add_to_list = (category == grouping)
+        require 'pp'
+        pp res['intensity_level']
+			end
+			
+      verbs << { :id => res.survey_result_id, :face => (res.emote+'_intensity_'+intensity_level.to_s), :timestamp => res.start_time.strftime("%d %b"), 'text'=> res.verbatim.gsub(/#{filter_str}/, "<b>#{filter_str}</b>")} if add_to_list
     end
+    pp verbs
     verbs
   end
 

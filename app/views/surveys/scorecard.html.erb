@@ -259,7 +259,7 @@
 				     * @param config.errorCallback - function to call on failure
 				     */
 				    function doAjax(config){
-				       var strAjaxUrl = '/survey_results/all.json';
+				       var strAjaxUrl = '/survey_results/verbatims.json';
 
                        if (!config.data) config.data = {};
                        config.data.survey = '<%= @survey.code -%>';
