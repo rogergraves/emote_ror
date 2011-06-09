@@ -169,6 +169,7 @@
 				                       events: {
 				                          click: function() {
 				                             doAjax({
+
 				                                 data: {subset: this.config.name},
 				                                 successCallback: function (response, textStatus) {
 				                                  var data = jQuery.parseJSON(response);
