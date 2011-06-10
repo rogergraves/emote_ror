@@ -995,7 +995,7 @@ ul.start_box {
      height: 200px;
      width: 1118px;
      overflow-y: auto;
-     overflow-x: hidden;
+     /*overflow-x: hidden;*/
      margin: 0 0 0 15px;
      border: 1px solid #a6a6a6;
 }
