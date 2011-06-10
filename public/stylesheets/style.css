@@ -937,7 +937,7 @@ ul.start_box {
 .scorecard_data .barometer {
     float: left;
     width: 315px;
-    height: 200px;
+    height: 210px;
     margin: 10px 0 0 15px;
     background: #000;
     color: #bfbfbf;
@@ -967,7 +967,7 @@ ul.start_box {
 
 .scorecard_data .comments_data input{
     float: left;
-    margin: 4px 10px 0 400px;
+    margin: 4px 10px 0 380px;
 }
 
 .scorecard_data .comments_data input.filter {
