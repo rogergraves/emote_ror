@@ -195,7 +195,7 @@
 				    }
 
     function loadComments(config){
-        var verbatimHTML = "<table style='width: 1150px;'>\n";
+        var verbatimHTML = "<table style='width: 1103px;'>\n";
         var i=0;
         var tr = '';
         for (var key in config){
@@ -307,69 +307,9 @@
              <input class="go-filter" type="image" src="../../../images/search_comments.gif" alt="go" id="btnCommentFilter" />
             </div>
             
-
-            <div class="table_comments">
-              <table>
-                <tr class="even">
-                  <td>&nbsp;</td>
-                </tr>
-                <tr class="odd">
-                  <td>&nbsp;</td>
-                </tr>
-                <tr class="even">
-                  <td>&nbsp;</td>
-                </tr>
-                <tr class="odd">
-                  <td>&nbsp;</td>
-                </tr>
-                <tr class="even">
-                  <td>&nbsp;</td>
-                </tr>
-                <tr class="odd">
-                  <td>&nbsp;</td>
-                </tr>
-              </table>
-            </div>
-
+            <div class="table_comments" id="verbatimText"></div>
             <div class="clear"></div>
          </div>
-             <!--
-          <table>
-              <tr>
-                  <td>
-             -->
-                      <!-- 3. Add the container -->
-             <!--
-                      <div id="barChart" style="float: left; width: 800px; height: 280px;"></div>
-                  </td>
-                  <td>
-                      <div id="totalResp" style="float: right; margin-left: -150px;"></div>
-                      <div id="pieChart" style="width: 350px; height: 264px;"></div>
-                  </td>
-              </tr>
-              <tr>
-                  <td></td>
-                  <td></td>
-              </tr>
-
-              <tr>
-                  <td>
-                      <span style="margin-left: 50px;">COMMENTS: ALL EMOTIONS</span>
-                      <input style="margin-left: 475px;" type="button" id="seeAllComments" value="See all comments" />
-                  </td>
-                  <td>
-                      <input style="margin-left: 10px;" type="text" id="txtCommentFilter" size="35" />
-                      <input type="button" id="btnCommentFilter" value="Go" />
-                  </td>
-              </tr>
-              <tr>
-                  <td colspan="2">
-                      <div id="verbatimText" style="width: 1200px; height: 200px; margin-left: 40px; overflow-y: scroll;"></div>
-                  </td>
-              </tr>
-          </table>
-             -->
-
 
 		<!-- <%= javascript_include_tag '/fx/AC_OETags.js' %>
 
