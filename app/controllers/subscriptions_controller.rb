@@ -1,26 +1,5 @@
 class SubscriptionsController < ApplicationController
   include ActionView::Helpers::TextHelper
-  before_filter :authenticate_user!
-  
-=begin
-  def quick_switch
-    p = current_user.plan
-    p.kind = params[:plan_code] if params[:plan_code]
-    p.end_date = params[:m_diff].to_i.months.since(p.start_date) if params[:m_diff]
-    p.save(false)
-    redirect_to :action => :new
-  end
-
-for #new view:
-
-  Switch plan: <% %w(free start expand magnify).each do |plan_code| %>
-    <%= link_to plan_code, url_for(:controller => 'subscriptions', :action => 'quick_switch', :plan_code => plan_code) %>
-  <%end%>
-  Switch months left: <% (1..12).each do |mleft| %>
-    <%= link_to mleft, url_for(:controller => 'subscriptions', :action => 'quick_switch', :m_diff => mleft) %>
-  <%end%>
-
-=end
   
   def index
     @payments = current_user.payments.all(:order => 'created_at DESC')

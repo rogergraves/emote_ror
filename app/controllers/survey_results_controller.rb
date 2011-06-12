@@ -1,5 +1,5 @@
 class SurveyResultsController < ApplicationController
-  before_filter :authenticate_user!, :except => [ :charts, :verbatims ]
+  skip_filter :authenticate_user!, :only => [ :charts, :verbatims ]
   before_filter :find_survey
   
   def all

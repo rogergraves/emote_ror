@@ -1,7 +1,7 @@
 require 'digest/md5'
 
 class SurveysController < ApplicationController
-  before_filter :authenticate_user!, :except => [:public_scorecard]
+  skip_filter :authenticate_user!, :only => [:public_scorecard]
 
   def index
     @surveys = current_user.surveys.all
