@@ -205,12 +205,14 @@ class Survey < ActiveRecord::Base
     verbs
   end
 
-  def new_responses_count(refresh = false)
+  def new_responses_count(opts = {})
+    refresh = opts[:refresh] || false
+    since = opts[:since] || self.scorecard_viewed_at
     @new_responses_count = nil if refresh
     @new_responses_count ||= Survey.connection.select_value(<<-SQL
         SELECT count(*) FROM survey_result AS sr
           INNER JOIN surveys AS s ON s.code=sr.code
-          WHERE s.id=#{self.id} AND sr.is_removed=0 AND sr.end_time >= '#{self.scorecard_viewed_at.to_s(:db)}';
+          WHERE s.id=#{self.id} AND sr.is_removed=0 AND sr.end_time >= '#{since.to_s(:db)}';
       SQL
     ).to_i
   end

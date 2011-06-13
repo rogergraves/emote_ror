@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
   before_create do |user|
     user.build_plan(:kind => 'free', :emote_amount => 1, :start_date => DateTime.now, :end_date => 1.year.from_now)
   end
+
+  def name
+    full_name.blank? ? email : full_name
+  end
   
   # Total emote slots including active and outdated
   def scorecards_total
