@@ -1,37 +1,29 @@
 <div id="content-win-centr-scorecard" role="main">
-  <div class="survey-title"><%= @survey.project_name %></div>
+  <!--<div class="survey-title"><%= @survey.project_name %></div>-->
     <div id="scorecard-content">
 		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
 		<%= javascript_include_tag 'highcharts.js' %>
 
-		<!-- 1a) Optional: add a theme file -->
-		<!--
-			<script type="text/javascript" src="../js/themes/gray.js"></script>
-		-->
-
-		<!-- 2. Add the JavaScript to initialize the chart on document ready -->
-		        <style type="text/css">
-		            .commentRow1 {
-		                /*display: inline-block;*/
-		                height:25px;
-		                width: 1150px;
-		                background-color: #FFFFFF;
-		                font-size: 11px;
-		            }
-		            .commentRow2 {
-		                /*display: inline-block;*/
-		                height:25px;
-		                width: 1150px;
-		                background-color: #CCCCCC;
-		                font-size: 11px;
-		            }
-		        </style>
+    <style type="text/css">
+        .commentRow1 {
+            height:25px;
+            width: 1150px;
+            background-color: #FFFFFF;
+            font-size: 11px;
+        }
+        .commentRow2 {
+            height:25px;
+            width: 1150px;
+            background-color: #CCCCCC;
+            font-size: 11px;
+        }
+    </style>
 		
 <script type="text/javascript">
 
-    var colors = {'green': '#336600', 'red': '#990033', white: '#FFFFFF', grey: '#CCCCCC'};
+    var colors = {'green': '#689839', 'red': '#c93337', white: '#FFFFFF', grey: '#CCCCCC'};
 	var intensity = {pp: 'enthusiasts', mp: 'participants', mn: 'indifferent', pn:'detractors'};
-	var pieColors = {pp: '#009933', mp: '#000066', mn: '#999999', pn: '#990000'};
+	var pieColors = {pp: '#0db5d4', mp: '#cccccc', mn: '#ececec', pn: '#eeae01'};
 	<% results = @survey.result_obj %>
 	var configTotals = <%= raw results[:totals].to_json -%>;
 	var configBars = <%= raw results[:bars].to_json -%>;
@@ -66,12 +58,12 @@
 				        exporting: {enabled: false},
 				        chart: {
 				         renderTo: 'barChart',
-				         defaultSeriesType: 'column',
+				         type: 'column',
 				         margin: [ 50, 50, 100, 80],
                          height: 280,
                          width: 800
 				        },
-				        title: {text: 'Emotion Spectrum'},
+				        title: {text: '<%= @survey.project_name %>'},
 				        xAxis: {
 				         categories: categories,
 				         labels: {
@@ -82,6 +74,7 @@
 				        },
 				        yAxis: {
 				         min: 0,
+                         gridLineColor: '',
 				         title: {text: '' }
 				        },
 
@@ -114,6 +107,7 @@
 				         formatter: function() { return '';}
 				        },
 				        series: [{
+                            pointWidth: 30,
 				            name: '',
 				            data: data,
 				            dataLabels: {
@@ -150,7 +144,8 @@
 				                 plotBorderWidth: null,
 				                 plotShadow: false
 				              },
-				              title: {text: 'Barometer'},
+                              legend: {layout: 'vertical'},
+				              title: {text: ''},
 				              tooltip: {
 				                 formatter: function() {
 				                    var pct = this.y/intTotalResponsesCount * 100;
@@ -160,6 +155,7 @@
 				              },
 				              plotOptions: {
 				                 pie: {
+                                    size: 200,
 				                    allowPointSelect: true,
 				                    cursor: 'pointer',
 				                    dataLabels: {enabled: false},
@@ -304,7 +300,7 @@
              <input type="button" id="seeAllComments" value="See all comments" />
 
              <input class="filter" type="text" id="txtCommentFilter" size="35" />
-             <input class="go-filter" type="image" src="../../../images/search_comments.gif" alt="go" id="btnCommentFilter" />
+             <input class="clear-filter" type="image" src="../../../images/clear_filter.png" alt="go" id="btnCommentClearFilter" />
             </div>
             
             <div class="table_comments" id="verbatimText"></div>

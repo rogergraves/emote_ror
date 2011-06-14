@@ -907,7 +907,7 @@ ul.start_box {
 .scorecard_data{
      width: 1150px;
      margin: 0 auto;
-     background: #585858;
+     background: #FFFFFF;
      padding: 15px 0 15px 0;
 }
 
@@ -919,6 +919,7 @@ ul.start_box {
 }
 
 .scorecard_data .t-responses{
+    background: url('/images/total_responses_bg.png') repeat-x;
     float: left; 
     width: 300px;
     height: 60px;
@@ -927,7 +928,7 @@ ul.start_box {
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    background: #000;
+    /*background: #000;*/
     color: #bfbfbf;
     font-size: 28px;
     text-align: left;
@@ -937,7 +938,7 @@ ul.start_box {
 .scorecard_data .barometer {
     float: left;
     width: 315px;
-    height: 210px;
+    height: 300px;
     margin: 10px 0 0 15px;
     background: #000;
     color: #bfbfbf;
@@ -984,10 +985,10 @@ ul.start_box {
     margin: 4px 0 0 10px;
 }
 
-.scorecard_data .comments_data .go-filter{
+.scorecard_data .comments_data .clear-filter{
      position: relative;
      left: 446px;
-     bottom: 24px;
+     bottom: 26px;
 }
 
 .table_comments {
