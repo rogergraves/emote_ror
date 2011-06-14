@@ -6,15 +6,15 @@
 
     <style type="text/css">
         .commentRow1 {
-            height:25px;
+            height:45px;
             width: 1150px;
             background-color: #FFFFFF;
             font-size: 11px;
         }
         .commentRow2 {
-            height:25px;
+            height:45px;
             width: 1150px;
-            background-color: #CCCCCC;
+            background-color: #f0f0f0;
             font-size: 11px;
         }
     </style>
@@ -205,15 +205,15 @@
 
             var strEmoteTitle = row.face.split('_')[0];
 
-            verbatimHTML+= tr + "\n<td align='left'>\n" +
+            verbatimHTML+= tr + "\n<td align='left' style='vertical-align:middle;'>\n" +
                     "&nbsp;&nbsp;<img width='20px' height='20px' " +
                     " title='" + strEmoteTitle + "'" +
                     " src='/images/verbatim_intensity/" +
                     row.face + ".png'>&nbsp;&nbsp;  \n" + row.text + "\n</td>\n"+
-                    "\n<td align='right'>\n" +
+                    "\n<td align='right' style='vertical-align:middle;color:#5b5b5b;'>\n" +
                     row.timestamp + "&nbsp;" +
-                    "\n<button style='visibility:hidden;' id='btn_del_"+row.id+"' type='button' onclick='deleteVerbatim("+row.id+");'>" +
-                    "<img src='/images/trash_icon.png' width='15px' height='18px'></button> \n"+
+                    "\n<button style='width:27px; visibility:hidden;' id='btn_del_"+row.id+"' type='button' onclick='deleteVerbatim("+row.id+");'>" +
+                    "<img style='vertical-align:middle;' src='/images/delete_verbatim.png' width='15px' height='16px'></button> \n"+
                     "\n&nbsp;<td/>\n</tr>\n";
             i++;
         }
