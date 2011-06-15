@@ -1,5 +1,5 @@
 <div id="content-win-centr-scorecard" role="main">
-  <!--<div class="survey-title"><%= @survey.project_name %></div>-->
+  <div class="survey-title"><%= @survey.project_name %></div>
     <div id="scorecard-content">
 		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
 		<%= javascript_include_tag 'highcharts.js' %>
@@ -296,11 +296,20 @@
             <div id="pieChart" class="barometer"></div>
 
             <div class="comments_data">
-             <span>COMMENTS: ALL EMOTIONS</span>
-             <input type="button" id="seeAllComments" value="See all comments" />
+             
+               <table>
+                 <tr>
+                   <td class="left_r-corners"></td>    
+                   <td class="center-emotion">
+                     <span>emotion:</span> entusiastic
+                   </td>
+                   <td class="right_r-corners"></td>
+                 </tr>
+               </table>
 
+             <input class="magnifying_glass" type="image" src="../../../images/magnifying_glass_icon.png" id="btnCommentClearFilter" />
              <input class="filter" type="text" id="txtCommentFilter" size="35" />
-             <input class="clear-filter" type="image" src="../../../images/clear_filter.png" alt="go" id="btnCommentClearFilter" />
+             <input class="clear-filter" type="image" src="../../../images/clear_comments_button.png" id="btnCommentClearFilter" />
             </div>
             
             <div class="table_comments" id="verbatimText"></div>
