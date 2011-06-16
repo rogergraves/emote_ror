@@ -213,13 +213,12 @@
             var row = config[key];
             var remainder = i % 2;
 
-            var strEvents = " onmouseover='showDelButton("+row.id+")' onmouseout='hideDelButton("+row.id+")'";
+            var strEvents = " onmouseover='showRowButtons("+row.id+")' onmouseout='hideRowButtons("+row.id+")'";
             if (remainder == 1) tr = "\n<tr "+strEvents+" class='commentRow1'>\n";
             else tr = "\n<tr " +strEvents+ " class='commentRow2'>\n";
 
 
             var strEmoteTitle = row.face.split('_')[0];
-
             verbatimHTML+= tr + "\n<td align='left' style='vertical-align:middle;'>\n" +
                     "&nbsp;&nbsp;<img width='20px' height='20px' " +
                     " title='" + strEmoteTitle + "'" +
@@ -227,8 +226,12 @@
                     row.face + ".png'>&nbsp;&nbsp;  \n" + row.text + "\n</td>\n"+
                     "\n<td align='right' style='vertical-align:middle;color:#5b5b5b;'>\n" +
                     row.timestamp + "&nbsp;" +
-                    "\n<button style='width:27px; visibility:hidden;' id='btn_del_"+row.id+"' type='button' onclick='deleteVerbatim("+row.id+");'>" +
-                    "<img style='vertical-align:middle;' src='/images/delete_verbatim.png' width='15px' height='16px'></button> \n"+
+                    "\n<a style='width:27px; visibility:hidden;' id='btn_del_"+row.id+"' onclick='deleteVerbatim("+row.id+");'>" +
+                    "<img style='vertical-align:middle;' src='/images/delete_verbatim.png' width='15px' height='16px'></a> \n"+
+
+                    "\n<a onclick='mailDialog("+row.id+");' style='width:27px; visibility:hidden;' id='btn_email_"+row.id+"' >" +
+                    "<img style='vertical-align:middle;' src='/images/unclicked_email.png' width='15px' height='16px' id='img_email_"+row.id+"'></a> \n"+
+
                     "\n&nbsp;<td/>\n</tr>\n";
             i++;
         }
@@ -236,12 +239,19 @@
         $('#verbatimText').html(verbatimHTML);
     }
 
-    function showDelButton(id){
+    function showRowButtons(id){
         document.getElementById('btn_del_' + id).style.visibility = 'visible';
+        document.getElementById('btn_email_' + id).style.visibility = 'visible';
     }
 
-    function hideDelButton(id){
+    function hideRowButtons(id){
         document.getElementById('btn_del_' + id).style.visibility = 'hidden';
+        document.getElementById('btn_email_' + id).style.visibility = 'hidden';
+    }
+
+    function mailDialog(/*mail, */id){
+        //parent.location = 'mailto:' + mail;
+        document.getElementById('img_email_' + id).src = '/images/clicked_email.png';
     }
 
     function deleteVerbatim(id){
