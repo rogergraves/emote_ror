@@ -1,5 +1,12 @@
 <div id="content-win-centr-scorecard" role="main">
-  <div class="survey-title"></div>
+  <div class="survey-title">
+      <a style="cursor: pointer;margin-right:10px;">
+          <img id='share_button' onmouseout="changeImg('share_button', 'share_button');" onmouseover="changeImg('share_button', 'share_button_over');" src="/images/share_button.png" alt=""/>
+      </a>
+      <a style="cursor: pointer;margin-right:100px;">
+          <img id='download_button' onmouseout="changeImg('download_button', 'download_button');" onmouseover="changeImg('download_button', 'download_button_over');" src="/images/download_button.png" alt=""/>
+      </a>
+  </div>
     <div id="scorecard-content">
 		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
 		<%= javascript_include_tag 'highcharts.js' %>
@@ -288,6 +295,9 @@
          });
     }
 
+    function changeImg(id, img){
+        document.getElementById(id).src = '/images/' + img + '.png';
+    }
    /**
      *
      * @param config.data - data to be sent to server
