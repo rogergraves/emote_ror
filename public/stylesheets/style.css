@@ -920,19 +920,19 @@ ul.start_box {
 
 .scorecard_data .t-responses{
     background: url('/images/total_responses_bg.png') repeat-x;
-    float: left; 
-    width: 300px;
+    float: left;
+    width: 150px;
     height: 60px;
-    line-height: 60px;
-    margin: 0 0 0 15px;
+    /*line-height: 100px;*/
+    margin: 0 0 0 90px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     /*background: #000;*/
     color: #bfbfbf;
-    font-size: 28px;
+    font-size: 13px;
     text-align: left;
-    padding: 0 0 0 15px;
+    padding: 15px 0 0 30px;
 }
 
 .scorecard_data .barometer {
@@ -988,12 +988,12 @@ ul.start_box {
 .scorecard_data .comments_data .magnifying_glass{
     position: relative;
     top: 15px;
-    left: 45px;
+    left: 27px;
 }
 
 .scorecard_data .comments_data input{
     float: left;
-    margin: 4px 10px 0 560px;
+    margin: 4px 10px 0 460px;
 }
 
 .scorecard_data .comments_data input.filter {
@@ -1005,13 +1005,13 @@ ul.start_box {
     line-height: 23px;
     color: #000;
     padding: 0 30px;
-    margin: 15px 0 0 10px;
+    margin: 15px 0 0 0;
 }
 
 .scorecard_data .comments_data .clear-filter{
     position: relative;
     top: -28px;
-    left: 334px;
+    left: 325px;
     width: 23px;
     height: 23px;
 }

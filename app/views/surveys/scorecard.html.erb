@@ -1,5 +1,5 @@
 <div id="content-win-centr-scorecard" role="main">
-  <div class="survey-title"><%= @survey.project_name %></div>
+  <div class="survey-title"></div>
     <div id="scorecard-content">
 		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
 		<%= javascript_include_tag 'highcharts.js' %>
@@ -29,6 +29,8 @@
 	var configBars = <%= raw results[:bars].to_json -%>;
 	var configPie = <%= raw results[:pie].to_json -%>;
 	var configVerbatim = <%= raw @survey.verbatims_obj.to_json -%>;
+    var strEmotionLabel = "<span>emotion: </span>";
+    var strSearchLabel = "<span>search: </span>";
 
     $(document).ready(function() {
         renderBarChart(configBars);
@@ -37,9 +39,16 @@
 
 
 		$('#btnCommentFilter').click(filterVerbatim);
-        $('#seeAllComments').click(function (){
+        $('#btnCommentClearFilter').click(function (){
             $('#txtCommentFilter').val('');
             filterVerbatim();
+        });
+
+        $('#see_all_comments').click(function (){
+            $('#txtCommentFilter').val('');
+            filterVerbatim();
+            $('#emotionLabel').html("All comments");
+            document.getElementById('see_all_comments').style.visibility = 'hidden';
         });
 
 	});
@@ -85,6 +94,8 @@
 				                   events: {
 				                      click: function() {
                                          var cfg = this.config;
+                                         $('#emotionLabel').html(strEmotionLabel + cfg.name);
+                                         document.getElementById('see_all_comments').style.visibility = 'visible';
 				                         doAjax({
 				                             data: {name: cfg.name},
                                              url: '/survey_results/verbatims.json',
@@ -163,7 +174,9 @@
 				                    point: {
 				                       events: {
 				                          click: function() {
-				                             doAjax({
+				                             $('#emotionLabel').html(strEmotionLabel + this.config.name);
+                                             document.getElementById('see_all_comments').style.visibility = 'visible';
+                                             doAjax({
                                                  url: '/survey_results/verbatims.json',
 				                                 data: {subset: this.config.name},
 				                                 successCallback: function (response, textStatus) {
@@ -186,8 +199,10 @@
 				                 data: pieData
 				              }]
 				           });
-
-				        $('#totalResp').html("Total Responses: " + intTotalResponsesCount);
+                        var strTotal = "<table><tr><td style='font-size:32px; font-weight: bold;'>";
+                        strTotal += intTotalResponsesCount+"</td><td> TOTAL <br/>RESPONSES</td></tr></table>";
+				        //$('#totalResp').html("Total Responses: " + intTotalResponsesCount);
+                        $('#totalResp').html(strTotal);
 				    }
 
     function loadComments(config){
@@ -248,6 +263,7 @@
     }
 
     function filterVerbatim(text){
+        document.getElementById('see_all_comments').style.visibility = 'visible';
         doAjax({
              url: '/survey_results/verbatims.json',
              data: {filter: $('#txtCommentFilter').val()},
@@ -262,7 +278,7 @@
          });
     }
 
-    /**
+   /**
      *
      * @param config.data - data to be sent to server
      * @param config.successCallback - function to call on success
@@ -301,13 +317,16 @@
                  <tr>
                    <td class="left_r-corners"></td>    
                    <td class="center-emotion">
-                     <span>emotion:</span> entusiastic
+                     <div id='emotionLabel'> All comments </div>
                    </td>
                    <td class="right_r-corners"></td>
+                   <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                   <td><a style="cursor: pointer;visibility: hidden;" id='see_all_comments'>See all comments</a></td>
                  </tr>
                </table>
 
-             <input class="magnifying_glass" type="image" src="../../../images/magnifying_glass_icon.png" id="btnCommentClearFilter" />
+
+             <input class="magnifying_glass" type="image" src="../../../images/magnifying_glass_icon.png" id="btnCommentFilter" />
              <input class="filter" type="text" id="txtCommentFilter" size="35" />
              <input class="clear-filter" type="image" src="../../../images/clear_comments_button.png" id="btnCommentClearFilter" />
             </div>
