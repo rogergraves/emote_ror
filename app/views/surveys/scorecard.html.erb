@@ -5,6 +5,8 @@
     <div id="scorecard-content">
 		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
 		<%= javascript_include_tag 'highcharts.js' %>
+        <%= javascript_include_tag 'jquery.simplemodal.js' %>
+        <link type='text/css' href='/stylesheets/modal.css' rel='stylesheet' media='screen' />
 
     <style type="text/css">
         .commentRow1 {
@@ -34,7 +36,7 @@
     var strEmotionLabel = "<span>emotion: </span>";
     var strSearchLabel = "<span>search: </span>";
 
-    $(document).ready(function() {
+    jQuery(function ($) {
         renderBarChart(configBars);
 		renderPieChart(configPie);
         loadComments(configVerbatim);
@@ -53,6 +55,11 @@
             document.getElementById('see_all_comments').style.visibility = 'hidden';
         });
 
+        $('#share_button').click(function (e) {
+            $('#share_scorecard_modal').modal();
+
+            return false;
+        });
 	});
 
     function renderBarChart(config){
@@ -316,7 +323,8 @@
     }
 
 
-						</script>
+</script>
+
 
          <div class="scorecard_data">
             <!-- 3. Add the container -->
@@ -356,88 +364,12 @@
             <div class="clear"></div>
          </div>
 
-		<!-- <%= javascript_include_tag '/fx/AC_OETags.js' %>
 
-		<script language="JavaScript" type="text/javascript">
-		var requiredMajorVersion = 10;
-		var requiredMinorVersion = 0;
-		var requiredRevision = 124;
-		</script>
-
-		<script language="JavaScript" type="text/javascript">
-		var hasProductInstall = DetectFlashVer(6, 0, 65);
-		var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
-
-		if ( hasProductInstall && !hasRequestedVersion ) {
-			var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
-			var MMredirectURL = encodeURI(window.location);
-		    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
-		    var MMdoctitle = document.title;
-
-			AC_FL_RunContent(
-				"src", "/fx/playerProductInstall",
-				"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
-				"width", "1140",
-				"height", "100%",
-				"align", "middle",
-				"id", "main",
-				'wmode', 'opaque',
-				"quality", "high",
-				"bgcolor", "#ffffff",
-				"name", "main",
-				"allowScriptAccess","sameDomain",
-				"type", "application/x-shockwave-flash",
-				"pluginspage", "http://www.adobe.com/go/getflashplayer"
-			);
-		} else if (hasRequestedVersion) {
-			AC_FL_RunContent(
-					"src", "/fx/main",
-					"FlashVars", "survey=<%= @survey.code -%>&survey_id=<%= @survey.id -%>&action_token=<%= @survey.action_token -%>",
-					"width", "1140",
-					"height", "100%",
-					"align", "middle",
-					"id", "main",
-					'wmode', 'opaque',
-					"quality", "high",
-					"bgcolor", "#ffffff",
-					"name", "main",
-					"allowScriptAccess","sameDomain",
-					"type", "application/x-shockwave-flash",
-					"pluginspage", "http://www.adobe.com/go/getflashplayer"
-			);
-		  } else {  // flash is too old or we can't detect the plugin
-		    var alternateContent = 'Alternate HTML content should be placed here. '
-		  	+ 'This content requires the Adobe Flash Player. '
-		   	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
-		    document.write(alternateContent);  // insert non-flash content
-		  }
-		// 
-		</script>
-		<noscript>
-		  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-					id="main" width="1140" height="100%"
-					codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
-					<param name="movie" value="/fx/main.swf?survey_id='+<%= @survey.id -%>+'&survey='+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" />
-					<param name="quality" value="high" />
-					<param name="bgcolor" value="#ffffff" />
-					<param name="wmode" value="opaque" />
-					<param name="allowScriptAccess" value="sameDomain" />
-					<embed src="main.swf?survey_id='+<%= @survey.id -%>+'&survey='+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" quality="high" bgcolor="#ffffff"
-						width="1140" height="100%" name="main" align="middle"
-						play="true"
-						loop="false"
-						quality="high"
-						allowScriptAccess="sameDomain"
-						type="application/x-shockwave-flash"
-						pluginspage="http://www.adobe.com/go/getflashplayer">
-					</embed>
-			</object>
-		</noscript>-->
     </div>
-    <div class="share_scorecard">
-	    <strong>Share Scorecard</strong>
-        <span class="share_link_scorecard">
-            <strong>Link: </strong>
+    <div id='share_scorecard_modal'>
+	    <strong style="margin-left: 100px;">Share Scorecard Link</strong>
+        <br/><br/><br/><br/>
+        <span class="share_link_scorecard" style="margin-left: 100px;">
             <%= text_field_tag '', public_scorecard_url(:code => @survey.scorecard_code), :class => 'locked-selectall' %>
         </span>
     </div>
