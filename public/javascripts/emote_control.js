@@ -26,13 +26,16 @@ $(document).ready(function() {
             alert(data);
         }
     });
+    alerts_dlg.find("input[name='respondent_email']").change(function(){
+        displayFeedbackPrompt(this.value);
+    });
     alerts_dlg.removeAttr('style').dialog({
         title: "Activity Alerts",
         autoOpen: false,
         closeOnEscape: true,
         modal: true,
         width: 400,
-        height: 300
+        height: 370
     });
 });
 
@@ -86,7 +89,18 @@ function onAlertSettingsData(json){
     dlg.find("#respondent-emails input:radio").each(function(){
       $(this).attr('checked', $(this).attr('value')==json.store_respondent_contacts)
     });
+    displayFeedbackPrompt(json.store_respondent_contacts);
+    var prompt = $.trim(json.feedback_prompt)=='' ? "Start a conversation with us... Enter your email below - we’d be delighted to contact you!" : json.feedback_prompt
+    dlg.find("#feedback_prompt").val(prompt);
     dlg.dialog('open');
+}
+
+function displayFeedbackPrompt(visible){
+    if(visible=='true'){
+        $("#alerts-dialog #feedback-prompt-container").show();
+    } else {
+        $("#alerts-dialog #feedback-prompt-container").hide();
+    }
 }
 
 

@@ -134,6 +134,10 @@
       <br/>
       <%= radio_button_tag 'respondent_email', false %>
       <%= label_tag "respondent_email_false", 'No' %>
+      <div id="feedback-prompt-container">
+        <%= label_tag 'feedback_prompt', "Message:" %><br/>
+        <%= text_area_tag 'feedback_prompt', 'feedback_prompt', :size => 60, :rows => 2, :cols => 55  %>
+      </div>
     </div>
     <br/>
     <center>
