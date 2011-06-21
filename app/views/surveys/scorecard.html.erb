@@ -367,10 +367,10 @@
 
     </div>
     <div id='share_scorecard_modal'>
-	    <strong style="margin-left: 100px;">Share Scorecard Link</strong>
+	    <strong style="margin-left: 100px;color: #000000;">Share Scorecard Link</strong>
         <br/><br/><br/><br/>
-        <span class="share_link_scorecard" style="margin-left: 100px;">
-            <%= text_field_tag '', public_scorecard_url(:code => @survey.scorecard_code), :class => 'locked-selectall' %>
+        <span class="share_link_scorecard" style="margin-left: 60px;">
+            <%= text_field_tag '', public_scorecard_url(:code => @survey.scorecard_code), :size => '30',:class => 'locked-selectall' %>
         </span>
     </div>
 </div>
