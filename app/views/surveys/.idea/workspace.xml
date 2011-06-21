@@ -23,19 +23,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="scorecard.html.erb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="scorecard.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scorecard.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="0" selection-start="2338" selection-end="2338" vertical-scroll-proportion="0.42687747">
+            <state line="69" column="4" selection-start="2385" selection-end="2385" vertical-scroll-proportion="-15.375">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="modal.css" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="modal.css" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../../../public/stylesheets/modal.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="22" selection-start="523" selection-end="544" vertical-scroll-proportion="0.0">
+            <state line="15" column="0" selection-start="430" selection-end="430" vertical-scroll-proportion="0.28735632">
               <folding />
             </state>
           </provider>
@@ -70,8 +70,8 @@
         <option value="$USER_HOME$/Downloads/basic/js/jquery.simplemodal.js" />
         <option value="$PROJECT_DIR$/../../../public/javascripts/jquery.simplemodal.js" />
         <option value="$USER_HOME$/Downloads/basic/js/basic.js" />
-        <option value="$PROJECT_DIR$/../../../public/stylesheets/modal.css" />
         <option value="$PROJECT_DIR$/scorecard.html.erb" />
+        <option value="$PROJECT_DIR$/../../../public/stylesheets/modal.css" />
       </list>
     </option>
   </component>
@@ -277,16 +277,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../public/stylesheets/modal.css">
+    <entry file="file://$PROJECT_DIR$/scorecard.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="22" selection-start="523" selection-end="544" vertical-scroll-proportion="0.0">
+        <state line="69" column="4" selection-start="2385" selection-end="2385" vertical-scroll-proportion="-15.375">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scorecard.html.erb">
+    <entry file="file://$PROJECT_DIR$/../../../public/stylesheets/modal.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="0" selection-start="2338" selection-end="2338" vertical-scroll-proportion="0.42687747">
+        <state line="15" column="0" selection-start="430" selection-end="430" vertical-scroll-proportion="0.28735632">
           <folding />
         </state>
       </provider>
