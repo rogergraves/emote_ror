@@ -12,7 +12,7 @@ gem "sortable_table", :git => 'git@github.com:duhast/sortable.git'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'mysql2', '0.2.7'
 gem 'mysql'
 #gem 'sqlite3-ruby', :require => 'sqlite3'
 
