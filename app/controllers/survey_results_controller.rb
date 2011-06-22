@@ -51,7 +51,7 @@ class SurveyResultsController < ApplicationController
   end
   protected
     def find_survey
-      if !params[:survey_id].blank?
+      if !params[:survey_id].blank? && !current_user.nil?
         @survey = current_user.surveys.find_by_id(params[:survey_id])
       else
         @survey = Survey.find_by_code(params[:survey])
