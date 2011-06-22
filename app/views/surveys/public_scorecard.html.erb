@@ -1,82 +1,366 @@
 <div id="content-win-centr-scorecard" role="main">
-  <div class="survey-title"><%= @survey.project_name %></div>
+  <div class="survey-title">
+      <a style="cursor: pointer;margin-right:10px;">
+          <img id='share_button' onmouseout="changeImg('share_button', 'share_button');" onmouseover="changeImg('share_button', 'share_button_over');" src="/images/share_button.png" alt=""/>
+      </a>
+      <a style="cursor: pointer;margin-right:100px;">
+          <img id='download_button' onmouseout="changeImg('download_button', 'download_button');" onmouseover="changeImg('download_button', 'download_button_over');" src="/images/download_button.png" alt=""/>
+      </a>
+  </div>
     <div id="scorecard-content">
-		<%= javascript_include_tag '/fx/AC_OETags.js' %>
+		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+		<%= javascript_include_tag 'highcharts.js' %>
 
-		<script language="JavaScript" type="text/javascript">
-		var requiredMajorVersion = 10;
-		var requiredMinorVersion = 0;
-		var requiredRevision = 124;
-		</script>
+    <style type="text/css">
+        .commentRow1 {
+            height:45px;
+            width: 1150px;
+            background-color: #FFFFFF;
+            font-size: 11px;
+        }
+        .commentRow2 {
+            height:45px;
+            width: 1150px;
+            background-color: #f0f0f0;
+            font-size: 11px;
+        }
+    </style>
+		
+<script type="text/javascript">
 
-		<script language="JavaScript" type="text/javascript">
-		var hasProductInstall = DetectFlashVer(6, 0, 65);
-		var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+    var colors = {'green': '#689839', 'red': '#c93337', white: '#FFFFFF', grey: '#CCCCCC'};
+	var intensity = {pp: 'enthusiasts', mp: 'participants', mn: 'indifferent', pn:'detractors'};
+	var pieColors = {pp: '#0db5d4', mp: '#cccccc', mn: '#ececec', pn: '#eeae01'};
+	<% results = @survey.result_obj %>
+	var configTotals = <%= raw results[:totals].to_json -%>;
+	var configBars = <%= raw results[:bars].to_json -%>;
+	var configPie = <%= raw results[:pie].to_json -%>;
+	var configVerbatim = <%= raw @survey.verbatims_obj.to_json -%>;
+    var strEmotionLabel = "<span>emotion: </span>";
+    var strSearchLabel = "<span>search: </span>";
 
-		if ( hasProductInstall && !hasRequestedVersion ) {
-			var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
-			var MMredirectURL = encodeURI(window.location);
-		    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
-		    var MMdoctitle = document.title;
+    $(document).ready(function() {
+        renderBarChart(configBars);
+		renderPieChart(configPie);
+        loadComments(configVerbatim);
 
-			AC_FL_RunContent(
-				"src", "/fx/playerProductInstall",
-				"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
-				"width", "1140",
-				"height", "100%",
-				"align", "middle",
-				"id", "main",
-				'wmode', 'opaque',
-				"quality", "high",
-				"bgcolor", "#ffffff",
-				"name", "main",
-				"allowScriptAccess","sameDomain",
-				"type", "application/x-shockwave-flash",
-				"pluginspage", "http://www.adobe.com/go/getflashplayer"
-			);
-		} else if (hasRequestedVersion) {
-			AC_FL_RunContent(
-					"src", "/fx/main",
-					"FlashVars", "survey=<%= @survey.code -%>",
-					"width", "1140",
-					"height", "100%",
-					"align", "middle",
-					"id", "main",
-					'wmode', 'opaque',
-					"quality", "high",
-					"bgcolor", "#ffffff",
-					"name", "main",
-					"allowScriptAccess","sameDomain",
-					"type", "application/x-shockwave-flash",
-					"pluginspage", "http://www.adobe.com/go/getflashplayer"
-			);
-		  } else {  // flash is too old or we can't detect the plugin
-		    var alternateContent = 'Alternate HTML content should be placed here. '
-		  	+ 'This content requires the Adobe Flash Player. '
-		   	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
-		    document.write(alternateContent);  // insert non-flash content
-		  }
-		// -->
-		</script>
-		<noscript>
-		  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-					id="main" width="1140" height="100%"
-					codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
-					<param name="movie" value="/fx/main.swf?survey='+<%= @survey.code -%>" />
-					<param name="quality" value="high" />
-					<param name="bgcolor" value="#ffffff" />
-					<param name="wmode" value="opaque" />
-					<param name="allowScriptAccess" value="sameDomain" />
-					<embed src="main.swf?survey='+<%= @survey.code -%>" quality="high" bgcolor="#ffffff"
-						width="1140" height="100%" name="main" align="middle"
-						play="true"
-						loop="false"
-						quality="high"
-						allowScriptAccess="sameDomain"
-						type="application/x-shockwave-flash"
-						pluginspage="http://www.adobe.com/go/getflashplayer">
-					</embed>
-			</object>
-		</noscript>
+
+		$('#btnCommentFilter').click(filterVerbatim);
+        $('#btnCommentClearFilter').click(function (){
+            $('#txtCommentFilter').val('');
+            filterVerbatim();
+        });
+
+        $('#see_all_comments').click(function (){
+            $('#txtCommentFilter').val('');
+            filterVerbatim();
+            $('#emotionLabel').html("COMMENTS: ALL EMOTIONS");
+            document.getElementById('see_all_comments').style.visibility = 'hidden';
+        });
+
+	});
+
+    function renderBarChart(config){
+				        var categories = [];
+                        var data = [];
+				        for (var key in config) {
+				            var currentCfg = config[key];
+				            var obj = {y: parseInt(currentCfg.value), color: colors[currentCfg.color], name: currentCfg.name}
+				            data.push(obj);
+                            categories.push(currentCfg.name.toUpperCase());
+				        }
+
+				        var chart = new Highcharts.Chart({
+				        exporting: {enabled: false},
+				        chart: {
+				         renderTo: 'barChart',
+				         type: 'column',
+				         margin: [ 50, 50, 100, 80],
+                         height: 280,
+                         width: 800
+				        },
+				        title: {text: '<%= @survey.project_name %>'},
+				        xAxis: {
+				         categories: categories,
+				         labels: {
+				            rotation: -90,
+				            align: 'right',
+				            style: {font: 'normal 11px Verdana, sans-serif'}
+				         }
+				        },
+				        yAxis: {
+				         min: 0,
+                         gridLineColor: '',
+				         title: {text: '' }
+				        },
+
+				        plotOptions: {
+				             column: {
+				                cursor: 'pointer',
+				                point: {
+				                   events: {
+				                      click: function() {
+                                         var cfg = this.config;
+                                         $('#emotionLabel').html(strEmotionLabel + cfg.name);
+                                         document.getElementById('see_all_comments').style.visibility = 'visible';
+				                         doAjax({
+				                             data: {name: cfg.name},
+                                             url: '/survey_results/verbatims.json',
+				                             successCallback: function (response, textStatus) {
+				                             var data = jQuery.parseJSON(response);
+				                             loadComments(data);
+				                          },
+				                             errorCallback: function(request, textStatus, errorThrown){
+				                              console.log(errorThrown);
+                                              throw new Error('error fetching verbatims for a pointer');
+				                          }
+				                         });
+				                      }
+				                   }
+				                }
+				             }
+				        },
+				        legend: {enabled: false},
+				        tooltip: {
+				         formatter: function() { return '';}
+				        },
+				        series: [{
+                            pointWidth: 30,
+				            name: '',
+				            data: data,
+				            dataLabels: {
+				               enabled: true,
+				               color: '#FFFFFF',
+				               align: 'right',
+				               x: -3,
+				               y: 10,
+				               formatter: function() {
+				                   return this.y;
+				                },
+				               style: {font: 'normal 10px Verdana, sans-serif'}
+				             }
+				            }]
+				        });
+				    }
+
+	function renderPieChart(pieConfig){
+				        var pieData = [];
+
+				        var intTotalResponsesCount = 0;
+				        for (var key in pieConfig){
+				            var val = pieConfig[key];
+				            var obj = {name: intensity[key], y: parseInt(val), color: pieColors[key]};
+				            intTotalResponsesCount+= parseInt(val);
+				            pieData.push(obj);
+				        }
+
+				        var pieChart = new Highcharts.Chart({
+				              exporting: {enabled: false},
+				              chart: {
+				                 renderTo: 'pieChart',
+				                 plotBackgroundColor: null,
+				                 plotBorderWidth: null,
+				                 plotShadow: false
+				              },
+                              legend: {layout: 'vertical'},
+				              title: {text: ''},
+				              tooltip: {
+				                 formatter: function() {
+				                    var pct = this.y/intTotalResponsesCount * 100;
+				                    return '<b>'+ this.point.name +'</b>: '+ this.y +' responses (' + pct.toFixed(2) + '%)';
+
+				                 }
+				              },
+				              plotOptions: {
+				                 pie: {
+                                    size: 200,
+				                    allowPointSelect: true,
+				                    cursor: 'pointer',
+				                    dataLabels: {enabled: false},
+				                    showInLegend: true,
+				                    point: {
+				                       events: {
+				                          click: function() {
+				                             $('#emotionLabel').html(strEmotionLabel + this.config.name);
+                                             document.getElementById('see_all_comments').style.visibility = 'visible';
+                                             doAjax({
+                                                 url: '/survey_results/verbatims.json',
+				                                 data: {subset: this.config.name},
+				                                 successCallback: function (response, textStatus) {
+				                                  var data = jQuery.parseJSON(response);
+				                                  loadComments(data);
+				                               },
+				                               errorCallback: function(request, textStatus, errorThrown){
+				                                  throw new Error('error fetching verbatims for a pie');
+				                                  console.log(errorThrown);
+				                               }
+				                             });
+				                          }
+				                       }
+				                    }
+				                 }
+				              },
+				               series: [{
+				                 type: 'pie',
+				                 name: 'Barometer',
+				                 data: pieData
+				              }]
+				           });
+                        var strTotal = "<table><tr><td style='font-size:32px; font-weight: bold;'>";
+                        strTotal += intTotalResponsesCount+"</td><td> TOTAL <br/>RESPONSES</td></tr></table>";
+				        //$('#totalResp').html("Total Responses: " + intTotalResponsesCount);
+                        $('#totalResp').html(strTotal);
+				    }
+
+    function loadComments(config){
+        var verbatimHTML = "<table style='width: 1103px;'>\n";
+        var i=0;
+        var tr = '';
+        for (var key in config){
+            var row = config[key];
+            var remainder = i % 2;
+
+            var strEvents = " onmouseover='showRowButtons("+row.id+")' onmouseout='hideRowButtons("+row.id+")'";
+            if (remainder == 1) tr = "\n<tr "+strEvents+" class='commentRow1'>\n";
+            else tr = "\n<tr " +strEvents+ " class='commentRow2'>\n";
+
+
+            var strEmoteTitle = row.face.split('_')[0];
+            verbatimHTML+= tr + "\n<td align='left' style='vertical-align:middle;'>\n" +
+                    "&nbsp;&nbsp;<img width='20px' height='20px' " +
+                    " title='" + strEmoteTitle + "'" +
+                    " src='/images/verbatim_intensity/" +
+                    row.face + ".png'>&nbsp;&nbsp;  \n" + row.text + "\n</td>\n"+
+                    "\n<td align='right' style='vertical-align:middle;color:#5b5b5b;'>\n" +
+                    row.timestamp + "&nbsp;" +
+                    "\n<a style='width:27px; visibility:hidden;' id='btn_del_"+row.id+"' onclick='deleteVerbatim("+row.id+");'>" +
+                    "<img style='vertical-align:middle;' src='/images/delete_verbatim.png' width='15px' height='16px'></a> \n"+
+
+                    "\n<a onclick='mailDialog("+row.id+");' style='width:27px; visibility:hidden;' id='btn_email_"+row.id+"' >" +
+                    "<img style='vertical-align:middle;' src='/images/unclicked_email.png' width='15px' height='16px' id='img_email_"+row.id+"'></a> \n"+
+
+                    "\n&nbsp;<td/>\n</tr>\n";
+            i++;
+        }
+        verbatimHTML+= '\n</table>\n';
+        $('#verbatimText').html(verbatimHTML);
+    }
+
+    function showRowButtons(id){
+        document.getElementById('btn_del_' + id).style.visibility = 'visible';
+        document.getElementById('btn_email_' + id).style.visibility = 'visible';
+    }
+
+    function hideRowButtons(id){
+        document.getElementById('btn_del_' + id).style.visibility = 'hidden';
+        document.getElementById('btn_email_' + id).style.visibility = 'hidden';
+    }
+
+    function mailDialog(/*mail, */id){
+        //parent.location = 'mailto:' + mail;
+        document.getElementById('img_email_' + id).src = '/images/clicked_email.png';
+    }
+
+    function deleteVerbatim(id){
+        var ok = confirm("Are you sure you want to delete this response? After you delete it there's no way to undo it.");
+        if (ok){
+             doAjax({
+                 data: {id: id},
+                 url: '/survey_results/delete_response.json',
+                 successCallback: function (response, textStatus) {
+                    $('#txtCommentFilter').val('');
+                    filterVerbatim();
+               },
+                 errorCallback: function(request, textStatus, errorThrown){
+                  console.log(errorThrown);
+                  throw new Error('error deleting a verbatim: ' + id);
+               }
+             });
+        }
+    }
+
+    function filterVerbatim(text){
+        document.getElementById('see_all_comments').style.visibility = 'visible';
+        doAjax({
+             url: '/survey_results/verbatims.json',
+             data: {filter: $('#txtCommentFilter').val()},
+             successCallback: function (response, textStatus) {
+             var data = jQuery.parseJSON(response);
+             loadComments(data);
+           },
+             errorCallback: function(request, textStatus, errorThrown){
+              console.log(errorThrown);
+               throw new Error('error filtering verbatims');
+           }
+         });
+    }
+
+    function changeImg(id, img){
+        document.getElementById(id).src = '/images/' + img + '.png';
+    }
+   /**
+     *
+     * @param config.data - data to be sent to server
+     * @param config.successCallback - function to call on success
+     * @param config.errorCallback - function to call on failure
+     */
+    function doAjax(config){
+       var strAjaxUrl = '/survey_results/verbatims.json';
+
+       if (!config.data) config.data = {};
+       config.data.survey = '<%= @survey.code -%>';
+       config.data.action_token = '';
+       config.data.session = '';
+       $.ajax({
+           type: "GET",
+           url: config.url || strAjaxUrl,
+           dataType: "html",
+           data: config.data,
+           cache: false,
+           success: config.successCallback ,
+           error: config.errorCallback
+        });
+    }
+
+
+						</script>
+
+         <div class="scorecard_data">
+            <!-- 3. Add the container -->
+            <div id="barChart" class="spectrum"></div>
+            <div id="totalResp" class="t-responses"></div>
+            <div id="pieChart" class="barometer"></div>
+
+            <div class="comments_data">
+             
+               <table>
+                 <tr>
+                   <td class="left_r-corners"></td>    
+                   <td class="center-emotion">
+                     <div id='emotionLabel'> COMMENTS: ALL EMOTIONS </div>
+                   </td>
+                   <td class="right_r-corners"></td>
+                   <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                   <td><a style="cursor: pointer;visibility: hidden;" id='see_all_comments'>See all comments</a></td>
+                 </tr>
+               </table>
+
+
+             <input class="magnifying_glass" type="image" src="../../../images/magnifying_glass_icon.png" id="btnCommentFilter" />
+             <input class="filter" type="text" id="txtCommentFilter" size="35" />
+             <input class="clear-filter" type="image" src="../../../images/clear_comments_button.png" id="btnCommentClearFilter" />
+            </div>
+            
+            <div class="table_comments" id="verbatimText"></div>
+            <div class="clear"></div>
+         </div>
+
+    </div>
+    <div class="share_scorecard">
+	    <strong>Share Scorecard</strong>
+        <span class="share_link_scorecard">
+            <strong>Link: </strong>
+            <%= text_field_tag '', public_scorecard_url(:code => @survey.scorecard_code), :class => 'locked-selectall' %>
+        </span>
     </div>
 </div>
