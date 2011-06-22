@@ -90,13 +90,17 @@ class SurveysController < ApplicationController
   def settings
     @survey = Survey.find(params[:id])
     if request.post?
-      @survey.update_attribute(:store_respondent_contacts, params[:respondent_email]=='true')
+      @survey.update_attributes(
+        :store_respondent_contacts => params[:respondent_email]=='true',
+        :feedback_prompt => params[:feedback_prompt]
+      )
       current_user.update_attribute(:activity_report_interval, params[:activity_interval])
       render :status => 200, :text => 'ok'
     else
       resp = {
         :activity_report_interval => current_user.activity_report_interval,
-        :store_respondent_contacts => (@survey.store_respondent_contacts || false).to_s
+        :store_respondent_contacts => (@survey.store_respondent_contacts || false).to_s,
+        :feedback_prompt => @survey.feedback_prompt
       }
       render :json => resp
     end

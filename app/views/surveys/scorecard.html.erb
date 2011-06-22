@@ -1,15 +1,12 @@
 <div id="content-win-centr-scorecard" role="main">
   <div class="survey-title">
-      <a style="cursor: pointer;margin-right:10px;">
-          <img id='share_button' onmouseout="changeImg('share_button', 'share_button');" onmouseover="changeImg('share_button', 'share_button_over');" src="/images/share_button.png" alt=""/>
-      </a>
-      <a style="cursor: pointer;margin-right:100px;">
-          <img id='download_button' onmouseout="changeImg('download_button', 'download_button');" onmouseover="changeImg('download_button', 'download_button_over');" src="/images/download_button.png" alt=""/>
-      </a>
+
   </div>
     <div id="scorecard-content">
 		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
 		<%= javascript_include_tag 'highcharts.js' %>
+        <%= javascript_include_tag 'jquery.simplemodal.js' %>
+        <link type='text/css' href='/stylesheets/modal.css' rel='stylesheet' media='screen' />
 
     <style type="text/css">
         .commentRow1 {
@@ -39,7 +36,7 @@
     var strEmotionLabel = "<span>emotion: </span>";
     var strSearchLabel = "<span>search: </span>";
 
-    $(document).ready(function() {
+    jQuery(function ($) {
         renderBarChart(configBars);
 		renderPieChart(configPie);
         loadComments(configVerbatim);
@@ -58,7 +55,19 @@
             document.getElementById('see_all_comments').style.visibility = 'hidden';
         });
 
+        $('#share_button').click(function (e) {
+            $('#share_scorecard_modal').modal();
+
+            return false;
+        });
+
+        $('#download_button').click(function (e) {
+            $('#download_modal').modal();
+            $('#simplemodal-container').css('width', 250);
+            return false;
+        });
 	});
+    
 
     function renderBarChart(config){
 				        var categories = [];
@@ -173,7 +182,7 @@
 				              },
 				              plotOptions: {
 				                 pie: {
-                                    size: 200,
+                                    size: 180,
 				                    allowPointSelect: true,
 				                    cursor: 'pointer',
 				                    dataLabels: {enabled: false},
@@ -236,7 +245,7 @@
                     "\n<a style='width:27px; visibility:hidden;' id='btn_del_"+row.id+"' onclick='deleteVerbatim("+row.id+");'>" +
                     "<img style='vertical-align:middle;' src='/images/delete_verbatim.png' width='15px' height='16px'></a> \n"+
 
-                    "\n<a onclick='mailDialog("+row.id+");' style='width:27px; visibility:hidden;' id='btn_email_"+row.id+"' >" +
+                    "\n<a onclick='mailDialog("+row.id+");' style='width:27px;' id='btn_email_"+row.id+"' >" +
                     "<img style='vertical-align:middle;' src='/images/unclicked_email.png' width='15px' height='16px' id='img_email_"+row.id+"'></a> \n"+
 
                     "\n&nbsp;<td/>\n</tr>\n";
@@ -248,12 +257,10 @@
 
     function showRowButtons(id){
         document.getElementById('btn_del_' + id).style.visibility = 'visible';
-        document.getElementById('btn_email_' + id).style.visibility = 'visible';
     }
 
     function hideRowButtons(id){
         document.getElementById('btn_del_' + id).style.visibility = 'hidden';
-        document.getElementById('btn_email_' + id).style.visibility = 'hidden';
     }
 
     function mailDialog(/*mail, */id){
@@ -323,11 +330,20 @@
     }
 
 
-						</script>
+</script>
+
 
          <div class="scorecard_data">
             <!-- 3. Add the container -->
             <div id="barChart" class="spectrum"></div>
+            <div id="share_buttons" class="share_buttons">
+                <a style="cursor: pointer;">
+                      <img id='share_button' onmouseout="changeImg('share_button', 'share_button');" onmouseover="changeImg('share_button', 'share_button_over');" src="/images/share_button.png" alt=""/>
+                  </a>
+                  <a style="cursor: pointer;">
+                      <img id='download_button' onmouseout="changeImg('download_button', 'download_button');" onmouseover="changeImg('download_button', 'download_button_over');" src="/images/download_button.png" alt=""/>
+                  </a>
+            </div>
             <div id="totalResp" class="t-responses"></div>
             <div id="pieChart" class="barometer"></div>
 
@@ -346,98 +362,29 @@
                </table>
 
 
-             <input class="magnifying_glass" type="image" src="../../../images/magnifying_glass_icon.png" id="btnCommentFilter" />
+             <input class="magnifying_glass" type="image" src="/images/magnifying_glass_icon.png" id="btnCommentFilter" />
              <input class="filter" type="text" id="txtCommentFilter" size="35" />
-             <input class="clear-filter" type="image" src="../../../images/clear_comments_button.png" id="btnCommentClearFilter" />
+             <input class="clear-filter" type="image" src="/images/clear_comments_button.png" id="btnCommentClearFilter" />
             </div>
             
             <div class="table_comments" id="verbatimText"></div>
             <div class="clear"></div>
          </div>
 
-		<!-- <%= javascript_include_tag '/fx/AC_OETags.js' %>
 
-		<script language="JavaScript" type="text/javascript">
-		var requiredMajorVersion = 10;
-		var requiredMinorVersion = 0;
-		var requiredRevision = 124;
-		</script>
-
-		<script language="JavaScript" type="text/javascript">
-		var hasProductInstall = DetectFlashVer(6, 0, 65);
-		var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
-
-		if ( hasProductInstall && !hasRequestedVersion ) {
-			var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
-			var MMredirectURL = encodeURI(window.location);
-		    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
-		    var MMdoctitle = document.title;
-
-			AC_FL_RunContent(
-				"src", "/fx/playerProductInstall",
-				"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
-				"width", "1140",
-				"height", "100%",
-				"align", "middle",
-				"id", "main",
-				'wmode', 'opaque',
-				"quality", "high",
-				"bgcolor", "#ffffff",
-				"name", "main",
-				"allowScriptAccess","sameDomain",
-				"type", "application/x-shockwave-flash",
-				"pluginspage", "http://www.adobe.com/go/getflashplayer"
-			);
-		} else if (hasRequestedVersion) {
-			AC_FL_RunContent(
-					"src", "/fx/main",
-					"FlashVars", "survey=<%= @survey.code -%>&survey_id=<%= @survey.id -%>&action_token=<%= @survey.action_token -%>",
-					"width", "1140",
-					"height", "100%",
-					"align", "middle",
-					"id", "main",
-					'wmode', 'opaque',
-					"quality", "high",
-					"bgcolor", "#ffffff",
-					"name", "main",
-					"allowScriptAccess","sameDomain",
-					"type", "application/x-shockwave-flash",
-					"pluginspage", "http://www.adobe.com/go/getflashplayer"
-			);
-		  } else {  // flash is too old or we can't detect the plugin
-		    var alternateContent = 'Alternate HTML content should be placed here. '
-		  	+ 'This content requires the Adobe Flash Player. '
-		   	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
-		    document.write(alternateContent);  // insert non-flash content
-		  }
-		// 
-		</script>
-		<noscript>
-		  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-					id="main" width="1140" height="100%"
-					codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
-					<param name="movie" value="/fx/main.swf?survey_id='+<%= @survey.id -%>+'&survey='+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" />
-					<param name="quality" value="high" />
-					<param name="bgcolor" value="#ffffff" />
-					<param name="wmode" value="opaque" />
-					<param name="allowScriptAccess" value="sameDomain" />
-					<embed src="main.swf?survey_id='+<%= @survey.id -%>+'&survey='+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" quality="high" bgcolor="#ffffff"
-						width="1140" height="100%" name="main" align="middle"
-						play="true"
-						loop="false"
-						quality="high"
-						allowScriptAccess="sameDomain"
-						type="application/x-shockwave-flash"
-						pluginspage="http://www.adobe.com/go/getflashplayer">
-					</embed>
-			</object>
-		</noscript>-->
     </div>
-    <div class="share_scorecard">
-	    <strong>Share Scorecard</strong>
-        <span class="share_link_scorecard">
-            <strong>Link: </strong>
-            <%= text_field_tag '', public_scorecard_url(:code => @survey.scorecard_code), :class => 'locked-selectall' %>
+    <div id='share_scorecard_modal'>
+	    <strong style="margin-left: 100px;color: #000000;">Share Scorecard Link</strong>
+        <br/><br/><br/><br/>
+        <span class="share_link_scorecard" style="margin-left: 60px;">
+            <%= text_field_tag '', public_scorecard_url(:code => @survey.scorecard_code), :size => '30',:class => 'locked-selectall' %>
         </span>
     </div>
+
+    <div id='download_modal' style="">
+	    <strong style="margin-left: 10px;color: #000000;">Select a format to download</strong>
+        <br/><br/>
+        <input style="margin-left: 75px;" type="image" src="/images/excel_icon.png"/>
+    </div>
+
 </div>
