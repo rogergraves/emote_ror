@@ -201,7 +201,7 @@ class Survey < ActiveRecord::Base
 			end
 			if add_to_list
         obj = { :id => res.survey_result_id, :face => (res.emote+'_intensity_'+intensity_level.to_s), :timestamp => res.start_time.strftime("%d %b"), 'text'=> res.verbatim.gsub(/#{filter_str}/, "<b>#{filter_str}</b>") }
-        obj[:email] = res.email if is_public
+        obj[:email] = res.email if !is_public
         verbs << obj
       end
     end
