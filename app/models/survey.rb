@@ -162,7 +162,7 @@ class Survey < ActiveRecord::Base
     { :bars => emotions, :pie => {:pp => pp, :mp => mp, :pn => pn, :mn => mn}, :totals => {:score => score, :total => total_emotions} }
   end
   
-  def verbatims_obj(filter_str = '', emotion = '', grouping = nil)
+  def verbatims_obj(filter_str = '', emotion = '', grouping = nil, is_public = true)
     # ('id'=> '875', 'face'=> 'uneasy_intensity_1', 'timestamp'=> '03 Jun', 'text'=> 'test1'),
     verbs = []
     conditions = "`is_removed` = 0"
@@ -199,8 +199,11 @@ class Survey < ActiveRecord::Base
         
         add_to_list = (category == grouping)
 			end
-			
-      verbs << { :id => res.survey_result_id, :face => (res.emote+'_intensity_'+intensity_level.to_s), :timestamp => res.start_time.strftime("%d %b"), 'text'=> res.verbatim.gsub(/#{filter_str}/, "<b>#{filter_str}</b>")} if add_to_list
+			if add_to_list
+        obj = { :id => res.survey_result_id, :face => (res.emote+'_intensity_'+intensity_level.to_s), :timestamp => res.start_time.strftime("%d %b"), 'text'=> res.verbatim.gsub(/#{filter_str}/, "<b>#{filter_str}</b>") }
+        obj[:email] = res.email if is_public
+        verbs << obj
+      end
     end
     verbs
   end
