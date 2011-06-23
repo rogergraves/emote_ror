@@ -245,7 +245,7 @@
                     "\n<a style='width:27px; visibility:hidden;' id='btn_del_"+row.id+"' onclick='deleteVerbatim("+row.id+");'>" +
                     "<img style='vertical-align:middle;' src='/images/delete_verbatim.png' width='15px' height='16px'></a> \n"+
 
-                    "\n<a onclick='mailDialog("+row.id+");' style='width:27px;' id='btn_email_"+row.id+"' >" +
+                    "\n<a onclick='mailDialog("+row.email + "," + row.id+");' style='width:27px;' id='btn_email_"+row.id+"' >" +
                     "<img style='vertical-align:middle;' src='/images/unclicked_email.png' width='15px' height='16px' id='img_email_"+row.id+"'></a> \n"+
 
                     "\n&nbsp;<td/>\n</tr>\n";
@@ -263,8 +263,8 @@
         document.getElementById('btn_del_' + id).style.visibility = 'hidden';
     }
 
-    function mailDialog(/*mail, */id){
-        //parent.location = 'mailto:' + mail;
+    function mailDialog(mail, id){
+        if (mail) parent.location = 'mailto:' + mail;
         document.getElementById('img_email_' + id).src = '/images/clicked_email.png';
     }
 

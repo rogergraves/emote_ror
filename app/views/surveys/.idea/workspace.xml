@@ -22,44 +22,7 @@
     <favorites_list name="surveys" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="scorecard.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scorecard.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="4" selection-start="2385" selection-end="2385" vertical-scroll-proportion="-11.875">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="public_scorecard.html.erb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public_scorecard.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="302" column="0" selection-start="12301" selection-end="12301" vertical-scroll-proportion="1.2424242">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="modal.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../../public/stylesheets/modal.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="0" selection-start="430" selection-end="430" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../../public/stylesheets/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1074" column="18" selection-start="21701" selection-end="21721" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -171,13 +134,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1280" height="972" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32932693" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32932693" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -278,18 +241,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../public/stylesheets/modal.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="430" selection-end="430" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../public/stylesheets/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1074" column="18" selection-start="21701" selection-end="21721" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scorecard.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="69" column="4" selection-start="2385" selection-end="2385" vertical-scroll-proportion="-11.875">
@@ -300,6 +251,20 @@
     <entry file="file://$PROJECT_DIR$/public_scorecard.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="302" column="0" selection-start="12301" selection-end="12301" vertical-scroll-proportion="1.2424242">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../public/stylesheets/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1074" column="18" selection-start="21701" selection-end="21721" vertical-scroll-proportion="0.019157087">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../public/stylesheets/modal.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="0" selection-start="430" selection-end="430" vertical-scroll-proportion="0.28735632">
           <folding />
         </state>
       </provider>
