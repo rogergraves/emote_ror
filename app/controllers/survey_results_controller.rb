@@ -5,7 +5,7 @@ class SurveyResultsController < ApplicationController
   def all
     #@survey = Survey.first(:conditions => {:code => params[:survey]})
     result_obj = @survey.result_obj
-    verb_obj = @survey.verbatims_obj(params[:search], params[:name], params[:subset], @is_public)
+    verb_obj = @survey.verbatims_obj(params[:search], params[:name], params[:subset], @public_access)
     formatted_response = {:config => @survey.result_obj[:bars], :pieConfig => @survey.result_obj[:pie], :verbatim => verb_obj  }
     
     respond_to do |format|
@@ -27,7 +27,7 @@ class SurveyResultsController < ApplicationController
     #@survey = Survey.first(:conditions => {:code => params[:survey]})
 
     respond_to do |format|
-      format.json { render :json => @survey.verbatims_obj(params[:filter], params[:name], params[:subset], @is_public) }
+      format.json { render :json => @survey.verbatims_obj(params[:filter], params[:name], params[:subset], @public_access) }
     end
   end
   
@@ -57,12 +57,15 @@ class SurveyResultsController < ApplicationController
   end
   protected
     def find_survey
-      if !params[:survey_id].blank? && !current_user.nil?
-        @is_public = false
+      if (!params[:survey_id].blank? || !params[:id].blank?)
         @survey = current_user.surveys.find_by_id(params[:survey_id])
       else
-        @is_public = true
         @survey = Survey.find_by_code(params[:survey])
+      end
+      if !current_user.nil? && @survey.user_id == current_user.id
+        @public_access = false
+      else
+        @public_access = true
       end
     end
 end

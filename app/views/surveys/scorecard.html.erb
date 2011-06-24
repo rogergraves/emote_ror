@@ -32,7 +32,7 @@
 	var configTotals = <%= raw results[:totals].to_json -%>;
 	var configBars = <%= raw results[:bars].to_json -%>;
 	var configPie = <%= raw results[:pie].to_json -%>;
-	var configVerbatim = <%= raw @survey.verbatims_obj.to_json -%>;
+	var configVerbatim = <%= raw @survey.verbatims_obj('', '', nil, false).to_json -%>;
     var strEmotionLabel = "<span>emotion: </span>";
     var strSearchLabel = "<span>search: </span>";
 
