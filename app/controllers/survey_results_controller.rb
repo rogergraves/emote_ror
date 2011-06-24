@@ -35,6 +35,9 @@ class SurveyResultsController < ApplicationController
     @result = @survey.survey_results.find(:first, :conditions => { :survey_result_id => params[:id] })
     @result.email_used = true
     @result.save!
+    respond_to do |format|
+      format.json { render :json => { :result => true } }
+    end
   end
   
   def delete_response
