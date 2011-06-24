@@ -25,6 +25,7 @@ EmoteRor::Application.routes.draw do
           get 'charts'
           get 'verbatims'
           get 'delete_response'
+          get 'mark_email_as_used'
         end
       end
     end

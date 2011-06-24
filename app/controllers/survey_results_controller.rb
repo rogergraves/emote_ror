@@ -31,6 +31,12 @@ class SurveyResultsController < ApplicationController
     end
   end
   
+  def mark_email_as_used
+    @result = @survey.survey_results.find(:first, :conditions => { :survey_result_id => params[:id] })
+    @result.email_used = true
+    @result.save!
+  end
+  
   def delete_response
     # /account/surveys/:survey_id/survey_results/delete_response
     begin
