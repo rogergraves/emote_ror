@@ -69,9 +69,19 @@ class SurveysController < ApplicationController
   def scorecard
     @survey = current_user.surveys.find(params[:id])
     redirect_to root_path if @survey.nil?
-    @survey.generate_action_token!
-    @survey.scorecard_viewed_at = DateTime.now
-    @survey.save!
+
+    respond_to do |format|
+      format.html do
+        @survey.generate_action_token!
+        @survey.scorecard_viewed_at = DateTime.now
+        @survey.save!
+      end
+      format.xls do
+        report = ScorecardDataXls.new
+        report.survey = @survey
+        send_data report.generate, :content_type => Mime::XLS, :filename => "scorecard_#{@survey.code.downcase}_#{DateTime.now.strftime('%Y%m%d%H%M')}.xls"
+      end
+    end
   end
   
   def public_scorecard

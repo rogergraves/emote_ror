@@ -45,3 +45,5 @@ module EmoteRor
     config.filter_parameters += [:password]
   end
 end
+
+Spreadsheet.client_encoding = 'UTF-8'

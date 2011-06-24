@@ -384,7 +384,7 @@
     <div id='download_modal' style="">
 	    <strong style="margin-left: 10px;color: #000000;">Select a format to download</strong>
         <br/><br/>
-        <input style="margin-left: 75px;" type="image" src="/images/excel_icon.png"/>
+        <%= link_to image_tag('excel_icon.png'), scorecard_account_survey_path(@survey, :format => :xls) %>
     </div>
 
 </div>
