@@ -235,20 +235,26 @@
 
 
             var strEmoteTitle = row.face.split('_')[0];
+            var strImgSrc = (row.email_used) ? " src='/images/clicked_email.png' " : " src='/images/unclicked_email.png' ";
+
+            var strEmail = row.email || '';
             verbatimHTML+= tr + "\n<td align='left' style='vertical-align:middle;'>\n" +
-                    "&nbsp;&nbsp;<img width='20px' height='20px' " +
-                    " title='" + strEmoteTitle + "'" +
-                    " src='/images/verbatim_intensity/" +
-                    row.face + ".png'>&nbsp;&nbsp;  \n" + row.text + "\n</td>\n"+
-                    "\n<td align='right' style='vertical-align:middle;color:#5b5b5b;'>\n" +
-                    row.timestamp + "&nbsp;" +
-                    "\n<a style='width:27px; visibility:hidden;' id='btn_del_"+row.id+"' onclick='deleteVerbatim("+row.id+");'>" +
-                    "<img style='vertical-align:middle;' src='/images/delete_verbatim.png' width='15px' height='16px'></a> \n"+
+                "&nbsp;&nbsp;<img width='20px' height='20px' " +
+                " title='" + strEmoteTitle + "'" +
+                " src='/images/verbatim_intensity/" +
+                row.face + ".png'>&nbsp;&nbsp;  \n" + row.text + "\n</td>\n"+
+                "\n<td align='right' style='vertical-align:middle;color:#5b5b5b;'>\n" +
+                row.timestamp + "&nbsp;" +
+                "\n<a style='width:27px; visibility:hidden;' id='btn_del_"+row.id+"' onclick='deleteVerbatim("+row.id+");'>" +
+                "<img style='vertical-align:middle;' src='/images/delete_verbatim.png' width='15px' height='16px'></a> \n"+
 
-                    "\n<a onclick='mailDialog("+row.email + "," + row.id+");' style='width:27px;' id='btn_email_"+row.id+"' >" +
-                    "<img style='vertical-align:middle;' src='/images/unclicked_email.png' width='15px' height='16px' id='img_email_"+row.id+"'></a> \n"+
+                "\n<a href='mailto:"+strEmail+"' onclick='mailDialog("+row.id+");' style='width:27px;' " +
+                " id='btn_email_"+row.id+"' >" +
 
-                    "\n&nbsp;<td/>\n</tr>\n";
+                "<img style='vertical-align:middle;' width='15px' height='16px' " + strImgSrc +
+                " id='img_email_"+row.id+"'></a> \n"+
+
+                "\n&nbsp;<td/>\n</tr>\n";
             i++;
         }
         verbatimHTML+= '\n</table>\n';
@@ -263,9 +269,19 @@
         document.getElementById('btn_del_' + id).style.visibility = 'hidden';
     }
 
-    function mailDialog(mail, id){
-        if (mail) parent.location = 'mailto:' + mail;
-        document.getElementById('img_email_' + id).src = '/images/clicked_email.png';
+    function mailDialog(id){
+        doAjax({
+                 data: {id: id},
+                 url: '/survey_results/mark_email_as_used.json',
+                 successCallback: function (response, textStatus) {
+                     document.getElementById('img_email_' + id).src = '/images/clicked_email.png';
+               },
+                 errorCallback: function(request, textStatus, errorThrown){
+                  console.log(errorThrown);
+                  throw new Error('error deleting a verbatim: ' + id);
+               }
+             });
+
     }
 
     function deleteVerbatim(id){

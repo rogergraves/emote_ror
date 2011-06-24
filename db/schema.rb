@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110606172324) do
+ActiveRecord::Schema.define(:version => 20110624094042) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20110606172324) do
     t.text     "verbatim",        :limit => 16777215
     t.string   "code"
     t.integer  "is_removed",      :limit => 1,        :default => 0
+    t.boolean  "email_used",                          :default => false
   end
 
   create_table "survey_user_data", :primary_key => "survey_user_data_id", :force => true do |t|
@@ -113,6 +114,7 @@ ActiveRecord::Schema.define(:version => 20110606172324) do
     t.datetime "activated_at"
     t.datetime "scorecard_viewed_at"
     t.boolean  "store_respondent_contacts",               :default => false
+    t.string   "feedback_prompt",                         :default => ""
   end
 
   add_index "surveys", ["code"], :name => "index_surveys_on_code", :unique => true
