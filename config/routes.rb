@@ -37,6 +37,7 @@ EmoteRor::Application.routes.draw do
   get 'survey_results/charts', :controller => 'survey_results', :action => 'charts'
   get 'survey_results/verbatims', :controller => 'survey_results', :action => 'verbatims'
   get 'survey_results/delete_response', :controller => 'survey_results', :action => 'delete_response'
+  get 'survey_results/mark_email_as_used', :controller => 'survey_results', :action => 'mark_email_as_used'
   
   namespace :admin do
     resources :accounts do
