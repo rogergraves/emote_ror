@@ -45,7 +45,9 @@ class ScorecardDataXls
 
   def generate_data_sheet
     worksheet = @workbook.create_worksheet(:name => 'e.mote data')
-    0.upto(2) { |i| worksheet.column(i).width = 30 }
+    0.upto(7) { |i| worksheet.column(i).width = 30 }
+    worksheet.column(6).width = 100
+    worksheet.column(5).width = 15
 
     summary = [
       ['e.mote™ Subject', @survey.project_name],
@@ -65,50 +67,50 @@ class ScorecardDataXls
       worksheet.row(i+1).set_format(1, FORMAT[:summary_value])
     end
 
-    row_idx = summary.size+2
+    @current_row_index = summary.size+2
 
-    worksheet.insert_row(row_idx += 1, ['Emotion Spectrum Data'])
-    worksheet.row(row_idx).set_format(0, FORMAT[:subtable_title])
+    worksheet.insert_row(@current_row_index += 1, ['Emotion Spectrum Data'])
+    worksheet.row(@current_row_index).set_format(0, FORMAT[:subtable_title])
 
-    insert_styled_row(worksheet, row_idx += 1, ['Emotion', 'Number of Responses'], :subtable_header)
+    insert_styled_row(worksheet, @current_row_index += 1, ['Emotion', 'Number of Responses'], :subtable_header)
     spectrum_data = @survey.result_obj[:bars].map {|bar| [bar[:name].upcase, bar[:value].to_i] }
     spectrum_data.each do |row|
-      worksheet.insert_row row_idx += 1, row
+      worksheet.insert_row @current_row_index += 1, row
     end
-    insert_styled_row(worksheet, row_idx += 1, [ 'Total Responses',  @survey.result_obj[:totals][:total] ], :subtable_footer)
+    insert_styled_row(worksheet, @current_row_index += 1, [ 'Total Responses',  @survey.result_obj[:totals][:total] ], :subtable_footer)
 
-    worksheet.insert_row(row_idx += 2, ['Barometer Data'])
-    worksheet.row(row_idx).default_format = FORMAT[:subtable_title]
+    worksheet.insert_row(@current_row_index += 2, ['Barometer Data'])
+    worksheet.row(@current_row_index).default_format = FORMAT[:subtable_title]
 
-    insert_styled_row(worksheet, row_idx += 1, ['Category', 'Number of responses', '% of Respondants'], :subtable_header)
+    insert_styled_row(worksheet, @current_row_index += 1, ['Category', 'Number of responses', '% of Respondants'], :subtable_header)
     barometer_data = @survey.result_obj[:pie].map do |side_code, count|
       [BAROMETER_MAP[side_code], count, count.to_f / @survey.result_obj[:totals][:total]]
     end
     barometer_data.each do |row|
-      worksheet.insert_row row_idx += 1, row
-      worksheet.row(row_idx).set_format(2, CELL_TYPE[:percent])
+      worksheet.insert_row @current_row_index += 1, row
+      worksheet.row(@current_row_index).set_format(2, CELL_TYPE[:percent])
     end
   end
 
   def generate_comments_sheet
-    worksheet = @workbook.create_worksheet(:name => 'e.mote comments')
+    @current_row_index += 5
+    worksheet = @workbook.worksheets.first
     
-    worksheet.insert_row(row_idx = 0, ['Comment Data'])
-    worksheet.row(row_idx).set_format(0, FORMAT[:subtable_title])
-    insert_styled_row(worksheet, row_idx += 1, ['Date', 'Emotion', 'Intensity %', 'Barometer Category', 'Email Address', 'clicked email', 'Comment', 'Notes'], :subtable_header)
+    worksheet.insert_row(@current_row_index, ['Comment Data'])
+    worksheet.row(@current_row_index).set_format(0, FORMAT[:subtable_title])
+    insert_styled_row(worksheet, @current_row_index += 1, ['Date', 'Emotion', 'Intensity %', 'Barometer Category', 'Email Address', 'clicked email', 'Comment', 'Notes'], :subtable_header)
     @survey.survey_results.where(:is_removed => 0).order(:start_time).each do |response|
       comment_data = [
         response.start_time,
         response.emote.humanize,
         response.intensity_level.to_f/100,
         'bar cat',
-        'email',
-        'klik?',
-        'kament',
-        'notez'
+        response.email,
+        response.email_used ? 'Yes' : 'No',
+        response.verbatim
       ]
-      worksheet.insert_row(row_idx+=1, comment_data)
-      worksheet.row(row_idx).set_format(2, CELL_TYPE[:percent])
+      worksheet.insert_row(@current_row_index+=1, comment_data)
+      worksheet.row(@current_row_index).set_format(2, CELL_TYPE[:percent])
     end
   end
 
