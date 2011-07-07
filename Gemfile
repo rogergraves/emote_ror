@@ -8,6 +8,7 @@ gem 'activemerchant'
 gem "will_paginate", "~> 3.0.pre2"
 #gem "sortable_table", :path => 'D:/Projects/ukrteam/emote/sortable'
 gem "sortable_table", :git => 'git@github.com:duhast/sortable.git'
+gem "spreadsheet"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
