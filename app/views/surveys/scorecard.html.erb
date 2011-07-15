@@ -33,7 +33,7 @@
 	var configBars = <%= raw results[:bars].to_json -%>;
 	var configPie = <%= raw results[:pie].to_json -%>;
 	var configVerbatim = <%= raw @survey.verbatims_obj('', '', nil, false).to_json -%>;
-    var strEmotionLabel = "<span>emotion: </span>";
+    var strEmotionLabel = "<span>category: </span>";
     var strSearchLabel = "<span>search: </span>";
 
     jQuery(function ($) {
@@ -82,13 +82,19 @@
 				        var chart = new Highcharts.Chart({
 				        exporting: {enabled: false},
 				        chart: {
+                         borderWidth: 0,
 				         renderTo: 'barChart',
 				         type: 'column',
 				         margin: [ 50, 50, 100, 80],
                          height: 280,
                          width: 800
 				        },
-				        title: {text: '<%= @survey.project_name %>'},
+				        title: {
+                            text: '<%= @survey.project_name %>',
+                            x: -200,
+                            style: {fontSize: '21px'}
+
+                        },
 				        xAxis: {
 				         categories: categories,
 				         labels: {
@@ -98,6 +104,7 @@
 				         }
 				        },
 				        yAxis: {
+                         labels: {enabled: false},
 				         min: 0,
                          gridLineColor: '',
 				         title: {text: '' }
@@ -139,14 +146,14 @@
 				            data: data,
 				            dataLabels: {
 				               enabled: true,
-				               color: '#FFFFFF',
+				               color: '#696969',
 				               align: 'right',
-				               x: -3,
-				               y: 10,
+				               x: -10,
+				               y: -10,
 				               formatter: function() {
 				                   return this.y;
 				                },
-				               style: {font: 'normal 10px Verdana, sans-serif'}
+				               style: {font: 'normal 11px Verdana, sans-serif'}
 				             }
 				            }]
 				        });
