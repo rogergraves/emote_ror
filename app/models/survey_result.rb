@@ -41,12 +41,29 @@ class SurveyResult < ActiveRecord::Base
 		'uneasy' => :negative
   }
   
+  BAROMETER_MAP = {
+    :pp => {:name => 'Enthusiasts', :intensity => (0...34)},                                # Is positive or negative, intensity is bottom third
+    :mp => {:name => 'Participants', :intensity => (34...66)},                              # Is positive or negative, intensity is middle third
+    :mn => {:name => 'Indifferent', :intensity => (66..100), :emotion_type => :negative},   # Is negative and intensity is >= 66
+    :pn => {:name => 'Detractors', :intensity => (66..100), :emotion_type => :positive}     # Is positive and intensity is >= 66
+  }
+
+  
   def self.positives
     EMOTIONS.select {|k,v| v == :positive }.map {|k,v| k}
   end
   
   def self.negatives
     EMOTIONS.select {|k,v| v == :negative }.map {|k,v| k}
+  end
+  
+  def self.barometer_category_from_intensity(emotion, intensity, return_name = false)
+    BAROMETER_MAP.each do |code, cfg|
+      if (cfg[:intensity] === intensity) && (cfg[:emotion_type].nil? ? true : cfg[:emotion_type]==EMOTIONS[emotion.to_s])
+        return return_name ? cfg[:name] : code
+      end
+    end
+    nil
   end
   
   

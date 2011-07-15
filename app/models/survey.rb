@@ -137,30 +137,23 @@ class Survey < ActiveRecord::Base
   end
   
   def result_obj
-    score, total_emotions, pp_intensities, pp, mp, pn, mn = 0, 0, 0, 0, 0, 0, 0
+    score, total_emotions, pp_intensities = 0, 0, 0
+    pie_data = {:pp => 0, :mp => 0, :pn => 0, :mn => 0}
     emotions = SurveyResult::EMOTIONS.map {|k,v| {:value => 0, :name => k, :type => v, :color => ( (v == :positive) ? 'green' : 'red' )} }
     
     survey_results.where(:is_removed => 0).each do |res|
       emote = emotions.select {|e| e[:name] == res.emote }.first
       
-      if res.intensity_level >= 0 && res.intensity_level < 34 # Is positive or negative, intensity is bottom third
-				mn += 1
-			elsif res.intensity_level >= 34 && res.intensity_level < 66 # Is positive or negative, intensity is middle third
-				mp += 1
-			elsif emote[:type] == :negative # Is negative and intensity is >= 66
-				pn += 1
-			else # Is positive and intensity is >= 66
-				pp += 1
-				pp_intensities += res.intensity_level
-			end
-			
+      barometer_key = SurveyResult.barometer_category_from_intensity(emote[:name], res.intensity_level)
+      pie_data[barometer_key] += 1
+      pp_intensities += res.intensity_level if barometer_key==:pp
 			emote[:value] += 1
 			total_emotions += 1
     end
     emotions.sort! {|a,b| b[:value]<=>a[:value] }
-    score = (pp_intensities/pp).to_i rescue 0
+    score = (pp_intensities/pie_data[:pp]).to_i rescue 0
     
-    { :bars => emotions, :pie => {:pp => pp, :mp => mp, :pn => pn, :mn => mn}, :totals => {:score => score, :total => total_emotions} }
+    { :bars => emotions, :pie => pie_data, :totals => {:score => score, :total => total_emotions} }
   end
   
   def verbatims_obj(filter_str = '', emotion = '', grouping = nil, is_public = true)

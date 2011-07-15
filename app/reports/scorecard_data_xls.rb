@@ -1,8 +1,6 @@
 class ScorecardDataXls
   attr_accessor :survey
   
-  BAROMETER_MAP = {:pp => 'Enthusiasts', :mp => 'Participants', :mn => 'Indifferent', :pn => 'Detractors'}
-
   CELL_TYPE = {
     :float => Spreadsheet::Format.new( :number_format => '0.00' ),
     :percent => Spreadsheet::Format.new( :number_format => '0.00%' ),
@@ -84,7 +82,7 @@ class ScorecardDataXls
 
     insert_styled_row(worksheet, @current_row_index += 1, ['Category', 'Number of responses', '% of Respondants'], :subtable_header)
     barometer_data = @survey.result_obj[:pie].map do |side_code, count|
-      [BAROMETER_MAP[side_code], count, count.to_f / @survey.result_obj[:totals][:total]]
+      [SurveyResult::BAROMETER_MAP[side_code][:name], count, count.to_f / @survey.result_obj[:totals][:total]]
     end
     barometer_data.each do |row|
       worksheet.insert_row @current_row_index += 1, row
@@ -104,7 +102,7 @@ class ScorecardDataXls
         response.start_time,
         response.emote.humanize,
         response.intensity_level.to_f/100,
-        'bar cat',
+        SurveyResult.barometer_category_from_intensity(response.emote, response.intensity_level, true),
         response.email,
         response.email_used ? 'Yes' : 'No',
         response.verbatim
