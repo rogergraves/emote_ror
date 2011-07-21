@@ -33,7 +33,8 @@
 	var configBars = <%= raw results[:bars].to_json -%>;
 	var configPie = <%= raw results[:pie].to_json -%>;
 	var configVerbatim = <%= raw @survey.verbatims_obj('', '', nil, false).to_json -%>;
-    var strEmotionLabel = "<span>category: </span>";
+    var strEmotionLabel = "<span>emotion: </span>";
+    var strCategoryLabel = "<span>category: </span>";
     var strSearchLabel = "<span>search: </span>";
 
     /**
@@ -203,7 +204,7 @@
 				                    point: {
 				                       events: {
 				                          click: function() {
-				                             $('#emotionLabel').html(strEmotionLabel + this.config.name);
+				                             $('#emotionLabel').html(strCategoryLabel + this.config.name);
                                              document.getElementById('see_all_comments').style.visibility = 'visible';
                                              doAjax({
                                                  url: '/survey_results/verbatims.json',
