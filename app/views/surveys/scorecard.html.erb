@@ -26,8 +26,8 @@
 <script type="text/javascript">
 
     var colors = {'green': '#689839', 'red': '#c93337', white: '#FFFFFF', grey: '#CCCCCC'};
-	var intensity = {pp: 'enthusiasts', mp: 'participants', mn: 'indifferent', pn:'detractors'};
-	var pieColors = {pp: '#0db5d4', mp: '#cccccc', mn: '#ececec', pn: '#eeae01'};
+	var intensity = {pp: 'enthusiasts', /*mp: 'participants', */mn: 'indifferent', pn:'detractors'};
+	var pieColors = {pp: '#0db5d4', /*mp: '#cccccc', */mn: '#ececec', pn: '#eeae01'};
 	<% results = @survey.result_obj %>
 	var configTotals = <%= raw results[:totals].to_json -%>;
 	var configBars = <%= raw results[:bars].to_json -%>;
@@ -35,6 +35,12 @@
 	var configVerbatim = <%= raw @survey.verbatims_obj('', '', nil, false).to_json -%>;
     var strEmotionLabel = "<span>category: </span>";
     var strSearchLabel = "<span>search: </span>";
+
+    /**
+     * putting together indifferent and participants category
+     */
+    configPie.mn+=configPie.mp;
+    configPie.mp=0;
 
     jQuery(function ($) {
         renderBarChart(configBars);
@@ -167,9 +173,9 @@
 				            var val = pieConfig[key];
 				            var obj = {name: intensity[key], y: parseInt(val), color: pieColors[key]};
 				            intTotalResponsesCount+= parseInt(val);
-				            pieData.push(obj);
+				            if (obj.name) pieData.push(obj);
 				        }
-
+                        
 				        var pieChart = new Highcharts.Chart({
 				              exporting: {enabled: false},
 				              chart: {
