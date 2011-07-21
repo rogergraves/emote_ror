@@ -260,15 +260,17 @@
                 "\n<td align='right' style='vertical-align:middle;color:#5b5b5b;'>\n" +
                 row.timestamp + "&nbsp;" +
                 "\n<a style='width:27px; visibility:hidden;' id='btn_del_"+row.id+"' onclick='deleteVerbatim("+row.id+");'>" +
-                "<img style='vertical-align:middle;' src='/images/delete_verbatim.png' width='15px' height='16px'></a> \n"+
-
-                "\n<a href='mailto:"+strEmail+"' onclick='mailDialog("+row.id+");' style='width:27px;' " +
+                "<img style='vertical-align:middle;' src='/images/delete_verbatim.png' width='15px' height='16px'></a> \n";
+            /**
+             * hide email button if no email is provided
+             */
+                verbatimHTML+=(strEmail) ? "\n<a href='mailto:"+strEmail+"' onclick='mailDialog("+row.id+");' style='width:27px;' " +
                 " id='btn_email_"+row.id+"' >" +
 
                 "<img style='vertical-align:middle;' width='15px' height='16px' " + strImgSrc +
-                " id='img_email_"+row.id+"'></a> \n"+
+                " id='img_email_"+row.id+"'></a> \n" : "";
 
-                "\n&nbsp;<td/>\n</tr>\n";
+                verbatimHTML+="\n&nbsp;<td/>\n</tr>\n";
             i++;
         }
         verbatimHTML+= '\n</table>\n';
