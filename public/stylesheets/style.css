@@ -1177,96 +1177,99 @@ ul.start_box {
     margin: 0 5px -5px 0;
 }
 
-#header #buttons{
+#header #main-menu{
     margin-top: 5px;
 }
 
 
-#buttons .dropdown{
+#main-menu .menu-item{
 	float:left;
         font-size: 18px;
         margin: 7px 40px 0 0;
 	position: relative;
+        height: 34px;
 }
 
-#buttons .dropdown ul.menu-body {
+#main-menu .active{
+    background-image: url('/images/buttons/selected_menu.png') ;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 3;
+}
+
+
+#main-menu .menu-item ul.menu-dropdown {
 	display: none; 
 	background: white;
 	border: 1px #999999 solid;
 	list-style: none;
-        margin: -33px 0 0 -5px;
-	padding: 38px 0 0 0;
+        margin: 5px 0 0 -5px;
+	padding: 5px 0 0 0;
 	width: 110px;
 	position: absolute;
 	z-index: 5;
 	width: 108px;
 }
 
-.borderradius #buttons .dropdown ul.menu-body{
+.borderradius #main-menu .menu-item ul.menu-dropdown{
 	border-radius: 4px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 }
 
-#buttons .dropdown ul li{
+#main-menu .menu-item ul li{
 	margin-bottom: 10px;
 	margin-left: 5px;
         text-transform: uppercase;
+	font-size: 10px;
+	color: #aaa;
 }
 
-#buttons .dropdown ul li a{
-	font-size: 10px;
-	color: #aaa;	
+#main-menu .menu-item ul li a{
 	text-decoration: none;
 }
 
-#buttons .dropdown .arrow{
-	text-align: center;
-        margin-top: -5px;
-}
-
-
-#buttons .button{
+#main-menu .button{
     width: 98px;
     height: 28px;
     z-index: 10;
     position: relative;
 }
 
-#buttons #emoteControlButton.off {
+#main-menu #emoteControlButton.off {
     background: url('/images/buttons/emote_control_grfull.png') no-repeat;
 }
 
-#buttons #emoteControlButton.over {
+#main-menu #emoteControlButton.over {
     background: url('/images/buttons/emote_control_gr.png') no-repeat;
 }
 
-#buttons #emoteControlButton.on {
+#main-menu #emoteControlButton.on {
     background: url('/images/buttons/emote_control_yl.png') no-repeat;
 }
 
 
-#buttons #scoreCardButton.off {
+#main-menu #scoreCardButton.off {
     background: url('/images/buttons/score_card_grfull.png') no-repeat;
 }
 
-#buttons #scoreCardButton.over {
+#main-menu #scoreCardButton.over {
     background: url('/images/buttons/score_card_gr.png') no-repeat;
 }
 
-#buttons #scoreCardButton.on {
+#main-menu #scoreCardButton.on {
     background: url('/images/buttons/score_card_yl.png') no-repeat;
 }
 
-#buttons #myAccount.off {
+#main-menu #myAccount.off {
     background: url('/images/buttons/my_account_grfull.png') no-repeat;
 }
 
-#buttons #myAccount.over {
+#main-menu #myAccount.over {
     background: url('/images/buttons/my_account_gr.png') no-repeat;
 }
 
-#buttons #myAccount.on {
+#main-menu #myAccount.on {
     background: url('/images/buttons/my_account_yl.png') no-repeat;
 }
 /* EOF Top menu */

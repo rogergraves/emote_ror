@@ -34,7 +34,7 @@ $(document).ready(function(){
     $(window).resize(function() {
 	setContentWin();
     });
-    $("#buttons .dropdown").mouseenter(function(){
+    $("#main-menu .menu-item").mouseenter(function(){
 	var el = $(this).children("ul:first");
 	if(el.is(':hidden')){
 	    el.animate({height: 'toggle'},100);
@@ -50,7 +50,7 @@ $(document).ready(function(){
 	}
     });
 
-    $(".menu-body li").hover(
+    $(".menu-dropdown li").hover(
 	function(){
 	    $(this).children('a:first').css({'color' : '#000000'});
 	},
