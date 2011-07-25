@@ -252,6 +252,7 @@ html, body{
     height: 66px;
     margin-left: auto;
     margin-right: auto;
+    border-bottom: 5px solid #3c4146;
 }
 
 #header #logo{
@@ -262,7 +263,7 @@ html, body{
 #header #menu{
     float: left;
     position: relative;
-    width: 400px;
+    width: 820px;
     margin: 20px 0 0 50px;
 }
 
@@ -744,7 +745,9 @@ ul.start_box {
 }
 
 #sub_menu{
-    width: 100%;
+    width: 986px;
+    margin-left: auto;
+    margin-right: auto;
     height: 39px;
     background: url('../images/top-nav_bg.png') repeat-x;
 }
@@ -754,11 +757,23 @@ ul.start_box {
     padding: 0;
     list-style-type: none;
 }
-#sub_menu ul.sub-menu-list li{
+#sub_menu ul.sub-menu-list li {
     display: inline;
     float: left;
-    margin: 5px 20px;
+    margin-top: -9px;
+    padding: 15px 25px 0 25px;
+    background-image: url('/images/nav_spliter.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
 }
+
+#sub_menu ul.sub-menu-list .last {
+    background: none;
+}
+
 
 #sub_menu .sub-menu-list li a {
     color: #ccc;
@@ -770,12 +785,6 @@ ul.start_box {
     color: #fff;
     text-decoration: none;
     text-align: center;
-}
-
-#sub_menu #spliter{
-    width: 5px;
-    height: 39px;
-    margin-top: -5px;
 }
 
 #content-win-info .update_topic {
@@ -1152,16 +1161,25 @@ ul.start_box {
     color: #666;
     float: right;
     position: relative;
-    top: 40px;
+    top: 10px;
+    overflow: hidden;
 }
 
-#header .username_customer{
-    color: #333;
+#header #username b{
     font-weight: bold;
 }
 
+
+#header .username_customer{
+    color: #333;
+    float: left;
+    width: 300px;
+    text-align: right;
+}
+
 #header .logout{
-    margin-left: 20px;
+    float: right;
+    padding-left: 10px;
 }
 
 #header .logout a{
@@ -1278,7 +1296,6 @@ ul.start_box {
 /* ------- Control page ------- */
 
 #content-win-control{
-    border-top: 5px solid #373b40;
     border-right: 1px solid #ccc;
     border-left: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
