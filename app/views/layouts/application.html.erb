@@ -53,42 +53,29 @@
 	    <img id="logo" src="/images/emote_logo.png"/>
               <% if user_signed_in? %>
 	    	<div id="menu">
-                  <div id="username">Welcome, <%= current_user.full_name.blank? ? current_user.email : current_user.full_name %>!</div>
+          
                   <div id="buttons">
 
                   <div class="dropdown">
                     <% this_active = (controller.controller_name == 'surveys' && controller.action_name == 'index') %>
+                    <!-- I'm not sure if this section used with new menu. Oleg, please advice.
                     <%# link_to raw("<div class=\"button #{(controller.controller_name == 'surveys' && controller.action_name == 'index') ? 'on' : 'off'}\" id=\"emoteControlButton\" style=\"z-index: 10;position: relative;\"></div>"), root_path %>
                     <%= link_to raw(content_tag(:div, '', :id => 'emoteControlButton', :style => 'z-index: 10; position: relative;', :class => "button #{this_active ? 'on' : 'off'}")), root_path %>
+                    -->
+                    Dashboard
                     <% if this_active %>
-                      <div class="arrow"><img src="/images/buttons/econtrol_arrow.png"/></div>
+                      <div class="arrow"><img src="/images/buttons/selected_menu.png"/></div>
                     <% end %>
                   </div>
 
-                  <% unless current_user.surveys.empty? %>
-                    <div class="dropdown">
-                    <% this_active = (controller.controller_name == 'surveys' && controller.action_name == 'scorecard') %>
-                    <a href="#">
-                      <div class="button <%= this_active ? 'on' : 'off' %>" id="scoreCardButton" style="z-index: 10;position: relative;"></div>
-                    </a>
-                    <ul class="menu-body">
-                      <% current_user.surveys.each do |survey| %>
-                        <li <%= 'class="active"' if params[:id] == survey.id.to_s -%>>
-                          <%= link_to truncate(survey.project_name, :length => 20), scorecard_account_survey_path(survey), :title => survey.project_name %>
-                        </li>
-                      <% end %>
-                    </ul>
-                    <% if this_active %>
-                      <div class="arrow"><img src="/images/buttons/econtrol_arrow.png"/></div>
-                    <% end %>
-                    </div>
-                  <% end %>
-
-                  <div class="dropdown">
+                   <div class="dropdown">
                     <% this_active = %w(accounts subscriptions).include?(controller.controller_name) %>
-                    <a href="#">
+                    <a href="#">My Account
+                      <!-- 
                       <div class="button <%= this_active ? 'on' : 'off' %>" id="myAccount" style="z-index: 10;position: relative;"></div>
+                      -->
                     </a>
+                     <!--
                     <ul class="menu-body">
                       <li>
                         <%= link_to 'Change information', edit_account_path %>
@@ -103,13 +90,42 @@
                         <%= link_to 'Logout', destroy_user_session_path %>
                       </li>
                     </ul>
+                     -->
                     <% if this_active %>
-                      <div class="arrow"><img src="/images/buttons/econtrol_arrow.png"/></div>
+                      <div class="arrow"><img src="/images/buttons/selected_menu.png"/></div>
                     <% end %>
                   </div>
 
+                  <% unless current_user.surveys.empty? %>
+                    <div class="dropdown">
+                    <% this_active = (controller.controller_name == 'surveys' && controller.action_name == 'scorecard') %>
+                    <a href="#">Upgrade!
+                      <!--
+                      <div class="button <%= this_active ? 'on' : 'off' %>" id="scoreCardButton" style="z-index: 10;position: relative;"></div>
+                      -->
+                    </a>
+                      <!--
+                    <ul class="menu-body">
+                      <% current_user.surveys.each do |survey| %>
+                        <li <%= 'class="active"' if params[:id] == survey.id.to_s -%>>
+                          <%= link_to truncate(survey.project_name, :length => 20), scorecard_account_survey_path(survey), :title => survey.project_name %>
+                        </li>
+                      <% end %>
+                    </ul>
+                       -->
+                    <% if this_active %>
+                      <div class="arrow"><img src="/images/buttons/selected_menu.png"/></div>
+                    <% end %>
+                    </div>
+                  <% end %>
+
+                  
+
                   </div>
                 </div>
+              <div id="username">Welcome, <span class="username_customer"><%= current_user.full_name.blank? ? current_user.email : current_user.full_name %>!</span>
+                <span class="logout"><img class="logout-body" src="/images/logout_body.png"/><%= link_to 'Logout', destroy_admin_session_path %></span>
+              </div>
               <% end %>
 	</div>
 
