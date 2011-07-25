@@ -17,11 +17,15 @@
       <div class="<%= plan[:kind] %>_box_<%= Country.get_country_currency(current_user.country_code).downcase %>">
 
         <p class="plan_name"><%= plan[:name] %></p>
-        <p class="plan_short_descr">Multi-point, multi-topic engagement feedback</p>
+        <p class="plan_short_descr">
+          <%= case plan[:kind]
+            when 'start' then 'Ideal for continuous feedback from a fiew points of engagement'
+            when 'expand' then 'Expand the scope for customer engagement feedback points'
+            when 'magnify' then 'Multi-point, multi-topic engagement feedback'
+          end %>
+        </p>
         <% if available %>
-
-        <p class="plan_price"><%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %><span class="plan_price_digit"><%= current_user.plan.calc_upgrade_price(plan[:kind]) / 12 %></span> / month</p>
-
+          <p class="plan_price"><%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %><span class="plan_price_digit"><%= current_user.plan.calc_upgrade_price(plan[:kind]) / 12 %></span> / month</p>
         <% end %>
         <hr class="plan_line_<%= plan[:kind] %>" />
         <p class="plan_description">

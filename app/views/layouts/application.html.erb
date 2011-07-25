@@ -49,54 +49,63 @@
 
     <div id="before-header">&nbsp;</div>
 
-        <div id="header">
-	    <img id="logo" src="/images/emote_logo.png"/>
-              <% if user_signed_in? %>
-	    	<div id="menu">
-                  <div id="main-menu">
+    <div id="header">
+      <img id="logo" src="/images/emote_logo.png"/>
+        <div id="menu">
+          <% if user_signed_in? %>
+          <div id="main-menu">
 
-                    <% this_active = (controller.controller_name == 'surveys' && controller.action_name == 'index') %>
-                    <div class="menu-item<%= ' active' if this_active %>">
-                      <%= link_to_unless this_active, 'Dashboard', root_path %>
-                    </div>
+            <% this_active = (controller.controller_name == 'surveys' && controller.action_name == 'index') %>
+            <div class="menu-item<%= ' active' if this_active %>">
+              <%= link_to_unless this_active, 'Dashboard', root_path %>
+            </div>
 
-                    <% this_active = current_page?(:controller => 'accounts', :action => 'edit') || current_page?(:controller => 'subscriptions', :action => 'index') %>
-                    <div class="menu-item<%= ' active' if this_active %>">
-                    <%= link_to 'My Account', '#' %>
-                      <ul class="menu-dropdown">
-                        <li>
-                          <%= link_to_unless_current 'Information', {:controller => 'accounts', :action => 'edit'} %>
-                        </li>
-                        <li>
-                          <%= link_to_unless_current 'Activity', {:controller => 'subscriptions', :action => 'index'} %>
-                        </li>
-                      </ul>
-                    </div>
+            <% this_active = current_page?(:controller => 'accounts', :action => 'edit') || current_page?(:controller => 'subscriptions', :action => 'index') %>
+            <div class="menu-item<%= ' active' if this_active %>">
+            <%= link_to 'My Account', '#' %>
+              <ul class="menu-dropdown">
+                <li>
+                  <%= link_to_unless_current 'Information', {:controller => 'accounts', :action => 'edit'} %>
+                </li>
+                <li>
+                  <%= link_to_unless_current 'Activity', {:controller => 'subscriptions', :action => 'index'} %>
+                </li>
+              </ul>
+            </div>
 
-                    <% this_active = current_page?(:controller => 'subscriptions', :action => 'new') %>
-                    <div class="menu-item<%= ' active' if this_active %>">
-                      <%= link_to_unless this_active, 'Upgrade!', new_account_subscription_path %>
-                      <% if false && this_active %>
-                        <div class="arrow"><img src="/images/buttons/selected_menu.png"/></div>
-                      <% end %>
-                    </div>
-                  
-
-                  </div>
-                </div>
-              <div id="username">Welcome, <span class="username_customer"><%= current_user.name %>!</span>
-                <span class="logout"><img class="logout-body" src="/images/logout_body.png"/><%= link_to 'Logout', destroy_user_session_path %></span>
-              </div>
+            <% this_active = current_page?(:controller => 'subscriptions', :action => 'new') %>
+            <div class="menu-item<%= ' active' if this_active %>">
+              <%= link_to_unless this_active, 'Upgrade!', new_account_subscription_path %>
+              <% if false && this_active %>
+                <div class="arrow"><img src="/images/buttons/selected_menu.png"/></div>
               <% end %>
-	</div>
+            </div>
 
-      <%= yield %>
+          </div>
+          <div id="username">Welcome, <span class="username_customer"><%= current_user.name %>!</span>
+            <span class="logout"><img class="logout-body" src="/images/logout_body.png"/><%= link_to 'Logout', destroy_user_session_path %></span>
+          </div>
+        <% end %>
+        </div>
+
+        <div id="sub_menu">
+            <ul class="sub-menu-list">
+              <li style="color: #ffffff">Юра, повесь меня на место, под главное меню!</li>
+              <li><a href="#">Information</a></li>
+              <img id="spliter" src="/images/nav_spliter.png"/>
+              <li><a href="#">Activity</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <%= yield %>
 
     <div id="forfooter"> &nbsp; </div>
   </div>
 
   <div id="footer">
-      <%= link_to image_tag('ie_logo.png', :id => 'ie-logo'), 'http://www.inspirationengine.com/', :target => '_blank' %>
+    <%= link_to image_tag('ie_logo.png', :id => 'ie-logo'), 'http://www.inspirationengine.com/', :target => '_blank' %>
   </div>
 
   <!-- Javascript at the bottom for fast page loading -->
