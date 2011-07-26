@@ -1041,11 +1041,13 @@ ul.start_box {
 
 .survey-title {
     width: 100%;
-    text-align: right;
+    text-align: left;
     font-size: 16px;
     font-weight: bold;
     height: 25px;
     padding-top: 10px;
+    margin-top: 50px;
+    margin-left: 130px;
 
 }
 
