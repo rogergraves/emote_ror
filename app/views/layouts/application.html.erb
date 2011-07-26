@@ -61,16 +61,8 @@
               </div>
 
               <% this_active = show_submenu = current_page?(:controller => 'accounts', :action => 'edit') || current_page?(:controller => 'subscriptions', :action => 'index') %>
-              <div class="menu-item<%= ' active' if this_active %>">
-              <%= link_to 'My Account', '#' %>
-                <ul class="menu-dropdown">
-                  <li>
-                    <%= link_to_unless_current 'Information', {:controller => 'accounts', :action => 'edit'} %>
-                  </li>
-                  <li>
-                    <%= link_to_unless_current 'Activity', {:controller => 'subscriptions', :action => 'index'} %>
-                  </li>
-                </ul>
+              <div class="menu-item with-submenu<%= ' active' if this_active %>">
+                <%= link_to 'My Account', '#' %>
               </div>
 
               <% this_active = current_page?(:controller => 'subscriptions', :action => 'new') %>
@@ -89,15 +81,16 @@
           <% end %>
         </div>
     </div>
-    <% if show_submenu %>
-      <div id="sub_menu"><!-- TODO доделать сабменю -->
-        <ul class="sub-menu-list">
-          <li><a href="#">Information</a></li>
-          <li><a href="#">Activity</a></li>
-        </ul>
-      </div>
+    <div id="sub_menu" <%= raw show_submenu ? '' : 'style="display: none;" class="hiding"' %>>
+      <ul class="sub-menu-list">
+        <% this_active = current_page?(:controller => 'accounts', :action => 'edit') %>
+        <li class="submenu-item<%= ' active' if this_active %>"><%= link_to_unless this_active, 'Information', edit_account_path  %></li>
+
+        <% this_active = current_page?(:controller => 'subscriptions', :action => 'index') %>
+        <li class="submenu-item<%= ' active' if this_active %>"><%= link_to_unless this_active, 'Activity', account_subscriptions_path %></li>
+      </ul>
+    </div>
     <div class="sub_menu_clear"></div>
-    <% end %>
 
     <%= yield %>
 

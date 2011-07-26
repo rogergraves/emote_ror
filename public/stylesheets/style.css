@@ -1,4 +1,4 @@
-/*
+manu/*
   HTML5 ✰ Boilerplate
 
   style.css contains a reset, font normalization and some base styles.
@@ -790,29 +790,23 @@ ul.start_box {
     height: 39px;
     position: relative;
     top: 10px;
+    color: #ccc;
 }
 
 #sub_menu .sub-menu-list li a {
+    text-decoration: none;
     color: #ccc;
-    text-decoration: underline;
-    text-align: center;
 }
 
 #sub_menu .sub-menu-list li a:hover {
-    color: #fff;
-    text-decoration: none;
-    text-align: center;
+    text-decoration: underline;
 }
 
-#sub_menu .sub-menu-list li a:active{
-    color: #fff;
-    text-decoration: none;
-    text-align: center;
+#sub_menu .sub-menu-list .active{
     background-image: url('/images/buttons/selected_smenu.png');
-    background-position: center 23px;
+    background-position: center;
     background-repeat: no-repeat;
-    display: block;
-    height: 39px;
+    z-index: 3;
 }
 
 #content-win-info .update_topic {
