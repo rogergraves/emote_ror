@@ -41,6 +41,7 @@ function renderBarChart(config){
                          var cfg = this.config;
                          $('#emotionLabel').html(strEmotionLabel + cfg.name);
                          document.getElementById('see_all_comments').style.visibility = 'visible';
+                         renderPieChart(configPie);
                          doAjax({
                              data: {name: cfg.name},
                              url: '/survey_results/verbatims.json',
