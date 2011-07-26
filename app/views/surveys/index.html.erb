@@ -2,16 +2,26 @@
 <% content_for :head_css, stylesheet_link_tag('jquery-ui-1.8.9.custom.css') %>
 
 <div id="content-win-control" role="main">
- <% unless current_user.can_add_scorecard? %>
   <div id="area">
     <!-- <%= flash_messages %> -->
-    <div class="subsc_info">You don't have free slots for new e.mote&trade;. Delete one or upgrade your subscription.<br /><!-- TODO добавить текст "Scorecard is limited to the first 50 responses for the free account." в зависимости от пакета -->
-        <%= link_to image_tag('upgrade_now_button.png'), new_account_subscription_path %>
+    <div class="subsc_info">
+      <% if current_user.can_add_scorecard? %>
+        You have <%= current_user.scorecards_available %> slots available. If you'd like more slots you may delete existing ones or upgrade your subscription.
+      <% else %>
+        You don't have free slots for a new e.mote&trade;. Delete one or upgrade your subscription.
+      <% end %>
+      <br />
+      <% if current_user.plan.is_free? %>
+        Scorecard is limited to the first 50 responses for a free account.
+        <br/>
+      <% end %>
+      <!-- TODO добавить текст "Scorecard is limited to the first 50 responses for the free account." в зависимости от пакета -->
+      <%= link_to image_tag('upgrade_now_button.png'), new_account_subscription_path %>
     </div>
   </div>
- <% else %>
+ <% if current_user.can_add_scorecard? %>
   <div class="create_scorecard">
-      <%= link_to image_tag('create_scorecard_button.png'), new_account_subscription_path %>
+      <%= link_to image_tag('create_scorecard_button.png'), new_account_survey_path %>
   </div>
  <% end %>
  <% unless current_user.surveys.empty? %>

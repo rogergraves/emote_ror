@@ -661,12 +661,20 @@ table.table_data{
 .plan_price {
     font-size: 18px;
     margin: 5px 0 10px 20px;
+    height: 30px;
 }
 
 .plan_price_digit{
     font-size: 24px;
     font-weight: bold;
 }
+
+.plan_price .credits {
+    color: red;
+    float: right;
+    margin: 5px 0 10px 20px;
+}
+
 
 #plan_area hr.plan_line_start {
     display: block;

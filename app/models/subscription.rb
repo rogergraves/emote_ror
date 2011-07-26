@@ -91,10 +91,17 @@ class Subscription < ActiveRecord::Base #aka Plan
     OPTIONS.select{|s| s[:kind] == plan_code}.first || (most_expensive_as_default ? OPTIONS.last : nil)
   end
   
-  def calc_upgrade_price(new_plan_code)
+  def months_left
     today = Date.today
     future = self.end_date
-    months_left = ((future.year-today.year)*12 + future.month) - today.month
+    ((future.year-today.year)*12 + future.month) - today.month
+  end
+  
+  def annual_credits_if_upgraded(plan_code)
+    (calc_upgrade_price(plan_code)/12) * months_left
+  end
+  
+  def calc_upgrade_price(new_plan_code)
     return nil unless (0..12) === months_left
     if self.kind=='custom'
       nil
