@@ -5,13 +5,13 @@
  <% unless current_user.can_add_scorecard? %>
   <div id="area">
     <!-- <%= flash_messages %> -->
-    <div class="subsc_info">You don't have free slots for new e.mote&trade;. Delete one or upgrade your subscription.<br />
+    <div class="subsc_info">You don't have free slots for new e.mote&trade;. Delete one or upgrade your subscription.<br /><!-- TODO добавить текст "Scorecard is limited to the first 50 responses for the free account." в зависимости от пакета -->
         <%= link_to image_tag('upgrade_now_button.png'), new_account_subscription_path %>
     </div>
   </div>
  <% else %>
   <div class="create_scorecard">
-      <%= link_to image_tag('create_scorecard_button.png'), new_account_subscription_path %> <!--TODO поменять картинку -->
+      <%= link_to image_tag('create_scorecard_button.png'), new_account_subscription_path %>
   </div>
  <% end %>
  <% unless current_user.surveys.empty? %>
@@ -23,18 +23,6 @@
         <th><a class="tooltip" href="#">time active<span class="classic">How long the e.mote&trade; has been turned on.</span></a></th>
         <th><a class="tooltip" href="#">responses<span class="classic">The total number of respondents who took the e.mote&trade; survey. New responses are based on when the Scorecard was last opened.</span></a></th>
         <th class="last_column">&nbsp;</th>
-        <!--
-        <th><a class="tooltip" href="#">LINKS & QR CODES<span class="classic">Get a link or embed buttons to use in emails, websites, Skype, SMS, Facebook or Twitter. Download QR code graphics for Android and iPhones to scan and take the e.mote&trade;.</span></a></th>
-        <th><a class="tooltip tooltipleft" href="#">VIEW SCORECARD<span class="classic">See the e.mote&trade; results in the interactive Scorecard.</span></a></th>
-        <th><a class="tooltip tooltipleft" href="#">ALERTS<span class="classic">Get email alerts with updates on your e.motes&trade; activity, and set whether respondents can leave you their email address for personalized correspondence.</span></a></th>
-        <th><a class="tooltip tooltipleft" href="#">CLEAR/DELETE<span class="classic">
-                <% if current_user.plan.is_free? %>
-                  Clear all the data from this e.mote Scorecard. This allows you to collect another set of 50 responses for this e.mote.
-                <% else %>
-                  Clean out your data to start fresh, or delete the e.mote&trade; completely so you can free up a slot for a new one on a different subject.
-                <% end %>
-            </span></a></th>
-        -->
       </tr>
     </thead>
     <% current_user.surveys.each do |survey| %>

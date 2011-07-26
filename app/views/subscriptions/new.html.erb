@@ -8,6 +8,7 @@
       <p class="big-text-subsc">Looking for a custom plan?</p>
       <p class="small-text-subsc">To upgrade to a customized plan email us at <%= mail_to "sales@inspirationengine.com" %> or call us at <span class="srong_font">435-565-1532</span> to place an order.</p>
 
+  </div>
       <% Subscription::OPTIONS.each_with_index do |plan, i| %>
       <% next if plan[:kind]=='free' %>
       <% available = current_user.plan.can_upgrade_to?(plan[:kind]) %>
@@ -47,7 +48,6 @@
      </div>
     <% end %>
     
-  </div>
   <div class="subscr_order">
     <%= link_to "Subscription Terms", 'http://inspirationengine.com/?page_id=189', :target => '_blank' %>
   </div>

@@ -602,7 +602,7 @@ table.table_data{
 
 #content-win-control .status_line{
     width: 100%;
-    height: 47px;
+    height: 52px;
     margin-bottom: 5px;
     border-bottom: 1px solid #ccc;
 }
@@ -610,13 +610,19 @@ table.table_data{
 #content-win-control .status_line .upgrate_acc{
     font-size: 24px;
     float: left;
-    margin: 10px 0 0 20px;
+    margin: 8px 0 0 20px;
 }
 
 #content-win-control .status_line .medium-text-subsc{
     float: right;
     font-size: 12px;
     margin-top: 20px;
+    marging-right: 10px;
+    padding: 0 20px 0 0;
+}
+
+#content-win-control .status_line .medium-text-subsc b{
+    font-weight: bold;
 }
 
 #content-win-control #area .big-text-subsc{
@@ -637,8 +643,8 @@ table.table_data{
 
 #plan_area{
     float: left;
-    width: 32.9%;
-    margin: 40px 0 0 4px;
+    width: 32.6%;
+    margin: 20px 0 0 5px;
 }
 
 .plan_name{
@@ -649,6 +655,7 @@ table.table_data{
 
 .plan_short_descr{
     margin: 5px 0 10px 20px;
+    min-height: 35px;
 }
 
 .plan_price {
@@ -714,7 +721,7 @@ ul.start_box {
 .upgr_btn_subscr{
     float: left;
     text-align: left;
-    margin: 15px 0 0 20px;
+    margin: 5px 0 0 20px;
 }
 
 .subscr_order{
@@ -756,28 +763,26 @@ ul.start_box {
     background: url('../images/top-nav_bg.png') repeat-x;
 }
 
+.sub_menu_clear{
+    clear: both;
+}
+
 #sub_menu ul.sub-menu-list{
     margin: 0;
     padding: 0;
     list-style-type: none;
 }
-#sub_menu ul.sub-menu-list li {
+#sub_menu ul.sub-menu-list li{
     display: inline;
     float: left;
-    margin-top: -9px;
-    padding: 15px 25px 0 25px;
+    padding: 0 20px;
     background-image: url('/images/nav_spliter.png');
-    background-position: right;
+    background-position: right -10px;
     background-repeat: no-repeat;
-    height: 40px;
-    width: auto;
-    vertical-align: middle;
+    height: 39px;
+    position: relative;
+    top: 10px;
 }
-
-#sub_menu ul.sub-menu-list .last {
-    background: none;
-}
-
 
 #sub_menu .sub-menu-list li a {
     color: #ccc;
@@ -789,6 +794,17 @@ ul.start_box {
     color: #fff;
     text-decoration: none;
     text-align: center;
+}
+
+#sub_menu .sub-menu-list li a:active{
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    background-image: url('/images/buttons/selected_smenu.png');
+    background-position: center 23px;
+    background-repeat: no-repeat;
+    display: block;
+    height: 39px;
 }
 
 #content-win-info .update_topic {
@@ -821,16 +837,24 @@ ul.start_box {
 }
 
 #update-info .field input{
-    border: 1px solid #c6c6c6;
-    font-size: 18px;
+    height: 20px;
+    font-size: 12px;
     width: 305px;
-    
+    padding: 3px 5px;
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
+    border-bottom: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
 }
 
 #update-info .field select{
-    border: 1px solid #c6c6c6;
-    font-size: 18px;
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
+    border-bottom: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
     width: 305px;
+    padding: 3px 5px;
+    width: 317px;
 }
 
 .error-update{
@@ -842,7 +866,7 @@ ul.start_box {
 
 .create_acc{
     position: relative;
-    margin-left: 200px;
+    margin-left: 120px;
     padding-top: 10px;
     float: left;
 }
@@ -1138,12 +1162,6 @@ ul.start_box {
     width: 300px;
 }
 
-.boxshadow #getting-account .field input, select{
-    -moz-box-shadow: 0px 2px 2px #999999;
-    -webkit-box-shadow: 0px 2px 2px #999999;
-    box-shadow: 0px 2px 2px #999999;
-}
-
 .terms_note{
     float: left;
     margin-top: 8px;
@@ -1174,7 +1192,6 @@ ul.start_box {
 #header #username b{
     font-weight: bold;
 }
-
 
 #header .username_customer{
     color: #333;
@@ -1313,7 +1330,7 @@ ul.start_box {
     position: relative;
     left: 50%;
     margin-left: -494px;
-    padding: 5px;
+    padding: 5px 0 0 0;
 }
 
 .borderradius #content-win-control{
@@ -1325,9 +1342,10 @@ ul.start_box {
 }
 
 #content-win-control #area{
-    width: 100%;
+    width: 976px;
     height: 88px;
     background-color: #e3efca;
+    margin: 0 0 0 5px;
 }
 
 #content-win-control #area .subsc_info {
@@ -1343,9 +1361,9 @@ ul.start_box {
 #content-win-control .create_scorecard{
     float: left;
     background: #eceff2;
-    width: 100%;
+    width: 976px;
     height: 66px;
-    margin: 5px 0 30px 0;
+    margin: 5px 5px 0 5px;
 }
 
 #content-win-control .create_scorecard img{
@@ -1354,7 +1372,8 @@ ul.start_box {
 }
 
 #content-win-control table{
-    width: 100%;
+    width: 976px;
+    margin: 20px 5px 0 5px;
 }
 
 #content-win-control table .first_column{
@@ -1364,6 +1383,7 @@ ul.start_box {
 #content-win-control table .last_column{
     width: 50%;
     text-align: right;
+    padding-right: 20px;
 }
 
 #content-win-control table .last_column img{
@@ -1382,6 +1402,7 @@ ul.start_box {
 #content-win-control table td{
     text-align: left;
     font-size: 12px;
+    font-weight: bold;
 }
 
 #content-win-control table tr{
