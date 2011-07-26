@@ -8,3 +8,4 @@ nbproject
 */.DS_Store
 _stuff
 app/views/surveys/.idea/*
+config/database.yml
