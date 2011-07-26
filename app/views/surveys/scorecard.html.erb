@@ -3,11 +3,14 @@
        <%= @survey.project_name -%>
   </div>
     <div id="scorecard-content">
-		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
-		<%= javascript_include_tag 'highcharts.js' %>
-        <%= javascript_include_tag 'jquery.simplemodal.js' %>
-        <%= javascript_include_tag 'scorecard.js' %>
-        <link type='text/css' href='/stylesheets/modal.css' rel='stylesheet' media='screen' />
+      <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+      <%= javascript_include_tag 'highcharts.js' %>
+      <%= javascript_include_tag 'jquery.simplemodal.js' %>
+      <script>
+        var survey = <%= raw @survey.to_json(:only => [:project_name, :code, :id]) %>;
+      </script>
+      <%= javascript_include_tag 'scorecard.js' %>
+      <link type='text/css' href='/stylesheets/modal.css' rel='stylesheet' media='screen' />
 
     <style type="text/css">
         .commentRow1 {

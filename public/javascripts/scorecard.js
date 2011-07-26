@@ -17,7 +17,7 @@ function renderBarChart(config){
          height: 280,
          width: 800
         },
-        title: {text: '<%= @survey.project_name %>'},
+        title: {text: survey['project_name']},
         xAxis: {
          categories: categories,
          labels: {
@@ -178,7 +178,7 @@ function filterVerbatim(text){
        var strAjaxUrl = '/survey_results/verbatims.json';
 
        if (!config.data) config.data = {};
-       config.data.survey = '<%= @survey.code -%>';
+       config.data.survey = survey['code'];
        config.data.action_token = '';
        config.data.session = '';
        $.ajax({

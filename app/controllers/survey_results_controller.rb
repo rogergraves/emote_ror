@@ -27,7 +27,9 @@ class SurveyResultsController < ApplicationController
     #@survey = Survey.first(:conditions => {:code => params[:survey]})
 
     respond_to do |format|
-      format.json { render :json => @survey.verbatims_obj(params[:filter], params[:name], params[:subset], @public_access) }
+      format.json do
+        render :json => @survey.verbatims_obj(params[:filter], params[:name], params[:subset], @public_access)
+      end
     end
   end
   
