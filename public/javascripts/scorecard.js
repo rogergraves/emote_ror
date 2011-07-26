@@ -34,6 +34,7 @@ function renderBarChart(config){
 
         plotOptions: {
              column: {
+                shadow: false,
                 cursor: 'pointer',
                 point: {
                    events: {
@@ -61,7 +62,7 @@ function renderBarChart(config){
         },
         legend: {enabled: false},
         tooltip: {
-         formatter: function() { return '';}
+         enabled: false
         },
         series: [{
             pointWidth: 30,
@@ -82,7 +83,7 @@ function renderBarChart(config){
         });
     }
 
-	function renderPieChart(pieConfig){
+function renderPieChart(pieConfig){
         var pieData = [];
 
         var intTotalResponsesCount = 0;
