@@ -328,14 +328,13 @@ html, body{
 }
 
 #content-win-centr .vr{
-    border-left:2px solid #e6e6e6; float: left; margin-top: 60px; width: 1px; height: 310px;
+    border-left:2px solid #e6e6e6; float: left; margin-top: 30px; width: 1px; height: 310px;
 }
 
 #login-content #create-account{
     float: right;
     text-align: center;
     margin-right: 30px;
-    margin-top: 30px;
     width: 140px;
     height: 346px;
     background: #f5f5f5;
@@ -874,6 +873,26 @@ ul.start_box {
 }
 
 /* ------- All Finished! page ------- */
+
+#content-win-centr{
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    width: 986px;
+    background-color: white;
+    position: relative;
+    left: 50%;
+    margin-left: -494px;
+    padding: 5px 0 0 0;
+}
+
+.borderradius #content-win-centr{
+     -webkit-border-radius: 0 0 5px 5px;
+     -moz-border-radius: 0 0 5px 5px;
+     border-bottom-right-radius: 5px;
+     border-bottom-left-radius: 5px;
+     box-shadow: 0px 2px 0px #e5e5e5;
+}
 
 #content-win-centr #allfinished{
     margin-top: 50px;
@@ -1488,7 +1507,7 @@ ul.start_box {
 #delete-dialog img {
     position: absolute;
     bottom: 30px;
-    margin: 0 0 0 35px;
+    margin: 0 0 0 4px;
 }
 
 #delete-dialog p {
