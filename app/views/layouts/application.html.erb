@@ -51,36 +51,37 @@
 
     <div id="header">
       <%= link_to image_tag('emote_logo.png'), root_path, :id => 'logo' %>
+        <% if user_signed_in? %>
         <div id="menu">
-          <% if user_signed_in? %>
-            <div id="main-menu">
+          <div id="main-menu">
 
-              <% this_active = (controller.controller_name == 'surveys' && controller.action_name == 'index') %>
-              <div class="menu-item<%= ' active' if this_active %>">
-                <%= link_to_unless this_active, 'Dashboard', root_path %>
-              </div>
-
-              <% this_active = show_submenu = current_page?(:controller => 'accounts', :action => 'edit') || current_page?(:controller => 'subscriptions', :action => 'index') %>
-              <div class="menu-item with-submenu<%= ' active' if this_active %>">
-                <%= link_to 'My Account', '#' %>
-              </div>
-
-              <% this_active = current_page?(:controller => 'subscriptions', :action => 'new') %>
-              <div class="menu-item<%= ' active' if this_active %>">
-                <%= link_to_unless this_active, 'Upgrade!', new_account_subscription_path %>
-                <% if false && this_active %>
-                  <div class="arrow"><img src="/images/buttons/selected_menu.png"/></div>
-                <% end %>
-              </div>
-
+            <% this_active = (controller.controller_name == 'surveys' && controller.action_name == 'index') %>
+            <div class="menu-item<%= ' active' if this_active %>">
+              <%= link_to_unless this_active, 'Dashboard', root_path %>
             </div>
-            <div id="username">
-              <span class="username_customer">Welcome, <b><%= current_user.name %></b>!</span>
-              <span class="logout"><img class="logout-body" src="/images/logout_body.png"/><%= link_to 'Logout', destroy_user_session_path %></span>
+
+            <% this_active = show_submenu = current_page?(:controller => 'accounts', :action => 'edit') || current_page?(:controller => 'subscriptions', :action => 'index') %>
+            <div class="menu-item with-submenu<%= ' active' if this_active %>">
+              <%= link_to 'My Account', '#' %>
             </div>
-          <% end %>
+
+            <% this_active = current_page?(:controller => 'subscriptions', :action => 'new') %>
+            <div class="menu-item<%= ' active' if this_active %>">
+              <%= link_to_unless this_active, 'Upgrade!', new_account_subscription_path %>
+              <% if false && this_active %>
+                <div class="arrow"><img src="/images/buttons/selected_menu.png"/></div>
+              <% end %>
+            </div>
+
+          </div>
+          <div id="username">
+            <span class="username_customer">Welcome, <b><%= current_user.name %></b>!</span>
+            <span class="logout"><img class="logout-body" src="/images/logout_body.png"/><%= link_to 'Logout', destroy_user_session_path %></span>
+          </div>
         </div>
+      <% end %>
     </div>
+  <% if user_signed_in? %>
     <div id="sub_menu" <%= raw show_submenu ? '' : 'style="display: none;" class="hiding"' %>>
       <ul class="sub-menu-list">
         <% this_active = current_page?(:controller => 'accounts', :action => 'edit') %>
@@ -91,8 +92,9 @@
       </ul>
     </div>
     <div class="sub_menu_clear"></div>
+  <% end %>
 
-    <%= yield %>
+<%= yield %>
 
     <div id="forfooter"> &nbsp; </div>
   </div>
