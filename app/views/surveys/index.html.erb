@@ -1,5 +1,5 @@
-<% content_for :footer_js, javascript_include_tag('jquery-ui-1.8.9.custom.min.js', 'emote_control.js') %>
-<% content_for :head_css, stylesheet_link_tag('jquery-ui-1.8.9.custom.css') %>
+<% content_for :footer_js, javascript_include_tag('jquery.simplemodal.js', 'emote_control.js') %>
+<% content_for :head_css, stylesheet_link_tag('modal.css') %>
 
 <div id="content-win-control" role="main">
   <div id="area">
@@ -15,7 +15,6 @@
         Scorecard is limited to the first 50 responses for a free account.
         <br/>
       <% end %>
-      <!-- TODO добавить текст "Scorecard is limited to the first 50 responses for the free account." в зависимости от пакета -->
       <%= link_to image_tag('upgrade_now_button.png'), new_account_subscription_path %>
     </div>
   </div>
@@ -71,7 +70,8 @@
  <% end %>
 </div>
 
-<div id="links-dialog" style="visibility: hidden;">
+<div id="links-dialog">
+  <div class="dialog-title"></div>
   <div id="links-pane">
     <div class="popup-item">
       <div class="left-part">Email or IM link:</div>
@@ -100,7 +100,8 @@
   </div>
 </div>
 
-<div id="alerts-dialog" style="visibility: hidden;">
+<div id="alerts-dialog">
+  <div class="dialog-title">Activity Alerts</div>
   <%= form_for :activity_settings, :url => '#', :remote => true do %>
     <div id="activity-updates">
       Email me updates on e.mote&trade; activity:
@@ -133,7 +134,8 @@
   <% end %>
 </div>
 
-<div id="delete-dialog" style="visibility: hidden;">
+<div id="delete-dialog">
+  <div class="dialog-title"></div>
   <div id="clear-pane">
     <h3>Clear Data</h3>
     <br/>

@@ -1,41 +1,15 @@
 $(document).ready(function() {
-    var link_dlg = $('#links-dialog');
-    link_dlg.removeAttr('style').dialog({
-        autoOpen: false,
-        closeOnEscape: true,
-        modal: true,
-        width: 600,
-        height: 370
-    });
-    
-    var delete_dlg = $('#delete-dialog');
-    delete_dlg.removeAttr('style').dialog({
-        autoOpen: false,
-        closeOnEscape: true,
-        modal: true,
-        width: 590,
-        height: 250
-    });    
-
     var alerts_dlg = $('#alerts-dialog');
     alerts_dlg.find('form').bind('ajax:success', function(e, data, status) {
         if(status=='success'){
             alert("Settings saved");
-            $('#alerts-dialog').dialog('close');
+            $.modal.close();
         } else {
             alert(data);
         }
     });
     alerts_dlg.find("input[name='respondent_email']").change(function(){
         displayFeedbackPrompt(this.value);
-    });
-    alerts_dlg.removeAttr('style').dialog({
-        title: "Activity Alerts",
-        autoOpen: false,
-        closeOnEscape: true,
-        modal: true,
-        width: 400,
-        height: 370
     });
 });
 
@@ -58,15 +32,15 @@ function showLinks(emote_name, emote_link, emote_code){
     });
     dlg.find('#qr-code').attr('src', '/images/qr/emote_'+emote_code+'_qr.png')
     dlg.find('#download-link').attr('href', '/account/surveys/'+emote_code+'/get_qrcode')
-    dlg.dialog({title: 'Embed links &amp; QR code for "'+emote_name+'" e.mote&trade; survey'});
-    dlg.dialog('open');
+    dlg.find('.dialog-title').html('Embed links &amp; QR code for "'+emote_name+'" e.mote&trade; survey');
+    dlg.modal({minHeight: 350, minWidth: 600});
     return false;
 }
 
 function showDelete(emote_name, emote_code){
     var dlg = $('#delete-dialog');
-    dlg.dialog({title: 'Clear Data or Delete "'+emote_name+'"'});
-    dlg.dialog('open');
+    dlg.find('.dialog-title').html('Clear Data or Delete "'+emote_name+'"');
+    dlg.modal({minHeight: 250, minWidth: 590});
     return false;
 }
 
@@ -75,14 +49,15 @@ function showAlerts(emote_name, settings_url){
     $.ajax({
         url: settings_url,
         dataType: 'json',
-        success: onAlertSettingsData
+        success: onAlertSettingsData,
+        emote_name: emote_name
     });
     return false;
 }
 
 function onAlertSettingsData(json){
     var dlg = $('#alerts-dialog');
-    //dlg.dialog({title: 'Alerts for "'+emote_name+'"'});
+    dlg.find('.dialog-title').html('Alerts for "'+this.emote_name+'"');
     dlg.find("#activity-updates input:radio").each(function(){
       $(this).attr('checked', $(this).attr('value')==json.activity_report_interval)
     });
@@ -92,7 +67,7 @@ function onAlertSettingsData(json){
     displayFeedbackPrompt(json.store_respondent_contacts);
     var prompt = $.trim(json.feedback_prompt)=='' ? "Start a conversation with us... Enter your email below - we’d be delighted to contact you!" : json.feedback_prompt
     dlg.find("#feedback_prompt").val(prompt);
-    dlg.dialog('open');
+    dlg.modal({minHeight: 350, minWidth: 370});
 }
 
 function displayFeedbackPrompt(visible){

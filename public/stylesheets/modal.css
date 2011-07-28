@@ -11,8 +11,21 @@
  * Revision: $Id: basic.css 257 2010-07-27 23:06:56Z emartin24 $
  */
 
+/* Scorecards */
 #share_scorecard_modal {display:none;}
 #download_modal {display:none;}
+
+/* Dashboard */
+#links-dialog { display:none; }
+#alerts-dialog { display:none; }
+#delete-dialog { display:none; }
+#links-dialog { display:none; }
+.dialog-title {
+    margin-top: -10px;
+    padding-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+}
 
 /* Overlay */
 #simplemodal-overlay {background-color:#000; cursor:wait;}

@@ -1,31 +1,36 @@
+<% content_for :head_css do %>
+  <%= stylesheet_link_tag 'modal.css', :media => :screen %>
+  <style type="text/css">
+    .commentRow1 {
+        height:45px;
+        width: 1150px;
+        background-color: #FFFFFF;
+        font-size: 11px;
+    }
+    .commentRow2 {
+        height:45px;
+        width: 1150px;
+        background-color: #f0f0f0;
+        font-size: 11px;
+    }
+  </style>
+<% end %>
+
+
+<% content_for :head_js do %>
+  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+  <%= javascript_include_tag 'highcharts.js', 'jquery.simplemodal.js' %>
+  <script>
+    var survey = <%= raw @survey.to_json(:only => [:project_name, :code, :id]) %>;
+  </script>
+  <%= javascript_include_tag 'scorecard.js' %>
+<% end %>
+
 <div id="content-win-centr-scorecard" role="main">
   <div class="survey-title">
        <%= @survey.project_name -%>
   </div>
     <div id="scorecard-content">
-      <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
-      <%= javascript_include_tag 'highcharts.js' %>
-      <%= javascript_include_tag 'jquery.simplemodal.js' %>
-      <script>
-        var survey = <%= raw @survey.to_json(:only => [:project_name, :code, :id]) %>;
-      </script>
-      <%= javascript_include_tag 'scorecard.js' %>
-      <link type='text/css' href='/stylesheets/modal.css' rel='stylesheet' media='screen' />
-
-    <style type="text/css">
-        .commentRow1 {
-            height:45px;
-            width: 1150px;
-            background-color: #FFFFFF;
-            font-size: 11px;
-        }
-        .commentRow2 {
-            height:45px;
-            width: 1150px;
-            background-color: #f0f0f0;
-            font-size: 11px;
-        }
-    </style>
 		
 <script type="text/javascript">
 
@@ -78,7 +83,7 @@
             $('#simplemodal-container').css('width', 250);
             return false;
         });
-	});
+    });
     
     function loadComments(config){
         var verbatimHTML = "<table style='width: 1103px;'>\n";
