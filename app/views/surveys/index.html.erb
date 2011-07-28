@@ -12,9 +12,8 @@
       <% end %>
       <% if current_user.plan.is_free? %>
         Scorecard is limited to the first 50 responses for a free account.
-        <br/>
       <% end %>
-      <%= link_to image_tag('upgrade_now_button.png'), new_account_subscription_path %>
+      <p><%= link_to image_tag('upgrade_now_button.png'), new_account_subscription_path %></p>
     </div>
   </div>
  <% if current_user.can_add_scorecard? %>
