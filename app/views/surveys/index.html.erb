@@ -24,7 +24,7 @@
   </div>
  <% end %>
  <% unless current_user.surveys.empty? %>
-  <table>
+  <table id="emotes-table">
     <thead>
       <tr>
         <th class="first_column"><a class="tooltip" href="#">on/off<span class="classic">When turned on, people can take the e.mote&trade; survey. When turned off, they get a "no longer active" message.</span></a></th>
@@ -35,7 +35,7 @@
       </tr>
     </thead>
     <% current_user.surveys.each do |survey| %>
-      <tr class="<%= cycle('odd','even') %> <%= survey.archived? ? 'disabled-row' : '' %>">
+      <tr class="<%= cycle('odd','even') %><%= survey.archived? ? ' disabled-row' : '' %>">
         <td class="first_column">
           <% if survey.suspended? %>
             <%=  image_tag 'exclamation.png', :title => 'Suspended, contact support for details' %>
@@ -60,8 +60,12 @@
           <% end %>
         </td>
         <td class="last_column">
-          <%= link_to_function image_tag('link_button.png', :title => 'Links & QR Codes'), "showLinks('#{survey.project_name}','#{survey.emote_direct_link}', '#{survey.code}');" %><%= link_to_function image_tag('alert_button.png', :title => 'Alerts'), "showAlerts('#{survey.project_name}', '#{settings_account_survey_path(survey)}')"  %><%= link_to image_tag('scorecard_button.png', :title => 'Scorecard'), scorecard_account_survey_path(survey) %>
-          <%= link_to_function image_tag('delete_verbatim.png', :title => 'Clear/Delete'), "$('#delete-dialog #clear-pane a').attr('href', '#{wipe_responses_account_survey_path(survey)}'); $('#delete-dialog #delete-pane a').attr('href', '#{account_survey_path(survey)}'); showDelete('#{survey.project_name}', #{survey.id})" %>
+          <div class="buttonbar">
+            <%= link_to_function image_tag('link_button.png', :title => 'Links & QR Codes'), "showLinks('#{survey.project_name}','#{survey.emote_direct_link}', '#{survey.code}');" %>
+            <%= link_to_function image_tag('alert_button.png', :title => 'Alerts'), "showAlerts('#{survey.project_name}', '#{settings_account_survey_path(survey)}')"  %>
+            <%= link_to image_tag('scorecard_button.png', :title => 'Scorecard'), scorecard_account_survey_path(survey) %>
+            <%= link_to_function image_tag('delete_verbatim.png', :title => 'Clear/Delete'), "$('#delete-dialog #clear-pane a').attr('href', '#{wipe_responses_account_survey_path(survey)}'); $('#delete-dialog #delete-pane a').attr('href', '#{account_survey_path(survey)}'); showDelete('#{survey.project_name}', #{survey.id})" %>
+          </div>
         </td>
 
       </tr>

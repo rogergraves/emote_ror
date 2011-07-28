@@ -1,4 +1,10 @@
 $(document).ready(function() {
+    $('#emotes-table tr').mouseenter(function(){
+        $(this).find('.buttonbar').fadeIn(200);
+    }).mouseleave(function(){
+        $(this).find('.buttonbar').fadeOut(100);
+    });
+
     var alerts_dlg = $('#alerts-dialog');
     alerts_dlg.find('form').bind('ajax:success', function(e, data, status) {
         if(status=='success'){

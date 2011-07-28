@@ -1368,6 +1368,10 @@ ul.start_box {
     margin: 5px 5px 0 5px;
 }
 
+#emotes-table .buttonbar {
+    display: none;
+}
+
 #content-win-control .create_scorecard img{
     float: left;
     margin: 20px 0 0 20px;
