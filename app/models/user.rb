@@ -63,7 +63,8 @@ class User < ActiveRecord::Base
   validates :tos_agree, :acceptance => {:on => :create}
 
   before_create do |user|
-    user.build_plan(:kind => 'free', :emote_amount => 1, :start_date => DateTime.now, :end_date => 1.year.from_now)
+    user.build_plan(:kind => 'free', :emote_amount => 1, :start_date => DateTime.now, :end_date => 50.years.from_now)
+    user.payments.build(:source => 'auto', :purchase_date => DateTime.now, :total_paid => 0, :description => 'Free e.mote&trade;')
   end
 
   def name

@@ -15,9 +15,10 @@ class SubscriptionsController < ApplicationController
     plan_hash = Subscription.get_plan_hash(params[:target_plan], true)
     price = current_user.plan.calc_upgrade_price(params[:target_plan])
     currency = Country.find_by_country_code(current_user.country_code || 'US')[:currency]
+    pro_rated = (current_user.plan.months_left > 0)
     selected_purchase = {
       :plan_code => params[:target_plan],
-      :description => "Upgrade account from '#{current_user.plan.human_name}' to '#{plan_hash[:name]}' for #{Country.curr_code_to_symbol(currency)}#{price}"
+      :description => "#{plan_hash[:name]} - Annual #{pro_rated ? ' (pro-rated)' : ''}"
     }
     response = EXPRESS_GATEWAY.setup_purchase(
         price * 100, # convert to cents
