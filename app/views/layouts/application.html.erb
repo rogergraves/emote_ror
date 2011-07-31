@@ -62,7 +62,7 @@
 
             <% this_active = show_submenu = current_page?(:controller => 'accounts', :action => 'edit') || current_page?(:controller => 'subscriptions', :action => 'index') %>
             <div class="menu-item with-submenu<%= ' active' if this_active %>">
-              <%= link_to 'My Account', '#' %>
+              <%= link_to 'My Account', edit_account_path %>
             </div>
 
             <% this_active = current_page?(:controller => 'subscriptions', :action => 'new') %>
@@ -81,8 +81,8 @@
         </div>
       <% end %>
     </div>
-  <% if user_signed_in? %>
-    <div id="sub_menu" <%= raw show_submenu ? '' : 'style="display: none;" class="hiding"' %>>
+  <% if user_signed_in? && show_submenu %>
+    <div id="sub_menu">
       <ul class="sub-menu-list">
         <% this_active = current_page?(:controller => 'accounts', :action => 'edit') %>
         <li class="submenu-item<%= ' active' if this_active %>"><%= link_to_unless this_active, 'Information', edit_account_path  %></li>
