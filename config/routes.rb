@@ -53,7 +53,7 @@ EmoteRor::Application.routes.draw do
         get 'scorecard'
       end
     end
-    resources :subscriptions, :except => [:destroy]
+    resources :subscriptions, :only => [:index, :edit, :update]
     root :to => "base#index"
   end
   

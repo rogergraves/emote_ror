@@ -22,8 +22,6 @@ class Admin::SubscriptionsController < Admin::BaseController
 
 
 
-  before_filter :load_users, :only => [:new, :create, :edit, :update]
-
   def index
     options = {}
     unless params[:include_trial]=='true'
@@ -32,24 +30,7 @@ class Admin::SubscriptionsController < Admin::BaseController
     get_sorted_objects(params, options)
   end
   
-  def new
-    @subscription = Subscription.new
-    @subscription.start_date = Time.now
-    @subscription.end_date = 1.year.from_now
-  end
-  
-  def create
-    @subscription = Subscription.new(params[:subscription])
-    if @subscription.save
-      flash[:notice] = "Subscription successfully created"
-      redirect_to admin_subscriptions_path
-    else
-      flash[:alert] = 'Error creating subscription'
-      render :action => 'new'
-    end
-  end
-  
-  def edit
+   def edit
     @subscription = Subscription.find(params[:id])
   end
   
@@ -64,8 +45,4 @@ class Admin::SubscriptionsController < Admin::BaseController
     end
   end
   
-  protected
-    def load_users
-      @users = User.all.sort_by(&:email)
-    end  
 end
