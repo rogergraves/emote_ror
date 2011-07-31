@@ -8,7 +8,8 @@ class Admin::SubscriptionsController < Admin::BaseController
       ['Plan', "kind"],
       ['# of emotes', 'emote_amount'],
       ['Begins', "start_date"],
-      ['Expires', "end_date"]
+      ['Expires', "end_date"],
+      ['Partner code', 'user.partner_code']
     ],
     :include_relations => [:user],
     :sort_map =>  {
@@ -16,7 +17,8 @@ class Admin::SubscriptionsController < Admin::BaseController
       'kind' => ['subscriptions.kind'],
       'emote_amount' => ['subscriptions.emote_amount'],
       'start_date' => ['subscriptions.start_date'],
-      'end_date' => ['subscriptions.end_date']
+      'end_date' => ['subscriptions.end_date'],
+      'user.partner_code' => ['users.partner_code']
     },
     :search_array => ['subscriptions.token', 'users.email']
 
