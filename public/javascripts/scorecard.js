@@ -17,7 +17,7 @@ function renderBarChart(config){
          height: 280,
          width: 800
         },
-        title: {text: survey['project_name']},
+        title: {text: ''},
         xAxis: {
          categories: categories,
          labels: {
