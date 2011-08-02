@@ -1098,6 +1098,7 @@ ul.start_box {
     font-weight: bold;
     height: 25px;
     padding-top: 10px;
+    margin-left: 100px;
 }
 
 .survey-title:first-letter{

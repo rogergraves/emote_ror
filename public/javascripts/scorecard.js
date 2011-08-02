@@ -13,7 +13,7 @@ function renderBarChart(config){
         chart: {
          renderTo: 'barChart',
          type: 'column',
-         margin: [ 50, 50, 100, 80],
+         //margin: [ 50, 50, 100, 80],
          height: 280,
          width: 800
         },
@@ -113,7 +113,7 @@ function renderPieChart(pieConfig){
               },
               plotOptions: {
                  pie: {
-                    size: 200,
+                    size: 180,
                     allowPointSelect: true,
                     cursor: 'pointer',
                     dataLabels: {enabled: false},
