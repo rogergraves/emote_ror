@@ -945,30 +945,37 @@ ul.start_box {
     position: relative;
     width: 100%;
     height: 78%;
+    left: 50%;
+    margin-left: -594px;
 }
 
 #content-win-centr-scorecard #scorecard-content{
     float: left;
-    height: 85%;
-    width: 100%;
-    text-align: center;
+    height: 389px;
+    width: 1150px;
+    padding: 10px 0 0 0;
+    border: 1px solid #d9d9d9;
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
 .scorecard_data{
-     width: 1150px;
+     width: 1050px;
      margin: 0 auto;
      background: #FFFFFF;
      padding: 15px 0 15px 0;
 }
 
-.scorecard_data .spectrum {
+#scorecard-content .spectrum {
     float: left;
     width: 790px;
     height: 270px;
     margin: 0 0 0 15px;
 }
 
-.scorecard_data .t-responses{
+#scorecard-content .t-responses{
     background: url('/images/total_responses_bg.png') repeat-x;
     float: left;
     width: 150px;
@@ -993,7 +1000,7 @@ ul.start_box {
     /*padding: 15px 0 0 30px;*/
 }
 
-.scorecard_data .barometer {
+#scorecard-content .barometer {
     float: left;
     width: 315px;
     height: 300px;
@@ -1007,9 +1014,9 @@ ul.start_box {
 
 .scorecard_data .comments_data {
     float: left;
-    width: 1120px;
+    width: 1150px;
     height: 53px;
-    margin: 15px 0 0 15px;
+    margin: 15px 0 0 -51px;
     background: #fff;
     border: 1px solid #d9d9d9;
 }
@@ -1077,23 +1084,20 @@ ul.start_box {
 .table_comments {
      float: left;
      height: 150px;
-     width: 1118px;
+     width: 1150px;
      overflow-y: auto;
      /*overflow-x: hidden;*/
-     margin: 0 0 0 15px;
+     margin: 0 0 0 -51px;
      border: 1px solid #a6a6a6;
 }
 
 .survey-title {
-    width: 100%;
+    width: 1150px;
     text-align: left;
     font-size: 16px;
     font-weight: bold;
     height: 25px;
     padding-top: 10px;
-    margin-top: 50px;
-    margin-left: 130px;
-
 }
 
 .survey-title:first-letter{
