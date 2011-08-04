@@ -146,7 +146,7 @@
                  data: pieData
               }]
            });
-        var strTotal = "<table ><tr><td style='font-size:32px; font-weight: bold;'>";
+        var strTotal = "<table style='margin-left:100px;'><tr><td style='font-size:32px; font-weight: bold;'>";
         strTotal += intTotalResponsesCount+"</td><td> TOTAL <br/>RESPONSES</td></tr></table>";
         $('#totalResp').html(strTotal);
    }
