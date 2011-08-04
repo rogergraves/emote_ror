@@ -70,10 +70,10 @@
             data: data,
             dataLabels: {
                enabled: true,
-               color: '#FFFFFF',
+               color: '#000000',
                align: 'right',
                x: -10,
-               y: 10,
+               y: -5,
                formatter: function() {
                    return this.y;
                 },
