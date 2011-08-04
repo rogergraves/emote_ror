@@ -29,6 +29,14 @@
 <div id="content-win-centr-scorecard" role="main">
   <div class="survey-title">
        <%= @survey.project_name -%>
+      <div id="share_buttons" class="share_buttons">
+          <a style="cursor: pointer;">
+              <img id='share_button' onmouseout="changeImg('share_button', 'share_button');" onmouseover="changeImg('share_button', 'share_button_over');" src="/images/share_button.png" alt=""/>
+          </a>
+          <a style="cursor: pointer;">
+              <img id='download_button' onmouseout="changeImg('download_button', 'download_button');" onmouseover="changeImg('download_button', 'download_button_over');" src="/images/download_button.png" alt=""/>
+          </a>
+      </div>
   </div>
     <div id="scorecard-content">
 		
@@ -175,14 +183,7 @@
 </script>
 
             <div id="barChart" class="spectrum"></div>
-            <div id="share_buttons" class="share_buttons">
-                <a style="cursor: pointer;">
-                      <img id='share_button' onmouseout="changeImg('share_button', 'share_button');" onmouseover="changeImg('share_button', 'share_button_over');" src="/images/share_button.png" alt=""/>
-                  </a>
-                  <a style="cursor: pointer;">
-                      <img id='download_button' onmouseout="changeImg('download_button', 'download_button');" onmouseover="changeImg('download_button', 'download_button_over');" src="/images/download_button.png" alt=""/>
-                  </a>
-            </div>
+
             <div id="totalResp" class="t-responses"></div>
             <div id="pieChart" class="barometer"></div>
 

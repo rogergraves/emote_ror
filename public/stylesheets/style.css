@@ -978,14 +978,11 @@ ul.start_box {
 #scorecard-content .t-responses{
     background: url('/images/total_responses_bg.png') repeat-x;
     float: left;
-    width: 150px;
-/*    height: 60px;*/
-    /*line-height: 100px;*/
-    margin: 0 0 0 90px;
+    width: 235px;
+    margin: 0 0 0 80px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    /*background: #000;*/
     color: #696969;
     font-size: 13px;
     text-align: left;
@@ -993,18 +990,17 @@ ul.start_box {
 }
 
 /*.scorecard_data */.share_buttons{
-    float: left;
-    margin: 0 0 0 40px;
+    float: right;
+    margin: 0 115px 0 40px;
     color: #696969;
     text-align: left;
-    /*padding: 15px 0 0 30px;*/
 }
 
 #scorecard-content .barometer {
     float: left;
     width: 315px;
     height: 300px;
-    margin: 0 0 0 15px;
+    margin: 0 0 0 30px;
     background: #fff;
     color: #bfbfbf;
     border-radius: 5px;
@@ -1098,7 +1094,7 @@ ul.start_box {
     font-weight: bold;
     height: 25px;
     padding-top: 10px;
-    margin-left: 100px;
+    margin-left: 30px;
 }
 
 .survey-title:first-letter{

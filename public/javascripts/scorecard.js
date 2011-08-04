@@ -1,4 +1,4 @@
-function renderBarChart(config){
+   function renderBarChart(config){
         var categories = [];
         var data = [];
         for (var key in config) {
@@ -13,7 +13,6 @@ function renderBarChart(config){
         chart: {
          renderTo: 'barChart',
          type: 'column',
-         margin: [ 50, 50, 100, 80],
          height: 280,
          width: 800
         },
@@ -29,7 +28,8 @@ function renderBarChart(config){
         yAxis: {
          min: 0,
          gridLineColor: '',
-         title: {text: '' }
+         title: {text: '' },
+         labels: {enabled: false}
         },
 
         plotOptions: {
@@ -65,14 +65,14 @@ function renderBarChart(config){
          enabled: false
         },
         series: [{
-            pointWidth: 30,
+            pointWidth: 37,
             name: '',
             data: data,
             dataLabels: {
                enabled: true,
                color: '#FFFFFF',
                align: 'right',
-               x: -3,
+               x: -10,
                y: 10,
                formatter: function() {
                    return this.y;
@@ -83,7 +83,7 @@ function renderBarChart(config){
         });
     }
 
-function renderPieChart(pieConfig){
+   function renderPieChart(pieConfig){
         var pieData = [];
 
         var intTotalResponsesCount = 0;
@@ -113,7 +113,7 @@ function renderPieChart(pieConfig){
               },
               plotOptions: {
                  pie: {
-                    size: 200,
+                    size: 225,
                     allowPointSelect: true,
                     cursor: 'pointer',
                     dataLabels: {enabled: false},
@@ -146,13 +146,12 @@ function renderPieChart(pieConfig){
                  data: pieData
               }]
            });
-        var strTotal = "<table><tr><td style='font-size:32px; font-weight: bold;'>";
+        var strTotal = "<table ><tr><td style='font-size:32px; font-weight: bold;'>";
         strTotal += intTotalResponsesCount+"</td><td> TOTAL <br/>RESPONSES</td></tr></table>";
-        //$('#totalResp').html("Total Responses: " + intTotalResponsesCount);
         $('#totalResp').html(strTotal);
-    }
+   }
 
-function filterVerbatim(text){
+   function filterVerbatim(text){
         document.getElementById('see_all_comments').style.visibility = 'visible';
         doAjax({
              url: '/survey_results/verbatims.json',
@@ -166,15 +165,14 @@ function filterVerbatim(text){
                throw new Error('error filtering verbatims');
            }
          });
-    }
+   }
 
    /**
-     *
      * @param config.data - data to be sent to server
      * @param config.successCallback - function to call on success
      * @param config.errorCallback - function to call on failure
      */
-    function doAjax(config){
+   function doAjax(config){
        var strAjaxUrl = '/survey_results/verbatims.json';
 
        if (!config.data) config.data = {};
@@ -190,4 +188,4 @@ function filterVerbatim(text){
            success: config.successCallback ,
            error: config.errorCallback
         });
-    }
+   }
