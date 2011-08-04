@@ -14,7 +14,7 @@
          renderTo: 'barChart',
          type: 'column',
          height: 280,
-         width: 800
+         width: 640
         },
         title: {text: ''},
         xAxis: {
@@ -65,7 +65,7 @@
          enabled: false
         },
         series: [{
-            pointWidth: 37,
+            pointWidth: 30,
             name: '',
             data: data,
             dataLabels: {
@@ -113,7 +113,7 @@
               },
               plotOptions: {
                  pie: {
-                    size: 225,
+                    size: 180,
                     allowPointSelect: true,
                     cursor: 'pointer',
                     dataLabels: {enabled: false},
