@@ -975,18 +975,26 @@ ul.start_box {
     margin: 0 0 0 15px;
 }
 
+.rsidechart{
+    border-left: 1px solid #d9d9d9;
+    float: left;
+    width: 334px;
+    height: 350px;
+    margin: -11px 0 -16px 10px;
+}
+
 #scorecard-content .t-responses{
     background: url('/images/total_responses_bg.png') repeat-x;
     float: left;
-    width: 235px;
-    margin: 0 0 0 80px;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
+    width: 331px;
+    margin: 2px;
+    -webkit-border-radius: 0 5px 0 0;
+    -moz-border-radius: 0 5px 0 0;
+    border-top-right-radius: 5px;
     color: #696969;
     font-size: 13px;
     text-align: left;
-    padding: 5px 0 0 30px;
+    padding: 5px 0 0 0;
 }
 
 /*.scorecard_data */.share_buttons{
@@ -1000,7 +1008,7 @@ ul.start_box {
     float: left;
     width: 315px;
     height: 300px;
-    margin: 0 0 0 30px;
+    margin: 0 0 0 10px;
     background: #fff;
     color: #bfbfbf;
     border-radius: 5px;
