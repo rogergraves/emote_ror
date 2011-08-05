@@ -153,12 +153,14 @@ button, input, select, textarea { margin: 0; }
 
 /* colors for form validity */
 input:valid, textarea:valid   {  }
+/*
 input:invalid, textarea:invalid {
       border-radius: 1px;
     -moz-box-shadow: 0px 0px 5px red;
  -webkit-box-shadow: 0px 0px 5px red;
          box-shadow: 0px 0px 5px red;
 }
+*/
 .no-boxshadow input:invalid,
 .no-boxshadow textarea:invalid { background-color: #f0dddd; }
 
@@ -277,10 +279,33 @@ html, body{
     padding: 8px;
 }
 
-#content-win-centr #login-form{
-    margin-left: 45px;
-    width: 360px;
+#content-win-login{
+    width: 986px;
+    position: relative;
+    left: 50%;
+    margin-left: -407px;
+    margin-top: 50px;
+}
+
+#content-win-login .welcomebox{
+    border-bottom: 1px solid #ccc;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 0 0 20px;
+}
+
+#content-win-login .welcomebox p{
+    font-size: 24px;
+}
+
+#content-win-login #login-form{
+    border: 1px solid #ccc;
+    width: 438px;
+    height: 285px;
     float: left;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    box-shadow: 0px 2px 0px #e5e5e5;
 }
 
 .big-text{
@@ -299,12 +324,17 @@ html, body{
     margin-top: 30px;
 }
 
-#login-form .field, #login-form .field-checkbox{
-    margin-top: 15px;
+#login-form .field-checkbox{
+    float: left;
+    margin-left: 110px;
 }
 
 #login-form .field label{
-    font-size: 16px;
+    font-size: 12px;
+    float: left;
+    width: 100px;
+    margin: 7px 10px 0 0;
+    text-align: right;
 }
 
 #login-form .field-checkbox label{
@@ -316,49 +346,65 @@ html, body{
 }
 
 #login-form .field input{
-    width: 330px;
+    float: left;
+    height: 20px;
+    font-size: 12px;
+    width: 290px;
+    padding: 3px 5px;
+    margin: 0 0 10px 0;
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
+    border-bottom: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
 }
 
 #login-form #submit-area{
-    margin-top: 25px;
+    float: left;
+    margin: 15px 0 20px 110px;
 }
 
 #login-form #submit-area a{
-    margin-left: 30px;
-}
-
-#content-win-centr .vr{
-    border-left:2px solid #e6e6e6; float: left; margin-top: 30px; width: 1px; height: 310px;
+    margin-left: 20px;
 }
 
 #login-content #create-account{
-    float: right;
-    text-align: center;
-    margin-right: 30px;
-    width: 140px;
-    height: 346px;
-    background: #f5f5f5;
+    background: #e3efca;
+    border: 1px solid #ccc;
+    width: 363px;
+    height: 285px;
+    float: left;
+    margin-left: 10px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    box-shadow: 0px 2px 0px #e5e5e5;
 }
 
 #login-content #create-account img{
-    margin-left: 8px;
+    float: left;
+    margin: 85px 0 0 20px;
 }
 
 #login-content #create-account #no-account{
-    margin-top: 20px;
-    margin-bottom: 5px;
+    float: left;
+    margin: 88px 0 0 20px;
+}
+
+#login-content #create-account #no-account p{
+    font-size: 24px;
+}
+
+#login-content #create-account #no-account .noproblem{
+    font-size: 18px;
+}
+
+#login-content #create-account .clear{
+    clear: both;
 }
 
 #login-content #create-account #create-one{
-    margin-top: -14px;
+    float: left;
+    margin: 15px 0 0 94px;
 }
-
-.borderradius #login-content #create-account{
-    border-radius: 30px;
-    -moz-border-radius: 30px;
-    -webkit-border-radius: 30px;
-}
-
 
 #content-win-centr #forget-password{
     text-align: center;
@@ -366,33 +412,56 @@ html, body{
 
 
 /* ------- Forget the password page ------- */
-#content-win-centr #forgetpw-content{
-    margin-top: 60px;
-    margin-left: 45px;
-    width: 520px;
+#content-win-pw{
     float: left;
+    border: 1px solid #ccc;
+    width: 438px;
+    height: 265px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    box-shadow: 0px 2px 0px #e5e5e5;
+    position: relative;
+    left: 50%;
+    margin-left: -220px;
+    margin-top: 50px;
+}
+
+#content-win-pw #forgetpw-content{
+    margin: 20px 0 0 20px;
+}
+
+.reset_instr{
+    margin: 10px 0 0 0;
 }
 
 .forgetpw-form {
     float: left;
-    margin-top: 80px;
-    width: 100%;
+    margin-top: 50px;
     text-align: center;
 }
 
 form .field_forgetpw{
-    background: #fff;
-    border: 1px solid #000;
-    font-size: 16px;
-    width: 245px;
-    height: 22px;
+    float: left;
+    height: 20px;
+    font-size: 12px;
+    width: 290px;
+    padding: 3px 5px;
+    margin: 0 10px 10px 0;
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
+    border-bottom: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
+}
+
+.reset_error {
+    float: left;
+    width: 100%;
 }
 
 .cs_link a{
     float: left;
-    margin-top: 105px;
+    margin-top: 30px;
     font-size: 13px;
-    color: #0006ff;
     text-decoration: none;
     width: 100%;
     text-align: center;
@@ -473,7 +542,7 @@ form .field_forgetpw{
 }
 
 #flash-messages .flash-messages-list{
-	list-style-type: none;
+    list-style-type: none;
 }
 
 #flash-messages .alert {
@@ -498,16 +567,13 @@ form .field_forgetpw{
 
 /* ------- Change your password page ------- */
 
-#content-win-centr #changepw-content{
-    margin-top: 40px;
-    margin-left: 45px;
-    width: 520px;
-    float: left;
+#content-win-pw #changepw-content{
+    margin: 20px 0 0 20px;
 }
 
 .changepw-layer{
     float: left;
-    margin-top: 80px;
+    margin-top: 20px;
 }
 
 #changepw-content .field{
@@ -515,31 +581,30 @@ form .field_forgetpw{
 }
 
 #changepw-content .field label{
-    font-size: 14px;
-    float:left;
-    width: 170px;
-    margin-left: 50px;
+    font-size: 12px;
+    float: left;
+    width: 140px;
     margin-bottom: 12px;
-    margin-top: 5px;
+    margin-top: 7px;
 }
 
 #changepw-content .field input{
-    border: 1px solid black;
-    font-size: 18px;
+    float: left;
+    height: 20px;
+    font-size: 12px;
     width: 245px;
-}
-
-.boxshadow #changepw-content .field input{
-    -moz-box-shadow: 0px 2px 2px #999999;
-    -webkit-box-shadow: 0px 2px 2px #999999;
-    box-shadow: 0px 2px 2px #999999;
+    padding: 3px 5px;
+    margin: 0 10px 10px 0;
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
+    border-bottom: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
 }
 
 .changepw{
-	position: absolute;
-	top: 280px;
-	margin-top: 50px;
-	margin-left: 370px;
+    float: left;
+    margin-top: 10px;
+    margin-left: 272px;
 }
 
 /* ------- View Activity Page ------- */
@@ -865,13 +930,6 @@ ul.start_box {
     margin-top: -20px;
 }
 
-.create_acc{
-    position: relative;
-    margin-left: 120px;
-    padding-top: 10px;
-    float: left;
-}
-
 /* ------- All Finished! page ------- */
 
 #content-win-centr{
@@ -1159,13 +1217,39 @@ ul.start_box {
     margin-top: 5px;    
 }
 
-#content-win-centr #getting-account{
-    margin-top: 30px;
-    margin-left: 45px;
+/* Create new account page */
+
+#content-win-create{
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    width: 986px;
+    background-color: white;
+    position: relative;
+    left: 50%;
+    margin-left: -494px;
+    padding: 5px 0 0 0;
+    height: 550px;
+}
+
+.borderradius #content-win-create{
+    -webkit-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow: 0px 2px 0px #e5e5e5;
+}
+
+#getting-account p{
+    margin: 20px 0 0 20px;
+}
+
+#getting-account .about-info{
+    margin: 10px 0 0 20px;
 }
 
 #getting-account form{
-    margin-top: 15px;
+    margin: 20px 0 20px 20px;
 }
 
 #getting-account .field{
@@ -1173,41 +1257,60 @@ ul.start_box {
 }
 
 #getting-account .field label{
-    font-size: 16px;
-    float:left;
-    width: 210px;
-    margin-bottom: 12px;
-    margin-top: 5px;
+    font-size: 12px;
+    float: left;
+    width: 170px;
+    text-align: right;
+    margin: 7px 10px 0 0px;
 }
 
 #getting-account .field input{
-    border: 1px solid black;
-    font-size: 18px;
-    width: 300px;
+    float: left;
+    height: 20px;
+    font-size: 12px;
+    width: 290px;
+    padding: 3px 5px;
+    margin: 0 0 10px 0;
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
+    border-bottom: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
 }
 
 #getting-account .field select{
-    border: 1px solid black;
-    font-size: 18px;
-    width: 300px;
+    font-size: 12px;
+    width: 302px;
+    padding: 3px 5px;
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
+    border-bottom: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
 }
 
-.terms_note{
+#getting-account .optional {
+    margin: 10px 0 10px 0;
+}
+
+#getting-account .under_form{
     float: left;
-    margin-top: 8px;
-    font-size: 12px;
+    margin-left: 180px;
 }
 
 .star_note {
     float: left;
-    width: 530px;
-    margin-top: 3px;
-    text-align: center;
+    width: 100%;
+    margin: 10px 0 0 0;
+    text-align: left;
 }
 
 .getting-started_errors{
-    width: 510px;
+    width: 100%;
     margin: 0 auto;
+}
+
+.create_acc{
+    float: left;
+    margin: 30px 0 0 0;
 }
 
 /* Top menu */

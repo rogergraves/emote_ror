@@ -1,8 +1,7 @@
-<div id="content-win-centr" role="main">
+<div id="content-win-create" role="main">
 <div id="getting-account">
-    <span class="big-text">Getting Started</span>
-    <br/>
-    <span class="medium-text">Please tell us a little about yourself.</span>
+    <p class="big-text">Getting Started</p>
+    <p class="about-info">Please tell us a little about yourself.</p>
 
       <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'user-form', :id => 'getting-account-form'}) do |f| %>
         <div class="field">
@@ -40,8 +39,8 @@
           <%= f.text_field :partner_code %>
         </div>
 
-
-        <span class="terms_note"><%= f.check_box :tos_agree %> <%= f.label :tos_agree, "I agree to all terms of the"%> <%= link_to('Master Subscription Agreement', 'http://inspirationengine.com/?page_id=343', :target => '_blank') %>.</span>
+    <div class="under_form">
+        <%= f.check_box :tos_agree %> <%= f.label :tos_agree, "I agree to all terms of the"%> <%= link_to('Master Subscription Agreement', 'http://inspirationengine.com/?page_id=343', :target => '_blank') %>.
         
         <div class="getting-started_errors"><%= errors_for(resource) %><%= flash_messages %></div>
         
@@ -50,6 +49,7 @@
         </div>
 
         <span class="star_note">&lowast; A valid working email address is required</span>
+    </div>
 
       <% end %>
 </div>
