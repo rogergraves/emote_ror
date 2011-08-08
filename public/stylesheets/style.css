@@ -473,10 +473,9 @@ form .field_forgetpw{
 
 /* ------- Almost there... page ------- */
 
-#content-win-centr #almost-content{
-    margin-top: 60px;
-    margin-left: 45px;
-    width: 520px;
+#content-win-create #almost-content{
+    margin-top: 20px;
+    margin-left: 20px;
     float: left;
 }
 
@@ -493,7 +492,6 @@ form .field_forgetpw{
 	float: left;
 	margin-top: 75px;
 	font-size: 13px;
-	color: #0006ff;
 	text-decoration: none;
 	width: 100%;
 	text-align: center;
@@ -932,31 +930,9 @@ ul.start_box {
 
 /* ------- All Finished! page ------- */
 
-#content-win-centr{
-    border-right: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    width: 986px;
-    background-color: white;
-    position: relative;
-    left: 50%;
-    margin-left: -494px;
-    padding: 5px 0 0 0;
-}
-
-.borderradius #content-win-centr{
-     -webkit-border-radius: 0 0 5px 5px;
-     -moz-border-radius: 0 0 5px 5px;
-     border-bottom-right-radius: 5px;
-     border-bottom-left-radius: 5px;
-     box-shadow: 0px 2px 0px #e5e5e5;
-}
-
-#content-win-centr #allfinished{
-    margin-top: 50px;
-    margin-left: 45px;
-    width: 530px;
-    height: 330px;
+#content-win-create #allfinished{
+    margin-top: 20px;
+    margin-left: 20px;
 }
 
 .emotelink{
@@ -1826,19 +1802,41 @@ ul.start_box {
 .defaultText { font-style: normal; }
 .defaultTextActive { color: #a1a1a1; font-style: italic; }
 
-#content-win-centr #create-survey{
-    margin-top: 35px;
-    margin-left: 35px;
-    margin-right: 35px;
+#content-win-create{
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    width: 986px;
+    background-color: white;
+    position: relative;
+    left: 50%;
+    margin-left: -494px;
+    padding: 5px 0 0 0;
+}
+
+.borderradius #content-win-create{
+     -webkit-border-radius: 0 0 5px 5px;
+     -moz-border-radius: 0 0 5px 5px;
+     border-bottom-right-radius: 5px;
+     border-bottom-left-radius: 5px;
+     box-shadow: 0px 2px 0px #e5e5e5;
 }
 
 
-#content-win-centr #create-survey #preview-win{
+
+#content-win-create #create-survey{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+#content-win-create #create-survey #preview-win{
     height: 190px;
     width: 360px;
-    border: 7px solid #9cb3c5;
-    background-color: #003882;
-    color: black;
+    border: 1px solid #c9c9c9;
+    background-color: #e3efca;
+    color: #333;
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
@@ -1846,15 +1844,15 @@ ul.start_box {
 
 
 
-.borderradius #content-win-centr #create-survey #preview-win{
-    border-radius: 40px;
-    -webkit-border-radius: 40px;
-    -moz-border-radius: 40px;
+.borderradius #content-win-create #create-survey #preview-win{
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 
-#content-win-centr #create-survey #emote-subject{
-    background-color: #ffc47e;
-    border: 2px solid #003882;
+#content-win-create #create-survey #emote-subject{
+    background-color: #fff;
+    border: 1px solid #c9c9c9;
 /*    text-align: center; */
     margin-top: 10px;
     width: 250px;
@@ -1862,8 +1860,8 @@ ul.start_box {
     color: #000;
 }
 
-#content-win-centr  #create-survey   #preview-text{
-    color: white;
+#content-win-create  #create-survey   #preview-text{
+    color: #333;
     font-size: 18px;
     text-align: center;
     margin-top: 50px;
@@ -1871,18 +1869,18 @@ ul.start_box {
     margin-right: 25px;
 }
 
-#content-win-centr .instruction{
+#content-win-create .instruction{
     margin-top: 8px;
     margin-bottom: 20px;
     font-size: 14px;
 }
 
-#content-win-centr  #create-survey #publish-button{
+#content-win-create  #create-survey #publish-button{
     margin-top: 20px;
     text-align: center;
 }
 
-#content-win-centr  #create-survey #publish-button a{
+#content-win-create  #create-survey #publish-button a{
     margin-left: 10px;
 }
 
