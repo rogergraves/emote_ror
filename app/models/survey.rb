@@ -45,7 +45,7 @@ class Survey < ActiveRecord::Base
 
   alias_attribute :public_scorecard, :public 
   alias_attribute :short_stimulus, :project_name
-  attr_accessible :project_name, :user_id, :state, :code, :feedback_prompt
+  attr_accessible :project_name, :user_id, :state, :code, :store_respondent_contacts, :feedback_prompt
   
   after_save do
     survey_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
