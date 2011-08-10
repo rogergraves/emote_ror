@@ -240,7 +240,8 @@ html, body{
 }
 
 #container{
-    height: 100%;
+/*    height: 100%;  */
+    padding-bottom: 40px;
 /*    min-height: 580px; */
     font-family: Arial, Verdana, Helvetica, sans-serif;
 }
@@ -985,7 +986,6 @@ ul.start_box {
 
 #content-win-centr-scorecard #scorecard-content{
     float: left;
-    height: 389px;
     width: 986px;
     padding: 10px 0 0 0;
     border: 1px solid #d9d9d9;
@@ -999,7 +999,7 @@ ul.start_box {
      width: 986px;
      margin: 0 auto;
      background: #FFFFFF;
-     padding: 15px 0 15px 0;
+     padding: 15px 0 0 0;
 }
 
 #scorecard-content .spectrum {
@@ -1177,12 +1177,22 @@ ul.start_box {
     height: 45px;
 }
 
+body{
+    position:relative;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+}
+
 #footer{
     margin-top: -39px;
     height: 39px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+    position: absolute;
+    left:0;
+    bottom: 0;
     background: url('/images/footer_gradient.png') repeat-x;
 }
 
@@ -1432,9 +1442,6 @@ ul.start_box {
     border-left: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     width: 986px;
-    height: 99%;
-    max-height: 610px;
-    min-height: 250px;
     background-color: white;
     position: relative;
     left: 50%;

@@ -31,11 +31,12 @@ function setContentWin(){
 
 
 $(document).ready(function(){
+/*
     setContentWin();
     $(window).resize(function() {
 	setContentWin();
     });
-
+*/
     $("#survey_new .field input[type='text']").keyup( function(){
 	$("#input-text").html($(this).val());
     });
