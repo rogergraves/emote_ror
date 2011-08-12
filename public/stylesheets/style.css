@@ -1174,7 +1174,7 @@ ul.start_box {
 /* --end-- */
 
 #forfooter{
-    height: 45px;
+    height: 20px;
 }
 
 body{
@@ -1185,7 +1185,7 @@ body{
 }
 
 #footer{
-    margin-top: -39px;
+/*    margin-top: -39px; */
     height: 39px;
     width: 100%;
     margin-left: auto;
