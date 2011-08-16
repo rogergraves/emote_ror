@@ -240,7 +240,8 @@ html, body{
 }
 
 #container{
-    height: 100%;
+/*    height: 100%;  */
+    padding-bottom: 40px;
 /*    min-height: 580px; */
     font-family: Arial, Verdana, Helvetica, sans-serif;
 }
@@ -473,10 +474,9 @@ form .field_forgetpw{
 
 /* ------- Almost there... page ------- */
 
-#content-win-centr #almost-content{
-    margin-top: 60px;
-    margin-left: 45px;
-    width: 520px;
+#content-win-create #almost-content{
+    margin-top: 20px;
+    margin-left: 20px;
     float: left;
 }
 
@@ -493,7 +493,6 @@ form .field_forgetpw{
 	float: left;
 	margin-top: 75px;
 	font-size: 13px;
-	color: #0006ff;
 	text-decoration: none;
 	width: 100%;
 	text-align: center;
@@ -507,7 +506,7 @@ form .field_forgetpw{
 
 .acc_text{
     float: left;
-    margin: 40px 0 30px 0;
+    margin: 40px 0 40px 0;
     font-size: 14px;
 }
 
@@ -519,21 +518,21 @@ form .field_forgetpw{
     font-size: 14px;
     float:left;
     width: 170px;
-    margin-left: 50px;
     margin-bottom: 12px;
     margin-top: 5px;
 }
 
 #account-confirmation .field input{
-    border: 1px solid black;
-    font-size: 18px;
-    width: 245px;
-}
-
-.boxshadow #account-confirmation .field input{
-    -moz-box-shadow: 0px 2px 2px #999999;
-    -webkit-box-shadow: 0px 2px 2px #999999;
-    box-shadow: 0px 2px 2px #999999;
+    float: left;
+    height: 20px;
+    font-size: 12px;
+    width: 290px;
+    padding: 3px 5px;
+    margin: 0 10px 10px 0;
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
+    border-bottom: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
 }
 
 #flash-messages {
@@ -559,10 +558,51 @@ form .field_forgetpw{
 }
 
 .setpw {
-	position: absolute;
-	top: 280px;
-	margin-top: 50px;
-	margin-left: 370px;
+    position: absolute;
+    top: 210px;
+    margin-top: 50px;
+    margin-left: 350px;
+}
+
+.show_msg{
+    clear: both;
+    float: left;
+    margin: 5px 0 0 0;
+    width: 470px;
+}
+
+.resend_conf{
+    float: left;
+    margin: 20px 0 0 20px;
+}
+
+.resend_conf h2{
+    font-size: 18px;
+    margin: 0 0 20px 0;
+}
+
+#content-win-create .resend_conf .field input{
+    float: right;
+    height: 20px;
+    font-size: 12px;
+    width: 245px;
+    padding: 3px 5px;
+    margin: 0 10px 15px 20px;
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
+    border-bottom: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
+}
+
+.resend_conf_btn{
+    float: left;
+    margin: 25px 0 0 0;
+    width: 365px;
+    text-align: right;
+}
+
+.resend_conf ul.flash-messages-list{
+    display: inline;
 }
 
 /* ------- Change your password page ------- */
@@ -932,31 +972,9 @@ ul.start_box {
 
 /* ------- All Finished! page ------- */
 
-#content-win-centr{
-    border-right: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    width: 986px;
-    background-color: white;
-    position: relative;
-    left: 50%;
-    margin-left: -494px;
-    padding: 5px 0 0 0;
-}
-
-.borderradius #content-win-centr{
-     -webkit-border-radius: 0 0 5px 5px;
-     -moz-border-radius: 0 0 5px 5px;
-     border-bottom-right-radius: 5px;
-     border-bottom-left-radius: 5px;
-     box-shadow: 0px 2px 0px #e5e5e5;
-}
-
-#content-win-centr #allfinished{
-    margin-top: 50px;
-    margin-left: 45px;
-    width: 530px;
-    height: 330px;
+#content-win-create #allfinished{
+    margin-top: 20px;
+    margin-left: 20px;
 }
 
 .emotelink{
@@ -1009,7 +1027,6 @@ ul.start_box {
 
 #content-win-centr-scorecard #scorecard-content{
     float: left;
-    height: 389px;
     width: 986px;
     padding: 10px 0 0 0;
     border: 1px solid #d9d9d9;
@@ -1023,7 +1040,7 @@ ul.start_box {
      width: 986px;
      margin: 0 auto;
      background: #FFFFFF;
-     padding: 15px 0 15px 0;
+     padding: 15px 0 0 0;
 }
 
 #scorecard-content .spectrum {
@@ -1198,15 +1215,25 @@ ul.start_box {
 /* --end-- */
 
 #forfooter{
-    height: 45px;
+    height: 20px;
+}
+
+body{
+    position:relative;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
 }
 
 #footer{
-    margin-top: -39px;
+/*    margin-top: -39px; */
     height: 39px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+    position: absolute;
+    left:0;
+    bottom: 0;
     background: url('/images/footer_gradient.png') repeat-x;
 }
 
@@ -1456,9 +1483,6 @@ ul.start_box {
     border-left: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     width: 986px;
-    height: 99%;
-    max-height: 610px;
-    min-height: 250px;
     background-color: white;
     position: relative;
     left: 50%;
@@ -1826,19 +1850,41 @@ ul.start_box {
 .defaultText { font-style: normal; }
 .defaultTextActive { color: #a1a1a1; font-style: italic; }
 
-#content-win-centr #create-survey{
-    margin-top: 35px;
-    margin-left: 35px;
-    margin-right: 35px;
+#content-win-create{
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    width: 986px;
+    background-color: white;
+    position: relative;
+    left: 50%;
+    margin-left: -494px;
+    padding: 5px 0 0 0;
+}
+
+.borderradius #content-win-create{
+     -webkit-border-radius: 0 0 5px 5px;
+     -moz-border-radius: 0 0 5px 5px;
+     border-bottom-right-radius: 5px;
+     border-bottom-left-radius: 5px;
+     box-shadow: 0px 2px 0px #e5e5e5;
 }
 
 
-#content-win-centr #create-survey #preview-win{
+
+#content-win-create #create-survey{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+#content-win-create #create-survey #preview-win{
     height: 190px;
     width: 360px;
-    border: 7px solid #9cb3c5;
-    background-color: #003882;
-    color: black;
+    border: 1px solid #c9c9c9;
+    background-color: #e3efca;
+    color: #333;
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
@@ -1846,15 +1892,15 @@ ul.start_box {
 
 
 
-.borderradius #content-win-centr #create-survey #preview-win{
-    border-radius: 40px;
-    -webkit-border-radius: 40px;
-    -moz-border-radius: 40px;
+.borderradius #content-win-create #create-survey #preview-win{
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 
-#content-win-centr #create-survey #emote-subject{
-    background-color: #ffc47e;
-    border: 2px solid #003882;
+#content-win-create #create-survey #emote-subject{
+    background-color: #fff;
+    border: 1px solid #c9c9c9;
 /*    text-align: center; */
     margin-top: 10px;
     width: 250px;
@@ -1862,8 +1908,8 @@ ul.start_box {
     color: #000;
 }
 
-#content-win-centr  #create-survey   #preview-text{
-    color: white;
+#content-win-create  #create-survey   #preview-text{
+    color: #333;
     font-size: 18px;
     text-align: center;
     margin-top: 50px;
@@ -1871,18 +1917,18 @@ ul.start_box {
     margin-right: 25px;
 }
 
-#content-win-centr .instruction{
+#content-win-create .instruction{
     margin-top: 8px;
     margin-bottom: 20px;
     font-size: 14px;
 }
 
-#content-win-centr  #create-survey #publish-button{
+#content-win-create  #create-survey #publish-button{
     margin-top: 20px;
     text-align: center;
 }
 
-#content-win-centr  #create-survey #publish-button a{
+#content-win-create  #create-survey #publish-button a{
     margin-left: 10px;
 }
 
