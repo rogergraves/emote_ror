@@ -1,4 +1,4 @@
-<div id="content-win-centr" role="main">
+<div id="content-win-create" role="main">
   <div id="almost-content">
 
     <span class="big-text">Account Confirmed!</span>
@@ -12,8 +12,9 @@
       <%= f.password_field :password, :maxlenght=>25, :required=>true %>
     </div>
 
-    <%= errors_for(resource) %><%= flash_messages(:notice => false) %>
-
+      <div class="show_msg">
+      <%= errors_for(resource) %><%= flash_messages(:notice => false) %>
+      </div>
 
       <div class="setpw">
         <%= image_submit_tag("setpw_button.png") %>

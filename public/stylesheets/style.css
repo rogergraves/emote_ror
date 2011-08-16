@@ -506,7 +506,7 @@ form .field_forgetpw{
 
 .acc_text{
     float: left;
-    margin: 40px 0 30px 0;
+    margin: 40px 0 40px 0;
     font-size: 14px;
 }
 
@@ -518,21 +518,21 @@ form .field_forgetpw{
     font-size: 14px;
     float:left;
     width: 170px;
-    margin-left: 50px;
     margin-bottom: 12px;
     margin-top: 5px;
 }
 
 #account-confirmation .field input{
-    border: 1px solid black;
-    font-size: 18px;
-    width: 245px;
-}
-
-.boxshadow #account-confirmation .field input{
-    -moz-box-shadow: 0px 2px 2px #999999;
-    -webkit-box-shadow: 0px 2px 2px #999999;
-    box-shadow: 0px 2px 2px #999999;
+    float: left;
+    height: 20px;
+    font-size: 12px;
+    width: 290px;
+    padding: 3px 5px;
+    margin: 0 10px 10px 0;
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
+    border-bottom: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
 }
 
 #flash-messages {
@@ -558,10 +558,51 @@ form .field_forgetpw{
 }
 
 .setpw {
-	position: absolute;
-	top: 280px;
-	margin-top: 50px;
-	margin-left: 370px;
+    position: absolute;
+    top: 210px;
+    margin-top: 50px;
+    margin-left: 350px;
+}
+
+.show_msg{
+    clear: both;
+    float: left;
+    margin: 5px 0 0 0;
+    width: 470px;
+}
+
+.resend_conf{
+    float: left;
+    margin: 20px 0 0 20px;
+}
+
+.resend_conf h2{
+    font-size: 18px;
+    margin: 0 0 20px 0;
+}
+
+#content-win-create .resend_conf .field input{
+    float: right;
+    height: 20px;
+    font-size: 12px;
+    width: 245px;
+    padding: 3px 5px;
+    margin: 0 10px 15px 20px;
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
+    border-bottom: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
+}
+
+.resend_conf_btn{
+    float: left;
+    margin: 25px 0 0 0;
+    width: 365px;
+    text-align: right;
+}
+
+.resend_conf ul.flash-messages-list{
+    display: inline;
 }
 
 /* ------- Change your password page ------- */
