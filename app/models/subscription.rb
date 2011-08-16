@@ -102,7 +102,7 @@ class Subscription < ActiveRecord::Base #aka Plan
   end
   
   def calc_upgrade_price(new_plan_code)
-    return nil unless (0..12) === months_left
+    #return nil unless (0..12) === months_left #Free account now lasts for tens of years
     if self.kind=='custom'
       nil
     elsif self.kind=='free'
