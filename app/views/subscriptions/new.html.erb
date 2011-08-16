@@ -30,9 +30,11 @@
             <span>
               <%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %><span class="plan_price_digit"><%= current_user.plan.calc_upgrade_price(plan[:kind]) / 12 %></span> / month
             </span>
-          <span class="credits">
+           <% unless current_user.plan.is_free? %>
+            <span class="credits">
               (<%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %><%= current_user.plan.annual_credits_if_upgraded(plan[:kind]) %> credit)
             </span>
+           <% end>
           <% end %>
         </p>
         <hr class="plan_line_<%= plan[:kind] %>" />
