@@ -59,8 +59,10 @@
         </td>
         <td class="last_column">
           <div class="buttonbar">
-            <%= link_to_function image_tag('link_button.png', :title => 'Links & QR Codes'), "showLinks('#{survey.project_name}','#{survey.emote_direct_link}', '#{survey.code}');" %><%= link_to_function image_tag('alert_button.png', :title => 'Alerts'), "showAlerts('#{survey.project_name}', '#{settings_account_survey_path(survey)}')"  %><%= link_to image_tag('scorecard_button.png', :title => 'Scorecard'), scorecard_account_survey_path(survey) %>
-            <%= link_to_function image_tag('delete_verbatim.png', :title => 'Clear/Delete'), "$('#delete-dialog #clear-pane a').attr('href', '#{wipe_responses_account_survey_path(survey)}'); $('#delete-dialog #delete-pane a').attr('href', '#{account_survey_path(survey)}'); showDelete('#{survey.project_name}', #{survey.id})" %>
+            <%= link_to_function image_tag('link_button.png', :title => 'Links & QR Codes'), "showLinks('#{escape_javascript(survey.project_name)}','#{survey.emote_direct_link}', '#{survey.code}');" %>
+            <%= link_to_function image_tag('alert_button.png', :title => 'Alerts'), "showAlerts('#{escape_javascript(survey.project_name)}', '#{settings_account_survey_path(survey)}')"  %>
+            <%= link_to image_tag('scorecard_button.png', :title => 'Scorecard'), scorecard_account_survey_path(survey) %>
+            <%= link_to_function image_tag('delete_verbatim.png', :title => 'Clear/Delete'), "$('#delete-dialog #clear-pane a').attr('href', '#{wipe_responses_account_survey_path(survey)}'); $('#delete-dialog #delete-pane a').attr('href', '#{account_survey_path(survey)}'); showDelete('#{escape_javascript(survey.project_name)}', #{survey.id})" %>
           </div>
         </td>
 
