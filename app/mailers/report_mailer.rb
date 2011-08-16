@@ -1,6 +1,17 @@
 class ReportMailer < ActionMailer::Base
   layout "email"
-  default :from => "no-reply@inspirationengine.com"
+  default :from => "alerts@inspirationengine.com"
+
+  self.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'inspirationengine.com',
+    :user_name            => 'alerts@inspirationengine.com',
+    :password             => 'kf3dsFd3',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true
+  }
+
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
