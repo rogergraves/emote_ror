@@ -34,6 +34,12 @@ function setContentWin(){
 	var info = true;
     }
 
+    if(!el.size()){
+	el = $("#content-win-create");
+    }
+
+
+
     if(! el.size()) return;
     
         
