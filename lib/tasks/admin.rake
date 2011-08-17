@@ -1,4 +1,11 @@
 namespace :admin do
+  desc "Regenerates XMLs with surveys"
+  task :regen_xml => :environment do
+    Survey.all.each do |survey|
+      puts "Rewriting #{survey.code}.xml ..."
+      survey.generate_xml
+    end
+  end
 
   desc "Create a new admin user"
   task :create, [:email, :password] => :environment do |t, args|
