@@ -9,6 +9,7 @@
         }
 
         var chart = new Highcharts.Chart({
+         credits: {enabled: false},
         exporting: {enabled: false},
         chart: {
          renderTo: 'barChart',
@@ -96,6 +97,7 @@
 
         var pieChart = new Highcharts.Chart({
               exporting: {enabled: false},
+              credits: {enabled: false},
               chart: {
                  renderTo: 'pieChart',
                  plotBackgroundColor: null,
@@ -103,6 +105,7 @@
                  plotShadow: false
               },
               legend: {layout: 'vertical'},
+           //legend: {enabled: false},
               title: {text: ''},
               tooltip: {
                  formatter: function() {
