@@ -7,8 +7,10 @@
         <%= f.label :email %>
         <%= f.text_field :email %>
       </div> 
-      
-      <%= errors_for(resource) %><%= flash_messages %>
+
+       <div class="show_alert">
+        <%= errors_for(resource) %><%= flash_messages %>
+       </div>
 
       <div class="resend_conf_btn">
         <%= image_submit_tag("confirm_btn.png") %>

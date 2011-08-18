@@ -554,7 +554,6 @@ form .field_forgetpw{
 
 #flash-messages .error_update{
     margin: 0px;
-    border: 1px solid blue;
 }
 
 .setpw {
@@ -573,6 +572,7 @@ form .field_forgetpw{
 
 .resend_conf{
     float: left;
+    width: 400px;
     margin: 20px 0 0 20px;
 }
 
@@ -597,12 +597,18 @@ form .field_forgetpw{
 .resend_conf_btn{
     float: left;
     margin: 25px 0 0 0;
-    width: 365px;
+    width: 390px;
     text-align: right;
 }
 
 .resend_conf ul.flash-messages-list{
     display: inline;
+}
+
+.show_alert{
+    float: left;
+    width: 390px;
+    margin: -15px 0 0 0;
 }
 
 /* ------- Change your password page ------- */
