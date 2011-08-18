@@ -31,7 +31,7 @@
           <a style="cursor: pointer;">
               <img id='share_button' onmouseout="changeImg('share_button', 'share_button');" onmouseover="changeImg('share_button', 'share_button_over');" src="/images/share_button.png" alt=""/>
           </a>
-          <a style="cursor: pointer;">
+          <a style="cursor: pointer;" href='<%= scorecard_account_survey_path(@survey, :format => :xls) %>'>
               <img id='download_button' onmouseout="changeImg('download_button', 'download_button');" onmouseover="changeImg('download_button', 'download_button_over');" src="/images/download_button.png" alt=""/>
           </a>
       </div>
@@ -84,11 +84,11 @@
             return false;
         });
 
-        $('#download_button').click(function (e) {
-            $('#download_modal').modal();
-            $('#simplemodal-container').css('width', 250);
-            return false;
-        });
+        /*$('#download_button').click(function (e) {
+                $('#download_modal').modal();
+                $('#simplemodal-container').css('width', 250);
+                return false;
+            });*/
     });
     
     function loadComments(config){
@@ -227,11 +227,11 @@
         </span>
     </div>
 
-    <div id='download_modal' style="">
+    <!--<div id='download_modal' style="">
         <div class="dialog-title">Select a format to download</div>
         <br/><br/>
         <%= link_to image_tag('excel_icon.png'), scorecard_account_survey_path(@survey, :format => :xls) %>
-    </div>
+    </div>-->
 
     <div class="clearfix"></div>
 </div>

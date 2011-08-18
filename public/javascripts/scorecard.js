@@ -105,7 +105,6 @@
                  plotShadow: false
               },
               legend: {layout: 'vertical'},
-           //legend: {enabled: false},
               title: {text: ''},
               tooltip: {
                  formatter: function() {
