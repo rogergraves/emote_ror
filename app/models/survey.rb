@@ -40,7 +40,7 @@ class Survey < ActiveRecord::Base
   has_many :survey_results, :foreign_key => :code, :primary_key => :code
   
   validates :user, :presence => true
-  validates :project_name, :presence => true, :uniqueness => {:scope => :user_id}, :length => { :maximum => 255 }
+  validates :project_name, :presence => true, :uniqueness => {:scope => :user_id}, :length => { :maximum => 200 }
   validates :code, :presence => true, :uniqueness => true, :length => { :maximum => 20 }
   validates :state, :inclusion => { :in => [STATE_ACTIVE, STATE_ARCHIVED, STATE_SUSPENDED] }
 
