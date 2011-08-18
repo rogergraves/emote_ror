@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110624094042) do
+ActiveRecord::Schema.define(:version => 20110725234250) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20110624094042) do
     t.text     "verbatim",        :limit => 16777215
     t.string   "code"
     t.integer  "is_removed",      :limit => 1,        :default => 0
+    t.string   "email"
     t.boolean  "email_used",                          :default => false
   end
 
@@ -146,7 +147,8 @@ ActiveRecord::Schema.define(:version => 20110624094042) do
     t.integer  "surveys_count",                           :default => 0
     t.integer  "subscriptions_count",                     :default => 0
     t.string   "activity_report_interval", :limit => 15,  :default => "none"
-    t.datetime "activity_report_sent_at",                 :default => '1970-01-01 03:00:00'
+    t.datetime "activity_report_sent_at",                 :default => '1970-01-01 02:00:00'
+    t.string   "partner_code",             :limit => 100
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

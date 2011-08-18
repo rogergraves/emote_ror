@@ -15,23 +15,23 @@ EmoteRor::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-        :address              => "mail.inspirationengine.com",
-        :port                 => 26,
-        :domain               => 'inspirationengine.com',
-        :user_name            => 'support+inspirationengine.com',
-        :password             => '-3tR!GK',
-        :authentication       => 'plain',
-        :enable_starttls_auto => false
-    }
+    :address              => "smtp.gmail.com",
+    :port                 => 587, 
+    :domain               => 'inspirationengine.com',
+    :user_name            => 'delivery@inspirationengine.com',
+    :password             => '134711avs',
+    :authentication       => 'plain', 
+    :enable_starttls_auto => true 
+  }
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
   
-  config.application_host = "localhost:3000"
+  config.application_host = "porch.rubyriders.com:1910"
   
   config.action_controller.asset_host = config.application_host
   config.action_mailer.default_url_options = { :host => config.application_host }
