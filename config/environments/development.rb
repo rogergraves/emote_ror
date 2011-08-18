@@ -31,7 +31,8 @@ EmoteRor::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
   
-  config.application_host = "porch.rubyriders.com:1910"
+  #config.application_host = "porch.rubyriders.com:1910"
+  config.application_host = "localhost:3000"
   
   config.action_controller.asset_host = config.application_host
   config.action_mailer.default_url_options = { :host => config.application_host }
@@ -44,8 +45,8 @@ SURVEY_STORAGE_PATH = "#{Rails.root.to_s}/tmp/surveys/"
 class DevelopmentMailInterceptor
   def self.delivering_email(message)
     message.subject = "[to #{message.to}] #{message.subject}"
-    message.to = "oleg@rubyriders.com"
-    #message.cc = "a@rubyriders.com"
+    message.to = "oleg+Alerts@rubyriders.com"
+    message.cc = "a@rubyriders.com"
   end
 end
 
