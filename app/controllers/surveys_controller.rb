@@ -58,7 +58,7 @@ class SurveysController < ApplicationController
 
   def wipe_responses
     survey = current_user.surveys.find(params[:id])
-    if survey.survey_results.update_all :is_removed => 1
+    if survey.visible_responses.update_all :is_removed => 1
       flash[:notice] = 'e.mote&trade; responses has been deleted'
     else
       flash[:error] = 'Error deleting e.mote&trade; responses'

@@ -19,22 +19,26 @@ class Subscription < ActiveRecord::Base #aka Plan
               {
                 :kind => 'free',
                 :amount => 1,
-                :name => "Free"
+                :name => "Free",
+                :monthly_fee => 0
               },
               {
                 :kind => 'start',
                 :amount => 2,
-                :name => "Start"
+                :name => "Start",
+                :monthly_fee => 49
               },
               {
                 :kind => 'expand',
                 :amount => 10,
-                :name => "Expand"
+                :name => "Expand",
+                :monthly_fee => 149
               },
               {
                 :kind => 'magnify',
                 :amount => 25,
-                :name => "Magnify"
+                :name => "Magnify",
+                :monthly_fee => 199
               }
             ]
             
@@ -90,6 +94,18 @@ class Subscription < ActiveRecord::Base #aka Plan
   def self.get_plan_hash(plan_code, most_expensive_as_default = false)
     OPTIONS.select{|s| s[:kind] == plan_code}.first || (most_expensive_as_default ? OPTIONS.last : nil)
   end
+
+  def self.static_monthly_fee(plan_kind)
+    if plan_hsh = self.get_plan_hash(plan_kind)
+      plan_hsh[:monthly_fee]
+    else
+      nil
+    end
+  end
+  
+  def static_monthly_fee
+    self.class.static_monthly_fee(self.kind)
+  end
   
   def months_left
     today = Date.today
@@ -97,29 +113,17 @@ class Subscription < ActiveRecord::Base #aka Plan
     ((future.year-today.year)*12 + future.month) - today.month
   end
   
-  def annual_credits_if_upgraded(plan_code)
-    (calc_upgrade_price(plan_code)/12) * months_left
+  def annual_credit
+    months_left * static_monthly_fee
   end
   
   def calc_upgrade_price(new_plan_code)
     #return nil unless (0..12) === months_left #Free account now lasts for tens of years
+    return nil if (self.kind=='custom') || (new_plan_code==self.kind) || (self.kind=='expand' && new_plan_code=='start') || (self.kind=='magnify' && %w(start expand).include?(new_plan_code))
     if self.kind=='custom'
       nil
-    elsif self.kind=='free'
-      case new_plan_code
-       when 'start' then 588
-       when 'expand' then 1788
-       when 'magnify' then 2388
-       else nil
-      end
-    elsif self.kind=='start' && new_plan_code=='expand'
-      1788 - (months_left * 49)
-    elsif self.kind=='start' && new_plan_code=='magnify'
-      2388 - (months_left * 49)
-    elsif self.kind=='expand' && new_plan_code=='magnify'
-      2388 - (months_left * 149)
     else
-      nil
+      self.class.static_monthly_fee(new_plan_code)*12 - annual_credit
     end
   end
 

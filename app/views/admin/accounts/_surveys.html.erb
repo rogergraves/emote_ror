@@ -11,7 +11,7 @@
             <td><%= emote.code %></td>
             <td><%= emote.created_at %></td>
             <td><%= emote.state_human %></td>
-            <td><%= emote.responses_count %></td>
+            <td><%= emote.all_responses.count %></td>
             <td><%= link_to 'Edit', edit_admin_emote_path(emote) %></td>
           </tr>
 	<% end %>

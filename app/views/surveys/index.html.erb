@@ -52,7 +52,7 @@
           <%= survey.archived? ? '(none)' : time_ago_in_words(survey.activated_at) %>
         </td>
         <td valign="middle">
-          <%= survey.responses_count %>
+          <%= survey.visible_responses.count %>
           <% if survey.new_responses_count > 0 %>
             <span class="new-responses">(<%= survey.new_responses_count %> new)</span>
           <% end %>

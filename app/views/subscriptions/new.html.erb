@@ -28,11 +28,11 @@
         <p class="plan_price">
           <% if available %>
             <span>
-              <%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %><span class="plan_price_digit"><%= current_user.plan.calc_upgrade_price(plan[:kind]) / 12 %></span> / month
+              <%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %><span class="plan_price_digit"><%=Subscription.static_monthly_fee(plan[:kind]) %></span> / month
             </span>
            <% unless current_user.plan.is_free? %>
             <span class="credits">
-                (<%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %><%= current_user.plan.annual_credits_if_upgraded(plan[:kind]) %> credit)
+                (<%= Country.curr_code_to_symbol(Country.find_by_country_code(current_user.country_code || 'US')[:currency]) %><%= current_user.plan.annual_credit %> credit)
             </span>
            <% end %>
           <% end %>
