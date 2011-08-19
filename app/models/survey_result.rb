@@ -17,7 +17,9 @@
 class SurveyResult < ActiveRecord::Base
   set_table_name  'survey_result'
   set_primary_key 'survey_result_id'
-  
+
+  belongs_to :survey, :foreign_key => :code, :primary_key => :code
+
   EMOTIONS = {
     'enthusiastic' => :positive,
 		'elated' => :positive,
@@ -67,8 +69,10 @@ class SurveyResult < ActiveRecord::Base
   end
   
   
-  belongs_to :survey, :foreign_key => :code
-  
+  def self.sql_condition(*args)
+    sanitize_sql(*args)
+  end
+
   def id
     read_attribute(:survey_result_id)
   end

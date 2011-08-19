@@ -52,8 +52,8 @@ class ScorecardDataXls
       ['e.mote™ Code', @survey.code],
       ['URL', @survey.emote_direct_link],
       ['Date e.mote™ Created', @survey.created_at.to_s],
-      ['Total Responses', @survey.survey_results.count],
-      ['Responses Displayed', @survey.survey_results.where(:is_removed => 0).count],
+      ['Total Responses', @survey.all_responses.count],
+      ['Responses Displayed', @survey.visible_responses.count],
       ['Date of Report', DateTime.now.to_s],
       ['Current e.mote™ Status', @survey.state_human]
     ]
@@ -97,7 +97,7 @@ class ScorecardDataXls
     worksheet.insert_row(@current_row_index, ['Comment Data'])
     worksheet.row(@current_row_index).set_format(0, FORMAT[:subtable_title])
     insert_styled_row(worksheet, @current_row_index += 1, ['Date', 'Emotion', 'Intensity %', 'Barometer Category', 'Email Address', 'clicked email', 'Comment', 'Notes'], :subtable_header)
-    @survey.survey_results.where(:is_removed => 0).order(:start_time).each do |response|
+    @survey.visible_responses.order(:start_time).each do |response|
       comment_data = [
         response.start_time,
         response.emote.humanize,

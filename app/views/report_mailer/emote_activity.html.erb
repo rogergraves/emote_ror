@@ -4,9 +4,9 @@ Here is an update on your e.motes&trade;:
 <ul>
 <% @user.surveys.each do |survey| %>
   <% if survey.active? %>
-  <li><b><%= survey.project_name %></b> is <i>ON</i>, has been active for <%= time_ago_in_words(survey.activated_at) %>, and has <%= survey.responses_count %> responses (<%= survey.new_responses_count %> new since you last viewed the scorecard).</li>
+  <li><b><%= survey.project_name %></b> is <i>ON</i>, has been active for <%= time_ago_in_words(survey.activated_at) %>, and has <%= survey.visible_responses.count %> responses (<%= survey.new_responses_count %> new since you last viewed the scorecard).</li>
   <% elsif survey.archived? %>
-    <li><b><%= survey.project_name %></b> is <i>OFF</i> and has <%= survey.responses_count %> responses.</li>
+    <li><b><%= survey.project_name %></b> is <i>OFF</i> and has <%= survey.visible_responses.count %> responses.</li>
   <% elsif survey.suspended? %>
     <li><b><%= survey.project_name %></b> is suspended. Contact support for details.</li>
   <% end %>

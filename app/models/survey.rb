@@ -37,7 +37,8 @@ class Survey < ActiveRecord::Base
   
   belongs_to :user, :counter_cache => true
   
-  has_many :survey_results, :foreign_key => :code, :primary_key => :code
+  has_many :visible_responses, :class_name => 'SurveyResult', :foreign_key => :code, :primary_key => :code, :conditions => {:is_removed => false}
+  has_many :all_responses, :class_name => 'SurveyResult', :foreign_key => :code, :primary_key => :code
   
   validates :user, :presence => true
   validates :project_name, :presence => true, :uniqueness => {:scope => :user_id}, :length => { :maximum => 200 }
@@ -134,7 +135,7 @@ class Survey < ActiveRecord::Base
     pie_data = {:pp => 0, :mp => 0, :pn => 0, :mn => 0}
     emotions = SurveyResult::EMOTIONS.map {|k,v| {:value => 0, :name => k, :type => v, :color => ( (v == :positive) ? 'green' : 'red' )} }
     
-    survey_results.where(:is_removed => 0).each do |res|
+    visible_responses.each do |res|
       emote = emotions.select {|e| e[:name] == res.emote }.first
       
       barometer_key = SurveyResult.barometer_category_from_intensity(emote[:name], res.intensity_level)
@@ -152,18 +153,15 @@ class Survey < ActiveRecord::Base
   def verbatims_obj(filter_str = '', emotion = '', grouping = nil, is_public = true)
     # ('id'=> '875', 'face'=> 'uneasy_intensity_1', 'timestamp'=> '03 Jun', 'text'=> 'test1'),
     verbs = []
-    conditions = "`is_removed` = 0"
-    query_params = []
+    conditions = []
     unless filter_str.blank?
-      conditions << " and `verbatim` like ?"
-      query_params << "%#{filter_str}%"
+      conditions << SurveyResult.sql_condition(["`verbatim` like ?", "%#{filter_str}%"])
     end
     unless emotion.blank?
-      conditions << " and `emote` = ?"
-      query_params << emotion
+      conditions << SurveyResult.sql_condition(:emote => emotion)
     end
   
-    survey_results.where([conditions]+query_params).order('`start_time` DESC').each do |res|
+    visible_responses.where(conditions.join(' AND ')).order('`start_time` DESC').each do |res|
       intensity_level = 1
 			if res['intensity_level'] >= 33 && res['intensity_level'] < 66
 				intensity_level = 2
@@ -187,7 +185,7 @@ class Survey < ActiveRecord::Base
         add_to_list = (category == grouping)
 			end
 			if add_to_list
-        obj = { :id => res.survey_result_id, :face => (res.emote+'_intensity_'+intensity_level.to_s), :timestamp => res.start_time.strftime("%d %b"), 'text'=> res.verbatim.gsub(/#{filter_str}/, "<b>#{filter_str}</b>") }
+        obj = { :id => res.survey_result_id, :face => "#{res.emote}_intensity_#{intensity_level}", :timestamp => res.start_time.strftime("%d %b"), 'text'=> res.verbatim.gsub(/#{filter_str}/, "<b>#{filter_str}</b>") }
         if !is_public
           obj[:email] = res.email
           obj[:email_used] = res.email_used
@@ -202,12 +200,7 @@ class Survey < ActiveRecord::Base
     refresh = opts[:refresh] || false
     since = opts[:since] || self.scorecard_viewed_at
     @new_responses_count = nil if refresh
-    @new_responses_count ||= Survey.connection.select_value(<<-SQL
-        SELECT count(*) FROM survey_result AS sr
-          INNER JOIN surveys AS s ON s.code=sr.code
-          WHERE s.id=#{self.id} AND sr.is_removed=0 AND sr.end_time >= '#{since.to_s(:db)}';
-      SQL
-    ).to_i
+    @new_responses_count ||= self.visible_responses.where("`end_time` > ?", since).count
   end
 
 #protected
