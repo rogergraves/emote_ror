@@ -18,7 +18,7 @@ class SubscriptionsController < ApplicationController
     pro_rated = (current_user.plan.months_left > 0)
     selected_purchase = {
       :plan_code => params[:target_plan],
-      :description => "#{plan_hash[:name]} - Annual #{pro_rated ? ' (pro-rated)' : ''}"
+      :description => "#{plan_hash[:name]} - Annual #{pro_rated ? ' (pro-rated)' : ''} for #{price} #{Country.find_by_country_code(current_user.country_code || 'US')[:currency]}"
     }
     response = EXPRESS_GATEWAY.setup_purchase(
         price * 100, # convert to cents

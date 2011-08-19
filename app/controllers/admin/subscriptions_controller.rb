@@ -20,7 +20,7 @@ class Admin::SubscriptionsController < Admin::BaseController
       'end_date' => ['subscriptions.end_date'],
       'user.partner_code' => ['users.partner_code']
     },
-    :search_array => ['subscriptions.token', 'users.email']
+    :search_array => ['users.partner_code', 'users.email']
 
 
 
