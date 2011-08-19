@@ -40,9 +40,6 @@
 		
 <script type="text/javascript">
 
-    var colors = {'green': '#689839', 'red': '#ca3437', white: '#FFFFFF', grey: '#CCCCCC'};
-	var intensity = {pp: 'enthusiasts', /*mp: 'participants', */mn: 'indifferent', pn:'detractors'};
-	var pieColors = {pp: '#0db5d4', /*mp: '#cccccc', */mn: '#ececec', pn: '#eeae01'};
 	<% results = @survey.result_obj %>
 	var configTotals = <%= raw results[:totals].to_json -%>;
 	var configBars = <%= raw results[:bars].to_json -%>;
@@ -59,11 +56,16 @@
     configPie.mp=0;
 
     jQuery(function ($) {
-        renderBarChart(configBars);
-		renderPieChart(configPie);
+
+        emote.scorecard.init({
+            barChartConfig: configBars,
+            pieChartConfig: configPie
+        });
+
+        emote.scorecard.getBarChart();
+        emote.scorecard.getPieChart();
         loadComments(configVerbatim);
-
-
+        
 		$('#btnCommentFilter').click(filterVerbatim);
         $('#btnCommentClearFilter').click(function (){
             $('#txtCommentFilter').val('');
@@ -75,7 +77,7 @@
             filterVerbatim();
             $('#emotionLabel').html("comments: all emotions");
             document.getElementById('see_all_comments').style.visibility = 'hidden';
-            renderPieChart(configPie);
+            emote.scorecard.redrawPieChart();
         });
 
         $('#share_button').click(function (e) {
