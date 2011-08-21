@@ -49,11 +49,8 @@ class Survey < ActiveRecord::Base
   alias_attribute :short_stimulus, :project_name
   attr_accessible :project_name, :user_id, :state, :code, :store_respondent_contacts, :feedback_prompt
   
-  after_save :generate_xml
-
   before_destroy do
     begin
-      File.delete("#{SURVEY_STORAGE_PATH}#{self.code}.xml")
       File.delete(qrcode_file)
     rescue
       #TODO i'm sleeping, need to add something here later
@@ -213,17 +210,6 @@ class Survey < ActiveRecord::Base
       i+=1
     end
     self.send("#{field}=", kukan)
-  end
-
-  def generate_xml
-    stimulus = self.project_name.to_xs.gsub('"', "&quot;")
-    survey_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-    <survey status='#{ (self.active?) ? 'on' : 'off' }'>
-    <stimulus short=\"#{stimulus}\"><![CDATA[Consider every aspect of your most recent experience with <span class=\"bold-text\">#{stimulus}</span>.
-    What was that like for you? How would you describe your feelings about this experience to someone else?]]></stimulus>
-      <thanks>Thank you for e.moting!</thanks>
-    </survey>"
-    File.open("#{SURVEY_STORAGE_PATH}#{self.code}.xml", 'w') {|f| f.write(survey_xml) }
   end
 
 end

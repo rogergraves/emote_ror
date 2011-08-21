@@ -62,4 +62,3 @@ EmoteRor::Application.configure do
 
 end
 
-SURVEY_STORAGE_PATH = '/var/www/surveys/'
