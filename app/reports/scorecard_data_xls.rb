@@ -81,7 +81,9 @@ class ScorecardDataXls
     worksheet.row(@current_row_index).default_format = FORMAT[:subtable_title]
 
     insert_styled_row(worksheet, @current_row_index += 1, ['Category', 'Number of responses', '% of Respondants'], :subtable_header)
-    barometer_data = @survey.result_obj[:pie].map do |side_code, count|
+    pie_data = @survey.result_obj[:pie]
+    pie_data[:mn] += pie_data.delete(:mp) # http://www.prestonkincaid.com/projects/public/index.php/projects/110/tickets/208
+    barometer_data = pie_data.map do |side_code, count|
       [SurveyResult::BAROMETER_MAP[side_code][:name], count, count.to_f / @survey.result_obj[:totals][:total]]
     end
     barometer_data.each do |row|

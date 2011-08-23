@@ -23,7 +23,6 @@
 
 class Survey < ActiveRecord::Base
   require 'zlib'
-  require 'builder/xchar'
 
   STATE_ACTIVE = 0
   STATE_ARCHIVED = 1
