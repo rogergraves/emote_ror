@@ -36,7 +36,7 @@ class Survey < ActiveRecord::Base
   
   belongs_to :user, :counter_cache => true
   
-  has_many :visible_responses, :class_name => 'SurveyResult', :foreign_key => :code, :primary_key => :code, :conditions => {:is_removed => false}
+  has_many :visible_responses, :class_name => 'SurveyResult', :foreign_key => :code, :primary_key => :code, :conditions => {:is_removed => false}, :order => '`start_time` ASC'
   has_many :all_responses, :class_name => 'SurveyResult', :foreign_key => :code, :primary_key => :code
   
   validates :user, :presence => true
@@ -75,6 +75,15 @@ class Survey < ActiveRecord::Base
       survey.errors[:user] = ' cannot add more e.motes'
     end
   end
+
+  def visible_responses_with_limit
+    if self.user.plan.is_free?
+      self.visible_responses_without_limit.limit(10)
+    else
+      self.visible_responses_without_limit
+    end
+  end
+  alias_method_chain :visible_responses, :limit
 
   before_save do |survey|
     survey.activated_at = DateTime.now if survey.state_changed? && survey.state == STATE_ACTIVE
