@@ -49,77 +49,58 @@
 
     <div id="before-header">&nbsp;</div>
 
-        <div id="header">
-	    <img id="logo" src="/images/emote_logo.png"/>
-              <% if user_signed_in? %>
-	    	<div id="menu">
-                  <div id="username">Welcome, <%= current_user.full_name.blank? ? current_user.email : current_user.full_name %>!</div>
-                  <div id="buttons">
+    <div id="header">
+      <%= link_to image_tag('emote_logo.png'), root_path, :id => 'logo' %>
+        <% if user_signed_in? %>
+        <div id="menu">
+          <div id="main-menu">
 
-                  <div class="dropdown">
-                    <% this_active = (controller.controller_name == 'surveys' && controller.action_name == 'index') %>
-                    <%# link_to raw("<div class=\"button #{(controller.controller_name == 'surveys' && controller.action_name == 'index') ? 'on' : 'off'}\" id=\"emoteControlButton\" style=\"z-index: 10;position: relative;\"></div>"), root_path %>
-                    <%= link_to raw(content_tag(:div, '', :id => 'emoteControlButton', :style => 'z-index: 10; position: relative;', :class => "button #{this_active ? 'on' : 'off'}")), root_path %>
-                    <% if this_active %>
-                      <div class="arrow"><img src="/images/buttons/econtrol_arrow.png"/></div>
-                    <% end %>
-                  </div>
+            <% this_active = (controller.controller_name == 'surveys' && controller.action_name == 'index') %>
+            <div class="menu-item<%= ' active' if this_active %>">
+              <%= link_to_unless this_active, 'Dashboard', root_path %>
+            </div>
 
-                  <% unless current_user.surveys.empty? %>
-                    <div class="dropdown">
-                    <% this_active = (controller.controller_name == 'surveys' && controller.action_name == 'scorecard') %>
-                    <a href="#">
-                      <div class="button <%= this_active ? 'on' : 'off' %>" id="scoreCardButton" style="z-index: 10;position: relative;"></div>
-                    </a>
-                    <ul class="menu-body">
-                      <% current_user.surveys.each do |survey| %>
-                        <li <%= 'class="active"' if params[:id] == survey.id.to_s -%>>
-                          <%= link_to truncate(survey.project_name, :length => 20), scorecard_account_survey_path(survey), :title => survey.project_name %>
-                        </li>
-                      <% end %>
-                    </ul>
-                    <% if this_active %>
-                      <div class="arrow"><img src="/images/buttons/econtrol_arrow.png"/></div>
-                    <% end %>
-                    </div>
-                  <% end %>
+            <% this_active = show_submenu = current_page?(:controller => 'accounts', :action => 'edit') || current_page?(:controller => 'subscriptions', :action => 'index') %>
+            <div class="menu-item with-submenu<%= ' active' if this_active %>">
+              <%= link_to 'My Account', edit_account_path %>
+            </div>
 
-                  <div class="dropdown">
-                    <% this_active = %w(accounts subscriptions).include?(controller.controller_name) %>
-                    <a href="#">
-                      <div class="button <%= this_active ? 'on' : 'off' %>" id="myAccount" style="z-index: 10;position: relative;"></div>
-                    </a>
-                    <ul class="menu-body">
-                      <li>
-                        <%= link_to 'Change information', edit_account_path %>
-                      </li>
-                      <li>
-                        <%= link_to 'Account activity', account_subscriptions_path %>
-                      </li>
-                      <li>
-                        <%= link_to 'Subscribe', new_account_subscription_path %>
-                      </li>
-                      <li>
-                        <%= link_to 'Logout', destroy_user_session_path %>
-                      </li>
-                    </ul>
-                    <% if this_active %>
-                      <div class="arrow"><img src="/images/buttons/econtrol_arrow.png"/></div>
-                    <% end %>
-                  </div>
-
-                  </div>
-                </div>
+            <% this_active = current_page?(:controller => 'subscriptions', :action => 'new') %>
+            <div class="menu-item<%= ' active' if this_active %>">
+              <%= link_to_unless this_active, 'Upgrade!', new_account_subscription_path %>
+              <% if false && this_active %>
+                <div class="arrow"><img src="/images/buttons/selected_menu.png"/></div>
               <% end %>
-	</div>
+            </div>
 
-      <%= yield %>
+          </div>
+          <div id="username">
+            <span class="username_customer">Welcome, <b><%= current_user.name %></b>!</span>
+            <span class="logout"><img class="logout-body" src="/images/logout_body.png"/><%= link_to 'Logout', destroy_user_session_path %></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% if user_signed_in? && show_submenu %>
+    <div id="sub_menu">
+      <ul class="sub-menu-list">
+        <% this_active = current_page?(:controller => 'accounts', :action => 'edit') %>
+        <li class="submenu-item<%= ' active' if this_active %>"><%= link_to_unless this_active, 'Information', edit_account_path  %></li>
+
+        <% this_active = current_page?(:controller => 'subscriptions', :action => 'index') %>
+        <li class="submenu-item<%= ' active' if this_active %>"><%= link_to_unless this_active, 'Activity', account_subscriptions_path %></li>
+      </ul>
+    </div>
+    <div class="sub_menu_clear"></div>
+  <% end %>
+
+<%= yield %>
 
     <div id="forfooter"> &nbsp; </div>
   </div>
 
   <div id="footer">
-      <%= link_to image_tag('ie_logo.png', :id => 'ie-logo'), 'http://www.inspirationengine.com/', :target => '_blank' %>
+    <%= link_to image_tag('ie_logo.png', :id => 'ie-logo'), 'http://www.inspirationengine.com/', :target => '_blank' %>
   </div>
 
   <!-- Javascript at the bottom for fast page loading -->

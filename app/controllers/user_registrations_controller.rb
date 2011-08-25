@@ -16,11 +16,22 @@ class UserRegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     if resource.update_attributes(params[resource_name])
-      set_flash_message :notice, :updated
-      redirect_to after_update_path_for(resource)
+      set_flash_message :notice, :updated if is_navigational_format?
+      sign_in resource_name, resource, :bypass => true
+      respond_with resource, :location => after_update_path_for(resource)
     else
       clean_up_passwords(resource)
-      render_with_scope :edit
+      respond_with_navigational(resource){ render_with_scope :edit }
+    end
+  end
+
+  
+  #Overrides the path where user is redirected after initial password setup
+  def after_update_path_for(resource_or_scope)
+    if resource_or_scope.kind_of?(User)
+      new_account_survey_path
+    else #Admins [for future]
+      super(resource_or_scope)
     end
   end
 

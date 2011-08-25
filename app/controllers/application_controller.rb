@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   helper 'application'
   
   protect_from_forgery
+  before_filter :authenticate_user!
   before_filter :geocode_by_ip
   
   layout :layout_by_resource 
@@ -25,15 +26,7 @@ protected
     end
   end
 
-  #Overrides the path where user is redirected after initial password setup
-  def after_update_path_for(resource_or_scope)
-    if resource_or_scope.kind_of?(User)
-      new_account_survey_path
-    else #Admins [for future]
-      super(resource_or_scope)
-    end
-  end
-  
+
   def layout_by_resource 
     if devise_controller? && resource_name == :admin 
       "admin" 

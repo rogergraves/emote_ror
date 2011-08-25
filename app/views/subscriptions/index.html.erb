@@ -1,25 +1,29 @@
-<div id="content-win-centr_viewactivity" role="main">
-  <div id="viewactivity-content">
+<div id="content-win-info" role="main">
+  <div class="update_topic">
+      <p>Account Activity</p>
+      <span class="your_plan">Your current plan: <strong><%= current_user.plan.human_name %></strong></span>
+  </div>
+
    <p class="trans_message" align="center"><%= flash_messages %></p>
-   <span class="big-text">Account Activity</span>
      <div class="currentsubs">
-       Your current plan: <b><%= current_user.plan.human_name %></b>
-    
-        <table class="table_data">
+          <table class="table_data">
             <tr class="table_head">
-              <th>Includes</th>
+              <th width="20%">Features</th>
               <th>Expires</th>
             </tr>
             <tr class="table_cell_left">
-              <td><%= pluralize(current_user.plan.emote_amount, 'e.mote') %>&trade;</td>
-              <td><%= current_user.plan.end_date.strftime('%d-%b-%Y') %></td>
+              <td><%= pluralize(current_user.plan.emote_amount, 'e.mote') %>&trade;<%= ' (Scorecard limit of first 50 responses)' if current_user.plan.is_free? %></td>
+              <td><%= current_user.plan.end_date.strftime('%d %b %Y') unless current_user.plan.is_free? %></td>
             </tr>
           </table>    
       </div>
 
+
       <div class="payment_history">
-        <span class="big-text">Payment History</span>
-        <div class="payment_history_data">
+        <div class="update_topic">
+          <p>Payment History</p>
+        </div>
+        <div class="currentsubs">
           <table class="table_data">
             <tr class="table_head">
               <th>Date</th>
@@ -28,15 +32,15 @@
               <th>Transaction #</th>
             </tr>
             <% @payments.each do |payment| %>
-              <tr class="table_cell">
-                <td><%= payment.purchase_date('%d-%b-%Y') %></td>
+              <tr class="table_cell_left">
+                <td><%= payment.purchase_date.strftime('%d %b %Y') %></td>
                 <td><%= raw payment.description %></td>
                 <td><%= number_to_currency(payment.total_paid, :unit => Country.curr_code_to_symbol(payment.currency)) %></td>
-                <td class="table_cell_right"><%= payment.token %></td>
+                <td><%= payment.token %></td>
               </tr>
             <% end %>
           </table>
         </div>
     </div>
-  </div>
+    <div class="clearfix"></div>
 </div>

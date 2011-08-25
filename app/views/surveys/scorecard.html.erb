@@ -1,85 +1,239 @@
+<% content_for :head_css do %>
+  <%= stylesheet_link_tag 'modal.css', :media => :screen %>
+  <style type="text/css">
+    .commentRow1 {
+        height:45px;
+        background-color: #FFFFFF;
+        font-size: 11px;
+    }
+    .commentRow2 {
+        height:45px;
+        background-color: #f0f0f0;
+        font-size: 11px;
+    }
+  </style>
+<% end %>
+
+
+<% content_for :head_js do %>
+  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+  <%= javascript_include_tag 'highcharts.js', 'jquery.simplemodal.js' %>
+  <script>
+    var survey = <%= raw @survey.to_json(:only => [:project_name, :code, :id]) %>;
+  </script>
+  <%= javascript_include_tag 'scorecard.js' %>
+<% end %>
+
 <div id="content-win-centr-scorecard" role="main">
-  <div class="survey-title"><%= @survey.project_name %></div>
+  <div class="survey-title">
+       <%= @survey.project_name -%>
+      <div id="share_buttons" class="share_buttons">
+          <a style="cursor: pointer;">
+              <img id='share_button' onmouseout="changeImg('share_button', 'share_button');" onmouseover="changeImg('share_button', 'share_button_over');" src="/images/share_button.png" alt=""/>
+          </a>
+          <a style="cursor: pointer;" href='<%= scorecard_account_survey_path(@survey, :format => :xls) %>'>
+              <img id='download_button' onmouseout="changeImg('download_button', 'download_button');" onmouseover="changeImg('download_button', 'download_button_over');" src="/images/download_button.png" alt=""/>
+          </a>
+      </div>
+  </div>
     <div id="scorecard-content">
-		<%= javascript_include_tag '/fx/AC_OETags.js' %>
+		
+<script type="text/javascript">
 
-		<script language="JavaScript" type="text/javascript">
-		var requiredMajorVersion = 10;
-		var requiredMinorVersion = 0;
-		var requiredRevision = 124;
-		</script>
+	<% results = @survey.result_obj %>
+	var configTotals = <%= raw results[:totals].to_json -%>;
+	var configBars = <%= raw results[:bars].to_json -%>;
+	var configPie = <%= raw results[:pie].to_json -%>;
+	var configVerbatim = <%= raw @survey.verbatims_obj('', '', nil, false).to_json -%>;
+    var strEmotionLabel = "<span>emotion: </span>";
+    var strCategoryLabel = "<span>category: </span>";
+    var strSearchLabel = "<span>search: </span>";
 
-		<script language="JavaScript" type="text/javascript">
-		var hasProductInstall = DetectFlashVer(6, 0, 65);
-		var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+    /**
+     * putting together indifferent and participants category
+     */
+    configPie.mn+=configPie.mp;
+    configPie.mp=0;
 
-		if ( hasProductInstall && !hasRequestedVersion ) {
-			var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
-			var MMredirectURL = encodeURI(window.location);
-		    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
-		    var MMdoctitle = document.title;
+    jQuery(function ($) {
 
-			AC_FL_RunContent(
-				"src", "/fx/playerProductInstall",
-				"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
-				"width", "1140",
-				"height", "100%",
-				"align", "middle",
-				"id", "main",
-				'wmode', 'opaque',
-				"quality", "high",
-				"bgcolor", "#ffffff",
-				"name", "main",
-				"allowScriptAccess","sameDomain",
-				"type", "application/x-shockwave-flash",
-				"pluginspage", "http://www.adobe.com/go/getflashplayer"
-			);
-		} else if (hasRequestedVersion) {
-			AC_FL_RunContent(
-					"src", "/fx/main",
-					"FlashVars", "survey=<%= @survey.code -%>&survey_id=<%= @survey.id -%>&action_token=<%= @survey.action_token -%>",
-					"width", "1140",
-					"height", "100%",
-					"align", "middle",
-					"id", "main",
-					'wmode', 'opaque',
-					"quality", "high",
-					"bgcolor", "#ffffff",
-					"name", "main",
-					"allowScriptAccess","sameDomain",
-					"type", "application/x-shockwave-flash",
-					"pluginspage", "http://www.adobe.com/go/getflashplayer"
-			);
-		  } else {  // flash is too old or we can't detect the plugin
-		    var alternateContent = 'Alternate HTML content should be placed here. '
-		  	+ 'This content requires the Adobe Flash Player. '
-		   	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
-		    document.write(alternateContent);  // insert non-flash content
-		  }
-		// -->
-		</script>
-		<noscript>
-		  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-					id="main" width="1140" height="100%"
-					codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
-					<param name="movie" value="/fx/main.swf?survey_id='+<%= @survey.id -%>+'&survey='+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" />
-					<param name="quality" value="high" />
-					<param name="bgcolor" value="#ffffff" />
-					<param name="wmode" value="opaque" />
-					<param name="allowScriptAccess" value="sameDomain" />
-					<embed src="main.swf?survey_id='+<%= @survey.id -%>+'&survey='+<%= @survey.code -%>+'&action_token='+<%= @survey.action_token -%>" quality="high" bgcolor="#ffffff"
-						width="1140" height="100%" name="main" align="middle"
-						play="true"
-						loop="false"
-						quality="high"
-						allowScriptAccess="sameDomain"
-						type="application/x-shockwave-flash"
-						pluginspage="http://www.adobe.com/go/getflashplayer">
-					</embed>
-			</object>
-		</noscript>
+        emote.scorecard.init({
+            barChartConfig: configBars,
+            pieChartConfig: configPie
+        });
+
+        emote.scorecard.getBarChart();
+        emote.scorecard.getPieChart();
+        loadComments(configVerbatim);
+        
+		$('#btnCommentFilter').click(emote.scorecard.filterVerbatim);
+        $('#btnCommentClearFilter').click(function (){
+            $('#txtCommentFilter').val('');
+            emote.scorecard.filterVerbatim();
+        });
+
+        $('#see_all_comments').click(function (){
+            $('#txtCommentFilter').val('');
+            emote.scorecard.filterVerbatim();
+            $('#emotionLabel').html("comments: all emotions");
+            document.getElementById('see_all_comments').style.visibility = 'hidden';
+            emote.scorecard.redrawPieChart();
+        });
+
+        $('#share_button').click(function (e) {
+            $('#share_scorecard_modal').modal();
+
+            return false;
+        });
+
+        /*$('#download_button').click(function (e) {
+                $('#download_modal').modal();
+                $('#simplemodal-container').css('width', 250);
+                return false;
+            });*/
+    });
+    
+    function loadComments(config){
+        var verbatimHTML = "<table style='width: 970px;'>\n";
+        var i=0;
+        var tr = '';
+        for (var key in config){
+            var row = config[key];
+            var remainder = i % 2;
+
+            var strEvents = " onmouseover='showRowButtons("+row.id+")' onmouseout='hideRowButtons("+row.id+")'";
+            if (remainder == 1) tr = "\n<tr "+strEvents+" class='commentRow1'>\n";
+            else tr = "\n<tr " +strEvents+ " class='commentRow2'>\n";
+
+
+            var strEmoteTitle = row.face.split('_')[0];
+            var strImgSrc = (row.email_used) ? " src='/images/clicked_email.png' " : " src='/images/unclicked_email.png' ";
+
+            var strEmail = row.email || '';
+            verbatimHTML+= tr + "\n<td align='left' style='vertical-align:middle;'>\n" +
+                "&nbsp;&nbsp;<img width='20px' height='20px' " +
+                " title='" + strEmoteTitle + "'" +
+                " src='/images/verbatim_intensity/" +
+                row.face + ".png'>&nbsp;&nbsp;  \n" + row.text + "\n</td>\n"+
+                "\n<td align='right' style='vertical-align:middle;color:#5b5b5b;'>\n" +
+                row.timestamp + "&nbsp;" +
+                "\n<a style='width:27px; visibility:hidden;' id='btn_del_"+row.id+"' onclick='deleteVerbatim("+row.id+");'>" +
+                "<img style='vertical-align:middle;' src='/images/delete_verbatim.png' width='15px' height='16px'></a> \n";
+            /**
+             * hide email button if no email is provided
+             */
+                verbatimHTML+=(strEmail) ? "\n<a href='mailto:"+strEmail+"' onclick='mailDialog("+row.id+");' style='width:27px;' " +
+                " id='btn_email_"+row.id+"' >" +
+
+                "<img style='vertical-align:middle;' width='15px' height='16px' " + strImgSrc +
+                " id='img_email_"+row.id+"'></a> \n" : "";
+
+                verbatimHTML+="\n&nbsp;<td/>\n</tr>\n";
+            i++;
+        }
+        verbatimHTML+= '\n</table>\n';
+        $('#verbatimText').html(verbatimHTML);
+    }
+
+    function showRowButtons(id){
+        document.getElementById('btn_del_' + id).style.visibility = 'visible';
+    }
+
+    function hideRowButtons(id){
+        document.getElementById('btn_del_' + id).style.visibility = 'hidden';
+    }
+
+    function mailDialog(id){
+        emote.scorecard.doAjax({
+                 data: {id: id},
+                 url: '/survey_results/mark_email_as_used.json',
+                 successCallback: function (response, textStatus) {
+                     document.getElementById('img_email_' + id).src = '/images/clicked_email.png';
+               },
+                 errorCallback: function(request, textStatus, errorThrown){
+                  console.log(errorThrown);
+                  throw new Error('error deleting a verbatim: ' + id);
+               }
+             });
+
+    }
+
+    function deleteVerbatim(id){
+        var ok = confirm("Are you sure you want to delete this response? After you delete it there's no way to undo it.");
+        if (ok){
+             emote.scorecard.doAjax({
+                 data: {id: id},
+                 url: '/survey_results/delete_response.json',
+                 successCallback: function (response, textStatus) {
+                    $('#txtCommentFilter').val('');
+                    emote.scorecard.filterVerbatim();
+               },
+                 errorCallback: function(request, textStatus, errorThrown){
+                  console.log(errorThrown);
+                  throw new Error('error deleting a verbatim: ' + id);
+               }
+             });
+        }
+    }
+
+    function changeImg(id, img){
+        document.getElementById(id).src = '/images/' + img + '.png';
+    }
+
+</script>
+
+            <div id="barChart" class="spectrum"></div>
+
+            <div class="rsidechart">
+                <div id="totalResp" class="t-responses"></div>
+                <div id="pieChart" class="barometer"></div>
+            </div>
+
+         <div class="scorecard_data">
+            <!-- 3. Add the container -->
+            
+            <div class="comments_data">
+             
+               <table>
+                 <tr>
+                   <td class="left_r-corners"></td>    
+                   <td class="center-emotion">
+                     <div id='emotionLabel'> comments: all emotions </div>
+                   </td>
+                   <td class="right_r-corners"></td>
+                   <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                   <td><a style="cursor: pointer;visibility: hidden;" id='see_all_comments'>See all comments</a></td>
+                 </tr>
+               </table>
+
+
+             <input class="magnifying_glass" type="image" src="/images/magnifying_glass_icon.png" id="btnCommentFilter" />
+             <input class="filter" type="text" id="txtCommentFilter" size="35" />
+             <input class="clear-filter" type="image" src="/images/clear_comments_button.png" id="btnCommentClearFilter" />
+            </div>
+            
+            <div class="table_comments" id="verbatimText"></div>
+            <div class="clearfix"></div>
+         </div>
+
     </div>
-    <div class="share_scorecard">
-	<strong>Share Scorecard</strong> <span class="share_link_scorecard"><strong>Link: </strong><%= text_field_tag '', public_scorecard_url(:code => @survey.scorecard_code), :class => 'locked-selectall' %></span>
+    
+
+    
+    
+    <div id='share_scorecard_modal'>
+	    <strong style="margin-left: 100px;color: #000000;">Share Scorecard Link</strong>
+        <br/><br/><br/><br/>
+        <span class="share_link_scorecard" style="margin-left: 60px;">
+            <%= text_field_tag '', public_scorecard_url(:code => @survey.scorecard_code), :size => '30',:class => 'locked-selectall' %>
+        </span>
     </div>
+
+    <!--<div id='download_modal' style="">
+        <div class="dialog-title">Select a format to download</div>
+        <br/><br/>
+        <%= link_to image_tag('excel_icon.png'), scorecard_account_survey_path(@survey, :format => :xls) %>
+    </div>-->
+
+    <div class="clearfix"></div>
 </div>

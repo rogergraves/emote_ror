@@ -15,22 +15,23 @@ EmoteRor::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-        :address              => "mail.inspirationengine.com",
-        :port                 => 26,
-        :domain               => 'inspirationengine.com',
-        :user_name            => 'support+inspirationengine.com',
-        :password             => '-3tR!GK',
-        :authentication       => 'plain',
-        :enable_starttls_auto => false
-    }
+    :address              => "smtp.gmail.com",
+    :port                 => 587, 
+    :domain               => 'inspirationengine.com',
+    :user_name            => 'delivery@inspirationengine.com',
+    :password             => '134711avs',
+    :authentication       => 'plain', 
+    :enable_starttls_auto => true 
+  }
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
   
+  #config.application_host = "porch.rubyriders.com:1910"
   config.application_host = "localhost:3000"
   
   config.action_controller.asset_host = config.application_host
@@ -38,13 +39,11 @@ EmoteRor::Application.configure do
 
 end
 
-SURVEY_STORAGE_PATH = "#{Rails.root.to_s}/tmp/surveys/"
-
 ### forward all mail to the developer
 class DevelopmentMailInterceptor
   def self.delivering_email(message)
     message.subject = "[to #{message.to}] #{message.subject}"
-    message.to = "oleg@rubyriders.com"
+    message.to = "oleg+Alerts@rubyriders.com"
     #message.cc = "a@rubyriders.com"
   end
 end

@@ -1,11 +1,11 @@
-<div id="content-win-centr" role="main">
+<div id="content-win-create" role="main">
   <div id="almost-content">
       <span class="big-text">Almost there...</span>
 
       <span class="almost-text">
       <p>An email is being sent to <strong><%= resource.email %></strong> with a validation link. Your account will be accessible after clicking on that link.</p>
 
-      <p>If you have trouble finding the email, please check your junk email folder. If you still have problems, please email us at <a href="mailto:support@inspirationengine.com">support@inspirationengine.com</a>.</p>
+      <p>If you have trouble finding the email, please check your junk email folder or ask to <%= link_to 'resend confirmation', new_confirmation_path(resource_name) %>. If you still have problems, please email us at <a href="mailto:support@inspirationengine.com">support@inspirationengine.com</a>.</p>
 
       <p>Thanks for signing up!</p>
       </span>

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110417191406
+# Schema version: 20110606120526
 #
 # Table name: subscriptions
 #
@@ -10,7 +10,7 @@
 #  updated_at   :datetime
 #  start_date   :datetime        not null
 #  end_date     :datetime        not null
-#  kind         :string(255)     not null
+#  kind         :string(20)      not null
 #
 
 require 'test_helper'

@@ -8,8 +8,10 @@ private
     end
   end
 
-  def setup_mail(record, action)
+  def devise_mail(record, action)
     include_images!
     super(record, action)
   end
+  alias_method :setup_mail, :devise_mail
+
 end

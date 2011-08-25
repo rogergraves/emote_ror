@@ -16,18 +16,28 @@ EmoteRor::Application.routes.draw do
         get 'scorecard'
         delete 'recreate'
         delete 'wipe_responses'
+        get 'get_qrcode'
+        get 'settings'
+        post 'settings'
       end
       resource :survey_results do
         collection do
           get 'charts'
           get 'verbatims'
           get 'delete_response'
+          get 'mark_email_as_used'
         end
       end
     end
   end
   
   get 'scorecard/:code', :controller => 'surveys', :action => 'public_scorecard', :as => :public_scorecard
+  
+  get 'survey_results/all', :controller => 'survey_results', :action => 'all'
+  get 'survey_results/charts', :controller => 'survey_results', :action => 'charts'
+  get 'survey_results/verbatims', :controller => 'survey_results', :action => 'verbatims'
+  get 'survey_results/delete_response', :controller => 'survey_results', :action => 'delete_response'
+  get 'survey_results/mark_email_as_used', :controller => 'survey_results', :action => 'mark_email_as_used'
   
   namespace :admin do
     resources :accounts do
@@ -43,7 +53,7 @@ EmoteRor::Application.routes.draw do
         get 'scorecard'
       end
     end
-    resources :subscriptions, :except => [:destroy]
+    resources :subscriptions, :only => [:index, :edit, :update]
     root :to => "base#index"
   end
   

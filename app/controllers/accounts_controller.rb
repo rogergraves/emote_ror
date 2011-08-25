@@ -1,5 +1,4 @@
 class AccountsController < ApplicationController
-  before_filter :authenticate_user!
   
   def edit
     @account = current_user

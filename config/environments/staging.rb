@@ -10,10 +10,10 @@ EmoteRor::Application.configure do
   config.action_controller.perform_caching = true
 
   # Specifies the header that your server uses for sending files
-  config.action_dispatch.x_sendfile_header = "X-Sendfile"
+  #config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
   # For nginx:
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
+  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
 
   # If you have no front-end server that supports something like X-Sendfile,
   # just comment this out and Rails will serve the files
@@ -51,15 +51,14 @@ EmoteRor::Application.configure do
   config.action_controller.asset_host = config.application_host
   config.action_mailer.default_url_options = { :host => config.application_host }
   config.action_mailer.smtp_settings = {
-        :address              => "mail.inspirationengine.com",
-        :port                 => 26,
-        :domain               => 'inspirationengine.com',
-        :user_name            => 'support+inspirationengine.com',
-        :password             => '-3tR!GK',
-        :authentication       => 'plain',
-        :enable_starttls_auto => false
-    }
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'inspirationengine.com',
+    :user_name            => 'delivery@inspirationengine.com',
+    :password             => '134711avs',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true
+  }
 
 end
 
-SURVEY_STORAGE_PATH = '/var/www/surveys/'

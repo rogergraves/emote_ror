@@ -1,13 +1,23 @@
-<div id="content-win-centr" role="main">
-<h2>Resend confirmation instructions</h2>
+<div id="content-win-create" role="main">
+  <div class="resend_conf">
+    <h2>Resend confirmation instructions</h2>
 
-<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
+    <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+      </div> 
 
-  <p><%= f.submit "Resend confirmation instructions" %></p>
-<% end %>
+       <div class="show_alert">
+        <%= errors_for(resource) %><%= flash_messages %>
+       </div>
 
-  <%= errors_for(resource) %><%= flash_messages %>
+      <div class="resend_conf_btn">
+        <%= image_submit_tag("confirm_btn.png") %>
+      </div>
+
+      
+     <% end %>
+  </div>
 
 </div>

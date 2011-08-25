@@ -12,6 +12,8 @@ module EmoteRor
 	  # http://github.com/lleger/Rails-3-jQuery, written by Logan Leger
 	  config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 	  config.action_view.javascript_expansions[:cdn] = %w(https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js rails)
+    
+    config.active_record.include_root_in_json = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -45,3 +47,5 @@ module EmoteRor
     config.filter_parameters += [:password]
   end
 end
+
+Spreadsheet.client_encoding = 'UTF-8'

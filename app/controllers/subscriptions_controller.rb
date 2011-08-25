@@ -1,26 +1,5 @@
 class SubscriptionsController < ApplicationController
   include ActionView::Helpers::TextHelper
-  before_filter :authenticate_user!
-  
-=begin
-  def quick_switch
-    p = current_user.plan
-    p.kind = params[:plan_code] if params[:plan_code]
-    p.end_date = params[:m_diff].to_i.months.since(p.start_date) if params[:m_diff]
-    p.save(false)
-    redirect_to :action => :new
-  end
-
-for #new view:
-
-  Switch plan: <% %w(free start expand magnify).each do |plan_code| %>
-    <%= link_to plan_code, url_for(:controller => 'subscriptions', :action => 'quick_switch', :plan_code => plan_code) %>
-  <%end%>
-  Switch months left: <% (1..12).each do |mleft| %>
-    <%= link_to mleft, url_for(:controller => 'subscriptions', :action => 'quick_switch', :m_diff => mleft) %>
-  <%end%>
-
-=end
   
   def index
     @payments = current_user.payments.all(:order => 'created_at DESC')
@@ -36,9 +15,10 @@ for #new view:
     plan_hash = Subscription.get_plan_hash(params[:target_plan], true)
     price = current_user.plan.calc_upgrade_price(params[:target_plan])
     currency = Country.find_by_country_code(current_user.country_code || 'US')[:currency]
+    pro_rated = (current_user.plan.months_left > 0)
     selected_purchase = {
       :plan_code => params[:target_plan],
-      :description => "Upgrade account from '#{current_user.plan.human_name}' to '#{plan_hash[:name]}' for #{Country.curr_code_to_symbol(currency)}#{price}"
+      :description => "#{plan_hash[:name]} - Annual #{pro_rated ? ' (pro-rated)' : ''} for #{price} #{Country.find_by_country_code(current_user.country_code || 'US')[:currency]}"
     }
     response = EXPRESS_GATEWAY.setup_purchase(
         price * 100, # convert to cents
