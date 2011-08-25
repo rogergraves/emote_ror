@@ -58,15 +58,15 @@
         emote.scorecard.getPieChart();
         loadComments(configVerbatim);
 
-		$('#btnCommentFilter').click(filterVerbatim);
+		$('#btnCommentFilter').click(emote.scorecard.filterVerbatim);
         $('#btnCommentClearFilter').click(function (){
             $('#txtCommentFilter').val('');
-            filterVerbatim();
+            emote.scorecard.filterVerbatim();
         });
 
         $('#see_all_comments').click(function (){
             $('#txtCommentFilter').val('');
-            filterVerbatim();
+            emote.scorecard.filterVerbatim();
             $('#emotionLabel').html("comments: all emotions");
             document.getElementById('see_all_comments').style.visibility = 'hidden';
             emote.scorecard.redrawPieChart();
