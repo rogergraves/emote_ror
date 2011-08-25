@@ -10,7 +10,7 @@ default_run_options[:pty] = true
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
 task :live do
-  set :branch, "master" #release
+  set :branch, "release"
   role :web, "emote.inspirationengine.com"                          # Your HTTP server, Apache/etc
   role :app, "emote.inspirationengine.com"                          # This may be the same as your `Web` server
   role :db,  "emote.inspirationengine.com", :primary => true # This is where Rails migrations will run
