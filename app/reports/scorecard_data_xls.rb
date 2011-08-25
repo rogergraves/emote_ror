@@ -53,7 +53,7 @@ class ScorecardDataXls
       ['URL', @survey.emote_direct_link],
       ['Date e.mote™ Created', @survey.created_at.to_s],
       ['Total Responses', @survey.all_responses.count],
-      ['Responses Displayed', @survey.visible_responses.count],
+      ['Responses Displayed', @survey.visible_responses.length],
       ['Date of Report', DateTime.now.to_s],
       ['Current e.mote™ Status', @survey.state_human]
     ]

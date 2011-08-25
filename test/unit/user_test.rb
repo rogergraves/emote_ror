@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110606172324
+# Schema version: 20110725234250
 #
 # Table name: users
 #
@@ -30,6 +30,7 @@
 #  subscriptions_count      :integer(4)      default(0)
 #  activity_report_interval :string(15)      default("none")
 #  activity_report_sent_at  :datetime        default(Thu Jan 01 02:00:00 UTC 1970)
+#  partner_code             :string(100)
 #
 
 require 'test_helper'

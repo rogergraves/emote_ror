@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110220073519
+# Schema version: 20110725234250
 #
 # Table name: survey_result
 #
@@ -12,6 +12,8 @@
 #  verbatim         :text(16777215)
 #  code             :string(255)
 #  is_removed       :integer(1)      default(0)
+#  email            :string(255)
+#  email_used       :boolean(1)      default(FALSE)
 #
 
 require 'test_helper'

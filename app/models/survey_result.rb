@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110220073519
+# Schema version: 20110725234250
 #
 # Table name: survey_result
 #
@@ -12,6 +12,8 @@
 #  verbatim         :text(16777215)
 #  code             :string(255)
 #  is_removed       :integer(1)      default(0)
+#  email            :string(255)
+#  email_used       :boolean(1)      default(FALSE)
 #
 
 class SurveyResult < ActiveRecord::Base
@@ -79,6 +81,17 @@ class SurveyResult < ActiveRecord::Base
   
   def id=(id)
     write_attribute(:survey_result_id, id)
+  end
+  
+  #TODO Move emails from a separate table to the SurveyResult model
+  def email
+    if mail = read_attribute(:email)
+      mail
+    else
+      ext_email = self.class.connection.select_value("SELECT `email` FROM `survey_user_data` WHERE `survey_result_id` = #{self.id}")
+      write_attribute(:email, ext_email)
+      ext_email
+    end
   end
   
 end
