@@ -36,8 +36,8 @@ class Survey < ActiveRecord::Base
   
   belongs_to :user, :counter_cache => true
   
-  has_many :visible_responses, :class_name => 'SurveyResult', :foreign_key => :code, :primary_key => :code, :conditions => {:is_removed => false}, :order => '`start_time` ASC'
-  has_many :all_responses, :class_name => 'SurveyResult', :foreign_key => :code, :primary_key => :code
+  has_many :visible_responses, :class_name => 'SurveyResult', :foreign_key => :code, :primary_key => :code, :conditions => {:is_removed => false}, :order => '`start_time` DESC'
+  has_many :all_responses, :class_name => 'SurveyResult', :foreign_key => :code, :primary_key => :code, :order => '`start_time` DESC'
   
   validates :user, :presence => true
   validates :project_name, :presence => true, :uniqueness => {:scope => :user_id}, :length => { :maximum => 200 }
