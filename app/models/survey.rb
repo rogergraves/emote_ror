@@ -78,7 +78,7 @@ class Survey < ActiveRecord::Base
 
   def visible_responses_with_limit
     if self.user.plan.is_free?
-      self.visible_responses_without_limit.limit(10)
+      self.visible_responses_without_limit.limit(50)
     else
       self.visible_responses_without_limit
     end
