@@ -40,7 +40,15 @@ class Admin::AccountsController < Admin::BaseController
       #table << will_paginate(@users)
       render :text => table.join("\n")
     else
-      get_sorted_objects(params)
+      respond_to do |wants|
+        wants.html do
+          get_sorted_objects(params)
+        end
+        wants.xls do
+          report = UserListXls.new
+          send_data report.generate, :content_type => Mime::XLS, :filename => "userlist_#{DateTime.now.strftime('%Y%m%d%H%M')}.xls"
+        end
+      end
     end
   end
 
