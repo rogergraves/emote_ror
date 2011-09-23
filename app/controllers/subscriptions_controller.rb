@@ -15,7 +15,7 @@ class SubscriptionsController < ApplicationController
     plan_hash = Subscription.get_plan_hash(params[:target_plan], true)
     price = current_user.plan.calc_upgrade_price(params[:target_plan])
     currency = Country.find_by_country_code(current_user.country_code || 'US')[:currency]
-    pro_rated = (current_user.plan.months_left > 0)
+    pro_rated = (current_user.plan.months_left > 0) && !current_user.plan.is_free?
     selected_purchase = {
       :plan_code => params[:target_plan],
       :description => "#{plan_hash[:name]} - Annual #{pro_rated ? ' (pro-rated)' : ''} for #{price} #{Country.find_by_country_code(current_user.country_code || 'US')[:currency]}"
@@ -65,6 +65,7 @@ class SubscriptionsController < ApplicationController
       current_user.plan.upgrade!(plan_hash[:kind]) if (details.params['order_total'].to_f == expected_price.to_f)
       flash[:notice] = "Thank you for subscribing! Your PayPal Transaction ID is ##{payment.token}."
       session[:selected_plan_purchase] = nil
+      AdminMailer.upgrade(current_user, payment).deliver
     end
     redirect_to account_subscriptions_path
   end

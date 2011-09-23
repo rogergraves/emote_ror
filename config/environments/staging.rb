@@ -62,3 +62,12 @@ EmoteRor::Application.configure do
 
 end
 
+
+### mark outgoing mail
+class StagingMailInterceptor
+  def self.delivering_email(message)
+    message.subject = "[TEST FROM STAGING] #{message.subject}"
+  end
+end
+
+Mail.register_interceptor(StagingMailInterceptor)
