@@ -31,7 +31,7 @@
           <a style="cursor: pointer;">
               <img id='share_button' onmouseout="changeImg('share_button', 'share_button');" onmouseover="changeImg('share_button', 'share_button_over');" src="/images/share_button.png" alt=""/>
           </a>
-          <a style="cursor: pointer;" href='<%= scorecard_account_survey_path(@survey, :format => :xls) %>'>
+          <a style="cursor: pointer;" href='<%= url_for(:format => :xls) %>'>
               <img id='download_button' onmouseout="changeImg('download_button', 'download_button');" onmouseover="changeImg('download_button', 'download_button_over');" src="/images/download_button.png" alt=""/>
           </a>
       </div>

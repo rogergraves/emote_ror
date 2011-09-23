@@ -76,9 +76,22 @@ class Admin::EmotesController < Admin::BaseController
   end
   
   def scorecard
-    @survey = Survey.find params[:id]
-    @survey.generate_action_token!
-    @survey.save!
+    @survey = Survey.find(params[:id])
+    redirect_to root_path if @survey.nil?
+
+    respond_to do |format|
+      format.html do
+        @survey.generate_action_token!
+        @survey.scorecard_viewed_at = DateTime.now
+        @survey.save!
+        render 'surveys/scorecard'
+      end
+      format.xls do
+        report = ScorecardDataXls.new
+        report.survey = @survey
+        send_data report.generate, :content_type => Mime::XLS, :filename => "scorecard_#{@survey.code.downcase}_#{DateTime.now.strftime('%Y%m%d%H%M')}.xls"
+      end
+    end
   end
   
 protected
