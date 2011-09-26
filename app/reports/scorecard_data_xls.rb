@@ -82,6 +82,7 @@ class ScorecardDataXls
 
     insert_styled_row(worksheet, @current_row_index += 1, ['Category', 'Number of responses', '% of Respondants'], :subtable_header)
     pie_data = @survey.result_obj[:pie]
+    #TODO figure out if we should merge Indifferent and Participants everywhere and remove crap below
     pie_data[:mn] += pie_data.delete(:mp) # http://www.prestonkincaid.com/projects/public/index.php/projects/110/tickets/208
     barometer_data = pie_data.map do |side_code, count|
       [SurveyResult::BAROMETER_MAP[side_code][:name], count, count.to_f / @survey.result_obj[:totals][:total]]
@@ -100,11 +101,13 @@ class ScorecardDataXls
     worksheet.row(@current_row_index).set_format(0, FORMAT[:subtable_title])
     insert_styled_row(worksheet, @current_row_index += 1, ['Date', 'Emotion', 'Intensity %', 'Barometer Category', 'Email Address', 'clicked email', 'Comment', 'Notes'], :subtable_header)
     @survey.visible_responses.order(:start_time).each do |response|
+      category = SurveyResult.barometer_category_from_intensity(response.emote, response.intensity_level, true)
       comment_data = [
         response.start_time,
         response.emote.humanize,
         response.intensity_level.to_f/100,
-        SurveyResult.barometer_category_from_intensity(response.emote, response.intensity_level, true),
+        #TODO figure out if we should merge Indifferent and Participants everywhere and remove crap below
+        category=='Participants' ? 'Indifferent' : category, #http://www.prestonkincaid.com/projects/public/index.php/projects/110/tickets/217
         response.email,
         response.email_used ? 'Yes' : 'No',
         response.verbatim

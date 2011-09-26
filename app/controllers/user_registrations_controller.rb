@@ -6,6 +6,7 @@ class UserRegistrationsController < Devise::RegistrationsController
     resource.password = resource.password_confirmation = rand(Time.now.to_i).to_s(24) #Password auto-generated
     if resource.save
       set_flash_message :notice, :signed_up
+      AdminMailer.signup(resource).deliver
       #sign_in_and_redirect(resource_name, resource)
     else
       clean_up_passwords(resource)
