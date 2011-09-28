@@ -1135,33 +1135,38 @@ ul.start_box {
     width: 15px;
 }
 
-.scorecard_data .comments_data .magnifying_glass{
+.scorecard_data .emotions-searchfield {
+    width: 460px;
+    height: 52px;
+    float: right;
+}
+
+.scorecard_data .emotions-searchfield .magnifying_glass{
     position: relative;
     top: 15px;
-    left: 27px;
+    left: 59px;
 }
 
-.scorecard_data .comments_data input{
+.scorecard_data .emotions-searchfield input{
     float: left;
-    margin: 4px 10px 0 250px;
+    margin: 4px 10px 0 0;
 }
 
-.scorecard_data .comments_data input.filter {
+.scorecard_data .emotions-searchfield input.filter {
     border: 1px solid #e6e6e6;
     border-top-color: #a3a3a3;
-    float: left;
     width: 260px;
     height: 23px;
     line-height: 23px;
     color: #000;
     padding: 0 30px;
-    margin: 15px 0 0 0;
+    margin: 15px 0 0 30px;
 }
 
-.scorecard_data .comments_data .clear-filter{
+.scorecard_data .emotions-searchfield .clear-filter{
     position: relative;
-    top: -28px;
-    left: 325px;
+    top: 12px;
+    left: -23px;
     width: 23px;
     height: 23px;
 }
@@ -1551,6 +1556,12 @@ body{
     width: 40%;
     text-align: right;
     padding-right: 20px;
+}
+
+#content-win-control table .last_column .hoverover {
+    font-weight: bold;
+    color: red;
+    font-style: italic;
 }
 
 #content-win-control table .last_column img{

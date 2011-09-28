@@ -76,7 +76,7 @@
             $('#txtCommentFilter').val('');
             emote.scorecard.filterVerbatim();
             $('#emotionLabel').html("comments: all emotions");
-            document.getElementById('see_all_comments').style.visibility = 'hidden';
+            setVisible("see_all_comments", false);
             emote.scorecard.redrawPieChart();
         });
 
@@ -136,11 +136,11 @@
     }
 
     function showRowButtons(id){
-        document.getElementById('btn_del_' + id).style.visibility = 'visible';
+        setVisible('btn_del_' + id, true);
     }
 
     function hideRowButtons(id){
-        document.getElementById('btn_del_' + id).style.visibility = 'hidden';
+        setVisible('btn_del_' + id, false);
     }
 
     function mailDialog(id){
@@ -152,7 +152,7 @@
                },
                  errorCallback: function(request, textStatus, errorThrown){
                   console.log(errorThrown);
-                  throw new Error('error deleting a verbatim: ' + id);
+                  throw new Error('error marking email as used');
                }
              });
 
@@ -167,6 +167,12 @@
                  successCallback: function (response, textStatus) {
                     $('#txtCommentFilter').val('');
                     emote.scorecard.filterVerbatim();
+                    // hide "See all comments" link
+                    setVisible("see_all_comments", false);
+                    // redraw charts on deleting a verbatim
+                    emote.scorecard.setPieSectorClicked(true);
+                    emote.scorecard.initChartsFromServer();
+
                },
                  errorCallback: function(request, textStatus, errorThrown){
                   console.log(errorThrown);
@@ -206,10 +212,12 @@
                  </tr>
                </table>
 
+             <div class="emotions-searchfield">
+               <input class="magnifying_glass" type="image" src="/images/magnifying_glass_icon.png" id="btnCommentFilter" />
+               <input class="filter" type="text" id="txtCommentFilter" size="35" />
+               <input class="clear-filter" type="image" src="/images/clear_comments_button.png" id="btnCommentClearFilter" />
+             </div>
 
-             <input class="magnifying_glass" type="image" src="/images/magnifying_glass_icon.png" id="btnCommentFilter" />
-             <input class="filter" type="text" id="txtCommentFilter" size="35" />
-             <input class="clear-filter" type="image" src="/images/clear_comments_button.png" id="btnCommentClearFilter" />
             </div>
             
             <div class="table_comments" id="verbatimText"></div>

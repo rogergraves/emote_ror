@@ -6,6 +6,9 @@
 	   var intensity = {pp: 'enthusiasts', mn: 'indifferent', pn:'detractors'};
 	   var pieColors = {pp: '#0db5d4', mn: '#cccccc', pn: '#eeae01'};
 
+      var verbatimUrl = '/survey_results/verbatims.json';
+      var chartsUrl = '/survey_results/charts.json';
+
       var barChartConfig = {};
       var pieChartConfig = {};
 
@@ -59,13 +62,12 @@
                          click: function() {
                             var cfg = this.config;
                             $('#emotionLabel').html(strEmotionLabel + cfg.name);
-                            document.getElementById('see_all_comments').style.visibility = 'visible';
-
+                            setVisible("see_all_comments", true);
                             emote.scorecard.redrawPieChart();
                             
                             emote.scorecard.doAjax({
                                 data: {name: cfg.name},
-                                url: '/survey_results/verbatims.json',
+                                url: verbatimUrl,
                                 successCallback: function (response, textStatus) {
                                 var data = jQuery.parseJSON(response);
                                 loadComments(data);
@@ -146,9 +148,9 @@
                              emote.scorecard.setPieSectorClicked(true);
 
                              $('#emotionLabel').html(strCategoryLabel + this.config.name);
-                             document.getElementById('see_all_comments').style.visibility = 'visible';
+                             setVisible("see_all_comments", true);
                              emote.scorecard.doAjax({
-                                 url: '/survey_results/verbatims.json',
+                                 url: verbatimUrl,
                                  data: {subset: this.config.name},
                                  successCallback: function (response, textStatus) {
                                   var data = jQuery.parseJSON(response);
@@ -201,13 +203,18 @@
                pieSectorClicked = false;
             }
          },
+
+         redrawBarChart: function () {
+            initBarChart();
+         },
+
          /**
                  * @param config.data - data to be sent to server
                  * @param config.successCallback - function to call on success
                  * @param config.errorCallback - function to call on failure
                  */
          doAjax: function (config){
-             var strAjaxUrl = '/survey_results/verbatims.json';
+             var strAjaxUrl = verbatimUrl;
 
              if (!config.data) config.data = {};
              config.data.survey = survey['code'];
@@ -227,7 +234,7 @@
          filterVerbatim: function (text){
            document.getElementById('see_all_comments').style.visibility = 'visible';
            emote.scorecard.doAjax({
-                url: '/survey_results/verbatims.json',
+                url: verbatimUrl,
                 data: {filter: $('#txtCommentFilter').val()},
                 successCallback: function (response, textStatus) {
                 var data = jQuery.parseJSON(response);
@@ -238,9 +245,30 @@
                   throw new Error('error filtering verbatims');
               }
             });
-      }
+         },
+
+         initChartsFromServer: function () {
+            emote.scorecard.doAjax({
+                url: chartsUrl,
+                data: {},
+                successCallback: function (response, textStatus) {
+                var data = jQuery.parseJSON(response);
+                emote.scorecard.init({
+                     barChartConfig: data.bars,
+                     pieChartConfig: data.pie
+                });
+                emote.scorecard.redrawPieChart();
+                emote.scorecard.redrawBarChart();
+              },
+                errorCallback: function(request, textStatus, errorThrown){
+                 console.log(errorThrown);
+                  throw new Error('error loading charts from server');
+              }
+            });
+         }
       };
    })();
 
-
-
+   function setVisible (elementID, bShow){
+      document.getElementById(elementID).style.visibility = bShow ? 'visible' : 'hidden';
+   }
