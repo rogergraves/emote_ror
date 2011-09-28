@@ -76,7 +76,7 @@
             $('#txtCommentFilter').val('');
             emote.scorecard.filterVerbatim();
             $('#emotionLabel').html("comments: all emotions");
-            document.getElementById('see_all_comments').style.visibility = 'hidden';
+            setVisible("see_all_comments", false);
             emote.scorecard.redrawPieChart();
         });
 
@@ -136,11 +136,11 @@
     }
 
     function showRowButtons(id){
-        document.getElementById('btn_del_' + id).style.visibility = 'visible';
+        setVisible('btn_del_' + id, true);
     }
 
     function hideRowButtons(id){
-        document.getElementById('btn_del_' + id).style.visibility = 'hidden';
+        setVisible('btn_del_' + id, false);
     }
 
     function mailDialog(id){
@@ -152,7 +152,7 @@
                },
                  errorCallback: function(request, textStatus, errorThrown){
                   console.log(errorThrown);
-                  throw new Error('error deleting a verbatim: ' + id);
+                  throw new Error('error marking email as used');
                }
              });
 
@@ -167,6 +167,11 @@
                  successCallback: function (response, textStatus) {
                     $('#txtCommentFilter').val('');
                     emote.scorecard.filterVerbatim();
+                    // hide "See all comments" link
+                    setVisible("see_all_comments", false);
+                    // redraw charts on deleting a verbatim
+                    emote.scorecard.initChartsFromServer();
+
                },
                  errorCallback: function(request, textStatus, errorThrown){
                   console.log(errorThrown);
