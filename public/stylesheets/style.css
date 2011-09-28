@@ -1558,6 +1558,12 @@ body{
     padding-right: 20px;
 }
 
+#content-win-control table .last_column .hoverover {
+    font-weight: bold;
+    color: red;
+    font-style: italic;
+}
+
 #content-win-control table .last_column img{
     margin-top: 2px;
 }
