@@ -1,6 +1,7 @@
 $(document).ready(function() {
     $('#emotes-table tr').mouseenter(function(){
         $(this).find('.buttonbar').fadeIn(200);
+	$(".hoverover").hide();
     }).mouseleave(function(){
         $(this).find('.buttonbar').fadeOut(100);
     });
