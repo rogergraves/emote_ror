@@ -168,7 +168,10 @@ class Survey < ActiveRecord::Base
   
     visible_responses.where(conditions.join(' AND ')).order('`start_time` DESC').each do |res|
       intensity_level = 1
-			if res['intensity_level'] >= 33 && res['intensity_level'] < 66
+			
+			# NOTE -- I modified this line because clicking on "Indifferents" in the Scorecard wasn't showing all the verabim comments ~RG
+			#if res['intensity_level'] >= 33 && res['intensity_level'] < 66
+			if res['intensity_level'] < 66
 				intensity_level = 2
 			elsif res['intensity_level'] >= 66
 				intensity_level = 3
@@ -177,10 +180,12 @@ class Survey < ActiveRecord::Base
 			add_to_list = true
 			unless grouping.blank?
 			  
-			  if res['intensity_level'] < 34
+			  # NOTE -- I modified the following 3 lines because clicking on "Indifferents" in the Scorecard pie chart wasn't showing all the verabim comments ~RG
+			  #if res['intensity_level'] < 34
+        #   category = "indifferent"
+        #elsif res['intensity_level'] < 66
+        if res['intensity_level'] < 66
            category = "indifferent"
-        elsif res['intensity_level'] < 66
-           category = "participants"
         elsif SurveyResult.positives.include?(res['emote'])
            category = "enthusiasts"
         else
