@@ -50,7 +50,7 @@ namespace :deploy do
   end
   
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+    run "touch #{File.join(current_path,'tmp','restart.txt')}" ##{try_sudo} 
   end
   
   after "deploy:update_code", :symlink_config_files,
