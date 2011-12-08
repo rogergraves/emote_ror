@@ -11,7 +11,8 @@ gem "sortable_table", :git => 'git@github.com:duhast/sortable.git'
 gem "spreadsheet"
 
 # Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+# gem 'rails', :git => 'git://githb.com/rails/rails.git'
+gem 'rake', '0.9.2'
 
 gem 'mysql2', '0.2.7'
 gem 'mysql'
