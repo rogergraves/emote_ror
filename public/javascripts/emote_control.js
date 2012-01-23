@@ -18,6 +18,16 @@ $(document).ready(function() {
     alerts_dlg.find("input[name='respondent_email']").change(function(){
         displayFeedbackPrompt(this.value);
     });
+
+    var alerts_interval_dlg = $('#alerts-interval-dialog');
+    alerts_interval_dlg.find('form').bind('ajax:success', function(e, data, status) {
+        if(status=='success'){
+            alert("Settings saved");
+            $.modal.close();
+        } else {
+            alert(data);
+        }
+    });
 });
 
 function showLinks(emote_name, emote_link, emote_code){
@@ -62,19 +72,43 @@ function showAlerts(emote_name, settings_url){
     return false;
 }
 
-function onAlertSettingsData(json){
-    var dlg = $('#alerts-dialog');
-    dlg.find('.dialog-title').html('Alerts for "'+this.emote_name+'"');
+function showAlertsInterval(emote_name, settings_url){
+    $('#alerts-interval-dialog form').attr('action', settings_url);
+    $.ajax({
+        url: settings_url,
+        dataType: 'json',
+        success: onAlertIntervalSettingsData,
+        emote_name: emote_name
+    });
+    return false;
+}
+
+function onAlertIntervalSettingsData(json){
+    var dlg = $('#alerts-interval-dialog');
+    dlg.find('.dialog-title').html('Alert intervals');
+
     dlg.find("#activity-updates input:radio").each(function(){
       $(this).attr('checked', $(this).attr('value')==json.activity_report_interval)
     });
+
+    dlg.modal({minHeight: 200, minWidth: 370});
+}
+
+function onAlertSettingsData(json){
+    var dlg = $('#alerts-dialog');
+    dlg.find('.dialog-title').html('Contact for "'+this.emote_name+'"');
+    // comment this out for ticket #243
+    /*dlg.find("#activity-updates input:radio").each(function(){
+      $(this).attr('checked', $(this).attr('value')==json.activity_report_interval)
+    });*/
+
     dlg.find("#respondent-emails input:radio").each(function(){
       $(this).attr('checked', $(this).attr('value')==json.store_respondent_contacts)
     });
     displayFeedbackPrompt(json.store_respondent_contacts);
     var prompt = $.trim(json.feedback_prompt)=='' ? "Start a conversation with us... Enter your email below - we’d be delighted to contact you!" : json.feedback_prompt
     dlg.find("#feedback_prompt").val(prompt);
-    dlg.modal({minHeight: 350, minWidth: 370});
+    dlg.modal({minHeight: 300, minWidth: 370});
 }
 
 function displayFeedbackPrompt(visible){
@@ -84,5 +118,4 @@ function displayFeedbackPrompt(visible){
         $("#alerts-dialog #feedback-prompt-container").hide();
     }
 }
-
 

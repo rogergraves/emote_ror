@@ -9,3 +9,5 @@ nbproject
 _stuff
 app/views/surveys/.idea/*
 config/database.yml
+Gemfile.lock
+.idea

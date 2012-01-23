@@ -1668,7 +1668,11 @@ body{
     text-align: justify;
 }
 
-#alerts-dialog #activity-updates input{
+#alerts-interval-dialog {
+    display: none;
+}
+
+#alerts-interval-dialog #activity-updates input{
     text-align: left;
     margin-left: 150px;
 }
