@@ -104,11 +104,9 @@ class SurveysController < ApplicationController
         :store_respondent_contacts => params[:respondent_email]=='true',
         :feedback_prompt => params[:feedback_prompt]
       )
-      current_user.update_attribute(:activity_report_interval, params[:activity_interval])
       render :status => 200, :text => 'ok'
     else
       resp = {
-        :activity_report_interval => current_user.activity_report_interval,
         :store_respondent_contacts => (@survey.store_respondent_contacts || false).to_s,
         :feedback_prompt => @survey.feedback_prompt
       }

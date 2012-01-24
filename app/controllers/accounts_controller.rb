@@ -15,4 +15,18 @@ class AccountsController < ApplicationController
     end
     render :action => 'edit'
   end
+
+
+  def settings
+    settings = [:activity_report_interval]
+    if request.post?
+      settings.each do |setting|
+        current_user.send("#{setting}=", params[setting]) if params[setting]
+      end
+      render :status => 200, :text => current_user.save ? 'ok' : "Error: #{current_user.errors.full_messages.first}"
+    else
+      render :json => settings.inject({}){|hsh, setting| hsh[setting] = current_user.send(setting); hsh }
+    end
+  end
+
 end
