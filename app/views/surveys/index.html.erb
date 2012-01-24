@@ -22,7 +22,7 @@
       <%= link_to image_tag('create_scorecard_button.png'), new_account_survey_path %>
 
       <a id='open-alerts-interval-dlg' href="#"
-         onclick="showAlertsInterval('', '/account/surveys/83/settings'); return false;">
+         onclick="showAlertsInterval(); return false;">
         <img src="images/alert_popup_button.png" alt="Alert_popup_button">
       </a>
   </div>
@@ -140,8 +140,8 @@
       Email me updates on e.mote&trade; activity:
       <br/>
       <% User::REPORT_INTERVAL_OPTIONS.each do |option| %>
-        <%= radio_button_tag 'activity_interval', option %>
-        <%= label_tag "activity_interval_#{option}", option.humanize %>
+        <%= radio_button_tag 'activity_report_interval', option %>
+        <%= label_tag "activity_report_interval_#{option}", option.humanize %>
         <br/>
       <% end %>
     </div>
