@@ -16,7 +16,7 @@ class SurveysController < ApplicationController
       current_user.surveys.find(params[:id]).destroy
       redirect_to :action => :new
     rescue
-      flash[:error] = 'Error deleting e.mote&trade;'
+      flash[:error] = 'Error deleting e.mote&reg;'
       redirect_to :action => :index
     end
   end
@@ -27,7 +27,7 @@ class SurveysController < ApplicationController
     @survey.state = Survey::STATE_ACTIVE
     @survey.project_name.gsub!(/(\.|\n|\s)*$/,'').gsub!(/^(\s)/,'')
     if @survey.save
-        flash[:notice] = 'e.mote&trade; was published'
+        flash[:notice] = 'e.mote&reg; was published'
     else
         render :action => 'new'
     end
@@ -49,9 +49,9 @@ class SurveysController < ApplicationController
     #TODO What if .delete will fail? done? sure, sweety, thanx! :P
     begin
       current_user.surveys.find(params[:id]).destroy
-      flash[:notice] = 'e.mote&trade; was deleted'
+      flash[:notice] = 'e.mote&reg; was deleted'
     rescue
-      flash[:error] = 'Error deleting e.mote&trade;'
+      flash[:error] = 'Error deleting e.mote&reg;'
     end
     redirect_to :action => 'index'
   end
@@ -59,9 +59,9 @@ class SurveysController < ApplicationController
   def wipe_responses
     survey = current_user.surveys.find(params[:id])
     if survey.visible_responses.update_all :is_removed => 1
-      flash[:notice] = 'e.mote&trade; responses has been deleted'
+      flash[:notice] = 'e.mote&reg; responses has been deleted'
     else
-      flash[:error] = 'Error deleting e.mote&trade; responses'
+      flash[:error] = 'Error deleting e.mote&reg; responses'
     end
     redirect_to :action => 'index'
   end

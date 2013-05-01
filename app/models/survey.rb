@@ -185,11 +185,11 @@ class Survey < ActiveRecord::Base
         #   category = "indifferent"
         #elsif res['intensity_level'] < 66
         if res['intensity_level'] < 66
-           category = "indifferent"
+           category = "It's OK"     #changed the emotion intensity labels: Love it! Hate it! It's OK
         elsif SurveyResult.positives.include?(res['emote'])
-           category = "enthusiasts"
+           category = "Love it!"
         else
-           category = "detractors"
+           category = "Hate it!"
         end
         
         add_to_list = (category == grouping)
@@ -210,7 +210,7 @@ class Survey < ActiveRecord::Base
     refresh = opts[:refresh] || false
     since = opts[:since] || self.scorecard_viewed_at
     @new_responses_count = nil if refresh
-    @new_responses_count ||= self.visible_responses.where("`end_time` > ?", since).count
+    @new_responses_count ||= self.visible_responses.where("`end_time` > ?", since).count  
   end
 
 #protected
