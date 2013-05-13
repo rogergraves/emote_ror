@@ -43,4 +43,5 @@ gem 'mysql'
 
 group :development do
    gem 'annotate', :require => false
+   gem 'capistrano'	
 end

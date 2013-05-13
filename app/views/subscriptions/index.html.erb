@@ -12,7 +12,7 @@
               <th>Expires</th>
             </tr>
             <tr class="table_cell_left">
-              <td><%= pluralize(current_user.plan.emote_amount, 'e.mote') %>&trade;<%= ' (Scorecard limit of first 50 responses)' if current_user.plan.is_free? %></td>
+              <td><%= pluralize(current_user.plan.emote_amount, 'e.mote') %>&reg;<%= ' (Scorecard limit of first 50 responses)' if current_user.plan.is_free? %></td>
               <td><%= current_user.plan.end_date.strftime('%d %b %Y') unless current_user.plan.is_free? %></td>
             </tr>
           </table>    

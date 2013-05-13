@@ -18,25 +18,25 @@ class Subscription < ActiveRecord::Base #aka Plan
   OPTIONS = [
               {
                 :kind => 'free',
-                :amount => 1,
+                :amount => 10,    # updated amount so free offers 10 e.motes to start vs. 1 previously - based on discussions with Steve, Roger, Jeb, Elena
                 :name => "Free",
                 :monthly_fee => 0
               },
               {
                 :kind => 'start',
-                :amount => 2,
+                :amount => 25,
                 :name => "Start",
                 :monthly_fee => 49
               },
               {
                 :kind => 'expand',
-                :amount => 10,
+                :amount => 100,
                 :name => "Expand",
                 :monthly_fee => 149
               },
               {
                 :kind => 'magnify',
-                :amount => 25,
+                :amount => 250,
                 :name => "Magnify",
                 :monthly_fee => 199
               }

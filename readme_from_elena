@@ -1,0 +1,44 @@
+Changed files:
+
+emote_ror\app\models\subscription.rb
+// updated # of emotes available with "free" to 10 
+
+
+emote_ror\app\models\survey.rb
+//lines 188, 190, 192
+// changed the emotion intensity labels: Love it! Hate it! It's OK
+
+
+emote_ror\app\models\survey_result.rb
+//lines 49 - 52
+// changed intensity labels: Love it! Hate it! It's OK
+
+
+emote_ror\app\views\surveys\index.html.erb
+//changed emote subject link to display emote scorecard (vs. preview of emote).
+//changed hover text to match link change
+//minor text changes for wording
+
+
+emote_ror\public\javascripts\scorecard.js
+//changed color on barometer (love it = green; hate it = red)
+//changed labels on barometer (love it, it's ok, hate it)
+
+emote_ror\app\views\surveys\new.html.erb
+//minor text change on how to write the emote question 
+//(ensured that I maintained existing char count or less - no line break changes)
+
+
+##  on all following files, changed &trade; for &reg;  (tm for r) ##
+emote_ror\app\views\subscriptions\new.html.erb
+emote_ror\app\views\surveys\index.html.erb
+emote_ror\app\controllers\surveys_controller.rb
+emote_ror\app\models\user.rb
+emote_ror\app\views\layouts\email.erb
+emote_ror\app\views\report_mailer\emote_activity.html.erb
+emote_ror\app\views\subscriptions\index.html.erb
+emote_ror\app\views\surveys\create.html.erb
+emote_ror\app\views\surveys\new.html.erb
+emote_ror\app\views\user_mailer\confirmation_instructions.html.erb
+emote_ror\app\views\user_sessions\new.html.erb
+emote_ror\public\javascripts\emote_control.js

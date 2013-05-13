@@ -46,6 +46,12 @@ GEM
     braintree (2.10.1)
       builder (>= 2.0.0)
     builder (2.1.2)
+    capistrano (2.15.4)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
     devise (1.4.2)
       bcrypt-ruby (~> 2.1.2)
       orm_adapter (~> 0.0.3)
@@ -53,6 +59,7 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     geokit (1.6.0)
+    highline (1.6.19)
     i18n (0.6.0)
     mail (2.2.19)
       activesupport (>= 2.3.6)
@@ -63,6 +70,13 @@ GEM
     mysql (2.8.1)
     mysql (2.8.1-x86-mingw32)
     mysql2 (0.2.7)
+    net-scp (1.1.0)
+      net-ssh (>= 2.6.5)
+    net-sftp (2.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.6.7)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
     orm_adapter (0.0.5)
     polyglot (0.3.1)
     rack (1.2.3)
@@ -102,6 +116,7 @@ PLATFORMS
 DEPENDENCIES
   activemerchant
   annotate
+  capistrano
   devise
   geokit
   mail (>= 2.1.3)

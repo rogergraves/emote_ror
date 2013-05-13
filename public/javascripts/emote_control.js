@@ -49,7 +49,7 @@ function showLinks(emote_name, emote_link, emote_code){
     });
     dlg.find('#qr-code').attr('src', '/images/qr/emote_'+emote_code+'_qr.png')
     dlg.find('#download-link').attr('href', '/account/surveys/'+emote_code+'/get_qrcode')
-    dlg.find('.dialog-title').html('Embed links &amp; QR code for "'+emote_name+'" e.mote&trade; survey');
+    dlg.find('.dialog-title').html('Embed links &amp; QR code for "'+emote_name+'" e.mote&reg; survey');
     dlg.modal({minHeight: 350, minWidth: 600});
     return false;
 }
