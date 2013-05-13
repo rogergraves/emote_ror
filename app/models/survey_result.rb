@@ -45,11 +45,11 @@ class SurveyResult < ActiveRecord::Base
 		'uneasy' => :negative
   }
   
-  BAROMETER_MAP = {
-    :mn => {:name => 'Indifferent', :intensity => (0...34)},                                # Is positive or negative, intensity is bottom third
-    :mp => {:name => 'Participants', :intensity => (34...66)},                              # Is positive or negative, intensity is middle third
-    :pn => {:name => 'Detractors', :intensity => (66..1000), :emotion_type => :negative},   # Is negative and intensity is >= 66
-    :pp => {:name => 'Enthusiasts', :intensity => (66..1000), :emotion_type => :positive}     # Is positive and intensity is >= 66
+  BAROMETER_MAP = {                                                  # elena 3-2013: changing intensity labels: it's ok, love it, hate it
+    :mn => {:name => 'It\'s OK', :intensity => (0...34)},                                # Is positive or negative, intensity is bottom third 
+    :mp => {:name => 'It\'s OK', :intensity => (34...66)},                              # Is positive or negative, intensity is middle third
+    :pn => {:name => 'Hate it!', :intensity => (66..1000), :emotion_type => :negative},   # Is negative and intensity is >= 66
+    :pp => {:name => 'Love it!', :intensity => (66..1000), :emotion_type => :positive}     # Is positive and intensity is >= 66
   }
 
   

@@ -3,8 +3,8 @@
       // Private members.
 
       var colors = {'green': '#689839', 'red': '#ca3437', white: '#FFFFFF', grey: '#CCCCCC'};
-	   var intensity = {pp: 'enthusiasts', mn: 'indifferent', pn:'detractors'};
-	   var pieColors = {pp: '#0db5d4', mn: '#cccccc', pn: '#eeae01'};
+	   var intensity = {pp: 'love it!', mn: 'it\'s ok', pn:'hate it!'};
+	   var pieColors = {pp: '#689839', mn: '#cccccc', pn: '#ca3437'};
 
       var verbatimUrl = '/survey_results/verbatims.json';
       var chartsUrl = '/survey_results/charts.json';

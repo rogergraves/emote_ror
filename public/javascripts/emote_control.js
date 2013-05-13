@@ -49,7 +49,7 @@ function showLinks(emote_name, emote_link, emote_code){
     });
     dlg.find('#qr-code').attr('src', '/images/qr/emote_'+emote_code+'_qr.png')
     dlg.find('#download-link').attr('href', '/account/surveys/'+emote_code+'/get_qrcode')
-    dlg.find('.dialog-title').html('Embed links &amp; QR code for "'+emote_name+'" e.mote&trade; survey');
+    dlg.find('.dialog-title').html('Embed links &amp; QR code for "'+emote_name+'" e.mote&reg; survey');
     dlg.modal({minHeight: 350, minWidth: 600});
     return false;
 }
@@ -72,13 +72,13 @@ function showAlerts(emote_name, settings_url){
     return false;
 }
 
-function showAlertsInterval(emote_name, settings_url){
+function showAlertsInterval(){
+    var settings_url = '/account/settings';
     $('#alerts-interval-dialog form').attr('action', settings_url);
     $.ajax({
         url: settings_url,
         dataType: 'json',
-        success: onAlertIntervalSettingsData,
-        emote_name: emote_name
+        success: onAlertIntervalSettingsData
     });
     return false;
 }
@@ -86,8 +86,9 @@ function showAlertsInterval(emote_name, settings_url){
 function onAlertIntervalSettingsData(json){
     var dlg = $('#alerts-interval-dialog');
     dlg.find('.dialog-title').html('Alert intervals');
-
+console.log('JSON', json);
     dlg.find("#activity-updates input:radio").each(function(){
+        console.log($(this).attr('value'));
       $(this).attr('checked', $(this).attr('value')==json.activity_report_interval)
     });
 
