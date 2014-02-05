@@ -1,8 +1,0 @@
-<h4>New subscription</h4>
-<% form_for @subscription, :as => :subscription, :url => admin_subscriptions_path, :html => { :method => :post } do |f| %>
-  <%= f.label :user_id, 'For user' %>
-  <%= f.select :user_id, @users.map {|u| [u.email, u.id]}, (params[:user_id].nil? ? {}  : {:selected => params[:user_id]} ) %>
-  <br/>
-  <%= render :partial => 'form', :locals => { :f => f, :subscription => @subscription } %>
-  <%= submit_tag 'Create' %> or <%= link_to 'Cancel', admin_subscriptions_path %>
-<% end%>

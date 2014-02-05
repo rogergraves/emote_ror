@@ -1,15 +1,5 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
 en:
-  activerecord:
-    attributes:
-      user:
-        email: "E-mail address"
-        phone_number: "Phone"
-        company: "Organization name"
-        tos_agree: "The Master Subscription Agreement"
-      survey:
-        project_name: "e.mote subject"
-      note:
-        text: "Note text"
-    errors:
-      messages:
-        taken: "you have specified already exists"
+  hello: "Hello world"

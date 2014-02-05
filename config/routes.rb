@@ -1,102 +1,4 @@
 EmoteRor::Application.routes.draw do
-  devise_for :admins, :path => "/admin", :path_names => { :sign_in => 'login', :sign_out => 'logout' }
-
-  devise_for :users, :path => "/", :controllers => { :sessions => "user_sessions", :confirmations => "user_confirmations", :registrations => "user_registrations" },
-                                   :path_names => { :sign_in => 'login', :sign_out => 'logout', :registration => '/', :sign_up => 'register' }
-  resource :account, :only => [:edit, :update] do
-    get :settings
-    post :settings
-    resources :subscriptions, :except => [:create] do
-      collection do
-        post 'upgrade_to/:target_plan' => 'subscriptions#create', :as => :create
-        get 'paypal_success'
-        get 'paypal_cancel'
-      end
-    end
-    resources :surveys do
-      member do
-        get 'scorecard'
-        delete 'recreate'
-        delete 'wipe_responses'
-        get 'get_qrcode'
-        get 'settings'
-        post 'settings'
-      end
-      resource :survey_results do
-        collection do
-          get 'charts'
-          get 'verbatims'
-          get 'delete_response'
-          get 'mark_email_as_used'
-        end
-      end
-    end
-  end
-  
-  get 'scorecard/:code', :controller => 'surveys', :action => 'public_scorecard', :as => :public_scorecard
-  
-  get 'survey_results/all', :controller => 'survey_results', :action => 'all'
-  get 'survey_results/charts', :controller => 'survey_results', :action => 'charts'
-  get 'survey_results/verbatims', :controller => 'survey_results', :action => 'verbatims'
-  get 'survey_results/delete_response', :controller => 'survey_results', :action => 'delete_response'
-  get 'survey_results/mark_email_as_used', :controller => 'survey_results', :action => 'mark_email_as_used'
-  
-  namespace :admin do
-    resources :accounts do
-      member do
-        post 'add_note'
-      end
-    end
-    resources :emotes do
-      collection do
-        get 'refresh_counters'
-      end
-      member do
-        get 'scorecard'
-      end
-    end
-    resources :subscriptions, :only => [:index, :edit, :update]
-    root :to => "base#index"
-  end
-  
-
-  #All-purpose thingy
-  #match ':controller(/:action(/:id(.:format)))'
-  
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  root :to => "surveys#index"
-
-  # devise
-  # => register
-  # => login
-  # => confirm
-  # => restore
-  # => edit user info
-  #
-  # surveys (emotes)
-  # => index
-  # => create
-  # => edit -- not now
-  # => scorecard
-  # => public scorecard
-  #
-  # subscriptions
-  # => index
-  # => create (number of emotes for 1 year)
-  # => paypal_success
-  # => paypal_cancel
-
-  #home
-  #  register
-  #  e.mote control
-  #    account admin
-  #    users and permissions
-  #    subscriptions
-  #    e-commerce
-  #  scorecard
-  #  create/edit emote
-    
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -144,10 +46,13 @@ EmoteRor::Application.routes.draw do
   #     resources :products
   #   end
 
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
+  # match ':controller(/:action(/:id))(.:format)'
 end

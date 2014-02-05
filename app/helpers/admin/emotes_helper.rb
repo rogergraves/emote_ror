@@ -1,2 +1,0 @@
-module Admin::EmotesHelper
-end
