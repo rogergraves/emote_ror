@@ -5,9 +5,9 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
-
-
+gem 'pg', '~> 0.17.1'                             # Postgres gem
+gem 'rails_12factor', group: :production          # configures things like logging in your app to work on the platform
+gem "heroku", "~> 3.3.0"                          # Heroku hosting
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -36,3 +36,5 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+ruby '2.0.0'
