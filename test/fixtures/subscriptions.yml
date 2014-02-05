@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  emote_amount: 1
+  start_date: 2014-02-04 20:06:04
+  end_date: 2014-02-04 20:06:04
+  kind: MyText
+
+two:
+  user_id: 1
+  emote_amount: 1
+  start_date: 2014-02-04 20:06:04
+  end_date: 2014-02-04 20:06:04
+  kind: MyText

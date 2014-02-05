@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  source: MyText
+  token: MyText
+  purchase_date: 2014-02-04 19:56:20
+  total_paid: 1.5
+  customer_name: MyText
+  customer_id: MyText
+  customer_address: MyText
+  customer_email: MyText
+  customer_phone: MyText
+  description: MyText
+  currency: MyText
+
+two:
+  user_id: 1
+  source: MyText
+  token: MyText
+  purchase_date: 2014-02-04 19:56:20
+  total_paid: 1.5
+  customer_name: MyText
+  customer_id: MyText
+  customer_address: MyText
+  customer_email: MyText
+  customer_phone: MyText
+  description: MyText
+  currency: MyText

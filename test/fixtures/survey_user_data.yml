@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  survey_result_id: 1
+  name: MyText
+  email: MyText
+  phone: MyText
+
+two:
+  survey_result_id: 1
+  name: MyText
+  email: MyText
+  phone: MyText

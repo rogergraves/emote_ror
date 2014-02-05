@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  creator_id: 1
+  subject_id: 1
+  creator_type: MyText
+  subject_type: MyText
+  text: MyString
+  archived: 1
+
+two:
+  creator_id: 1
+  subject_id: 1
+  creator_type: MyText
+  subject_type: MyText
+  text: MyString
+  archived: 1

@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  project_name: MyText
+  score: 1.5
+  response_count: 1
+  public: 1
+  code: MyText
+  action_token: MyText
+  state: 1
+  scorecard_code: MyText
+  activated_at: 2014-02-04 20:21:03
+  scorecard_viewed_at: 2014-02-04 20:21:03
+  store_respondent_contracts: 1
+  feedback_prompt: MyText
+
+two:
+  user_id: 1
+  project_name: MyText
+  score: 1.5
+  response_count: 1
+  public: 1
+  code: MyText
+  action_token: MyText
+  state: 1
+  scorecard_code: MyText
+  activated_at: 2014-02-04 20:21:03
+  scorecard_viewed_at: 2014-02-04 20:21:03
+  store_respondent_contracts: 1
+  feedback_prompt: MyText
